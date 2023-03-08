@@ -1,7 +1,5 @@
 <?xml version="1.0"?>
-<project
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0"
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>local.intranet</groupId>
@@ -39,11 +37,24 @@
 	<dependencies>
 		<dependency>
 			<groupId>io.quarkus</groupId>
-			<artifactId>quarkus-arc</artifactId>
+			<artifactId>quarkus-resteasy</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>io.quarkus</groupId>
-			<artifactId>quarkus-resteasy-reactive</artifactId>
+			<artifactId>quarkus-resteasy-jsonb</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-smallrye-openapi</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-smallrye-jwt</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.quarkiverse.openapi.generator</groupId>
+			<artifactId>quarkus-openapi-generator</artifactId>
+			<version>0.11.0</version>
 		</dependency>
 		<dependency>
 			<groupId>io.quarkus</groupId>
@@ -61,15 +72,15 @@
 		</dependency>
 		<dependency>
 			<groupId>io.quarkus</groupId>
-			<artifactId>quarkus-smallrye-openapi</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.quarkiverse.operatorsdk</groupId>
-			<artifactId>quarkus-operator-sdk</artifactId>
+			<artifactId>quarkus-hibernate-orm</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>io.quarkus</groupId>
-			<artifactId>quarkus-reactive-routes</artifactId>
+			<artifactId>quarkus-jdbc-postgresql</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-flyway</artifactId>
 		</dependency>
 	</dependencies>
 	<build>
@@ -117,13 +128,6 @@
 							<goal>integration-test</goal>
 							<goal>verify</goal>
 						</goals>
-						<configuration>
-							<systemPropertyVariables>
-								<native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
-								<java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-								<maven.home>${maven.home}</maven.home>
-							</systemPropertyVariables>
-						</configuration>
 					</execution>
 				</executions>
 			</plugin>
