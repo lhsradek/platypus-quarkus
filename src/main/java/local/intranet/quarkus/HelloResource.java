@@ -24,7 +24,7 @@ public class HelloResource {
 	 * @return String
 	 */
     @GET
-	@Operation(operationId = "hello", description = "Hello<br/><br/>This method say: <strong>Hello from RESTEasy Reactive</strong>\n")
+	@Operation(operationId = "hello", description = "Entry point: <strong>\"hello\"</strong><br/><br/>This method say: <strong>Hello from RESTEasy Reactive</strong>\n")
     @Produces(MediaType.TEXT_PLAIN)
     public String hello() {
     	final String ret = "Hello from RESTEasy Reactive";

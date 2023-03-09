@@ -24,11 +24,11 @@ public class NazdarResource {
 	 * @return String
 	 */
 	@GET
-	@Operation(operationId = "nazdar", description = "Nazdar<br/><br/>This method say: <strong>Nazdar from RESTEasy Reactive</strong>\n")
+	@Operation(operationId = "nazdar", description = "Entry point: <strong>\"nazdar\"</strong><br/><br/>This method say: <strong>Nazdar from RESTEasy Reactive</strong>\n")
 	@Produces(MediaType.TEXT_PLAIN)
 	public String nazdar() {
 		final String ret = "Nazdar from RESTEasy Reactive";
-		Log.info("ret: {}", ret);
+		Log.debug("ret: {}", ret);
 		return ret;
 	}
 }
