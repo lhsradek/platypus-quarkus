@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- https://springframework.guru/using-logback-spring-boot/ -->
+<!-- http://logback.qos.ch/manual/appenders.html -->
+<!DOCTYPE configuration>
+<!-- <configuration debug="true"> -->
+<configuration>
+
+	<shutdownHook
+		class="ch.qos.logback.core.hook.DelayingShutdownHook" />
+
+	<appender name="DB"
+		class="ch.qos.logback.classic.db.DBAppender">
+		<connectionSource
+			class="ch.qos.logback.core.db.DriverManagerConnectionSource">
+				<driverClass>org.postgresql.Driver</driverClass>
+				<url>${quarkus.datasource.jdbc.url}</url>
+				<user>${quarkus.datasource.username}</user>
+				<password>${quarkus.datasource.password}</password>
+		</connectionSource>
+	</appender>
+	
+	<appender name="DB_ASYNC"
+        class="ch.qos.logback.classic.AsyncAppender">
+         <appender-ref ref="DB" />
+         <includeCallerData>true</includeCallerData>
+    </appender>
+
+	<logger name="local.intranet" level="DEBUG"> 
+		<appender-ref ref="DB_ASYNC" />
+    </logger>
+	<logger name="io.quarkus" level="INFO"> 
+		<appender-ref ref="DB_ASYNC" />
+    </logger>
+    <logger name="org.hibernate.SQL" level="WARN" />
+    <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="WARN" />
+    
+	<root level="INFO" />
+
+</configuration>

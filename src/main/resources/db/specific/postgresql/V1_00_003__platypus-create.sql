@@ -3,13 +3,13 @@
 --
 -- This SQL script creates the required tables
 
------ SEQUENCE hibernate_sequence -----
+-- SEQUENCE hibernate_sequence -----
 
 CREATE SEQUENCE hibernate_sequence INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 START 1 CACHE 1;
 
 /* -- CREATE SEQUENCE hibernate_sequence MINVALUE 1 START 1; */
 
------ TABLE revinfo -----
+-- TABLE revinfo -----
 
 CREATE TABLE revinfo (
     rev BIGINT NOT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE revinfo (
     CONSTRAINT revinfo_rev_pkey PRIMARY KEY (rev)
 );
 
------ TABLE platypus_role -----
+-- TABLE platypus_role -----
 
 CREATE TABLE platypus_role (
   id BIGINT NOT NULL,
@@ -28,7 +28,7 @@ CREATE TABLE platypus_role (
 );
 
 
------ TABLE platypus_user -----
+-- TABLE platypus_user -----
 
 CREATE TABLE platypus_user (
   id BIGINT NOT NULL,
@@ -43,7 +43,7 @@ CREATE TABLE platypus_user (
 );
 
 
------ TABLE platypus_user_role -----
+-- TABLE platypus_user_role -----
 
 CREATE TABLE platypus_user_role (
   user_id BIGINT REFERENCES platypus_user (id) NOT NULL,
@@ -52,7 +52,7 @@ CREATE TABLE platypus_user_role (
 );
 
 
------ VIEW platypus_view -----
+-- VIEW platypus_view -----
 
 CREATE VIEW platypus_view AS SELECT ROW_NUMBER() OVER (ORDER BY a.id, c.id) as id, a.id user_id, a.user_name,
   a.enabled user_enabled, c.id role_id, c.role_name, c.enabled role_enabled FROM platypus_user a
