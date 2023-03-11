@@ -10,6 +10,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.micrometer.core.annotation.Counted;
 import local.intranet.quarkus.api.info.Message;
 
 /**
@@ -28,16 +29,17 @@ public class IndexController {
 	private static final String HELLO = "Hello from RESTEasy Reactive";
 
 	private static final String NAZDAR = "Nazdar from RESTEasy Reactive";
-
+	
 	/**
 	 * 
-	 * @return String
+	 * @return {@link Message}
 	 */
 	@GET
+	@Counted
 	@Path("/hello")
+	@Tag(name = "index-controller")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Operation(summary = "Hello", description = "Entry point: <strong>\"/hello\"</strong><br/><br/>This method say: <strong>"
-			+ HELLO + "</strong>\n")
+	@Operation(summary = "Hello", description = "This method say: <strong>" + HELLO + "</strong>\n")
 	public Message hello() {
 		LOG.debug("{}", HELLO);
 		return new Message(HELLO);
@@ -45,13 +47,14 @@ public class IndexController {
 
 	/**
 	 * 
-	 * @return String
+	 * @return {@link Message}
 	 */
 	@GET
+	@Counted
 	@Path("/nazdar")
+	@Tag(name = "index-controller")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Operation(summary = "Nazdar", description = "Entry point: <strong>\"/nazdar\"</strong><br/><br/>This method say: <strong>"
-			+ NAZDAR + "</strong>\n")
+	@Operation(summary = "Nazdar", description = "This method say: <strong>" + NAZDAR + "</strong>\n")
 	public Message nazdar() {
 		LOG.debug("{}", NAZDAR);
 		return new Message(NAZDAR);

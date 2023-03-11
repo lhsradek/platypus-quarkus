@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
-import javax.ws.rs.Path;
 
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,15 +25,26 @@ import local.intranet.quarkus.api.model.repository.RoleRepository;
  * @author Radek Kádner
  *
  */
-@Path("/service/role")
+@ApplicationScoped
+@Schema(hidden=true)
 public class RoleService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(RoleService.class);
 	
 	@Inject
-	public RoleRepository roleRepository;
+	protected RoleRepository roleRepository;
 
+	/**
+	 * 
+	 * Get RoleInfo
+	 * 
+	 * She couldn't be better org.springframework.transaction.annotation.Transactional(readOnly = true) ?
+	 * The transaction is due to lazy loading @ManyToMany(fetch = FetchType.LAZY)
+	 * 
+	 * @return {@link RoleInfo}
+	 */
 	@Transactional
+	@Operation(hidden = true)
 	public RoleInfo getRoleInfo() {
 		return new RoleInfo(getUsersRoles());
 	}
@@ -40,9 +53,13 @@ public class RoleService {
 	 * 
 	 * Get userRole
 	 * 
+	 * She couldn't be better org.springframework.transaction.annotation.Transactional(readOnly = true) ?
+	 * The transaction is due to lazy loading @ManyToMany(fetch = FetchType.LAZY)
+	 * 
 	 * @return {@link List}&lt;{@link RolePlain}&gt;
 	 */
 	@Transactional
+	@Operation(hidden = true)
 	protected List<RolePlain> getUsersRoles() {
 		final List<RolePlain> ret = new ArrayList<>();
 		roleRepository.findAll().forEach(r -> {

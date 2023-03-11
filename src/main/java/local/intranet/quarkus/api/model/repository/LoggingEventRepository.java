@@ -5,8 +5,9 @@ import java.util.List;
 import org.hibernate.annotations.Immutable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.stereotype.Repository;
 
 import local.intranet.quarkus.api.model.entity.LoggingEvent;
 
@@ -15,21 +16,22 @@ import local.intranet.quarkus.api.model.entity.LoggingEvent;
  * {@link LoggingEventRepository} is repository for JPA with
  * {@link local.intranet.quarkus.api.model.entity.LoggingEvent}
  * <p>
- * An immutable repository is only used to read data written by logback-spring
+ * 
+ * An repository is only used to read data written by logback-spring
  * DbAppender
  * 
  * @author Radek Kádner
  *
  */
-
+@Repository
 @Immutable
-public interface LoggingEventRepository extends PagingAndSortingRepository<LoggingEvent, Long> {
+public interface LoggingEventRepository extends JpaRepository<LoggingEvent, Long> {
 
 	/**
 	 * 
 	 * Count total logging event
 	 * 
-	 * @return {@link List}&lt;{@link LevelCount}&gt;
+	 * @return {@link List}&lt;{@link Object[]}&gt;
 	 */
 	@Query(value = "select u.levelString, count(u.levelString) "
 			+ "from LoggingEvent u group by u.levelString order by u.levelString asc")

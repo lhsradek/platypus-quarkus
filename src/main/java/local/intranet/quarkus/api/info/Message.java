@@ -9,6 +9,7 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * 
@@ -17,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author radek.kadner
  * 
  */
+@JsonPropertyOrder({ "content", "date" })
 public class Message {
 
 	@Size(min = 0)

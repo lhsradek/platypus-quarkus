@@ -9,6 +9,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.enums.ParameterIn;
+import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.slf4j.Logger;
@@ -38,13 +41,13 @@ public class InfoController {
 	private static final Logger LOG = LoggerFactory.getLogger(InfoController.class);
 
 	@Inject
-	public LoggingEventService loggingEventService;
+	protected LoggingEventService loggingEventService;
 
 	@Inject
-	public RoleService roleService;
+	protected RoleService roleService;
 
 	@Inject
-	public UserService userService;
+	protected UserService userService;
 
 	/**
 	 * 
@@ -54,16 +57,18 @@ public class InfoController {
 	 * {@link local.intranet.quarkus.api.service.LoggingEventService#countTotalLoggingEvents}.
 	 * <p>
 	 * 
-	 * @return {@link List}&le{@link LevelCount}&ge;
+	 * @return {@link List}&le;{@link LevelCount}&ge;
 	 */
 	@GET
-	@Path("/loggingEvent")
+	@Path("loggingEvent")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Operation(summary = "Get Logging Info", description = "Entry point: <strong>\"/app/v1/info/loggingEvent\"</strong><br/><br/>Get LoggingEvent Info<br/><br/>"
+	@Tag(name = "info-controller")
+	@Operation(summary = "Count Total LoggingEvents", description = "<strong>Get LoggingEvent Info</strong><br/><br/>"
 			+ "This method is calling LoggingEventService.countTotalLoggingEvents")
+
 	public List<LevelCount> loggingEventInfo() {
-		List<LevelCount> ret = loggingEventService.countTotalLoggingEvents();
-		LOG.debug("{}", ret);
+		final List<LevelCount> ret = loggingEventService.countTotalLoggingEvents();
+		LOG.trace("{}", ret);
 		return ret;
 	}
 
@@ -77,13 +82,14 @@ public class InfoController {
 	 * @return {@link RoleInfo}
 	 */
 	@GET
-	@Path("/role")
+	@Path("role")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Operation(summary = "Get Role Info", description = "Entry point: <strong>\"/app/v1/info/role\"</strong><br/><br/>Get Role Info<br/><br/>"
+	@Tag(name = "info-controller")
+	@Operation(summary = "Get Role Info", description = "<strong>Get Role Info</strong><br/><br/>"
 			+ "This method is calling RoleService.getRoleInfo")
 	public RoleInfo getRoleInfo() {
-		RoleInfo ret = roleService.getRoleInfo();
-		LOG.debug("{}", ret);
+		final RoleInfo ret = roleService.getRoleInfo();
+		LOG.trace("{}", ret);
 		return ret;
 	}
 
@@ -99,15 +105,23 @@ public class InfoController {
 	 * @return {@link UserInfo}
 	 */
 	@GET
-	@Path("/user")
+	@Path("user")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Operation(summary = "Get User Info", description = "Entry point: <strong>\"/app/v1/info/user\"</strong><br/><br/>Get User Info<br/><br/>"
+	@Tag(name = "info-controller")
+	@Operation(summary = "Get User Info", description = "<strong>Get User Info</strong><br/><br/>"
 			+ "This method is calling UserService.getUserInfo")
 	public UserInfo getUserInfo(
-			@Parameter(allowEmptyValue = false, example = "lhs", description = "userName") String userName)
+			@Parameter(
+					allowEmptyValue = false,
+					name = "userName",
+					in = ParameterIn.DEFAULT,
+					example = "lhs",
+					description = "userName",
+					schema = @Schema(type = SchemaType.OBJECT))
+			String userName)
 			throws InternalError {
-		UserInfo ret = userService.getUserInfo(userName);
-		LOG.debug("{}", ret);
+		final UserInfo ret = userService.getUserInfo(userName);
+		LOG.trace("{}", ret);
 		return ret;
 	}
 

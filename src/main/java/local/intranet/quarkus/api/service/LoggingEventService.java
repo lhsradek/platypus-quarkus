@@ -6,10 +6,11 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
-import javax.ws.rs.Path;
 
+import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -32,33 +33,36 @@ import local.intranet.quarkus.api.model.repository.LoggingEventRepository;
  * @author Radek Kádner
  *
  */
-@Path("/service/loggingEvent")
+@ApplicationScoped
 public class LoggingEventService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(LoggingEventService.class);
 
 	@Inject
-	public LoggingEventRepository loggingEventRepository;
+	protected LoggingEventRepository loggingEventRepository;
 
-        /**
-         * 
-         * Count Total Logging Event
-         * <p>
-         * Used
-         * {@link local.intranet.core.api.model.repository.LoggingEventRepository#countTotalLoggingEvents}
-         * 
-         * @return {@link List}&lt;{@link LevelCount}&gt;
-         */
-        @Transactional
-        public List<LevelCount> countTotalLoggingEvents() {
-                final List<LevelCount> ret = new ArrayList<>(); 
-                for (Object[] o : loggingEventRepository.countTotalLoggingEvents()) {
-                	ret.add(new LevelCount((String) o[0], (Long) o[1]));
-                }
-                // LOG.debug("{}", ret);
-                return ret;
-        }
-
+	/**
+	 * 
+	 * Count Total Logging Event
+	 * <p>
+	 * Used
+	 * {@link local.intranet.core.api.model.repository.LoggingEventRepository#countTotalLoggingEvents}
+	 *
+	 * She couldn't be better org.springframework.transaction.annotation.Transactional(readOnly = true) ?
+	 * The transaction is due to lazy loading
+     *
+	 * @return {@link List}&lt;{@link LevelCount}&gt;
+	 */
+	@Transactional
+	@Operation(hidden = true)
+	public List<LevelCount> countTotalLoggingEvents() {
+		final List<LevelCount> ret = new ArrayList<>();
+		for (Object[] o : loggingEventRepository.countTotalLoggingEvents()) {
+			ret.add(new LevelCount((String) o[0], (Long) o[1]));
+		}
+		// LOG.debug("{}", ret);
+		return ret;
+	}
 
 	/**
 	 * 
@@ -67,12 +71,16 @@ public class LoggingEventService {
 	 * Used
 	 * {@link local.intranet.quarkus.api.model.repository.LoggingEventRepository#findPageByLevelString}
 	 * 
+	 * She couldn't be better org.springframework.transaction.annotation.Transactional(readOnly = true) ?
+	 * The transaction is due to lazy loading
+	 * 
 	 * @param pageable    {@link Pageable}
 	 * @param levelString {@link List}&lt;{@link String}&gt;
 	 * 
 	 * @return {@link Page}&lt;{@link LoggingEventInfo}&gt;
 	 */
 	@Transactional
+	@Operation(hidden = true)
 	public Page<LoggingEventInfo> findPageByLevelString(Pageable pageable, List<String> levelString) {
 		try {
 			Page<LoggingEvent> pa = loggingEventRepository.findPageByLevelString(pageable, levelString);
@@ -105,8 +113,9 @@ public class LoggingEventService {
 		// LOG.debug("arg0:{} arg1:{} arg2:{} arg3:{}", arg0, arg1, arg2, arg3);
 		LoggingEventInfo ret = new LoggingEventInfo(loggingEvent.getId(), loggingEvent.getFormattedMessage(),
 				loggingEvent.getLevelString(), (s.length > 0) ? s[s.length - 1] : "", loggingEvent.getCallerMethod(),
-				arg0, arg1, arg2, arg3, ZonedDateTime.ofInstant(Instant.ofEpochMilli(loggingEvent.getTimestmp()), ZoneId.systemDefault()));
-		
+				arg0, arg1, arg2, arg3,
+				ZonedDateTime.ofInstant(Instant.ofEpochMilli(loggingEvent.getTimestmp()), ZoneId.systemDefault()));
+
 		// LOG.debug("{}", ret);
 		return ret;
 	}

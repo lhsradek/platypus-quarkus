@@ -2,6 +2,8 @@ package local.intranet.quarkus.api.info;
 
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import local.intranet.quarkus.api.domain.DefaultFieldLengths;
 
 /**
@@ -13,6 +15,7 @@ import local.intranet.quarkus.api.domain.DefaultFieldLengths;
  * https://www.baeldung.com/jpa-queries-custom-result-with-aggregation-functions
  *
  */
+@JsonPropertyOrder({ "level", "total" })
 public class LevelCount {
 
 	@Size(min = 0, max = DefaultFieldLengths.DEFAULT_STATUS)

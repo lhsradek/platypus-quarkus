@@ -15,7 +15,7 @@ import local.intranet.quarkus.api.model.entity.User;
  * @author Radek Kádner
  *
  */
-@JsonPropertyOrder({ "username", "password" })
+@JsonPropertyOrder({ "username", "password", "isAccountNonExpire", "isAccountNonLocked", "isCredentialsNonExpired", "isEnabled" })
 public class UserInfo {
 
 	private final String username;
