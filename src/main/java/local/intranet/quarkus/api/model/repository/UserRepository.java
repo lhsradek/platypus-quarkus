@@ -23,6 +23,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
 	 * @return {@link User}
 	 */
 	@Query(value = "select u from User u where u.userName = ?1")
-	User findByName(String userName);
+	public User findByName(String userName);
 
 }

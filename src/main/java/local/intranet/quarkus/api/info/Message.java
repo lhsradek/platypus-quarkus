@@ -18,16 +18,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * 
  */
 public class Message {
-	
+
 	@Size(min = 0)
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	public final String content;
-	
-    @JsonProperty("date")
-    @JsonFormat(timezone = JsonFormat.DEFAULT_TIMEZONE)
+
+	@JsonProperty("date")
+	@JsonFormat(timezone = JsonFormat.DEFAULT_TIMEZONE)
 	public final ZonedDateTime date = LocalDateTime.now().atZone(ZoneId.systemDefault());
-	
-	
+
 	/**
 	 * 
 	 * Constructor with param

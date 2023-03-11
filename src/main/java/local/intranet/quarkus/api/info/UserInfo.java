@@ -21,14 +21,14 @@ public class UserInfo {
 	private final String username;
 
 	private final String password = "[PROTECTED]";
-	
+
 	private final boolean enabled;
 
 	/**
 	 * 
 	 * Constructor with parameters
 	 * 
-	 * @param user        {@link User}
+	 * @param user {@link User}
 	 */
 	public UserInfo(User user) {
 		this.username = user.getUserName();
@@ -40,7 +40,7 @@ public class UserInfo {
 	 * Build {@link UserInfo}
 	 * <p>
 	 * 
-	 * @param user        {@link User}
+	 * @param user {@link User}
 	 * @return {@link UserInfo}
 	 */
 	public static UserInfo build(User user) {
@@ -120,5 +120,5 @@ public class UserInfo {
 	public String toString() {
 		return "UserInfo [username=" + username + ", password=" + password + ", enabled=" + enabled + "]";
 	}
-	
+
 }

@@ -23,6 +23,6 @@ public interface RoleRepository extends CrudRepository<Role, Long> {
 	 * @return {@link Role}
 	 */
 	@Query(value = "select u from Role u where u.roleName = ?1")
-	Role findByName(String roleName);
+	public Role findByName(String roleName);
 
 }

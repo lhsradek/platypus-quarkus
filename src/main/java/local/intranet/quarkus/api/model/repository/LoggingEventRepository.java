@@ -33,7 +33,7 @@ public interface LoggingEventRepository extends PagingAndSortingRepository<Loggi
 	 */
 	@Query(value = "select u.levelString, count(u.levelString) "
 			+ "from LoggingEvent u group by u.levelString order by u.levelString asc")
-	List<Object[]> countTotalLoggingEvents();
+	public List<Object[]> countTotalLoggingEvents();
 
 	/**
 	 * 
@@ -44,7 +44,7 @@ public interface LoggingEventRepository extends PagingAndSortingRepository<Loggi
 	 * @return {@link Page}&lt;{@link LoggingEvent}&gt;
 	 */
 	@Query(value = "select u from LoggingEvent u where u.levelString in ?1")
-	Page<LoggingEvent> findPageByLevelString(Pageable pageable, List<String> levelString);
+	public Page<LoggingEvent> findPageByLevelString(Pageable pageable, List<String> levelString);
 
 	/**
 	 * 
@@ -58,7 +58,7 @@ public interface LoggingEventRepository extends PagingAndSortingRepository<Loggi
 	 */
 	@Query(value = "select u from LoggingEvent u "
 			+ "where u.callerClass in ?1 and u.callerMethod in ?2 and levelString in ?3")
-	Page<LoggingEvent> findPageByCaller(Pageable pageable, List<String> callerClass, List<String> callerMethod,
+	public Page<LoggingEvent> findPageByCaller(Pageable pageable, List<String> callerClass, List<String> callerMethod,
 			List<String> levelString);
 
 }
