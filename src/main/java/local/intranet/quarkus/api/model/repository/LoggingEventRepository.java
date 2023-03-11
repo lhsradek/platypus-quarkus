@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
 
 import local.intranet.quarkus.api.model.entity.LoggingEvent;
 
@@ -23,7 +22,6 @@ import local.intranet.quarkus.api.model.entity.LoggingEvent;
  * @author Radek Kádner
  *
  */
-@Repository
 @Immutable
 public interface LoggingEventRepository extends JpaRepository<LoggingEvent, Long> {
 

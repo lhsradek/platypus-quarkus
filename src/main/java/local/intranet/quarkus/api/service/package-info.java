@@ -5,4 +5,4 @@
  * @author  Radek Kádner
  * @version 1.0.0-SNAPSHOT
  */
-package local.intranet.quarkus.api.services;
+package local.intranet.quarkus.api.service;
