@@ -3,10 +3,14 @@ package local.intranet.quarkus.api.service;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import javax.validation.ValidationException;
 import javax.validation.constraints.NotNull;
+import javax.ws.rs.NotFoundException;
 
 import org.eclipse.microprofile.openapi.annotations.Operation;
 
+import io.quarkus.security.ForbiddenException;
+import io.quarkus.security.UnauthorizedException;
 import local.intranet.quarkus.api.info.UserInfo;
 import local.intranet.quarkus.api.model.entity.User;
 import local.intranet.quarkus.api.model.repository.UserRepository;
@@ -54,20 +58,20 @@ public class UserService {
 	@Operation(hidden = true)
 	public UserInfo loadUserByUsername(@NotNull String username) throws InternalError {
 		if (username.length() == 0) {
-			throw new InternalError("Empty name!");
+			throw new ValidationException("Empty name!");
 		}
 		User user = userRepository.findByName(username);
 		if (user == null) {
-			throw new InternalError("User not found!");
+			throw new NotFoundException("User not found!");
 		}
 		if (user.isAccountNonExpired() && user.isAccountNonLocked() && user.isCredentialsNonExpired() && user.isEnabled()) {
 			return UserInfo.build(user);
 		} else if (!user.isCredentialsNonExpired()) {
-			throw new InternalError("Credentials is Expired!");
+			throw new UnauthorizedException("Credentials is Expired!");
 		} else if (!user.isAccountNonExpired()) {
-			throw new InternalError("Account is Expired!");
+			throw new UnauthorizedException("Account is Expired!");
 		} else {
-			throw new InternalError("Account is Disabled!");
+			throw new ForbiddenException();
 		}
 	}
 

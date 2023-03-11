@@ -39,7 +39,7 @@ public class LoggingEventService {
 	private static final Logger LOG = LoggerFactory.getLogger(LoggingEventService.class);
 
 	@Inject
-	protected LoggingEventRepository loggingEventRepository;
+	public LoggingEventRepository loggingEventRepository;
 
 	/**
 	 * 

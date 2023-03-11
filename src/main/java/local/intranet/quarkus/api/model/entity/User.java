@@ -6,14 +6,13 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import local.intranet.quarkus.api.domain.DefaultFieldLengths;
 
 /**
@@ -26,12 +25,7 @@ import local.intranet.quarkus.api.domain.DefaultFieldLengths;
  */
 @Entity
 @Table(name = "platypus_user")
-public class User {
-
-	@Id
-	@GeneratedValue
-	@Column(name = "id")
-	private Long id;
+public class User extends PanacheEntity {
 
 	@NotNull
 	@Column(name = "user_name", nullable = false)
