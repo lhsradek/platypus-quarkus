@@ -25,16 +25,15 @@ import local.intranet.quarkus.api.model.entity.LoggingEvent;
 @Immutable
 public interface LoggingEventRepository extends PagingAndSortingRepository<LoggingEvent, Long> {
 
-        /**
-         * 
-         * Count total logging event
-         * 
-         * @return {@link List}&lt;{@link LevelCount}&gt;
-         */
-        @Query(value = "select u.levelString, count(u.levelString) "
-                        + "from LoggingEvent u group by u.levelString order by u.levelString asc")
-        List<Object[]> countTotalLoggingEvents();
-
+	/**
+	 * 
+	 * Count total logging event
+	 * 
+	 * @return {@link List}&lt;{@link LevelCount}&gt;
+	 */
+	@Query(value = "select u.levelString, count(u.levelString) "
+			+ "from LoggingEvent u group by u.levelString order by u.levelString asc")
+	List<Object[]> countTotalLoggingEvents();
 
 	/**
 	 * 
