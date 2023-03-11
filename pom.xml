@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>local.intranet</groupId>
@@ -16,6 +18,12 @@
 		<skipITs>true</skipITs>
 		<surefire-plugin.version>3.0.0-M7</surefire-plugin.version>
 	</properties>
+	<repositories>
+		<repository>
+			<id>maven-centrals</id>
+			<url>https://repo1.maven.org/maven2/</url>
+		</repository>
+	</repositories>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -25,23 +33,17 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-			<dependency>
-				<groupId>${quarkus.platform.group-id}</groupId>
-				<artifactId>quarkus-operator-sdk-bom</artifactId>
-				<version>${quarkus.platform.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
 		</dependencies>
 	</dependencyManagement>
 	<dependencies>
 		<dependency>
-			<groupId>io.quarkus</groupId>
-			<artifactId>quarkus-resteasy</artifactId>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>rest-assured</artifactId>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>io.quarkus</groupId>
-			<artifactId>quarkus-resteasy-jsonb</artifactId>
+			<artifactId>quarkus-resteasy-reactive-jackson</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>io.quarkus</groupId>
@@ -52,27 +54,8 @@
 			<artifactId>quarkus-smallrye-jwt</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>io.quarkiverse.openapi.generator</groupId>
-			<artifactId>quarkus-openapi-generator</artifactId>
-			<version>0.11.0</version>
-		</dependency>
-		<dependency>
 			<groupId>io.quarkus</groupId>
-			<artifactId>quarkus-junit5</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>io.rest-assured</groupId>
-			<artifactId>rest-assured</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>io.quarkus</groupId>
-			<artifactId>quarkus-micrometer-registry-prometheus</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.quarkus</groupId>
-			<artifactId>quarkus-hibernate-orm</artifactId>
+			<artifactId>quarkus-arc</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>io.quarkus</groupId>
@@ -80,7 +63,67 @@
 		</dependency>
 		<dependency>
 			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-reactive-pg-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-hibernate-orm</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-hibernate-orm-panache</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-hibernate-validator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-hibernate-envers</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
 			<artifactId>quarkus-flyway</artifactId>
+		</dependency>
+		<!-- 
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-smallrye-metrics</artifactId>
+        </dependency>
+-->
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-micrometer-registry-prometheus</artifactId>
+		</dependency>
+		<!-- Spring -->
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-spring-data-jpa</artifactId>
+		</dependency>
+		<!--
+		<dependency>
+    		<groupId>io.quarkus</groupId>
+    		<artifactId>quarkus-spring-data-rest</artifactId>
+		</dependency>
+		<dependency>
+    		<groupId>io.quarkus</groupId>
+    		<artifactId>quarkus-spring-di</artifactId>
+		</dependency>
+		<dependency>
+    		<groupId>io.quarkus</groupId>
+    		<artifactId>quarkus-spring-web</artifactId>
+		</dependency>
+		-->
+		<!-- for quarkus logback DB appander -->
+		<dependency>
+			<groupId>io.quarkiverse.logging.logback</groupId>
+			<artifactId>quarkus-logging-logback</artifactId>
+			<version>0.13.0</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback.db</groupId>
+			<artifactId>logback-classic-db</artifactId>
+			<version>1.2.11.1</version>
 		</dependency>
 	</dependencies>
 	<build>

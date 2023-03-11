@@ -12,28 +12,29 @@
 		class="ch.qos.logback.classic.db.DBAppender">
 		<connectionSource
 			class="ch.qos.logback.core.db.DriverManagerConnectionSource">
-				<driverClass>org.postgresql.Driver</driverClass>
-				<url>${quarkus.datasource.jdbc.url}</url>
-				<user>${quarkus.datasource.username}</user>
-				<password>${quarkus.datasource.password}</password>
+			<driverClass>org.postgresql.Driver</driverClass>
+			<url>${quarkus.datasource.jdbc.url}</url>
+			<user>${quarkus.datasource.username}</user>
+			<password>${quarkus.datasource.password}</password>
 		</connectionSource>
 	</appender>
-	
-	<appender name="DB_ASYNC"
-        class="ch.qos.logback.classic.AsyncAppender">
-         <appender-ref ref="DB" />
-         <includeCallerData>true</includeCallerData>
-    </appender>
 
-	<logger name="local.intranet" level="DEBUG"> 
+	<appender name="DB_ASYNC"
+		class="ch.qos.logback.classic.AsyncAppender">
+		<appender-ref ref="DB" />
+		<includeCallerData>true</includeCallerData>
+	</appender>
+
+	<logger name="local.intranet" level="DEBUG">
 		<appender-ref ref="DB_ASYNC" />
-    </logger>
-	<logger name="io.quarkus" level="INFO"> 
+	</logger>
+	<logger name="io.quarkus" level="INFO">
 		<appender-ref ref="DB_ASYNC" />
-    </logger>
-    <logger name="org.hibernate.SQL" level="WARN" />
-    <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="WARN" />
-    
+	</logger>
+	<logger name="org.hibernate.SQL" level="WARN" />
+	<logger name="org.hibernate.type.descriptor.sql.BasicBinder"
+		level="WARN" />
+
 	<root level="INFO" />
 
 </configuration>
