@@ -41,10 +41,13 @@ public class UserService {
 	 * 
 	 * @param username {@link String}
 	 * @return {@link UserInfo}
+	 * @throws NotFoundException     {@link javax.ws.rs.core.Response.Status#NOT_FOUND not found}
+	 * @throws UnauthorizedException {@link UnauthorizedException}
+	 * @throws ForbiddenException    {@link ForbiddenException}
 	 */
 	// @Transactional
 	@Operation(hidden = true)
-	public UserInfo getUserInfo(@NotNull String username) throws InternalError  {
+	public UserInfo getUserInfo(@NotNull String username) throws NotFoundException, UnauthorizedException, ForbiddenException {
 		final UserInfo ret = loadUserByUsername(username);
 		LOG.debug("GetUserInfo username:{} password:{} enabled:{}", ret.getUsername(), ret.getPassword(), ret.isEnabled());
 		return ret;
@@ -60,10 +63,13 @@ public class UserService {
 	 * 
 	 * @param username the username identifying the user whose data is required.
 	 * @return a fully populated user record (never <code>null</code>)
+	 * @throws NotFoundException     {@link javax.ws.rs.core.Response.Status#NOT_FOUND not found}
+	 * @throws UnauthorizedException {@link UnauthorizedException}
+	 * @throws ForbiddenException    {@link ForbiddenException}
 	 */
 	// @Transactional
 	@Operation(hidden = true)
-	public UserInfo loadUserByUsername(@NotNull String username) throws InternalError {
+	public UserInfo loadUserByUsername(@NotNull String username) throws NotFoundException, UnauthorizedException, ForbiddenException {
 		if (username.length() == 0) {
 			throw new ValidationException("Empty name!");
 		}
