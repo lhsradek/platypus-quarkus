@@ -11,7 +11,7 @@ import local.intranet.quarkus.api.model.entity.Role;
  * {@link local.intranet.quarkus.api.model.entity.Role}
  * 
  * To use RoleRepository
- * @see {@link local.intranet.quarkus.api.service.RoleService#getUsersRoles} where is findAll
+ * see {@link local.intranet.quarkus.api.service.RoleService#getUsersRoles} where is findAll
  * 
  * @author Radek Kádner
  *

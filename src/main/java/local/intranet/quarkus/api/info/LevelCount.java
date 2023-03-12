@@ -9,8 +9,8 @@ import local.intranet.quarkus.api.domain.DefaultFieldLengths;
 /**
  * 
  * {@link LevelCount} for
- * {@link local.intranet.core.api.model.repository.LoggingEventRepository} and
- * {@link local.intranet.core.api.service.LoggingEventService}
+ * {@link local.intranet.quarkus.api.model.repository.LoggingEventRepository} and
+ * {@link local.intranet.quarkus.api.service.LoggingEventService}
  * <p>
  * https://www.baeldung.com/jpa-queries-custom-result-with-aggregation-functions
  *

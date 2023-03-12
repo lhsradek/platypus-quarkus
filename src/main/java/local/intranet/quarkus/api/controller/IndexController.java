@@ -37,7 +37,6 @@ public class IndexController {
 	@GET
 	@Counted
 	@Path("/hello")
-	@Tag(name = "index-controller")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Hello", description = "This method say: <strong>" + HELLO + "</strong>\n")
 	public Message hello() {
@@ -52,7 +51,6 @@ public class IndexController {
 	@GET
 	@Counted
 	@Path("/nazdar")
-	@Tag(name = "index-controller")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Nazdar", description = "This method say: <strong>" + NAZDAR + "</strong>\n")
 	public Message nazdar() {

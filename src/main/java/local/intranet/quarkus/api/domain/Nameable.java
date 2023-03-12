@@ -18,7 +18,6 @@ public interface Nameable {
 	 * 
 	 * <p>
 	 * &#64;JsonInclude(JsonInclude.Include.NON_NULL)
-	 * <p>
 	 * 
 	 * @return name {@link String}
 	 */

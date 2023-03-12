@@ -6,10 +6,12 @@ import java.time.ZonedDateTime;
 
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+import local.intranet.quarkus.api.domain.Invocationable;
+import local.intranet.quarkus.api.domain.Nameable;
 
 /**
  * 
@@ -19,15 +21,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  * 
  */
 @JsonPropertyOrder({ "content", "date" })
-public class Message {
-
-	@Size(min = 0)
-	@JsonInclude(JsonInclude.Include.NON_NULL)
-	public final String content;
-
-	@JsonProperty("date")
-	@JsonFormat(timezone = JsonFormat.DEFAULT_TIMEZONE)
-	public final ZonedDateTime date = LocalDateTime.now().atZone(ZoneId.systemDefault());
+public class Message implements Invocationable, Nameable {
 
 	/**
 	 * 
@@ -37,6 +31,25 @@ public class Message {
 	 */
 	public Message(String content) {
 		this.content = content;
+	}
+
+	/**
+	 * 
+	 * Message content
+	 */
+	@Size(min = 0)
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	public final String content;
+
+	@Override
+	public ZonedDateTime lastInvocation() {
+		return LocalDateTime.now().atZone(ZoneId.systemDefault());
+	}
+
+	@Override
+	@JsonIgnore
+	public String getName() {
+		return getClass().getName();
 	}
 
 }

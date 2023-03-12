@@ -38,7 +38,6 @@ public class UserInfo {
 	/**
 	 * 
 	 * Build {@link UserInfo}
-	 * <p>
 	 * 
 	 * @param user {@link User}
 	 * @return {@link UserInfo}
@@ -48,6 +47,8 @@ public class UserInfo {
 	}
 
 	/**
+	 * 
+	 * Get username
 	 * 
 	 * @return the username (never <code>null</code>)
 	 */
@@ -116,9 +117,13 @@ public class UserInfo {
 		return enabled;
 	}
 
+	/**
+	 * 
+	 * Returns a string representation of the object.
+	 */
 	@Override
 	public String toString() {
-		return "UserInfo [username=" + username + ", password=" + password + ", enabled=" + enabled + "]";
+		return "UserInfo [username=" + username + ", password=[PROTECTED], enabled=" + enabled + "]";
 	}
 
 }

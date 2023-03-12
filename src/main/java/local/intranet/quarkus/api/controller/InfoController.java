@@ -51,7 +51,6 @@ public class InfoController {
 	 * <p>
 	 * Used
 	 * {@link local.intranet.quarkus.api.service.LoggingEventService#countTotalLoggingEvents}.
-	 * <p>
 	 * 
 	 * @return {@link List}&le;{@link LevelCount}&ge;
 	 */
@@ -73,7 +72,6 @@ public class InfoController {
 	 * Role informations
 	 * <p>
 	 * Used {@link local.intranet.quarkus.api.service.RoleService#getRoleInfo}.
-	 * <p>
 	 * 
 	 * @return {@link RoleInfo}
 	 */
@@ -94,9 +92,6 @@ public class InfoController {
 	 * User informations
 	 * <p>
 	 * Used {@link local.intranet.quarkus.api.service.UserService#getUserInfo}.
-	 * <p>
-	 * 
-	 * @param userName {@link String}
 	 * 
 	 * @return {@link UserInfo}
 	 */

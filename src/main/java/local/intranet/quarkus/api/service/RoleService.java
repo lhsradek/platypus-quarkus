@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.slf4j.Logger;
@@ -36,12 +35,13 @@ public class RoleService {
 	 * 
 	 * Get RoleInfo
 	 * 
-	 * She couldn't be better org.springframework.transaction.annotation.Transactional(readOnly = true) ?
+	 * Couldn't be better org.springframework.transaction.annotation.Transactional(readOnly = true) ?
 	 * The transaction is due to lazy loading @ManyToMany(fetch = FetchType.LAZY)
+	 * But it seems to work correctly even without a transaction
 	 * 
 	 * @return {@link RoleInfo}
 	 */
-	@Transactional
+	// @Transactional
 	@Operation(hidden = true)
 	public RoleInfo getRoleInfo() {
 		return new RoleInfo(getUsersRoles());
@@ -51,12 +51,13 @@ public class RoleService {
 	 * 
 	 * Get userRole
 	 * 
-	 * She couldn't be better org.springframework.transaction.annotation.Transactional(readOnly = true) ?
+	 * Couldn't be better org.springframework.transaction.annotation.Transactional(readOnly = true) ?
 	 * The transaction is due to lazy loading @ManyToMany(fetch = FetchType.LAZY)
+	 * But it seems to work correctly even without a transaction
 	 * 
 	 * @return {@link List}&lt;{@link RolePlain}&gt;
 	 */
-	@Transactional
+	// @Transactional
 	@Operation(hidden = true)
 	protected List<RolePlain> getUsersRoles() {
 		final List<RolePlain> ret = new ArrayList<>();

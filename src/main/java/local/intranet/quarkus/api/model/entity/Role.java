@@ -3,6 +3,7 @@ package local.intranet.quarkus.api.model.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,12 +18,13 @@ import local.intranet.quarkus.api.domain.DefaultFieldLengths;
 /**
  * 
  * {@link Role} is entity for CRUD with
- * {@link local.intranet.platypus.api.model.repository.RoleRepository}
+ * {@link local.intranet.quarkus.api.model.repository.RoleRepository}
  * 
  * @author Radek Kádner
  *
  */
 @Entity
+@Cacheable
 @Table(name = "platypus_role")
 public class Role {
 
@@ -34,6 +36,7 @@ public class Role {
 	@Size(max = DefaultFieldLengths.DEFAULT_NAME)
 	private String roleName;
 
+	@Column(name = "enabled")
 	private Boolean enabled;
 
 	@ManyToMany(fetch = FetchType.LAZY)
