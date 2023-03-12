@@ -6,12 +6,12 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import local.intranet.quarkus.api.domain.DefaultFieldLengths;
 
 /**
@@ -24,7 +24,11 @@ import local.intranet.quarkus.api.domain.DefaultFieldLengths;
  */
 @Entity
 @Table(name = "platypus_role")
-public class Role extends PanacheEntity {
+public class Role {
+
+	@Id
+	@Column(name = "id")
+	private Long id;
 
 	@Column(name = "role_name", nullable = false)
 	@Size(max = DefaultFieldLengths.DEFAULT_NAME)

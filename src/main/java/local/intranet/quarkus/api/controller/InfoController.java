@@ -9,10 +9,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.eclipse.microprofile.openapi.annotations.Operation;
-import org.eclipse.microprofile.openapi.annotations.enums.ParameterIn;
-import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
-import org.eclipse.microprofile.openapi.annotations.media.Schema;
-import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -110,17 +106,8 @@ public class InfoController {
 	@Tag(name = "info-controller")
 	@Operation(summary = "Get User Info", description = "<strong>Get User Info</strong><br/><br/>"
 			+ "This method is calling UserService.getUserInfo")
-	public UserInfo getUserInfo(
-			@Parameter(
-					allowEmptyValue = false,
-					name = "userName",
-					in = ParameterIn.DEFAULT,
-					example = "lhs",
-					description = "userName",
-					schema = @Schema(type = SchemaType.OBJECT))
-			String userName)
-			throws InternalError {
-		final UserInfo ret = userService.getUserInfo(userName);
+	public UserInfo getUserInfo() {
+		final UserInfo ret = userService.getUserInfo("admin");
 		LOG.trace("{}", ret);
 		return ret;
 	}
