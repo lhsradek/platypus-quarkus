@@ -65,7 +65,7 @@ public class RoleService {
 			ret.add(new RolePlain(r.getId(), r.getRoleName(), r.isEnabled(),
 					r.getUser().stream().map(u -> u.getUserName()).collect(Collectors.toList())));
 		});
-		LOG.debug("GetUserRoles ret:{}", ret);
+		LOG.debug("GetUserRoles size:{}", ret.size());
 		return ret;
 	}
 

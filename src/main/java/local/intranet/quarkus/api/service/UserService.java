@@ -7,6 +7,8 @@ import javax.validation.constraints.NotNull;
 import javax.ws.rs.NotFoundException;
 
 import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import io.quarkus.security.ForbiddenException;
 import io.quarkus.security.UnauthorizedException;
@@ -24,6 +26,8 @@ import local.intranet.quarkus.api.model.repository.UserRepository;
 @ApplicationScoped
 public class UserService {
 
+	private static final Logger LOG = LoggerFactory.getLogger(UserService.class);
+	
 	@Inject
 	protected UserRepository userRepository;
 	
@@ -41,7 +45,8 @@ public class UserService {
 	// @Transactional
 	@Operation(hidden = true)
 	public UserInfo getUserInfo(@NotNull String username) throws InternalError  {
-		UserInfo ret = loadUserByUsername(username);
+		final UserInfo ret = loadUserByUsername(username);
+		LOG.debug("GetUserInfo username:{} password:{} enabled:{}", ret.getUsername(), ret.getPassword(), ret.isEnabled());
 		return ret;
 	}
 
