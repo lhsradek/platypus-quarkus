@@ -1,5 +1,5 @@
 /**
- * This module is for {@link local.intranet.quarkus}
+ * Enum for {@link local.intranet.quarkus}
  *
  * @since 11
  * @author  Radek Kádner

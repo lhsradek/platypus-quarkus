@@ -1,5 +1,5 @@
 /**
- * This module is for {@link local.intranet.quarkus.api.model}
+ * Entity for {@link local.intranet.quarkus.api.model}
  * 
  * <p>
  * LoggingEvent:

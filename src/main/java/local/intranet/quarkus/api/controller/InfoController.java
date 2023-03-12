@@ -22,10 +22,9 @@ import local.intranet.quarkus.api.service.UserService;
 
 /**
  * 
- * {@link InfoController} It's for charge of working with buffers and for REST
- * methods
- * <p>
- * info from services in {@link local.intranet.quarkus.api.service}
+ * {@link InfoController}
+ * 
+ * Info from services in {@link local.intranet.quarkus.api.service}
  * 
  * @author Radek Kádner
  *

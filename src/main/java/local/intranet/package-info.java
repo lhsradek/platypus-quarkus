@@ -1,5 +1,5 @@
 /**
- * This module is for {@link local.intranet.quarkus}
+ * local.intranet
  *
  * @since 11
  * @author  Radek Kádner

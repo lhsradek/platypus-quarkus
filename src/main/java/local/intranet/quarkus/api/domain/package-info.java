@@ -1,5 +1,5 @@
 /**
- * This module is for {@link local.intranet.quarkus}
+ * Domain (Interface) for {@link local.intranet.quarkus}
  *
  * @since 11
  * @author  Radek Kádner

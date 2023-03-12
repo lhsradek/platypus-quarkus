@@ -1,9 +1,10 @@
 /**
  * 
- * Entities {@link local.intranet.quarkus.api.model.entity} and
- * repositories {@link local.intranet.quarkus.api.model.repository} for the {@link local.intranet.quarkus.api.model}
+ * Model for the {@link local.intranet.quarkus}
+ * 
  * <h2>Scheme of data tables</h2>
- * <p>
+ * <br/>
+ * <br/>
  * <img alt="platypus-quarkus" src="/platypus-quarkus.png"/>
  * 
  * @since 11
