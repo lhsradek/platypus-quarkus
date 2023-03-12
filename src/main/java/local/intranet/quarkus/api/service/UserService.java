@@ -41,7 +41,7 @@ public class UserService {
 	 * 
 	 * @param username {@link String}
 	 * @return {@link UserInfo}
-	 * @throws NotFoundException     {@link javax.ws.rs.core.Response.Status#NOT_FOUND not found}
+	 * @throws NotFoundException     {@link javax.ws.rs.core.Response.Status#NOT_FOUND}
 	 * @throws UnauthorizedException {@link UnauthorizedException}
 	 * @throws ForbiddenException    {@link ForbiddenException}
 	 */
@@ -63,7 +63,7 @@ public class UserService {
 	 * 
 	 * @param username the username identifying the user whose data is required.
 	 * @return a fully populated user record (never <code>null</code>)
-	 * @throws NotFoundException     {@link javax.ws.rs.core.Response.Status#NOT_FOUND not found}
+	 * @throws NotFoundException     {@link javax.ws.rs.core.Response.Status#NOT_FOUND}
 	 * @throws UnauthorizedException {@link UnauthorizedException}
 	 * @throws ForbiddenException    {@link ForbiddenException}
 	 */
