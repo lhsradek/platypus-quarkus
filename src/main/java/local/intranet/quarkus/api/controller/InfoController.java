@@ -13,6 +13,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.micrometer.core.annotation.Counted;
 import local.intranet.quarkus.api.info.LevelCount;
 import local.intranet.quarkus.api.info.RoleInfo;
 import local.intranet.quarkus.api.info.UserInfo;
@@ -54,6 +55,7 @@ public class InfoController {
 	 * @return {@link List}&le;{@link LevelCount}&ge;
 	 */
 	@GET
+	@Counted
 	@Path("loggingEvent")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Count Total LoggingEvents", description = "<strong>Get LoggingEvent Info</strong><br/><br/>"
@@ -74,6 +76,7 @@ public class InfoController {
 	 * @return {@link RoleInfo}
 	 */
 	@GET
+	@Counted
 	@Path("role")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Get Role Info", description = "<strong>Get Role Info</strong><br/><br/>"
@@ -93,6 +96,7 @@ public class InfoController {
 	 * @return {@link UserInfo}
 	 */
 	@GET
+	@Counted
 	@Path("user")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Get User Info", description = "<strong>Get User Info</strong><br/><br/>"

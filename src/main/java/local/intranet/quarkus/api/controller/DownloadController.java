@@ -15,6 +15,7 @@ import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.micrometer.core.annotation.Counted;
 import io.smallrye.mutiny.Uni;
 
 /**
@@ -38,6 +39,7 @@ public class DownloadController {
 	 * @throws NotFoundException {@link NotFoundException} 
 	 */
 	@GET
+	@Counted
 	@Path("/{fileName}")
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
 	@Operation(hidden = true)

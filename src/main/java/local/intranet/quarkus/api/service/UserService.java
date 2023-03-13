@@ -38,7 +38,7 @@ public class UserService {
 	 * @return {@link UserInfo}
 	 * @throws ValidationException   {@link ValidationException}
 	 * @throws UnauthorizedException {@link UnauthorizedException}
-	 * @throws ForbiddenException   {@link ForbiddenException}
+	 * @throws ForbiddenException    {@link ForbiddenException}
 	 */
 	@Operation(hidden = true)
 	public UserInfo getUserInfo(@NotNull String username) throws ValidationException, UnauthorizedException, ForbiddenException {
@@ -55,7 +55,7 @@ public class UserService {
 	 * @return a fully populated user record (never <code>null</code>)
 	 * @throws ValidationException   {@link ValidationException}
 	 * @throws UnauthorizedException {@link UnauthorizedException}
-	 * @throws ForbiddenException   {@link ForbiddenException}
+	 * @throws ForbiddenException    {@link ForbiddenException}
 	 */
 	@Operation(hidden = true)
 	public UserInfo loadUserByUsername(@NotNull String username) throws ValidationException, UnauthorizedException, ForbiddenException {
