@@ -26,11 +26,21 @@ public class IndexController {
 
 	private static final Logger LOG = LoggerFactory.getLogger(IndexController.class);
 
-	private static final String HELLO = "Hello from RESTEasy Reactive";
+	/**
+	 * 
+	 * HELLO = "Hello from RESTEasy Reactive"
+	 */
+	public static final String HELLO = "Hello from RESTEasy Reactive";
 
-	private static final String NAZDAR = "Nazdar from RESTEasy Reactive";
+	/**
+	 * 
+	 * NAZDAR = "Nazdar from RESTEasy Reactive"
+	 */
+	public static final String NAZDAR = "Nazdar from RESTEasy Reactive";
 	
 	/**
+	 * 
+	 * Say: Hello ...
 	 * 
 	 * @return {@link Message}
 	 */
@@ -46,6 +56,8 @@ public class IndexController {
 
 	/**
 	 * 
+	 * Say: Nazdar ...
+	 * 
 	 * @return {@link Message}
 	 */
 	@GET
@@ -57,4 +69,5 @@ public class IndexController {
 		LOG.debug("{}", NAZDAR);
 		return new Message(NAZDAR);
 	}
+	
 }

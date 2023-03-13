@@ -1,4 +1,4 @@
-package local.intranet.quarkus.api.health;
+package local.intranet.quarkus.api.util.health;
 
 import java.time.Duration;
 

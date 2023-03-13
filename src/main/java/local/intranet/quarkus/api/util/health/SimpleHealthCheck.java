@@ -1,27 +1,25 @@
-package local.intranet.quarkus.api.health;
+package local.intranet.quarkus.api.util.health;
+
+import javax.enterprise.context.ApplicationScoped;
 
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
 import org.eclipse.microprofile.health.Liveness;
-import org.eclipse.microprofile.health.Startup;
-
-import javax.enterprise.context.ApplicationScoped;
 
 /**
  * 
- * Health startup
+ * Health simple
  * <p>
  * https://quarkus.io/guides/smallrye-health
  * https://github.com/quarkusio/quarkus-quickstarts/tree/main/microprofile-health-quickstart
  * 
  */
-@Startup
 @Liveness
 @ApplicationScoped
-public class StartupHealthCheck implements HealthCheck {
+public class SimpleHealthCheck implements HealthCheck {
 
     @Override
     public HealthCheckResponse call() {
-        return HealthCheckResponse.up("Startup health check");
+        return HealthCheckResponse.up("Simple health check");
     }
 }

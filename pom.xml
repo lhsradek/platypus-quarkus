@@ -75,11 +75,12 @@
 		</dependency>
 		<dependency>
 			<groupId>io.quarkus</groupId>
-			<artifactId>quarkus-jdbc-postgresql</artifactId>
+			<artifactId>quarkus-junit5</artifactId>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>io.quarkus</groupId>
-			<artifactId>quarkus-reactive-pg-client</artifactId>
+			<artifactId>quarkus-jdbc-postgresql</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>io.quarkus</groupId>
@@ -87,26 +88,18 @@
 		</dependency>
 		<dependency>
 			<groupId>io.quarkus</groupId>
-			<artifactId>quarkus-hibernate-orm-panache</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.quarkus</groupId>
 			<artifactId>quarkus-hibernate-validator</artifactId>
 		</dependency>
+		<!--
 		<dependency>
 			<groupId>io.quarkus</groupId>
 			<artifactId>quarkus-hibernate-envers</artifactId>
 		</dependency>
+		-->
 		<dependency>
 			<groupId>io.quarkus</groupId>
 			<artifactId>quarkus-flyway</artifactId>
 		</dependency>
-		<!-- 
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-smallrye-metrics</artifactId>
-        </dependency>
-		-->
 		<dependency>
 			<groupId>io.quarkus</groupId>
 			<artifactId>quarkus-micrometer-registry-prometheus</artifactId>
@@ -118,18 +111,14 @@
 		</dependency>
 		<!--
 		<dependency>
-    		<groupId>io.quarkus</groupId>
-    		<artifactId>quarkus-spring-data-rest</artifactId>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-spring-data-rest</artifactId> 
 		</dependency>
 		<dependency>
-    		<groupId>io.quarkus</groupId>
-    		<artifactId>quarkus-spring-web</artifactId>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-spring-web</artifactId> 
 		</dependency>
-		<dependency>
-    		<groupId>io.quarkus</groupId>
-    		<artifactId>quarkus-spring-di</artifactId>
-		</dependency>
-		-->
+		 -->
 		<!-- for quarkus logback DB appander -->
 		<dependency>
 			<groupId>io.quarkiverse.logging.logback</groupId>
@@ -144,13 +133,12 @@
 		<!--
 		<dependency>
 			<groupId>io.quarkus</groupId>
-			<artifactId>hibernate-search-orm-elasticsearch</artifactId>
+			<artifactId>hibernate-search-orm-elasticsearch</artifactId> 
 		</dependency>
 		<dependency>
 			<groupId>io.quarkus</groupId>
-			<artifactId>quarkus-elasticsearch-rest-client</artifactId>
-		</dependency>
-		-->
+			<artifactId>quarkus-elasticsearch-rest-client</artifactId> 
+		</dependency> -->
 		<!-- or quarkus-elasticsearch-rest-high-level-client -->
 	</dependencies>
 	<build>
@@ -180,16 +168,6 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>${surefire-plugin.version}</version>
-				<configuration>
-					<systemPropertyVariables>
-						<java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-						<maven.home>${maven.home}</maven.home>
-					</systemPropertyVariables>
-				</configuration>
-			</plugin>
-			<plugin>
 				<artifactId>maven-failsafe-plugin</artifactId>
 				<version>${surefire-plugin.version}</version>
 				<executions>
@@ -198,8 +176,25 @@
 							<goal>integration-test</goal>
 							<goal>verify</goal>
 						</goals>
+						<configuration>
+							<systemPropertyVariables>
+								<native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
+								<java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+								<maven.home>${maven.home}</maven.home>
+							</systemPropertyVariables>
+						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${surefire-plugin.version}</version>
+				<configuration>
+					<systemPropertyVariables>
+						<java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+						<maven.home>${maven.home}</maven.home>
+					</systemPropertyVariables>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

@@ -56,7 +56,6 @@ public class InfoController {
 	@GET
 	@Path("loggingEvent")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Tag(name = "info-controller")
 	@Operation(summary = "Count Total LoggingEvents", description = "<strong>Get LoggingEvent Info</strong><br/><br/>"
 			+ "This method is calling LoggingEventService.countTotalLoggingEvents")
 
@@ -77,7 +76,6 @@ public class InfoController {
 	@GET
 	@Path("role")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Tag(name = "info-controller")
 	@Operation(summary = "Get Role Info", description = "<strong>Get Role Info</strong><br/><br/>"
 			+ "This method is calling RoleService.getRoleInfo")
 	public RoleInfo getRoleInfo() {
@@ -97,7 +95,6 @@ public class InfoController {
 	@GET
 	@Path("user")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Tag(name = "info-controller")
 	@Operation(summary = "Get User Info", description = "<strong>Get User Info</strong><br/><br/>"
 			+ "This method is calling UserService.getUserInfo")
 	public UserInfo getUserInfo() {

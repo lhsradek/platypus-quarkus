@@ -46,21 +46,16 @@ public class LoggingEventService {
 	 * <p>
 	 * Used
 	 * {@link local.intranet.quarkus.api.model.repository.LoggingEventRepository#countTotalLoggingEvents}
-	 *
-	 * Couldn't be better org.springframework.transaction.annotation.Transactional(readOnly = true) ?
-	 * The transaction is due to lazy loading
-	 * But it seems to work correctly even without a transaction
      *
 	 * @return {@link List}&lt;{@link LevelCount}&gt;
 	 */
-	// @Transactional
 	@Operation(hidden = true)
 	public List<LevelCount> countTotalLoggingEvents() {
 		final List<LevelCount> ret = new ArrayList<>();
 		for (Object[] o : loggingEventRepository.countTotalLoggingEvents()) {
 			ret.add(new LevelCount((String) o[0], (Long) o[1]));
 		}
-		// LOG.debug("{}", ret);
+		LOG.trace("{}", ret);
 		return ret;
 	}
 
@@ -71,16 +66,11 @@ public class LoggingEventService {
 	 * Used
 	 * {@link local.intranet.quarkus.api.model.repository.LoggingEventRepository#findPageByLevelString}
 	 * 
-	 * Couldn't be better org.springframework.transaction.annotation.Transactional(readOnly = true) ?
-	 * The transaction is due to lazy loading
-	 * But it seems to work correctly even without a transaction
-	 * 
 	 * @param pageable    {@link Pageable}
 	 * @param levelString {@link List}&lt;{@link String}&gt;
 	 * 
 	 * @return {@link Page}&lt;{@link LoggingEventInfo}&gt;
 	 */
-	// @Transactional
 	@Operation(hidden = true)
 	public Page<LoggingEventInfo> findPageByLevelString(Pageable pageable, List<String> levelString) {
 		try {
@@ -90,7 +80,7 @@ public class LoggingEventService {
 				list.add(makeLoggingEventInfo(l));
 			}
 			Page<LoggingEventInfo> ret = new PageImpl<>(list, pageable, pa.getTotalElements());
-			// LOG.debug("{}", ret);
+			LOG.trace("{}", ret);
 			return ret;
 		} catch (Exception e) {
 			LOG.error(e.getMessage(), e);
@@ -111,13 +101,13 @@ public class LoggingEventService {
 		String arg1 = (loggingEvent.getArg1() == null) ? "[NULL]" : loggingEvent.getArg1();
 		String arg2 = (loggingEvent.getArg2() == null) ? "[NULL]" : loggingEvent.getArg2();
 		String arg3 = (loggingEvent.getArg3() == null) ? "[NULL]" : loggingEvent.getArg3();
-		// LOG.debug("arg0:{} arg1:{} arg2:{} arg3:{}", arg0, arg1, arg2, arg3);
+		// LOG.trace("arg0:{} arg1:{} arg2:{} arg3:{}", arg0, arg1, arg2, arg3);
 		LoggingEventInfo ret = new LoggingEventInfo(loggingEvent.getId(), loggingEvent.getFormattedMessage(),
 				loggingEvent.getLevelString(), (s.length > 0) ? s[s.length - 1] : "", loggingEvent.getCallerMethod(),
 				arg0, arg1, arg2, arg3,
 				ZonedDateTime.ofInstant(Instant.ofEpochMilli(loggingEvent.getTimestmp()), ZoneId.systemDefault()));
 
-		// LOG.debug("{}", ret);
+		LOG.trace("{}", ret);
 		return ret;
 	}
 

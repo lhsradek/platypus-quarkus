@@ -35,13 +35,8 @@ public class RoleService {
 	 * 
 	 * Get RoleInfo
 	 * 
-	 * Couldn't be better org.springframework.transaction.annotation.Transactional(readOnly = true) ?
-	 * The transaction is due to lazy loading @ManyToMany(fetch = FetchType.LAZY)
-	 * But it seems to work correctly even without a transaction
-	 * 
 	 * @return {@link RoleInfo}
 	 */
-	// @Transactional
 	@Operation(hidden = true)
 	public RoleInfo getRoleInfo() {
 		return new RoleInfo(getUsersRoles());
@@ -51,13 +46,8 @@ public class RoleService {
 	 * 
 	 * Get userRole
 	 * 
-	 * Couldn't be better org.springframework.transaction.annotation.Transactional(readOnly = true) ?
-	 * The transaction is due to lazy loading @ManyToMany(fetch = FetchType.LAZY)
-	 * But it seems to work correctly even without a transaction
-	 * 
 	 * @return {@link List}&lt;{@link RolePlain}&gt;
 	 */
-	// @Transactional
 	@Operation(hidden = true)
 	protected List<RolePlain> getUsersRoles() {
 		final List<RolePlain> ret = new ArrayList<>();

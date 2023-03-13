@@ -1,4 +1,4 @@
-package local.intranet.quarkus.api.health;
+package local.intranet.quarkus.api.util.health;
 
 import javax.enterprise.context.ApplicationScoped;
 
@@ -8,7 +8,7 @@ import org.eclipse.microprofile.health.Liveness;
 
 /**
  * 
- * Health simple
+ * Health data
  * <p>
  * https://quarkus.io/guides/smallrye-health
  * https://github.com/quarkusio/quarkus-quickstarts/tree/main/microprofile-health-quickstart
@@ -16,10 +16,14 @@ import org.eclipse.microprofile.health.Liveness;
  */
 @Liveness
 @ApplicationScoped
-public class SimpleHealthCheck implements HealthCheck {
+public class DataHealthCheck implements HealthCheck {
 
     @Override
     public HealthCheckResponse call() {
-        return HealthCheckResponse.up("Simple health check");
+        return HealthCheckResponse.named("Health check with data")
+                .up()
+                .withData("foo", "fooValue")
+                .withData("bar", "barValue")
+                .build();
     }
 }

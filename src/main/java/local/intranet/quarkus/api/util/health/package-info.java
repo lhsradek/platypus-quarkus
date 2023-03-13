@@ -6,4 +6,4 @@
  * @author  Radek Kádner
  * @version 1.0.0-SNAPSHOT
  */
-package local.intranet.quarkus.api.health;
+package local.intranet.quarkus.api.util.health;
