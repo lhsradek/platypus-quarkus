@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.micrometer.core.annotation.Counted;
+import io.micrometer.core.annotation.Timed;
 import local.intranet.quarkus.api.info.LevelCount;
 import local.intranet.quarkus.api.info.RoleInfo;
 import local.intranet.quarkus.api.info.UserInfo;
@@ -55,6 +56,7 @@ public class InfoController {
 	 * @return {@link List}&le;{@link LevelCount}&ge;
 	 */
 	@GET
+	@Timed
 	@Counted
 	@Path("loggingEvent")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -76,6 +78,7 @@ public class InfoController {
 	 * @return {@link RoleInfo}
 	 */
 	@GET
+	@Timed
 	@Counted
 	@Path("role")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -96,6 +99,7 @@ public class InfoController {
 	 * @return {@link UserInfo}
 	 */
 	@GET
+	@Timed
 	@Counted
 	@Path("user")
 	@Produces(MediaType.APPLICATION_JSON)

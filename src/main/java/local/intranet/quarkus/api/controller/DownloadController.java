@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.micrometer.core.annotation.Counted;
+import io.micrometer.core.annotation.Timed;
 import io.smallrye.mutiny.Uni;
 
 /**
@@ -39,6 +40,7 @@ public class DownloadController {
 	 * @throws NotFoundException {@link NotFoundException} 
 	 */
 	@GET
+	@Timed
 	@Counted
 	@Path("/{fileName}")
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)

@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.micrometer.core.annotation.Counted;
+import io.micrometer.core.annotation.Timed;
 import local.intranet.quarkus.api.info.Message;
 
 /**
@@ -45,6 +46,7 @@ public class IndexController {
 	 * @return {@link Message}
 	 */
 	@GET
+	@Timed
 	@Counted
 	@Path("/hello")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -61,6 +63,7 @@ public class IndexController {
 	 * @return {@link Message}
 	 */
 	@GET
+	@Timed
 	@Counted
 	@Path("/nazdar")
 	@Produces(MediaType.APPLICATION_JSON)
