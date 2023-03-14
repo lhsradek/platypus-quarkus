@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import io.micrometer.core.annotation.Counted;
 import io.micrometer.core.annotation.Timed;
+import local.intranet.quarkus.api.domain.Measure;
 import local.intranet.quarkus.api.info.Message;
 
 /**
@@ -33,12 +34,12 @@ public class IndexController {
 	 */
 	public static final String HELLO = "Hello from RESTEasy Reactive";
 
-	/**
+		/**
 	 * 
 	 * NAZDAR = "Nazdar from RESTEasy Reactive"
 	 */
 	public static final String NAZDAR = "Nazdar from RESTEasy Reactive";
-	
+
 	/**
 	 * 
 	 * Say: Hello ...
@@ -46,15 +47,16 @@ public class IndexController {
 	 * @return {@link Message}
 	 */
 	@GET
-	@Timed
-	@Counted
 	@Path("/hello")
 	@Produces(MediaType.APPLICATION_JSON)
+	@Timed(value="hello", description = Measure.TIMED_DESCRIPTION)
+	@Counted(value="hello", description = Measure.COUNTED_DESCRIPTION)
 	@Operation(summary = "Hello", description = "This method say: <strong>" + HELLO + "</strong>\n")
 	public Message hello() {
 		LOG.debug("{}", HELLO);
 		return new Message(HELLO);
 	}
+	
 
 	/**
 	 * 
@@ -63,10 +65,10 @@ public class IndexController {
 	 * @return {@link Message}
 	 */
 	@GET
-	@Timed
-	@Counted
 	@Path("/nazdar")
 	@Produces(MediaType.APPLICATION_JSON)
+	@Timed(value="nazdar", description = Measure.TIMED_DESCRIPTION)
+	@Counted(value="nazdar", description = Measure.COUNTED_DESCRIPTION)
 	@Operation(summary = "Nazdar", description = "This method say: <strong>" + NAZDAR + "</strong>\n")
 	public Message nazdar() {
 		LOG.debug("{}", NAZDAR);

@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import io.micrometer.core.annotation.Counted;
 import io.micrometer.core.annotation.Timed;
 import io.smallrye.mutiny.Uni;
+import local.intranet.quarkus.api.domain.Measure;
 
 /**
  * 
@@ -40,11 +41,11 @@ public class DownloadController {
 	 * @throws NotFoundException {@link NotFoundException} 
 	 */
 	@GET
-	@Timed
-	@Counted
 	@Path("/{fileName}")
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
 	@Operation(hidden = true)
+	@Timed(value="getFile", description = Measure.TIMED_DESCRIPTION)
+	@Counted(value="getFile", description = Measure.COUNTED_DESCRIPTION)
 	public Uni<Response> getFile(@PathParam(value = "") String fileName) throws NotFoundException {
 		try {
 			final File nf = new File(fileName);
