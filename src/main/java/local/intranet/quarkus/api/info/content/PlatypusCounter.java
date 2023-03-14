@@ -5,6 +5,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,6 +54,7 @@ public abstract class PlatypusCounter implements Countable, Invocationable, Stat
 	 * 
 	 * @return {@link Long}
 	 */
+	@Transactional
 	public Long incrementCounter() {
 		final Long ret;
 		final String className = PlatypusCounter.class.getSimpleName();

@@ -99,7 +99,7 @@ CREATE VIEW platypus_counter_view AS SELECT
 FROM platypus_counter ORDER BY id;
   
 
--- VIEW platypus_counter_a_view -----
+-- VIEW platypus_counter_aud_view -----
 
 CREATE VIEW platypus_counter_aud_view AS SELECT
     TO_CHAR(DATEADD('SECOND', (3600 * RIGHT(CAST(CURRENT_TIMESTAMP AS TIMESTAMP WITH TIME ZONE), 2) + revtstmp / 1000),

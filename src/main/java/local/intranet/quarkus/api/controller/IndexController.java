@@ -1,6 +1,5 @@
 package local.intranet.quarkus.api.controller;
 
-import javax.transaction.Transactional;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -13,7 +12,10 @@ import org.slf4j.LoggerFactory;
 
 import io.micrometer.core.annotation.Counted;
 import io.micrometer.core.annotation.Timed;
+import local.intranet.quarkus.api.domain.Countable;
+import local.intranet.quarkus.api.domain.Invocationable;
 import local.intranet.quarkus.api.domain.Measureable;
+import local.intranet.quarkus.api.domain.Statusable;
 import local.intranet.quarkus.api.info.Message;
 import local.intranet.quarkus.api.info.content.PlatypusCounter;
 
@@ -26,7 +28,7 @@ import local.intranet.quarkus.api.info.content.PlatypusCounter;
  */
 @Path("/")
 @Tag(name = "index-controller")
-public class IndexController extends PlatypusCounter {
+public class IndexController extends PlatypusCounter implements Countable, Invocationable, Statusable {
 
 	private static final Logger LOG = LoggerFactory.getLogger(IndexController.class);
 
@@ -57,7 +59,6 @@ public class IndexController extends PlatypusCounter {
 	@Timed(value = "platypus-quarkus-hello", description = Measureable.TIMED_DESCRIPTION)
 	@Counted(value = "platypus-quarkus-hello", description = Measureable.COUNTED_DESCRIPTION)
 	@Operation(summary = "Hello", description = "This method say: <strong>" + HELLO + "</strong>\n")
-	@Transactional
 	public Message hello() {
 		incrementCounter();
 		LOG.debug("{}", HELLO);
@@ -76,7 +77,6 @@ public class IndexController extends PlatypusCounter {
 	@Timed(value = "platypus-quarkus-nazdar", description = Measureable.TIMED_DESCRIPTION)
 	@Counted(value = "platypus-quarkus-nazdar", description = Measureable.COUNTED_DESCRIPTION)
 	@Operation(summary = "Nazdar", description = "This method say: <strong>" + NAZDAR + "</strong>\n")
-	@Transactional
 	public Message nazdar() {
 		incrementCounter();
 		LOG.debug("{}", NAZDAR);

@@ -15,10 +15,14 @@ import org.slf4j.LoggerFactory;
 
 import io.micrometer.core.annotation.Counted;
 import io.micrometer.core.annotation.Timed;
+import local.intranet.quarkus.api.domain.Countable;
+import local.intranet.quarkus.api.domain.Invocationable;
 import local.intranet.quarkus.api.domain.Measureable;
+import local.intranet.quarkus.api.domain.Statusable;
 import local.intranet.quarkus.api.info.LevelCount;
 import local.intranet.quarkus.api.info.RoleInfo;
 import local.intranet.quarkus.api.info.UserInfo;
+import local.intranet.quarkus.api.info.content.PlatypusCounter;
 import local.intranet.quarkus.api.service.LoggingEventService;
 import local.intranet.quarkus.api.service.RoleService;
 import local.intranet.quarkus.api.service.UserService;
@@ -34,7 +38,7 @@ import local.intranet.quarkus.api.service.UserService;
  */
 @Path("/app/v1/info")
 @Tag(name = "info-controller")
-public class InfoController {
+public class InfoController extends PlatypusCounter implements Countable, Invocationable, Statusable {
 
 	private static final Logger LOG = LoggerFactory.getLogger(InfoController.class);
 
@@ -61,11 +65,12 @@ public class InfoController {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Timed(value="platypus-quarkus-countTotalLoggingEvents", description = Measureable.TIMED_DESCRIPTION)
 	@Counted(value="platypus-quarkus-countTotalLoggingEvents", description = Measureable.COUNTED_DESCRIPTION)
-	@Operation(summary = "Count Total LoggingEvents", description = "<strong>Get LoggingEvent Info</strong><br/><br/>"
+	@Operation(summary = "Count Total LoggingEvents", description = "<strong>Count Total Logging Events</strong><br/><br/>"
 			+ "This method is calling LoggingEventService.countTotalLoggingEvents")
 
 	public List<LevelCount> loggingEventInfo() {
 		final List<LevelCount> ret = loggingEventService.countTotalLoggingEvents();
+		incrementCounter();
 		LOG.trace("{}", ret);
 		return ret;
 	}
@@ -87,6 +92,7 @@ public class InfoController {
 			+ "This method is calling RoleService.getRoleInfo")
 	public RoleInfo getRoleInfo() {
 		final RoleInfo ret = roleService.getRoleInfo();
+		incrementCounter();
 		LOG.trace("{}", ret);
 		return ret;
 	}
@@ -108,6 +114,7 @@ public class InfoController {
 			+ "This method is calling UserService.getUserInfo")
 	public UserInfo getUserInfo() {
 		final UserInfo ret = userService.getUserInfo("admin");
+		incrementCounter();
 		LOG.trace("{}", ret);
 		return ret;
 	}

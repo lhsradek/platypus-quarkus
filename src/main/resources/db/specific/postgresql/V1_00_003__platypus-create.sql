@@ -101,7 +101,7 @@ CREATE VIEW platypus_counter_view AS SELECT
 FROM platypus_counter ORDER BY id;
 
 
--- VIEW platypus_counter_a_view -----
+-- VIEW platypus_counter_aud_view -----
 
 CREATE VIEW platypus_counter_aud_view AS SELECT
     TO_CHAR(TO_TIMESTAMP(revtstmp / 1000),

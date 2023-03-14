@@ -18,7 +18,10 @@ import org.slf4j.LoggerFactory;
 import io.micrometer.core.annotation.Counted;
 import io.micrometer.core.annotation.Timed;
 import io.smallrye.mutiny.Uni;
+import local.intranet.quarkus.api.domain.Countable;
+import local.intranet.quarkus.api.domain.Invocationable;
 import local.intranet.quarkus.api.domain.Measureable;
+import local.intranet.quarkus.api.domain.Statusable;
 import local.intranet.quarkus.api.info.content.PlatypusCounter;
 
 /**
@@ -29,7 +32,7 @@ import local.intranet.quarkus.api.info.content.PlatypusCounter;
  *
  */
 @Path("/downloads")
-public class DownloadController extends PlatypusCounter {
+public class DownloadController extends PlatypusCounter implements Countable, Invocationable, Statusable {
 
 	private static final Logger LOG = LoggerFactory.getLogger(DownloadController.class);
 
