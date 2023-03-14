@@ -2,7 +2,7 @@ package local.intranet.quarkus.api.domain;
 
 /**
  *
- * {@link Measure}
+ * {@link Measureable}
  *
  * <p>
  * <b>&#64;Counted</b> (io.micrometer.core.annotation.Counted) and<br/>
@@ -13,7 +13,7 @@ package local.intranet.quarkus.api.domain;
  * @author Radek Kádner
  *
  */
-public interface Measure {
+public interface Measureable {
 
 	/**
 	 * 
