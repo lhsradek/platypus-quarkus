@@ -1,6 +1,8 @@
-package local.intranet.quarkus;
+package local.intranet.quarkus.test;
 
 import io.quarkus.test.junit.QuarkusTest;
+import local.intranet.quarkus.api.controller.IndexController;
+
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
@@ -14,7 +16,7 @@ public class HelloResourceTest {
 		given()
 		.when().get("/hello")
 		.then().statusCode(200)
-		.body("content", is("Hello from RESTEasy Reactive"));
+		.body("content", is(IndexController.HELLO));
 	}
 
 }

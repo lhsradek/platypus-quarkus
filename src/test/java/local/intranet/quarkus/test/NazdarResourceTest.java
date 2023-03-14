@@ -1,10 +1,12 @@
-package local.intranet.quarkus;
-
-import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.Test;
+package local.intranet.quarkus.test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
+
+import org.junit.jupiter.api.Test;
+
+import io.quarkus.test.junit.QuarkusTest;
+import local.intranet.quarkus.api.controller.IndexController;
 
 @QuarkusTest
 public class NazdarResourceTest {
@@ -15,7 +17,7 @@ public class NazdarResourceTest {
         .when().get("/nazdar")
         .then()
         .statusCode(200)
-        .body("content", is("Nazdar from RESTEasy Reactive"));
+        .body("content", is(IndexController.NAZDAR));
     }
 
 }

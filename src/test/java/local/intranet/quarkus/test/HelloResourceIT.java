@@ -1,8 +1,8 @@
-package local.intranet.quarkus;
+package local.intranet.quarkus.test;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 
 @QuarkusIntegrationTest
-public class NazdarResourceIT extends NazdarResourceTest {
+public class HelloResourceIT extends HelloResourceTest {
     // Execute the same tests but in packaged mode.
 }
