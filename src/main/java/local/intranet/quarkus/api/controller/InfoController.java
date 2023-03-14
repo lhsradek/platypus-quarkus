@@ -13,6 +13,9 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.micrometer.core.annotation.Counted;
+import io.micrometer.core.annotation.Timed;
+import local.intranet.quarkus.api.domain.Measureable;
 import local.intranet.quarkus.api.info.LevelCount;
 import local.intranet.quarkus.api.info.RoleInfo;
 import local.intranet.quarkus.api.info.UserInfo;
@@ -56,8 +59,8 @@ public class InfoController {
 	@GET
 	@Path("loggingEvent")
 	@Produces(MediaType.APPLICATION_JSON)
-	// @Timed(value="countTotalLoggingEvents", description = Measure.TIMED_DESCRIPTION)
-	// @Counted(value="countTotalLoggingEvents", description = Measure.COUNTED_DESCRIPTION)
+	@Timed(value="platypus-quarkus-countTotalLoggingEvents", description = Measureable.TIMED_DESCRIPTION)
+	@Counted(value="platypus-quarkus-countTotalLoggingEvents", description = Measureable.COUNTED_DESCRIPTION)
 	@Operation(summary = "Count Total LoggingEvents", description = "<strong>Get LoggingEvent Info</strong><br/><br/>"
 			+ "This method is calling LoggingEventService.countTotalLoggingEvents")
 
@@ -78,8 +81,8 @@ public class InfoController {
 	@GET
 	@Path("role")
 	@Produces(MediaType.APPLICATION_JSON)
-	// @Timed(value="getRoleInfo", description = Measure.TIMED_DESCRIPTION)
-	// @Counted(value="getRoleInfo", description = Measure.COUNTED_DESCRIPTION)
+	@Timed(value="platypus-quarkus-getRoleInfo", description = Measureable.TIMED_DESCRIPTION)
+	@Counted(value="platypus-quarkus-getRoleInfo", description = Measureable.COUNTED_DESCRIPTION)
 	@Operation(summary = "Get Role Info", description = "<strong>Get Role Info</strong><br/><br/>"
 			+ "This method is calling RoleService.getRoleInfo")
 	public RoleInfo getRoleInfo() {
@@ -99,8 +102,8 @@ public class InfoController {
 	@GET
 	@Path("user")
 	@Produces(MediaType.APPLICATION_JSON)
-	// @Timed(value="getUserInfo", description = Measure.TIMED_DESCRIPTION)
-	// @Counted(value="getUserInfo", description = Measure.COUNTED_DESCRIPTION)
+	@Timed(value="platypus-quarkus-getUserInfo", description = Measureable.TIMED_DESCRIPTION)
+	@Counted(value="platypus-quarkus-getUserInfo", description = Measureable.COUNTED_DESCRIPTION)
 	@Operation(summary = "Get User Info", description = "<strong>Get User Info</strong><br/><br/>"
 			+ "This method is calling UserService.getUserInfo")
 	public UserInfo getUserInfo() {

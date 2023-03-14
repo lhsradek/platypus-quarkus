@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  *
  * {@link Countable}
- *  
+ * 
  * @author Radek Kádner
  *
  */

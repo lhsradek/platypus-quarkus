@@ -6,12 +6,42 @@
 
 CREATE SEQUENCE revinfo_seq MINVALUE 1;
 
------ TABLE revinfo -----
+-- TABLE revinfo -----
 
 CREATE TABLE revinfo (
     rev BIGINT DEFAULT nextval('revinfo_seq') PRIMARY KEY,
     revtstmp BIGINT
 );
+
+-- TABLE platypus_counter -----
+
+CREATE TABLE platypus_counter (
+    id BIGINT DEFAULT nextval('platypus_counter_seq') PRIMARY KEY,
+    counter_name VARCHAR(255) NOT NULL,
+    cnt BIGINT, 
+    timestmp BIGINT, 
+    status VARCHAR(16) NOT NULL,
+    CONSTRAINT counter_name_uk UNIQUE (counter_name)
+);
+
+-- TABLE platypus_counter_aud -----
+
+CREATE TABLE platypus_counter_aud (
+    id BIGINT NOT NULL,
+    rev BIGINT REFERENCES revinfo (rev),
+    revtype TINYINT,
+    counter_name VARCHAR(255) NULL,
+    counter_name_mod BOOLEAN,
+    cnt BIGINT NULL,
+    cnt_mod BOOLEAN,
+    timestmp BIGINT NULL,
+    timestmp_mod BOOLEAN,
+    status VARCHAR(16) NULL,
+    status_mod BOOLEAN,
+    CONSTRAINT primary_platypus_counter_aud PRIMARY KEY (id, rev)
+);
+CREATE INDEX key_platypus_counter_aud_rev ON platypus_counter_aud (rev);
+
 
 -- TABLE platypus_role -----
 
@@ -55,3 +85,32 @@ CREATE VIEW platypus_view AS SELECT ROWNUM() id, a.id user_id, a.user_name, a.en
   c.role_name, c.enabled role_enabled FROM platypus_user a JOIN platypus_user_role b ON a.id = b.user_id
   JOIN platypus_role c ON b.role_id = c.id ORDER BY a.id, c.id;
   
+  
+-- VIEW platypus_counter_view -----
+
+CREATE VIEW platypus_counter_view AS SELECT
+    id, counter_name,
+    CASE WHEN cnt > 0 THEN
+        TO_CHAR (cnt) ELSE '' END cnt,
+    CASE WHEN timestmp > 0 THEN
+        TO_CHAR(DATEADD('SECOND', (3600 * RIGHT(CAST(CURRENT_TIMESTAMP AS TIMESTAMP WITH TIME ZONE), 2) + timestmp / 1000),
+        DATE '1970-01-01'), 'YYYY-MM-DD HH24:MI:SS') ELSE '' END date,
+    status
+FROM platypus_counter ORDER BY id;
+  
+
+-- VIEW platypus_counter_a_view -----
+
+CREATE VIEW platypus_counter_aud_view AS SELECT
+    TO_CHAR(DATEADD('SECOND', (3600 * RIGHT(CAST(CURRENT_TIMESTAMP AS TIMESTAMP WITH TIME ZONE), 2) + revtstmp / 1000),
+        DATE '1970-01-01'), 'YYYY-MM-DD HH24:MI:SS') revdate,
+    a.id, a.rev, a.revtype,
+    a.counter_name,
+    CASE WHEN a.cnt > 0 THEN
+        TO_CHAR (a.cnt) ELSE '' END cnt,
+    CASE WHEN a.timestmp > 0 THEN
+        TO_CHAR(DATEADD('SECOND', (3600 * RIGHT(CAST(CURRENT_TIMESTAMP AS TIMESTAMP WITH TIME ZONE), 2) + a.timestmp / 1000),
+        DATE '1970-01-01'), 'YYYY-MM-DD HH24:MI:SS') ELSE '' END date
+FROM platypus_counter_aud a, revinfo r WHERE a.rev = r.rev ORDER BY revtstmp, id, rev;
+
+

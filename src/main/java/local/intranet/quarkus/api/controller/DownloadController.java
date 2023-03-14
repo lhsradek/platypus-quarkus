@@ -15,7 +15,11 @@ import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.micrometer.core.annotation.Counted;
+import io.micrometer.core.annotation.Timed;
 import io.smallrye.mutiny.Uni;
+import local.intranet.quarkus.api.domain.Measureable;
+import local.intranet.quarkus.api.info.content.PlatypusCounter;
 
 /**
  * 
@@ -25,7 +29,7 @@ import io.smallrye.mutiny.Uni;
  *
  */
 @Path("/downloads")
-public class DownloadController {
+public class DownloadController extends PlatypusCounter {
 
 	private static final Logger LOG = LoggerFactory.getLogger(DownloadController.class);
 
@@ -41,8 +45,8 @@ public class DownloadController {
 	@Path("/{fileName}")
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
 	@Operation(hidden = true)
-	// @Timed(value="getFile", description = Measure.TIMED_DESCRIPTION)
-	// @Counted(value="getFile", description = Measure.COUNTED_DESCRIPTION)
+	@Timed(value="platypus-quarkus-getFile", description = Measureable.TIMED_DESCRIPTION)
+	@Counted(value="platypus-quarkus-getFile", description = Measureable.COUNTED_DESCRIPTION)
 	public Uni<Response> getFile(@PathParam(value = "") String fileName) throws NotFoundException {
 		try {
 			final File nf = new File(fileName);
@@ -50,6 +54,7 @@ public class DownloadController {
 			final ResponseBuilder response = Response.ok((Object) nf);
 			response.header("Content-Disposition", "attachment;filename=" + nf);
 			final Uni<Response> ret = Uni.createFrom().item(response.build());
+			incrementCounter();
 			return ret;
 		} catch (Exception e) {
 			// LOG.warn("status:{}", Response.Status.NOT_FOUND.getStatusCode());

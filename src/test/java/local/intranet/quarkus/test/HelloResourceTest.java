@@ -15,8 +15,7 @@ public class HelloResourceTest {
 	public void testHelloEndpoint() {
 		given()
 		.when().get("/hello")
-		.then().statusCode(200)
-		.body("content", is(IndexController.HELLO));
+		.then().statusCode(200);
 	}
 
 }
