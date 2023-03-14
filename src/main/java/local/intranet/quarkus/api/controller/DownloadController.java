@@ -15,10 +15,7 @@ import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.micrometer.core.annotation.Counted;
-import io.micrometer.core.annotation.Timed;
 import io.smallrye.mutiny.Uni;
-import local.intranet.quarkus.api.domain.Measure;
 
 /**
  * 
@@ -44,8 +41,8 @@ public class DownloadController {
 	@Path("/{fileName}")
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
 	@Operation(hidden = true)
-	@Timed(value="getFile", description = Measure.TIMED_DESCRIPTION)
-	@Counted(value="getFile", description = Measure.COUNTED_DESCRIPTION)
+	// @Timed(value="getFile", description = Measure.TIMED_DESCRIPTION)
+	// @Counted(value="getFile", description = Measure.COUNTED_DESCRIPTION)
 	public Uni<Response> getFile(@PathParam(value = "") String fileName) throws NotFoundException {
 		try {
 			final File nf = new File(fileName);

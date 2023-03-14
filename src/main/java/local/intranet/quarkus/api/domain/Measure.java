@@ -3,6 +3,12 @@ package local.intranet.quarkus.api.domain;
 /**
  *
  * {@link Measure}
+ *
+ * <p>
+ * <b>&#64;Counted</b> (io.micrometer.core.annotation.Counted) and<br/>
+ * <b>&#64;Timed</b> (io.micrometer.core.annotation.Timed) is needed with <b>quarkus-smallrye-metrics</b>.
+ * <p>
+ * With <b>quarkus-micrometer-registry-prometheus</b> make themselves as <b>http_server_requests_....</b> 
  *  
  * @author Radek Kádner
  *

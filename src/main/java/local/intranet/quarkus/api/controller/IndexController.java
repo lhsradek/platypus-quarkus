@@ -10,9 +10,6 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.micrometer.core.annotation.Counted;
-import io.micrometer.core.annotation.Timed;
-import local.intranet.quarkus.api.domain.Measure;
 import local.intranet.quarkus.api.info.Message;
 
 /**
@@ -49,8 +46,8 @@ public class IndexController {
 	@GET
 	@Path("/hello")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Timed(value="hello", description = Measure.TIMED_DESCRIPTION)
-	@Counted(value="hello", description = Measure.COUNTED_DESCRIPTION)
+	// @Timed(value="hello", description = Measure.TIMED_DESCRIPTION)
+	// @Counted(value="hello", description = Measure.COUNTED_DESCRIPTION)
 	@Operation(summary = "Hello", description = "This method say: <strong>" + HELLO + "</strong>\n")
 	public Message hello() {
 		LOG.debug("{}", HELLO);
@@ -67,8 +64,8 @@ public class IndexController {
 	@GET
 	@Path("/nazdar")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Timed(value="nazdar", description = Measure.TIMED_DESCRIPTION)
-	@Counted(value="nazdar", description = Measure.COUNTED_DESCRIPTION)
+	// @Timed(value="nazdar", description = Measure.TIMED_DESCRIPTION)
+	// @Counted(value="nazdar", description = Measure.COUNTED_DESCRIPTION)
 	@Operation(summary = "Nazdar", description = "This method say: <strong>" + NAZDAR + "</strong>\n")
 	public Message nazdar() {
 		LOG.debug("{}", NAZDAR);
