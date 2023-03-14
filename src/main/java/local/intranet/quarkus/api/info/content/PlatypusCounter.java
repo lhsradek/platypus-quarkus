@@ -29,10 +29,10 @@ public abstract class PlatypusCounter implements Countable, Invocationable, Stat
 	private static final Logger LOG = LoggerFactory.getLogger(PlatypusCounter.class);
 
 	@Inject
-	public CounterRepository counterRepository;
+	protected CounterRepository counterRepository;
 
 	@Inject
-	public Provider provider;
+	protected Provider provider;
 
 	@Override
 	public Long countValue() {

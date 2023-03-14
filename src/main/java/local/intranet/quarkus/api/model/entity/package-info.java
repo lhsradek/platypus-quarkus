@@ -1,8 +1,7 @@
 /**
  * Entity for {@link local.intranet.quarkus.api.model}
  * 
- * <br/>
- * <br/>
+ * <p>
  * <img alt="platypus-quarkus" src="/platypus-quarkus-entity.png"/>
  * <p>
  * LoggingEvent:
