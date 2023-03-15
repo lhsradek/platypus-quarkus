@@ -26,10 +26,10 @@ import local.intranet.quarkus.api.model.repository.UserRepository;
 public class UserService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(UserService.class);
-	
+
 	@Inject
 	protected UserRepository userRepository;
-	
+
 	/**
 	 * 
 	 * For {@link local.intranet.quarkus.api.controller.InfoController#getUserInfo}
@@ -41,9 +41,11 @@ public class UserService {
 	 * @throws ForbiddenException    {@link ForbiddenException}
 	 */
 	@Operation(hidden = true)
-	public UserInfo getUserInfo(@NotNull String username) throws ValidationException, UnauthorizedException, ForbiddenException {
+	public UserInfo getUserInfo(@NotNull String username)
+			throws ValidationException, UnauthorizedException, ForbiddenException {
 		final UserInfo ret = loadUserByUsername(username);
-		LOG.debug("GetUserInfo username:{} password:{} enabled:{}", ret.getUsername(), ret.getPassword(), ret.isEnabled());
+		LOG.trace("GetUserInfo username:{} password:{} enabled:{}", ret.getUsername(), ret.getPassword(),
+				ret.isEnabled());
 		return ret;
 	}
 
@@ -58,7 +60,8 @@ public class UserService {
 	 * @throws ForbiddenException    {@link ForbiddenException}
 	 */
 	@Operation(hidden = true)
-	public UserInfo loadUserByUsername(@NotNull String username) throws ValidationException, UnauthorizedException, ForbiddenException {
+	public UserInfo loadUserByUsername(@NotNull String username)
+			throws ValidationException, UnauthorizedException, ForbiddenException {
 		if (username.length() == 0) {
 			throw new ValidationException("Empty name!");
 		}
@@ -66,7 +69,8 @@ public class UserService {
 		if (user == null) {
 			throw new ValidationException("User not found!");
 		}
-		if (user.isAccountNonExpired() && user.isAccountNonLocked() && user.isCredentialsNonExpired() && user.isEnabled()) {
+		if (user.isAccountNonExpired() && user.isAccountNonLocked() && user.isCredentialsNonExpired()
+				&& user.isEnabled()) {
 			return UserInfo.build(user);
 		} else if (!user.isCredentialsNonExpired()) {
 			throw new UnauthorizedException("Credentials is Expired!");

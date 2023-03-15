@@ -22,6 +22,6 @@ public interface Nameable {
 	 * @return name {@link String}
 	 */
 	@JsonInclude(JsonInclude.Include.NON_NULL)
-	public String getName();
+	String getName();
 
 }

@@ -17,7 +17,7 @@ import local.intranet.quarkus.api.domain.Nameable;
  * 
  * {@link Message}
  * 
- * @author radek.kadner
+ * @author Radek Kádner
  * 
  */
 @JsonPropertyOrder({ "content", "date" })

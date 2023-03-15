@@ -2,7 +2,7 @@
  * local.intranet
  *
  * @since 11
- * @author  Radek Kádner
+ * @author Radek Kádner
  * @version 1.0.0-SNAPSHOT
  */
 package local.intranet;

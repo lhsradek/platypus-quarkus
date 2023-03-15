@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * 
  * {@link Invocationable}
  * 
- * @author radek.kadner
+ * @author Radek Kádner
  *
  */
 public interface Invocationable {
@@ -26,6 +26,6 @@ public interface Invocationable {
 	@JsonProperty("date")
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss-Z", timezone = JsonFormat.DEFAULT_TIMEZONE)
-	public ZonedDateTime lastInvocation();
+	ZonedDateTime lastInvocation();
 
 }

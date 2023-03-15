@@ -12,7 +12,6 @@ import javax.validation.constraints.Size;
 import org.hibernate.envers.Audited;
 
 import local.intranet.quarkus.api.domain.DefaultFieldLengths;
-import local.intranet.quarkus.api.domain.type.StatusType;
 
 /**
  * 
@@ -144,10 +143,10 @@ public class Counter {
 	 * 
 	 * Set Status
 	 * 
-	 * @param status {@link StatusType}
+	 * @param status {@link String}
 	 */
-	public void setStatus(StatusType status) {
-		this.status = status.getStatus();
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	/**

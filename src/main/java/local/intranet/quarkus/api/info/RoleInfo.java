@@ -19,7 +19,7 @@ import local.intranet.quarkus.api.service.RoleService;
  * @author Radek Kádner
  *
  */
-@JsonPropertyOrder({ "name", "name", "roles" })
+@JsonPropertyOrder({ "name", "roles" })
 public class RoleInfo implements Nameable {
 
 	private final List<RolePlain> role;
@@ -34,8 +34,8 @@ public class RoleInfo implements Nameable {
 		this.role = role;
 	}
 
-	@Size(min = 1, max = DefaultFieldLengths.DEFAULT_NAME)
 	@Override
+	@Size(min = 1, max = DefaultFieldLengths.DEFAULT_NAME)
 	public String getName() {
 		String ret = RoleService.class.getSimpleName();
 		return ret;

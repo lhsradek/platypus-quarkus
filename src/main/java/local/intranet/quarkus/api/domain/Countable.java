@@ -1,5 +1,7 @@
 package local.intranet.quarkus.api.domain;
 
+import javax.validation.constraints.Size;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -19,7 +21,8 @@ public interface Countable {
 	 * 
 	 * @return number of invocations as count in JSON
 	 */
+	@Size(min = 0)
 	@JsonProperty("count")
-	public Long countValue();
+	Long countValue();
 
 }

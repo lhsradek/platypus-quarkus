@@ -28,7 +28,7 @@ import local.intranet.quarkus.api.info.content.PlatypusCounter;
  * 
  * {@link DownloadController}
  * 
- * @author radek.kadner
+ * @author Radek Kádner
  *
  */
 @Path("/downloads")
@@ -42,14 +42,15 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	 * 
 	 * @param fileName {link @String}
 	 * @return {@link Uni}&lt;{@link Response}&gt;
-	 * @throws NotFoundException {@link NotFoundException} 
+	 * @throws NotFoundException {@link NotFoundException}
 	 */
 	@GET
 	@Path("/{fileName}")
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
 	@Operation(hidden = true)
-	@Timed(value="platypus-quarkus-getFile", description = Measureable.TIMED_DESCRIPTION)
-	@Counted(value="platypus-quarkus-getFile", description = Measureable.COUNTED_DESCRIPTION)
+	@Timed(value = Measureable.PREFIX + "getfile", description = Measureable.TIMED_DESCRIPTION)
+	@Counted(value = Measureable.PREFIX + "getFile", description = Measureable.COUNTED_DESCRIPTION)
+	// @Measured(value = Measureable.PREFIX + "getFile", description = Measureable.COUNTED_DESCRIPTION)
 	public Uni<Response> getFile(@PathParam(value = "") String fileName) throws NotFoundException {
 		try {
 			final File nf = new File(fileName);

@@ -3,7 +3,6 @@ package local.intranet.quarkus.api.model.entity;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,7 +23,6 @@ import local.intranet.quarkus.api.domain.DefaultFieldLengths;
  *
  */
 @Entity
-@Cacheable
 @Table(name = "platypus_role")
 public class Role {
 

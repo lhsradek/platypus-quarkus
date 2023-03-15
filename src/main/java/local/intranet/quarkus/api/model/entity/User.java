@@ -3,7 +3,6 @@ package local.intranet.quarkus.api.model.entity;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,7 +24,6 @@ import local.intranet.quarkus.api.domain.DefaultFieldLengths;
  *
  */
 @Entity
-@Cacheable
 @Table(name = "platypus_user")
 public class User {
 
@@ -225,9 +223,9 @@ public class User {
 	 */
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", userName=" + userName + ", password=[PROTECTED]" 
-				+ ", accountNonExpired=" + accountNonExpired + ", accountNonLocked=" + accountNonLocked
-				+ ", credentialsNonExpired=" + credentialsNonExpired + ", enabled=" + enabled + ", role=" + role + "]";
+		return "User [id=" + id + ", userName=" + userName + ", password=[PROTECTED]" + ", accountNonExpired="
+				+ accountNonExpired + ", accountNonLocked=" + accountNonLocked + ", credentialsNonExpired="
+				+ credentialsNonExpired + ", enabled=" + enabled + ", role=" + role + "]";
 	}
 
 }

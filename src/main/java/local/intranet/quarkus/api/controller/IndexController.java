@@ -23,7 +23,7 @@ import local.intranet.quarkus.api.info.content.PlatypusCounter;
  * 
  * {@link IndexController}
  * 
- * @author radek.kadner
+ * @author Radek Kádner
  *
  */
 @Path("/")
@@ -33,8 +33,8 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	private static final Logger LOG = LoggerFactory.getLogger(IndexController.class);
 
 	// @Inject
-    // protected Validator validator;
-	
+	// protected Validator validator;
+
 	/**
 	 * 
 	 * HELLO = "Hello from Platypus-Quarkus"
@@ -56,8 +56,8 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	@GET
 	@Path("/hello")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Timed(value = "platypus-quarkus-hello", description = Measureable.TIMED_DESCRIPTION)
-	@Counted(value = "platypus-quarkus-hello", description = Measureable.COUNTED_DESCRIPTION)
+	@Timed(value = Measureable.PREFIX + "hello", description = Measureable.TIMED_DESCRIPTION)
+	@Counted(value = Measureable.PREFIX + "hello", description = Measureable.COUNTED_DESCRIPTION)
 	@Operation(summary = "Hello", description = "This method say: <strong>" + HELLO + "</strong>\n")
 	public Message hello() {
 		incrementCounter();
@@ -74,8 +74,8 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	@GET
 	@Path("/nazdar")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Timed(value = "platypus-quarkus-nazdar", description = Measureable.TIMED_DESCRIPTION)
-	@Counted(value = "platypus-quarkus-nazdar", description = Measureable.COUNTED_DESCRIPTION)
+	@Timed(value = Measureable.PREFIX + "nazdar", description = Measureable.TIMED_DESCRIPTION)
+	@Counted(value = Measureable.PREFIX + "nazdar", description = Measureable.COUNTED_DESCRIPTION)
 	@Operation(summary = "Nazdar", description = "This method say: <strong>" + NAZDAR + "</strong>\n")
 	public Message nazdar() {
 		incrementCounter();
