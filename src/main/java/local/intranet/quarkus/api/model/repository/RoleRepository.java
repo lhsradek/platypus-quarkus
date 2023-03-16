@@ -3,6 +3,7 @@ package local.intranet.quarkus.api.model.repository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import io.smallrye.common.constraint.NotNull;
 import local.intranet.quarkus.api.model.entity.Role;
 
 /**
@@ -27,6 +28,6 @@ public interface RoleRepository extends CrudRepository<Role, Long> {
 	 * @return {@link Role}
 	 */
 	@Query(value = "select u from Role u where u.roleName = ?1")
-	public Role findByName(String roleName);
+	public Role findByName(@NotNull String roleName);
 
 }

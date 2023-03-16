@@ -71,7 +71,7 @@ public class LoggingEvent {
 	 * 
 	 * Get id
 	 * 
-	 * @return Long
+	 * @return {@link Long}
 	 */
 	public Long getId() {
 		return id;

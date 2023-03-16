@@ -27,10 +27,16 @@ import local.intranet.quarkus.api.info.content.PlatypusCounter;
  *
  */
 @Path("/")
-@Tag(name = "index-controller")
+@Tag(name = IndexController.INDEX_CONTROLLER)
 public class IndexController extends PlatypusCounter implements Countable, Invocationable, Statusable {
 
 	private static final Logger LOG = LoggerFactory.getLogger(IndexController.class);
+
+	/**
+	 * 
+	 * INDEX_CONTROLLER = "index-controller"
+	 */
+	protected static final String INDEX_CONTROLLER = "index-controller";
 
 	// @Inject
 	// protected Validator validator;

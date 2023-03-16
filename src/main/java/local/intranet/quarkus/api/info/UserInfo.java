@@ -5,6 +5,7 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import io.smallrye.common.constraint.NotNull;
 import local.intranet.quarkus.api.domain.DefaultFieldLengths;
 import local.intranet.quarkus.api.model.entity.User;
 
@@ -12,7 +13,7 @@ import local.intranet.quarkus.api.model.entity.User;
  * 
  * {@link UserInfo} for {@link local.intranet.quarkus.api.service.UserService}
  * 
- * @author Radek Kádner
+ * @author Radek KádnerS
  *
  */
 @JsonPropertyOrder({ "username", "password", "isAccountNonExpire", "isAccountNonLocked", "isCredentialsNonExpired",
@@ -31,7 +32,7 @@ public class UserInfo {
 	 * 
 	 * @param user {@link User}
 	 */
-	public UserInfo(User user) {
+	public UserInfo(@NotNull User user) {
 		this.username = user.getUserName();
 		this.enabled = true;
 	}
@@ -43,7 +44,7 @@ public class UserInfo {
 	 * @param user {@link User}
 	 * @return {@link UserInfo}
 	 */
-	public static UserInfo build(User user) {
+	public static UserInfo build(@NotNull User user) {
 		return new UserInfo(user);
 	}
 

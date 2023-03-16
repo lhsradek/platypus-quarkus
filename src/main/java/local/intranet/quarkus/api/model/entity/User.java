@@ -10,9 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import io.smallrye.common.constraint.NotNull;
 import local.intranet.quarkus.api.domain.DefaultFieldLengths;
 
 /**
@@ -61,7 +61,7 @@ public class User {
 	 * 
 	 * get id
 	 * 
-	 * @return Long
+	 * @return {@link Long}
 	 */
 	public Long getId() {
 		return id;
@@ -70,8 +70,7 @@ public class User {
 	/**
 	 * 
 	 * Set id
-	 * 
-	 * @param id Long
+	 * @param id {@link Long}
 	 */
 	public void setId(Long id) {
 		this.id = id;
@@ -201,7 +200,7 @@ public class User {
 	 * 
 	 * Get role
 	 * 
-	 * @return Set&lt;{@link Role}&gt;
+	 * @return {@link Set}&lt;{@link Role}&gt;
 	 */
 	public Set<Role> getRole() {
 		return role;

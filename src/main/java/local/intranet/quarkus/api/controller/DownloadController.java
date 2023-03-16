@@ -33,12 +33,20 @@ import local.intranet.quarkus.api.info.content.PlatypusCounter;
  *
  */
 @Path("/downloads")
-@Tag(name = "download-controller")
+@Tag(name = DownloadController.DOWNLOAD_CONTROLLER)
 public class DownloadController extends PlatypusCounter implements Countable, Invocationable, Statusable {
 
 	private static final Logger LOG = LoggerFactory.getLogger(DownloadController.class);
 
+	/**
+	 * 
+	 * DOWNLOAD_CONTROLLER = "download-controller"
+	 */
+	protected static final String DOWNLOAD_CONTROLLER = "download-controller";
+
 	private static final String CONTENT_DISPOSITION = "Content-Disposition";
+
+	private static final String ATTACHMENT_FILENAME = "attachment;filename=";
 
 	/**
 	 * 
@@ -54,13 +62,14 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	@Operation(hidden = true)
 	@Timed(value = Measureable.PREFIX + "getfile", description = Measureable.TIMED_DESCRIPTION)
 	@Counted(value = Measureable.PREFIX + "getFile", description = Measureable.COUNTED_DESCRIPTION)
-	// @Measured(value = Measureable.PREFIX + "getFile", description = Measureable.COUNTED_DESCRIPTION)
-	public Uni<Response> getFile(@PathParam(value = "") String fileName) throws NotFoundException {
+	// @Measured(value = Measureable.PREFIX + "getFile", description =
+	// Measureable.COUNTED_DESCRIPTION)
+	public Uni<Response> getFile(@PathParam(value = "\\w[\\w\\.-]*") String fileName) throws NotFoundException {
 		try {
 			final File nf = new File(fileName);
 			LOG.info("file:'{}'", nf.exists());
 			final ResponseBuilder response = Response.ok((Object) nf);
-			response.header(CONTENT_DISPOSITION, "attachment;filename=" + nf);
+			response.header(CONTENT_DISPOSITION, ATTACHMENT_FILENAME + nf);
 			final Uni<Response> ret = Uni.createFrom().item(response.build());
 			incrementCounter();
 			return ret;

@@ -27,7 +27,7 @@ import local.intranet.quarkus.api.model.repository.RoleRepository;
 public class RoleService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(RoleService.class);
-	
+
 	@Inject
 	protected RoleRepository roleRepository;
 

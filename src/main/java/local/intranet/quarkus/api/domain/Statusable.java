@@ -17,6 +17,6 @@ public interface Statusable {
 	 * 
 	 * @return {@link StatusType}
 	 */
-	StatusType getStatus();
+	public StatusType getStatus();
 
 }

@@ -23,6 +23,6 @@ public interface Countable {
 	 */
 	@Size(min = 0)
 	@JsonProperty("count")
-	Long countValue();
+	public Long countValue();
 
 }

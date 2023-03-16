@@ -8,6 +8,7 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import io.smallrye.common.constraint.NotNull;
 import local.intranet.quarkus.api.domain.Countable;
 import local.intranet.quarkus.api.domain.Invocationable;
 import local.intranet.quarkus.api.domain.Nameable;
@@ -41,7 +42,7 @@ public class CounterInfo implements Invocationable, Nameable, Statusable, Counta
 	 * @param timestmp    {@link Long} in milli
 	 * @param status      {@link String}
 	 */
-	public CounterInfo(Long id, String counterName, Long cnt, Long timestmp, String status) {
+	public CounterInfo(Long id, @NotNull String counterName, Long cnt, Long timestmp, String status) {
 		this.id = id;
 		this.counterName = counterName;
 		this.cnt = cnt;
@@ -50,7 +51,6 @@ public class CounterInfo implements Invocationable, Nameable, Statusable, Counta
 	}
 
 	@Override
-	// @JsonIgnore
 	public String getName() {
 		return counterName;
 	}

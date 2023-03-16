@@ -11,6 +11,7 @@ import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.smallrye.common.constraint.NotNull;
 import local.intranet.quarkus.api.domain.type.StatusType;
 import local.intranet.quarkus.api.info.CounterInfo;
 import local.intranet.quarkus.api.model.entity.Counter;
@@ -41,7 +42,7 @@ public class CounterService {
 	 * @throws IllegalArgumentException {@link IllegalArgumentException}
 	 */
 	@Operation(hidden = true)
-	public CounterInfo getCounterInfo(String counterName) throws IllegalArgumentException {
+	public CounterInfo getCounterInfo(@NotNull String counterName) throws IllegalArgumentException {
 		final CounterInfo ret;
 		try {
 			final ZonedDateTime zonedDateTime = ZonedDateTime

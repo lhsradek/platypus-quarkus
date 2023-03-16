@@ -6,11 +6,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.envers.Audited;
 
+import io.smallrye.common.constraint.NotNull;
 import local.intranet.quarkus.api.domain.DefaultFieldLengths;
 
 /**
@@ -37,10 +37,12 @@ public class Counter {
 	private String counterName;
 
 	@Min(0)
+	@NotNull
 	@Column(name = "cnt")
 	private Long cnt;
 
 	@Min(0)
+	@NotNull
 	@Column(name = "timestmp")
 	private Long timestmp;
 
@@ -53,7 +55,7 @@ public class Counter {
 	 * 
 	 * Get id
 	 * 
-	 * @return Long
+	 * @return {@link Long}
 	 */
 	public Long getId() {
 		return id;
@@ -63,7 +65,7 @@ public class Counter {
 	 * 
 	 * Set id
 	 * 
-	 * @param id Long
+	 * @param id {@link Long}
 	 */
 	public void setId(Long id) {
 		this.id = id;
@@ -93,7 +95,7 @@ public class Counter {
 	 * 
 	 * Get count
 	 * 
-	 * @return Long
+	 * @return {@link Long}
 	 */
 	public Long getCnt() {
 		return cnt;

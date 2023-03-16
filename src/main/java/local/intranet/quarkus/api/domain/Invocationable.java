@@ -16,6 +16,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public interface Invocationable {
 
 	/**
+	 * 
+	 * JSON_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss-Z"
+	 */
+	public static final String JSON_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss-Z";
+
+	/**
 	 *
 	 * Time of last invocation
 	 * 
@@ -25,7 +31,7 @@ public interface Invocationable {
 	 */
 	@JsonProperty("date")
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss-Z", timezone = JsonFormat.DEFAULT_TIMEZONE)
-	ZonedDateTime lastInvocation();
+	@JsonFormat(pattern = JSON_DATE_FORMAT, timezone = JsonFormat.DEFAULT_TIMEZONE)
+	public ZonedDateTime lastInvocation();
 
 }

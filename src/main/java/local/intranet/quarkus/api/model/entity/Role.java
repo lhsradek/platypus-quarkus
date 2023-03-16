@@ -12,6 +12,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+import io.smallrye.common.constraint.NotNull;
 import local.intranet.quarkus.api.domain.DefaultFieldLengths;
 
 /**
@@ -30,6 +31,7 @@ public class Role {
 	@Column(name = "id")
 	private Long id;
 
+	@NotNull
 	@Column(name = "role_name", nullable = false)
 	@Size(max = DefaultFieldLengths.DEFAULT_NAME)
 	private String roleName;

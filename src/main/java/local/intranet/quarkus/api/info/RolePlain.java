@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import io.smallrye.common.constraint.NotNull;
 import local.intranet.quarkus.api.domain.DefaultFieldLengths;
 import local.intranet.quarkus.api.domain.Nameable;
 
@@ -40,7 +41,7 @@ public class RolePlain implements Nameable {
 	 * @param enabled  {@link Boolean}
 	 * @param users    {@link List}&lt;{@link String}&gt;
 	 */
-	public RolePlain(Long id, String roleName, Boolean enabled, List<String> users) {
+	public RolePlain(@NotNull Long id, @NotNull String roleName, Boolean enabled, List<String> users) {
 		this.id = id;
 		this.roleName = roleName;
 		this.users = users;

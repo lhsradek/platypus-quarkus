@@ -3,6 +3,7 @@ package local.intranet.quarkus.api.model.repository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import io.smallrye.common.constraint.NotNull;
 import local.intranet.quarkus.api.model.entity.User;
 
 /**
@@ -23,6 +24,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
 	 * @return {@link User}
 	 */
 	@Query(value = "select u from User u where u.userName = ?1")
-	public User findByName(String userName);
+	public User findByName(@NotNull String userName);
 
 }

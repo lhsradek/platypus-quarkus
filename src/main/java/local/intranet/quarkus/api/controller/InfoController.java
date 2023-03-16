@@ -37,10 +37,16 @@ import local.intranet.quarkus.api.service.UserService;
  *
  */
 @Path("/app/v1/info")
-@Tag(name = "info-controller")
+@Tag(name = InfoController.INFO_CONTROLLER)
 public class InfoController extends PlatypusCounter implements Countable, Invocationable, Statusable {
 
 	private static final Logger LOG = LoggerFactory.getLogger(InfoController.class);
+
+	/**
+	 * 
+	 * String INFO_CONTROLLER = "info-controller"
+	 */
+	protected static final String INFO_CONTROLLER = "info-controller";
 
 	@Inject
 	protected LoggingEventService loggingEventService;

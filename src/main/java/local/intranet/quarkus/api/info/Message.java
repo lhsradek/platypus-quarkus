@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import io.smallrye.common.constraint.NotNull;
 import local.intranet.quarkus.api.domain.Invocationable;
 import local.intranet.quarkus.api.domain.Nameable;
 
@@ -29,7 +30,7 @@ public class Message implements Invocationable, Nameable {
 	 * 
 	 * @param content {@link String}
 	 */
-	public Message(String content) {
+	public Message(@NotNull String content) {
 		this.content = content;
 	}
 

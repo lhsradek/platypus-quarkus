@@ -4,6 +4,7 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import io.smallrye.common.constraint.NotNull;
 import local.intranet.quarkus.api.domain.DefaultFieldLengths;
 
 /**
@@ -18,10 +19,8 @@ import local.intranet.quarkus.api.domain.DefaultFieldLengths;
 @JsonPropertyOrder({ "level", "total" })
 public class LevelCount {
 
-	@Size(min = 0, max = DefaultFieldLengths.DEFAULT_STATUS)
 	private final String level;
 
-	@Size(min = 0)
 	private final Long total;
 
 	/**
@@ -31,7 +30,7 @@ public class LevelCount {
 	 * @param level {@link String}
 	 * @param total {@link Long}
 	 */
-	public LevelCount(String level, Long total) {
+	public LevelCount(@NotNull String level, @NotNull Long total) {
 		super();
 		this.level = level;
 		this.total = total;
@@ -44,6 +43,7 @@ public class LevelCount {
 	 * @return the level
 	 */
 	@Size(min = 1, max = DefaultFieldLengths.DEFAULT_STATUS)
+	@NotNull 
 	public String getLevel() {
 		return level;
 	}
@@ -55,6 +55,8 @@ public class LevelCount {
 	 * @return the total
 	 */
 	@Size(min = 0)
+	@NotNull 
+	@Size(min = 0, max = DefaultFieldLengths.DEFAULT_STATUS)
 	public Long getTotal() {
 		return total;
 	}
