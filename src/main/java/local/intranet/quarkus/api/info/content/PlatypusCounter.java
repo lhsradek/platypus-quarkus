@@ -64,7 +64,7 @@ public abstract class PlatypusCounter implements Countable, Invocationable, Stat
 		} else {
 			ret = counter.getCnt();
 		}
-		LOG.trace("count:{}", ret);
+		LOG.trace("name:{} count:{}", counterName, ret);
 		return ret;
 	}
 
@@ -96,7 +96,7 @@ public abstract class PlatypusCounter implements Countable, Invocationable, Stat
 			counter = counterRepository.save(counter);
 			ret = counter.getCnt();
 		}
-		LOG.debug("count:{}", ret);
+		LOG.debug("name:{} count:{}", counterName, ret);
 		return ret;
 	}
 
@@ -110,7 +110,7 @@ public abstract class PlatypusCounter implements Countable, Invocationable, Stat
 		} else {
 			ret = StatusType.valueOf(counter.getStatus());
 		}
-		LOG.trace("status:{}", ret);
+		LOG.trace("name:{} status:{}", counterName, ret);
 		return ret;
 	}
 
@@ -124,7 +124,7 @@ public abstract class PlatypusCounter implements Countable, Invocationable, Stat
 		} else {
 			ret = ZonedDateTime.ofInstant(Instant.ofEpochSecond(counter.getTimestmp()), ZoneId.systemDefault());
 		}
-		LOG.trace("date:{}", ret);
+		LOG.trace("name:{} date:{}", counterName, ret);
 		return ret;
 	}
 
@@ -149,7 +149,7 @@ public abstract class PlatypusCounter implements Countable, Invocationable, Stat
 		final String counterName = getClass().getSimpleName().replace(SUBCLASS, "");
 		final CounterInfo ret = counterService.getCounterInfo(counterName);
 		// incrementCounter();
-		LOG.debug("name:{} cnt:{}, date:{}: status:{}", ret.getName(), ret.countValue(), ret.lastInvocation(), ret.getStatus());
+		LOG.debug("name:{} cnt:{}, date:{}: status:{}", counterName, ret.countValue(), ret.lastInvocation(), ret.getStatus());
 		return ret;
 	}
 
