@@ -1,5 +1,6 @@
 package local.intranet.quarkus.api.controller;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -27,16 +28,17 @@ import local.intranet.quarkus.api.info.content.PlatypusCounter;
  *
  */
 @Path("/")
-@Tag(name = IndexController.INDEX_CONTROLLER)
+@ApplicationScoped
+@Tag(name = IndexController.TAG)
 public class IndexController extends PlatypusCounter implements Countable, Invocationable, Statusable {
 
 	private static final Logger LOG = LoggerFactory.getLogger(IndexController.class);
 
 	/**
 	 * 
-	 * INDEX_CONTROLLER = "index-controller"
+	 * TAG = "index-controller"
 	 */
-	protected static final String INDEX_CONTROLLER = "index-controller";
+	protected static final String TAG = "index-controller";
 
 	// @Inject
 	// protected Validator validator;
@@ -57,6 +59,9 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	 * 
 	 * Say: Hello ...
 	 * 
+	 * @see <a href="/q/swagger-ui/#/index-controller/hello" target=
+	 *      "_blank">/q/swagger-ui/#/index-controller/hello</a>
+	 * 
 	 * @return {@link Message}
 	 */
 	@GET
@@ -64,7 +69,10 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	@Produces(MediaType.APPLICATION_JSON)
 	@Timed(value = Measureable.PREFIX + "hello", description = Measureable.TIMED_DESCRIPTION)
 	@Counted(value = Measureable.PREFIX + "hello", description = Measureable.COUNTED_DESCRIPTION)
-	@Operation(summary = "Hello", description = "This method say: <strong>" + HELLO + "</strong>\n")
+	@Operation(operationId = "hello", summary = "Hello", description = "This method say: <strong>" + HELLO
+			+ "</strong><br/><br/>"
+			+ "See <a href=\"/javadoc/local/intranet/quarkus/api/controller/IndexController.html#hello()\" "
+			+ "target=\"_blank\">IndexController.hello</a>")
 	public Message hello() {
 		incrementCounter();
 		LOG.debug("{}", HELLO);
@@ -75,6 +83,9 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	 * 
 	 * Say: Nazdar ...
 	 * 
+	 * @see <a href="/q/swagger-ui/#/index-controller/nazdar" target=
+	 *      "_blank">/q/swagger-ui/#/index-controller/nazdar</a>
+	 * 
 	 * @return {@link Message}
 	 */
 	@GET
@@ -82,7 +93,10 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	@Produces(MediaType.APPLICATION_JSON)
 	@Timed(value = Measureable.PREFIX + "nazdar", description = Measureable.TIMED_DESCRIPTION)
 	@Counted(value = Measureable.PREFIX + "nazdar", description = Measureable.COUNTED_DESCRIPTION)
-	@Operation(summary = "Nazdar", description = "This method say: <strong>" + NAZDAR + "</strong>\n")
+	@Operation(operationId = "nazdar", summary = "Nazdar", description = "This method say: <strong>" + NAZDAR
+			+ "</strong><br/><br/>"
+			+ "See <a href=\"/javadoc/local/intranet/quarkus/api/controller/IndexController.html#nazdar()\" "
+			+ "target=\"_blank\">IndexController.nazdar</a>")
 	public Message nazdar() {
 		incrementCounter();
 		LOG.debug("{}", NAZDAR);

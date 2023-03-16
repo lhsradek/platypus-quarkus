@@ -32,7 +32,7 @@ public class UserService {
 
 	/**
 	 * 
-	 * For {@link local.intranet.quarkus.api.controller.InfoController#getUserInfo}
+	 * For {@link local.intranet.quarkus.api.controller.InfoController#userInfo}
 	 * 
 	 * @param username {@link String}
 	 * @return {@link UserInfo}

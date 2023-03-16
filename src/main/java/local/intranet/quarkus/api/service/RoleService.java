@@ -18,7 +18,7 @@ import local.intranet.quarkus.api.model.repository.RoleRepository;
 /**
  * 
  * {@link RoleService} for
- * {@link local.intranet.quarkus.api.controller.InfoController#getRoleInfo}
+ * {@link local.intranet.quarkus.api.controller.InfoController#roleInfo}
  * 
  * @author Radek Kádner
  *

@@ -20,7 +20,7 @@ import local.intranet.quarkus.api.model.repository.CounterRepository;
 /**
  * 
  * {@link CounterService} for
- * {@link local.intranet.quarkus.api.controller.InfoController#getRoleInfo}
+ * {@link local.intranet.quarkus.api.info.content.PlatypusCounter#counterInfo}
  * 
  * @author Radek Kádner
  *
@@ -52,7 +52,7 @@ public class CounterService {
 			if (counter == null) {
 				counter = new Counter();
 				counter.setCounterName(counterName);
-				counter.setCnt(1L);
+				counter.setCnt(0L);
 				counter.setTimestmp(timestmp);
 				counter.setStatus(StatusType.UP.getStatus());
 				counter = counterRepository.save(counter);

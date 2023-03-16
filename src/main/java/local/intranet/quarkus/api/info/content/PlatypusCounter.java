@@ -144,12 +144,15 @@ public abstract class PlatypusCounter implements Countable, Invocationable, Stat
 	@Timed(value = Measureable.PREFIX + "counterInfo", description = Measureable.TIMED_DESCRIPTION)
 	@Counted(value = Measureable.PREFIX + "counterInfo", description = Measureable.COUNTED_DESCRIPTION)
 	@Operation(summary = "Get Counter Info", description = "<strong>Get Counter Info</strong><br/><br/>"
-			+ "This method is calling CounterService.getCounterInfo")
+			+ "This method is calling CounterService.getCounterInfo<br/><br/>"
+			+ "See <a href=\"/javadoc/local/intranet/quarkus/api/info/content/PlatypusCounter.html#counterInfo()\" "
+			+ "target=\"_blank\">PlatypusCounter.counterInfo</a>")
 	public CounterInfo counterInfo() throws IllegalArgumentException {
 		final String counterName = getClass().getSimpleName().replace(SUBCLASS, "");
 		final CounterInfo ret = counterService.getCounterInfo(counterName);
 		// incrementCounter();
-		LOG.debug("name:{} cnt:{}, date:{}: status:{}", counterName, ret.countValue(), ret.lastInvocation(), ret.getStatus());
+		LOG.debug("name:{} cnt:{}, date:{}: status:{}", counterName, ret.countValue(), ret.lastInvocation(),
+				ret.getStatus());
 		return ret;
 	}
 

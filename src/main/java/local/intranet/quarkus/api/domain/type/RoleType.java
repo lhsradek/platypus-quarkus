@@ -1,8 +1,10 @@
 package local.intranet.quarkus.api.domain.type;
 
+import javax.annotation.security.RolesAllowed;
+
 /**
  * 
- * {@link RoleType}
+ * {@link RoleType} for {@link RolesAllowed}
  * <p>
  * ANONYMOUS_ROLE, USER_ROLE, MANAGER_ROLE, ADMIN_ROLE
  * 

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import io.smallrye.common.constraint.NotNull;
+import local.intranet.quarkus.api.controller.StatusController;
 import local.intranet.quarkus.api.domain.DefaultFieldLengths;
 import local.intranet.quarkus.api.model.entity.User;
 
@@ -21,8 +22,6 @@ import local.intranet.quarkus.api.model.entity.User;
 public class UserInfo {
 
 	private final String username;
-
-	private final String password = "[PROTECTED]";
 
 	private final boolean enabled;
 
@@ -68,7 +67,7 @@ public class UserInfo {
 	@JsonIgnore
 	@Size(min = 1, max = DefaultFieldLengths.DEFAULT_NAME)
 	public String getPassword() {
-		return password;
+		return StatusController.STATUS_PROTECTED;
 	}
 
 	/**
@@ -125,7 +124,7 @@ public class UserInfo {
 	 */
 	@Override
 	public String toString() {
-		return "UserInfo [username=" + username + ", password=[PROTECTED], enabled=" + enabled + "]";
+		return "UserInfo [username=" + username + ", password=" + getPassword() + ", enabled=" + enabled + "]";
 	}
 
 }

@@ -2,6 +2,7 @@ package local.intranet.quarkus.api.controller;
 
 import java.io.File;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Path;
@@ -32,17 +33,18 @@ import local.intranet.quarkus.api.info.content.PlatypusCounter;
  * @author Radek Kádner
  *
  */
+@ApplicationScoped
 @Path("/downloads")
-@Tag(name = DownloadController.DOWNLOAD_CONTROLLER)
+@Tag(name = DownloadController.TAG)
 public class DownloadController extends PlatypusCounter implements Countable, Invocationable, Statusable {
 
 	private static final Logger LOG = LoggerFactory.getLogger(DownloadController.class);
 
 	/**
 	 * 
-	 * DOWNLOAD_CONTROLLER = "download-controller"
+	 * TAG = "download-controller"
 	 */
-	protected static final String DOWNLOAD_CONTROLLER = "download-controller";
+	protected static final String TAG = "download-controller";
 
 	private static final String CONTENT_DISPOSITION = "Content-Disposition";
 
