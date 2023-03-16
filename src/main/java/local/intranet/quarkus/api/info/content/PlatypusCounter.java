@@ -6,17 +6,27 @@ import java.time.ZonedDateTime;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
+import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.micrometer.core.annotation.Counted;
+import io.micrometer.core.annotation.Timed;
 import local.intranet.quarkus.api.controller.IndexController;
 import local.intranet.quarkus.api.domain.Countable;
 import local.intranet.quarkus.api.domain.Invocationable;
+import local.intranet.quarkus.api.domain.Measureable;
 import local.intranet.quarkus.api.domain.Statusable;
 import local.intranet.quarkus.api.domain.type.StatusType;
+import local.intranet.quarkus.api.info.CounterInfo;
 import local.intranet.quarkus.api.model.entity.Counter;
 import local.intranet.quarkus.api.model.repository.CounterRepository;
+import local.intranet.quarkus.api.service.CounterService;
 
 /**
  * 
@@ -37,6 +47,9 @@ public abstract class PlatypusCounter implements Countable, Invocationable, Stat
 
 	@Inject
 	protected CounterRepository counterRepository;
+
+	@Inject
+	protected CounterService counterService;
 
 	@Inject
 	protected Provider provider;
@@ -83,7 +96,7 @@ public abstract class PlatypusCounter implements Countable, Invocationable, Stat
 			counter = counterRepository.save(counter);
 			ret = counter.getCnt();
 		}
-		LOG.trace("count:{}", ret);
+		LOG.debug("count:{}", ret);
 		return ret;
 	}
 
@@ -112,6 +125,31 @@ public abstract class PlatypusCounter implements Countable, Invocationable, Stat
 			ret = ZonedDateTime.ofInstant(Instant.ofEpochSecond(counter.getTimestmp()), ZoneId.systemDefault());
 		}
 		LOG.trace("date:{}", ret);
+		return ret;
+	}
+
+	/**
+	 * 
+	 * Counter informations
+	 * <p>
+	 * Used
+	 * {@link local.intranet.quarkus.api.service.CounterService#getCounterInfo}.
+	 * 
+	 * @return {@link CounterInfo}
+	 * @throws IllegalArgumentException {@link IllegalArgumentException}
+	 */
+	@GET
+	@Path("counter")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Timed(value = Measureable.PREFIX + "counterInfo", description = Measureable.TIMED_DESCRIPTION)
+	@Counted(value = Measureable.PREFIX + "counterInfo", description = Measureable.COUNTED_DESCRIPTION)
+	@Operation(summary = "Get Counter Info", description = "<strong>Get Counter Info</strong><br/><br/>"
+			+ "This method is calling CounterService.getCounterInfo")
+	public CounterInfo counterInfo() throws IllegalArgumentException {
+		final String counterName = getClass().getSimpleName().replace(SUBCLASS, "");
+		final CounterInfo ret = counterService.getCounterInfo(counterName);
+		// incrementCounter();
+		LOG.debug("name:{} cnt:{}, date:{}: status:{}", ret.getName(), ret.countValue(), ret.lastInvocation(), ret.getStatus());
 		return ret;
 	}
 

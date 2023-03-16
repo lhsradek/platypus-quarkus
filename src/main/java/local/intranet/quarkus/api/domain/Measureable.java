@@ -19,7 +19,7 @@ public interface Measureable {
 
 	/**
 	 * 
-	 * PREFIX = "http-platypus-quarkus-"
+	 * PREFIX = "platypus-quarkus-"
 	 */
 	public static final String PREFIX = "platypus-quarkus-";
 

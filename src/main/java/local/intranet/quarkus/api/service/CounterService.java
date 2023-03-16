@@ -11,10 +11,8 @@ import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import local.intranet.quarkus.api.controller.InfoController;
 import local.intranet.quarkus.api.domain.type.StatusType;
 import local.intranet.quarkus.api.info.CounterInfo;
-import local.intranet.quarkus.api.info.content.PlatypusCounter;
 import local.intranet.quarkus.api.model.entity.Counter;
 import local.intranet.quarkus.api.model.repository.CounterRepository;
 
@@ -38,14 +36,14 @@ public class CounterService {
 	 * 
 	 * Get CounterInfo
 	 * 
+	 * @param counterName {@link String}
 	 * @return {@link CounterInfo}
 	 * @throws IllegalArgumentException {@link IllegalArgumentException}
 	 */
 	@Operation(hidden = true)
-	public CounterInfo getCounterInfo() throws IllegalArgumentException {
+	public CounterInfo getCounterInfo(String counterName) throws IllegalArgumentException {
 		final CounterInfo ret;
 		try {
-			final String counterName = InfoController.class.getSimpleName().replace(PlatypusCounter.SUBCLASS, "");
 			final ZonedDateTime zonedDateTime = ZonedDateTime
 					.ofInstant(Instant.ofEpochSecond(System.currentTimeMillis()), ZoneId.systemDefault());
 			final Long timestmp = zonedDateTime.toInstant().toEpochMilli();

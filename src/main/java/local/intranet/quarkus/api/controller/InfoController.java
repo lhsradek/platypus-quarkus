@@ -19,12 +19,10 @@ import local.intranet.quarkus.api.domain.Countable;
 import local.intranet.quarkus.api.domain.Invocationable;
 import local.intranet.quarkus.api.domain.Measureable;
 import local.intranet.quarkus.api.domain.Statusable;
-import local.intranet.quarkus.api.info.CounterInfo;
 import local.intranet.quarkus.api.info.LevelCount;
 import local.intranet.quarkus.api.info.RoleInfo;
 import local.intranet.quarkus.api.info.UserInfo;
 import local.intranet.quarkus.api.info.content.PlatypusCounter;
-import local.intranet.quarkus.api.service.CounterService;
 import local.intranet.quarkus.api.service.LoggingEventService;
 import local.intranet.quarkus.api.service.RoleService;
 import local.intranet.quarkus.api.service.UserService;
@@ -45,9 +43,6 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	private static final Logger LOG = LoggerFactory.getLogger(InfoController.class);
 
 	@Inject
-	protected CounterService counterService;
-
-	@Inject
 	protected LoggingEventService loggingEventService;
 
 	@Inject
@@ -55,30 +50,6 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 
 	@Inject
 	protected UserService userService;
-
-	/**
-	 * 
-	 * Counter informations
-	 * <p>
-	 * Used
-	 * {@link local.intranet.quarkus.api.service.CounterService#getCounterInfo}.
-	 * 
-	 * @return {@link CounterInfo}
-	 * @throws IllegalArgumentException {@link IllegalArgumentException}
-	 */
-	@GET
-	@Path("counter")
-	@Produces(MediaType.APPLICATION_JSON)
-	@Timed(value = Measureable.PREFIX + "counterInfo", description = Measureable.TIMED_DESCRIPTION)
-	@Counted(value = Measureable.PREFIX + "counterInfo", description = Measureable.COUNTED_DESCRIPTION)
-	@Operation(summary = "Get Counter Info", description = "<strong>Get Counter Info</strong><br/><br/>"
-			+ "This method is calling CounterService.getCounterInfo")
-	public CounterInfo counterInfo() throws IllegalArgumentException {
-		final CounterInfo ret = counterService.getCounterInfo();
-		incrementCounter();
-		LOG.debug("name:{} cnt:{}, date:{}: status:{}", ret.getName(), ret.countValue(), ret.lastInvocation(), ret.getStatus());
-		return ret;
-	}
 
 	/**
 	 * 

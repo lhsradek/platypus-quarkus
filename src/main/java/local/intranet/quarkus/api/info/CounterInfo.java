@@ -6,7 +6,6 @@ import java.time.ZonedDateTime;
 
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import local.intranet.quarkus.api.domain.Countable;
@@ -23,7 +22,7 @@ import local.intranet.quarkus.api.domain.type.StatusType;
  * @author Radek Kádner
  *
  */
-@JsonPropertyOrder({ "id", "count", "date", "status" })
+@JsonPropertyOrder({ "id", "name", "count", "date", "status" })
 public class CounterInfo implements Invocationable, Nameable, Statusable, Countable {
 
 	private final Long id;
@@ -51,7 +50,7 @@ public class CounterInfo implements Invocationable, Nameable, Statusable, Counta
 	}
 
 	@Override
-	@JsonIgnore
+	// @JsonIgnore
 	public String getName() {
 		return counterName;
 	}
