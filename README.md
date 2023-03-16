@@ -1,4 +1,4 @@
-# code-with-quarkus
+# platypus-quarkus
 
 <p>
 <img src="https://github.com/lhsradek/platypus-quarkus/blob/main/png/Platypus_is_surprised_by_the_speed_of_quarkus_and_GraalVM_and_jumps_for_joy.png" width="400px" height="400px"/>
@@ -10,6 +10,10 @@
 * Prometheus Metrics
 * Spring DATA JPA with CrudRepository and JpaRepository
 * Logging DB Logback
+
+-----
+
+# code-with-quarkus
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
@@ -65,3 +69,5 @@ If you want to learn more about building native executables, please consult http
 - Reactive PostgreSQL client ([guide](https://quarkus.io/guides/reactive-sql-clients)): Connect to the PostgreSQL database using the reactive pattern
 - Micrometer metrics ([guide](https://quarkus.io/guides/micrometer)): Instrument the runtime and your application with dimensional metrics using Micrometer.
 - Reactive Routes ([guide](https://quarkus.io/guides/reactive-routes)): REST framework offering the route model to define non blocking endpoints
+- Flyway ([guide](https://quarkus.io/guides/flyway)): Database migration tool that is commonly used in JVM environments.
+- Spring Data API ([guide](https://quarkus.io/guides/spring-data-jpa)): Compatibility layer for Spring Data JPA repositories with Hibernate ORM with Panache

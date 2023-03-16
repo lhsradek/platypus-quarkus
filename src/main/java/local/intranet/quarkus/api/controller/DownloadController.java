@@ -38,6 +38,8 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 
 	private static final Logger LOG = LoggerFactory.getLogger(DownloadController.class);
 
+	private static final String CONTENT_DISPOSITION = "Content-Disposition";
+
 	/**
 	 * 
 	 * Download file from quarkus
@@ -58,7 +60,7 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 			final File nf = new File(fileName);
 			LOG.info("file:'{}'", nf.exists());
 			final ResponseBuilder response = Response.ok((Object) nf);
-			response.header("Content-Disposition", "attachment;filename=" + nf);
+			response.header(CONTENT_DISPOSITION, "attachment;filename=" + nf);
 			final Uni<Response> ret = Uni.createFrom().item(response.build());
 			incrementCounter();
 			return ret;
