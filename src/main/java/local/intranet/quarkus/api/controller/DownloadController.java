@@ -33,8 +33,8 @@ import local.intranet.quarkus.api.info.content.PlatypusCounter;
  * @author Radek Kádner
  *
  */
-@ApplicationScoped
 @Path("/downloads")
+@ApplicationScoped
 @Tag(name = DownloadController.TAG)
 public class DownloadController extends PlatypusCounter implements Countable, Invocationable, Statusable {
 
@@ -69,7 +69,7 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	public Uni<Response> getFile(@PathParam(value = "\\w[\\w\\.-]*") String fileName) throws NotFoundException {
 		try {
 			final File nf = new File(fileName);
-			LOG.info("file:'{}'", nf.exists());
+			LOG.info("GetFile file:'{}'", nf.exists());
 			final ResponseBuilder response = Response.ok((Object) nf);
 			response.header(CONTENT_DISPOSITION, ATTACHMENT_FILENAME + nf);
 			final Uni<Response> ret = Uni.createFrom().item(response.build());

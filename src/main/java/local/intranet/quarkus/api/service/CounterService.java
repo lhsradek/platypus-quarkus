@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import io.smallrye.common.constraint.NotNull;
 import local.intranet.quarkus.api.domain.type.StatusType;
+import local.intranet.quarkus.api.exception.PlatypusQuarkusException;
 import local.intranet.quarkus.api.info.CounterInfo;
 import local.intranet.quarkus.api.model.entity.Counter;
 import local.intranet.quarkus.api.model.repository.CounterRepository;
@@ -39,14 +40,14 @@ public class CounterService {
 	 * 
 	 * @param counterName {@link String}
 	 * @return {@link CounterInfo}
-	 * @throws IllegalArgumentException {@link IllegalArgumentException}
+	 * @throws PlatypusQuarkusException {@link PlatypusQuarkusException}
 	 */
 	@Operation(hidden = true)
-	public CounterInfo getCounterInfo(@NotNull String counterName) throws IllegalArgumentException {
+	public CounterInfo getCounterInfo(@NotNull String counterName) throws PlatypusQuarkusException {
 		final CounterInfo ret;
 		try {
 			final ZonedDateTime zonedDateTime = ZonedDateTime
-					.ofInstant(Instant.ofEpochSecond(System.currentTimeMillis()), ZoneId.systemDefault());
+					.ofInstant(Instant.ofEpochMilli(System.currentTimeMillis()), ZoneId.systemDefault());
 			final Long timestmp = zonedDateTime.toInstant().toEpochMilli();
 			Counter counter = counterRepository.findByName(counterName);
 			if (counter == null) {
@@ -61,11 +62,11 @@ public class CounterService {
 			} else {
 				ret = new CounterInfo(counter.getId(), counterName, counter.getCnt(), counter.getTimestmp(),
 						counter.getStatus());
-				LOG.trace("name:{} cnt:{}", counter.getCounterName(), counter.getCnt());
+				LOG.trace("GetCounterInfo name:{} cnt:{}", counter.getCounterName(), counter.getCnt());
 			}
 		} catch (Exception e) {
 			LOG.error(e.getMessage(), e);
-			throw new IllegalArgumentException(e.getMessage());
+			throw new PlatypusQuarkusException(e.getMessage());
 		}
 		return ret;
 	}

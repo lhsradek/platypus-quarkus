@@ -17,6 +17,12 @@ public interface Invocationable {
 
 	/**
 	 * 
+	 * DATE_FORMAT = "yyyy-MM-dd HH:mm:ss"
+	 */
+	public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+	
+	/**
+	 * 
 	 * JSON_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss-Z"
 	 */
 	public static final String JSON_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss-Z";

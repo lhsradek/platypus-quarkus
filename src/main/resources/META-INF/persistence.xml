@@ -12,8 +12,7 @@
 		<class>local.intranet.quarkus.api.model.entity.Role</class>
 		<class>local.intranet.quarkus.api.model.entity.User</class>
 		<properties>
-			<property name="hibernate.dialect"
-				value="org.hibernate.dialect.PostgreSQL95Dialect" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL95Dialect" />
 			<property name="hibernate.show_sql" value="false" />
 			<property name="hibernate.format_sql" value="false" />
 		</properties>
