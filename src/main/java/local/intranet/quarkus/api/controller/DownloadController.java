@@ -69,7 +69,7 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	public Uni<Response> getFile(@PathParam(value = "\\w[\\w\\.-]*") String fileName) throws NotFoundException {
 		try {
 			final File nf = new File(fileName);
-			LOG.info("GetFile file:'{}'", nf.exists());
+			LOG.info("file:'{}'", nf.exists());
 			final ResponseBuilder response = Response.ok((Object) nf);
 			response.header(CONTENT_DISPOSITION, ATTACHMENT_FILENAME + nf);
 			final Uni<Response> ret = Uni.createFrom().item(response.build());

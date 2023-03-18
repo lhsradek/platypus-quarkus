@@ -62,7 +62,7 @@ public class CounterService {
 			} else {
 				ret = new CounterInfo(counter.getId(), counterName, counter.getCnt(), counter.getTimestmp(),
 						counter.getStatus());
-				LOG.trace("GetCounterInfo name:{} cnt:{}", counter.getCounterName(), counter.getCnt());
+				LOG.trace("name:{} cnt:{}", counter.getCounterName(), counter.getCnt());
 			}
 		} catch (Exception e) {
 			LOG.error(e.getMessage(), e);

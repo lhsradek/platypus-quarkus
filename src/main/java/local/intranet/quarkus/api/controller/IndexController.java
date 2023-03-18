@@ -75,7 +75,7 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 			+ "target=\"_blank\">IndexController.hello</a>")
 	public Message hello() {
 		incrementCounter();
-		LOG.debug("Hello {}", HELLO);
+		LOG.debug("{}", HELLO);
 		return new Message(HELLO);
 	}
 
@@ -99,7 +99,7 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 			+ "target=\"_blank\">IndexController.nazdar</a>")
 	public Message nazdar() {
 		incrementCounter();
-		LOG.debug("Nazdar {}", NAZDAR);
+		LOG.debug("{}", NAZDAR);
 		return new Message(NAZDAR);
 	}
 

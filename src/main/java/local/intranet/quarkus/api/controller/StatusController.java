@@ -113,7 +113,7 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 			}
 		}
 		incrementCounter();
-		LOG.trace("PlatypusEnvironment {}", ret);
+		LOG.trace("{}", ret);
 		return ret;
 	}
 
@@ -143,7 +143,7 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 		ret.add(Map.entry("processors", system.getAvailableProcessors()));
 		ret.add(Map.entry("version", system.getVersion()));
 		incrementCounter();
-		LOG.trace("GetOperatingSystem {}", ret);
+		LOG.trace("{}", ret);
 		return ret;
 	}
 
@@ -156,7 +156,7 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	public String timeZone() {
 		final String ret = ZoneId.systemDefault().getId();
 		incrementCounter();
-		LOG.trace("TimeZone {}", ret);
+		LOG.trace("{}", ret);
 		return ret;
 	}
 

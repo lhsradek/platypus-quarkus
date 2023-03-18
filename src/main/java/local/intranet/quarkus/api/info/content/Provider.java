@@ -69,7 +69,7 @@ public class Provider {
 		AuditReader ret = AuditReaderFactory.get(entityManager);
 		if (!((AuditReaderImpl) ret).getSession().isOpen()) {
 			ret = AuditReaderFactory.get(entityManagerFactory.createEntityManager());
-			LOG.warn("AuditReader create EntityManager!");
+			LOG.warn("create EntityManager!");
 		}
 		return ret;
 	}

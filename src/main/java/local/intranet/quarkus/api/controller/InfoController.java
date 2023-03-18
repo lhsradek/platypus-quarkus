@@ -84,7 +84,7 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	public List<LevelCount> loggingEventInfo() {
 		final List<LevelCount> ret = loggingEventService.countTotalLoggingEvents();
 		incrementCounter();
-		LOG.debug("LoggingEventInfo serviceName:{} size:{}", LoggingEventService.class.getSimpleName(), ret.size());
+		LOG.debug("serviceName:{} size:{}", LoggingEventService.class.getSimpleName(), ret.size());
 		return ret;
 	}
 
@@ -111,7 +111,7 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	public RoleInfo roleInfo() {
 		final RoleInfo ret = roleService.getRoleInfo();
 		incrementCounter();
-		LOG.debug("RoleInfo roleName:{} size:{}", ret.getName(), ret.getRoles().size());
+		LOG.debug("roleName:{} size:{}", ret.getName(), ret.getRoles().size());
 		return ret;
 	}
 
@@ -138,7 +138,7 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	public UserInfo userInfo() {
 		final UserInfo ret = userService.getUserInfo("admin");
 		incrementCounter();
-		LOG.debug("UserInfo userName:{} nonExpired:{} nonLocked:{} enabled:{} ", ret.getUsername(), ret.isAccountNonExpired(),
+		LOG.debug("userName:{} nonExpired:{} nonLocked:{} enabled:{} ", ret.getUsername(), ret.isAccountNonExpired(),
 				ret.isAccountNonLocked(), ret.isEnabled());
 		return ret;
 	}

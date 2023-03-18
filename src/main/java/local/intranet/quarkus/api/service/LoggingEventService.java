@@ -54,7 +54,7 @@ public class LoggingEventService {
 		for (Object[] o : loggingEventRepository.countTotalLoggingEvents()) {
 			ret.add(new LevelCount((String) o[0], (Long) o[1]));
 		}
-		LOG.trace("CountTotalLoggingEvents {}", ret);
+		LOG.trace("{}", ret);
 		return ret;
 	}
 
@@ -79,7 +79,7 @@ public class LoggingEventService {
 				list.add(makeLoggingEventInfo(l));
 			}
 			Page<LoggingEventInfo> ret = new PageImpl<>(list, pageable, pa.getTotalElements());
-			LOG.trace("FindPageByLevelString {}", ret);
+			LOG.trace("{}", ret);
 			return ret;
 		} catch (Exception e) {
 			LOG.error(e.getMessage(), e);
@@ -106,7 +106,7 @@ public class LoggingEventService {
 				arg0, arg1, arg2, arg3,
 				ZonedDateTime.ofInstant(Instant.ofEpochMilli(loggingEvent.getTimestmp()), ZoneId.systemDefault()));
 
-		LOG.trace("MakeLoggingEventInfo {}", ret);
+		LOG.trace("{}", ret);
 		return ret;
 	}
 

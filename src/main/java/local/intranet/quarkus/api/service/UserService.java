@@ -44,7 +44,7 @@ public class UserService {
 	public UserInfo getUserInfo(@NotNull String username)
 			throws ValidationException, UnauthorizedException, ForbiddenException {
 		final UserInfo ret = loadUserByUsername(username);
-		LOG.trace("GetUserInfo username:{} password:{} enabled:{}", ret.getUsername(), ret.getPassword(),
+		LOG.trace("username:{} password:{} enabled:{}", ret.getUsername(), ret.getPassword(),
 				ret.isEnabled());
 		return ret;
 	}
