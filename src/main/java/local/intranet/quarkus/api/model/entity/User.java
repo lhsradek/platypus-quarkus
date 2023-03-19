@@ -3,6 +3,7 @@ package local.intranet.quarkus.api.model.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,10 +22,14 @@ import local.intranet.quarkus.api.domain.DefaultFieldLengths;
  * {@link User} is entity for CRUD with
  * {@link local.intranet.quarkus.api.model.repository.UserRepository}
  * 
+ * https://quarkus.io/guides/getting-started-reactive
+ * Mutiny - an intuitive and event-driven reactive programming library
+ * 
  * @author Radek Kádner
  *
  */
 @Entity
+@Cacheable
 @Table(name = "platypus_user")
 public class User {
 

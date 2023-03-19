@@ -17,6 +17,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.slf4j.Logger;
@@ -51,12 +52,18 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	 */
 	protected static final String TAG = "download-controller";
 
+	/**
+	 * 
+	 * {@link ConfigProperty} for downloadDirectory
+	 */
+	@ConfigProperty(name = "platypus.quarkus.downloadDirectory")
+	protected String downloadDirectory;
+	
 	private static final String CONTENT_DISPOSITION = "Content-Disposition";
 
 	private static final String ATTACHMENT_FILENAME = "attachment;filename=";
-
-	private static final String DOWNLOADS_DIRECTORY = "src/main/resources/META-INF/resources/downloads";
-
+	
+	
 	/**
 	 * 
 	 * List of files from Quarkus in downloads directory as JSON
@@ -71,7 +78,7 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	@Timed(value = Measureable.PREFIX + "listFiles", description = Measureable.TIMED_DESCRIPTION)
 	@Counted(value = Measureable.PREFIX + "listFiles", description = Measureable.COUNTED_DESCRIPTION)
 	public synchronized String listFiles() throws NotFoundException {
-		final String dir = DOWNLOADS_DIRECTORY;
+		final String dir = downloadDirectory;
 		if (new File(dir).exists()) {
 			final Set<String> set = Stream.of(new File(dir).listFiles()).filter(file -> !file.isDirectory())
 					.map(File::getName)
@@ -111,7 +118,7 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	// @Measured()
 	public Uni<Response> getFile(@PathParam("fileName") String fileName) throws NotFoundException {
 		try {
-			if (new File(DOWNLOADS_DIRECTORY).exists()) {
+			if (new File(downloadDirectory).exists()) {
 				final File nf = new File(fileName);
 				LOG.trace("file:'{}' exists:{}", fileName, nf.exists());
 				final ResponseBuilder response = Response.ok((Object) nf);

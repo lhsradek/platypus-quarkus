@@ -1,5 +1,6 @@
 package local.intranet.quarkus.api.model.entity;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,6 +19,9 @@ import local.intranet.quarkus.api.domain.DefaultFieldLengths;
  * {@link Counter} is entity for CRUD with
  * {@link local.intranet.quarkus.api.model.repository.CounterRepository}
  * 
+ * https://quarkus.io/guides/getting-started-reactive
+ * Mutiny - an intuitive and event-driven reactive programming library
+ * 
  * {@link Audited} is for hibernate envers
  * 
  * @author Radek Kádner
@@ -25,6 +29,7 @@ import local.intranet.quarkus.api.domain.DefaultFieldLengths;
  */
 @Entity
 @Audited
+@Cacheable
 @Table(name = "platypus_counter")
 public class Counter {
 

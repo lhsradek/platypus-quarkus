@@ -1,5 +1,6 @@
 package local.intranet.quarkus.api.model.entity;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -21,11 +22,16 @@ import local.intranet.quarkus.api.domain.DefaultFieldLengths;
  * https://www.baeldung.com/hibernate-immutable <br/>
  * https://stackoverflow.com/questions/67679636/spring-data-jpa-immutable-entity
  * 
+ * https://quarkus.io/guides/getting-started-reactive
+ * Mutiny - an intuitive and event-driven reactive programming library
+ * 
+ * 
  * @author Radek Kádner
  *
  */
 @Entity
 @Immutable
+@Cacheable
 @Table(name = "logging_event")
 public class LoggingEvent {
 
