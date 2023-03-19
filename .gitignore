@@ -42,3 +42,4 @@ nb-configuration.xml
 /src/main/resources/META-INF/resources/javadoc/
 /src/main/resources/META-INF/resources/downloads/
 /src/main/docker/
+*.log
