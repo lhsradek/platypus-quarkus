@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.slf4j.Logger;
@@ -25,7 +25,7 @@ import local.intranet.quarkus.api.model.repository.RoleRepository;
  * @author Radek Kádner
  *
  */
-@ApplicationScoped
+@Singleton
 public class RoleService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(RoleService.class);

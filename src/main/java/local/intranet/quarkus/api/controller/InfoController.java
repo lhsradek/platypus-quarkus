@@ -71,7 +71,7 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	 * @return {@link List}&le;{@link LevelCount}&ge;
 	 */
 	@GET
-	@Path("loggingEvent")
+	@Path("/loggingEvent")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Timed(value = Measureable.PREFIX + "countTotalLoggingEvents", description = Measureable.TIMED_DESCRIPTION)
 	@Counted(value = Measureable.PREFIX + "countTotalLoggingEvents", description = Measureable.COUNTED_DESCRIPTION)
@@ -99,7 +99,7 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	 * @return {@link RoleInfo}
 	 */
 	@GET
-	@Path("role")
+	@Path("/role")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Timed(value = Measureable.PREFIX + "getRoleInfo", description = Measureable.TIMED_DESCRIPTION)
 	@Counted(value = Measureable.PREFIX + "getRoleInfo", description = Measureable.COUNTED_DESCRIPTION)
@@ -126,7 +126,7 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	 * @return {@link UserInfo}
 	 */
 	@GET
-	@Path("user")
+	@Path("/user")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Timed(value = Measureable.PREFIX + "getUserInfo", description = Measureable.TIMED_DESCRIPTION)
 	@Counted(value = Measureable.PREFIX + "getUserInfo", description = Measureable.COUNTED_DESCRIPTION)

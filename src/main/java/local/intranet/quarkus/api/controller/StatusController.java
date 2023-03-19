@@ -127,7 +127,7 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	 */
 	@GET
 	@Path(value = "/getOperatingSystem")
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
 	@Timed(value = Measureable.PREFIX + "getOperatingSystem", description = Measureable.TIMED_DESCRIPTION)
 	@Counted(value = Measureable.PREFIX + "getOperatingSystem", description = Measureable.COUNTED_DESCRIPTION)
 	@Operation(operationId = "getOperatingSystem", summary = "Get Operating System", description = "<strong>Get Operating System and load average</strong><br/><br/>"

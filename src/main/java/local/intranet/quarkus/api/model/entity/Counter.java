@@ -18,7 +18,7 @@ import local.intranet.quarkus.api.domain.DefaultFieldLengths;
  * {@link Counter} is entity for CRUD with
  * {@link local.intranet.quarkus.api.model.repository.CounterRepository}
  * 
- * {@Audited} is for hibernate envers
+ * {@link Audited} is for hibernate envers
  * 
  * @author Radek Kádner
  *

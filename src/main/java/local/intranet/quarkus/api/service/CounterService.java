@@ -4,8 +4,8 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.slf4j.Logger;
@@ -28,7 +28,7 @@ import local.intranet.quarkus.api.model.repository.CounterRepository;
  * @author Radek Kádner
  *
  */
-@ApplicationScoped
+@Singleton
 public class CounterService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(CounterService.class);

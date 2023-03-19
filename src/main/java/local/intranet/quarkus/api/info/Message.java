@@ -21,9 +21,11 @@ import local.intranet.quarkus.api.domain.Nameable;
  * @author Radek Kádner
  * 
  */
-@JsonPropertyOrder({ "content", "date" })
+@JsonPropertyOrder({ "name", "content", "date" })
 public class Message implements Invocationable, Nameable {
 
+	private final String content;
+	
 	/**
 	 * 
 	 * Constructor with param
@@ -37,10 +39,14 @@ public class Message implements Invocationable, Nameable {
 	/**
 	 * 
 	 * Message content
+	 * 
+	 * @return {link @String}
 	 */
 	@Size(min = 0)
 	@JsonInclude(JsonInclude.Include.NON_NULL)
-	public final String content;
+	public String getContent() {
+		return content;
+	}
 
 	@Override
 	public ZonedDateTime lastInvocation() {

@@ -1,7 +1,7 @@
 package local.intranet.quarkus.api.service;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.validation.ValidationException;
 
 import org.eclipse.microprofile.openapi.annotations.Operation;
@@ -24,7 +24,7 @@ import local.intranet.quarkus.api.model.repository.UserRepository;
  * @author Radek Kádner
  *
  */
-@ApplicationScoped
+@Singleton
 public class UserService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(UserService.class);
