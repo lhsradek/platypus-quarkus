@@ -2,7 +2,6 @@ package local.intranet.quarkus.api.controller;
 
 import java.util.List;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -19,6 +18,7 @@ import io.micrometer.core.annotation.Timed;
 import local.intranet.quarkus.api.domain.Countable;
 import local.intranet.quarkus.api.domain.Invocationable;
 import local.intranet.quarkus.api.domain.Measureable;
+import local.intranet.quarkus.api.domain.Nameable;
 import local.intranet.quarkus.api.domain.Statusable;
 import local.intranet.quarkus.api.info.LevelCount;
 import local.intranet.quarkus.api.info.RoleInfo;
@@ -38,9 +38,8 @@ import local.intranet.quarkus.api.service.UserService;
  *
  */
 @Path("/app/v1/info")
-@ApplicationScoped
 @Tag(name = InfoController.TAG)
-public class InfoController extends PlatypusCounter implements Countable, Invocationable, Statusable {
+public class InfoController extends PlatypusCounter implements Countable, Invocationable, Statusable, Nameable {
 
 	private static final Logger LOG = LoggerFactory.getLogger(InfoController.class);
 

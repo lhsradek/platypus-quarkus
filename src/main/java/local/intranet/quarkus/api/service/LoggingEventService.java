@@ -28,6 +28,8 @@ import local.intranet.quarkus.api.model.repository.LoggingEventRepository;
  * An entity {@link LoggingEvent} without setters is only used to read data
  * written by logback-spring DbAppender
  * 
+ * https://quarkus.pro/guides/spring-di.html
+ * 
  * @author Radek Kádner
  *
  */

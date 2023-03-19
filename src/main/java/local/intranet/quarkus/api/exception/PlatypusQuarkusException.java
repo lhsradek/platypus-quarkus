@@ -28,6 +28,18 @@ public class PlatypusQuarkusException extends ConnectException {
 	public PlatypusQuarkusException(String msg) {
 		super(msg);
 	}
+	
+	/**
+	 * 
+	 * Constructor with param
+	 * 
+	 * @param code of error scale
+	 * @param msg {@link String}
+	 */
+	public PlatypusQuarkusException(int code, String msg) {
+		super(msg);
+		LOG.error("code:{} msg:'{}'", code, msg);
+	}
 
 	/**
 	 * 

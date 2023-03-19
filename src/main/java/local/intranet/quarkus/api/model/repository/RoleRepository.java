@@ -11,9 +11,10 @@ import local.intranet.quarkus.api.model.entity.Role;
  * {@link RoleRepository} is repository for CRUD with
  * {@link local.intranet.quarkus.api.model.entity.Role}
  * 
+ * https://quarkus.pro/guides/spring-data-jpa
+ * 
  * To use RoleRepository see
- * {@link local.intranet.quarkus.api.service.RoleService#getUsersRoles} where is
- * findAll
+ * {@link local.intranet.quarkus.api.service.RoleService#getUsersRoles} where is roleRepository.findAll
  * 
  * @author Radek Kádner
  *

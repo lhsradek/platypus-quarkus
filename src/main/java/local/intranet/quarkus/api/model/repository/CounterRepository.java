@@ -9,7 +9,9 @@ import local.intranet.quarkus.api.model.entity.Counter;
 /**
  * 
  * {@link CounterRepository} is repository for CRUD with
- * {@link local.intranet.quarkus.api.model.entity.Counter}S
+ * {@link local.intranet.quarkus.api.model.entity.Counter}
+ * 
+ * https://quarkus.pro/guides/spring-data-jpa
  * 
  * @author Radek Kádner
  *

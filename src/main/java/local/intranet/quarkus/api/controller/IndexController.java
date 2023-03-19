@@ -1,6 +1,5 @@
 package local.intranet.quarkus.api.controller;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -16,6 +15,7 @@ import io.micrometer.core.annotation.Timed;
 import local.intranet.quarkus.api.domain.Countable;
 import local.intranet.quarkus.api.domain.Invocationable;
 import local.intranet.quarkus.api.domain.Measureable;
+import local.intranet.quarkus.api.domain.Nameable;
 import local.intranet.quarkus.api.domain.Statusable;
 import local.intranet.quarkus.api.info.Message;
 import local.intranet.quarkus.api.info.content.PlatypusCounter;
@@ -28,9 +28,8 @@ import local.intranet.quarkus.api.info.content.PlatypusCounter;
  *
  */
 @Path("/")
-@ApplicationScoped
 @Tag(name = IndexController.TAG)
-public class IndexController extends PlatypusCounter implements Countable, Invocationable, Statusable {
+public class IndexController extends PlatypusCounter implements Countable, Invocationable, Statusable, Nameable {
 
 	private static final Logger LOG = LoggerFactory.getLogger(IndexController.class);
 
@@ -40,9 +39,6 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	 */
 	protected static final String TAG = "index-controller";
 
-	// @Inject
-	// protected Validator validator;
-
 	/**
 	 * 
 	 * HELLO = "Hello from Platypus-Quarkus"
@@ -51,9 +47,9 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 
 	/**
 	 * 
-	 * NAZDAR = "Nazdar from Platypus-Quarkus"
+	 * AHOJ = "Ahoj from Platypus-Quarkus"
 	 */
-	public static final String NAZDAR = "Nazdar from Platypus-Quarkus";
+	public static final String AHOJ = "Ahoj from Platypus-Quarkus";
 
 	/**
 	 * 
@@ -81,26 +77,26 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 
 	/**
 	 * 
-	 * Say: Nazdar ...
+	 * Say: Ahoj ...
 	 * 
-	 * @see <a href="/q/swagger-ui/#/index-controller/nazdar" target=
-	 *      "_blank">/q/swagger-ui/#/index-controller/nazdar</a>
+	 * @see <a href="/q/swagger-ui/#/index-controller/ahoj" target=
+	 *      "_blank">/q/swagger-ui/#/index-controller/ahoj</a>
 	 * 
 	 * @return {@link Message}
 	 */
 	@GET
-	@Path("/nazdar")
+	@Path("/ahoj")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Timed(value = Measureable.PREFIX + "nazdar", description = Measureable.TIMED_DESCRIPTION)
-	@Counted(value = Measureable.PREFIX + "nazdar", description = Measureable.COUNTED_DESCRIPTION)
-	@Operation(operationId = "nazdar", summary = "Nazdar", description = "This method say: <strong>" + NAZDAR
-			+ "</strong><br/><br/>"
-			+ "See <a href=\"/javadoc/local/intranet/quarkus/api/controller/IndexController.html#nazdar()\" "
-			+ "target=\"_blank\">IndexController.nazdar</a>")
-	public Message nazdar() {
+	@Timed(value = Measureable.PREFIX + "ahoj", description = Measureable.TIMED_DESCRIPTION)
+	@Counted(value = Measureable.PREFIX + "ahoj", description = Measureable.COUNTED_DESCRIPTION)
+	@Operation(operationId = "ahoj", summary = "Ahoj", description = "This method say: <strong>" + AHOJ
+	+ "</strong><br/><br/>"
+	+ "See <a href=\"/javadoc/local/intranet/quarkus/api/controller/IndexController.html#ahoj()\" "
+	+ "target=\"_blank\">IndexController.ahoj</a>")
+	public Message ahoj() {
 		incrementCounter();
-		LOG.debug("{}", NAZDAR);
-		return new Message(NAZDAR);
+		LOG.debug("{}", AHOJ);
+		return new Message(AHOJ);
 	}
-
+	
 }

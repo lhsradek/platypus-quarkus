@@ -16,6 +16,8 @@ import local.intranet.quarkus.api.model.entity.LoggingEvent;
  * {@link local.intranet.quarkus.api.model.entity.LoggingEvent}
  * <p>
  * 
+ * https://quarkus.pro/guides/spring-data-jpa
+ * 
  * An repository is only used to read data written by logback-spring DbAppender
  * 
  * @author Radek Kádner

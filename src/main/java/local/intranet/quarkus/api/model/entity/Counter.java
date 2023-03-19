@@ -1,6 +1,5 @@
 package local.intranet.quarkus.api.model.entity;
 
-import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,12 +18,13 @@ import local.intranet.quarkus.api.domain.DefaultFieldLengths;
  * {@link Counter} is entity for CRUD with
  * {@link local.intranet.quarkus.api.model.repository.CounterRepository}
  * 
+ * {@Audited} is for hibernate envers
+ * 
  * @author Radek Kádner
  *
  */
 @Entity
 @Audited
-@Cacheable
 @Table(name = "platypus_counter")
 public class Counter {
 

@@ -19,6 +19,8 @@ import local.intranet.quarkus.api.model.repository.UserRepository;
  * 
  * {@link UserService}
  * 
+ * https://quarkus.pro/guides/spring-di.html
+ * 
  * @author Radek Kádner
  *
  */

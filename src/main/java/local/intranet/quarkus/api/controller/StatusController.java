@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -26,6 +25,7 @@ import io.micrometer.core.annotation.Timed;
 import local.intranet.quarkus.api.domain.Countable;
 import local.intranet.quarkus.api.domain.Invocationable;
 import local.intranet.quarkus.api.domain.Measureable;
+import local.intranet.quarkus.api.domain.Nameable;
 import local.intranet.quarkus.api.domain.Statusable;
 import local.intranet.quarkus.api.info.content.PlatypusCounter;
 
@@ -36,10 +36,9 @@ import local.intranet.quarkus.api.info.content.PlatypusCounter;
  * @author Radek Kádner
  * 
  */
-@ApplicationScoped
 @Path("/app/v1/status")
 @Tag(name = StatusController.TAG)
-public class StatusController extends PlatypusCounter implements Countable, Invocationable, Statusable {
+public class StatusController extends PlatypusCounter implements Countable, Invocationable, Statusable, Nameable {
 
 	private static final Logger LOG = LoggerFactory.getLogger(StatusController.class);
 

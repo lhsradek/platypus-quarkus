@@ -2,7 +2,6 @@ package local.intranet.quarkus.api.controller;
 
 import java.io.File;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Path;
@@ -17,12 +16,10 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.micrometer.core.annotation.Counted;
-import io.micrometer.core.annotation.Timed;
 import io.smallrye.mutiny.Uni;
 import local.intranet.quarkus.api.domain.Countable;
 import local.intranet.quarkus.api.domain.Invocationable;
-import local.intranet.quarkus.api.domain.Measureable;
+import local.intranet.quarkus.api.domain.Nameable;
 import local.intranet.quarkus.api.domain.Statusable;
 import local.intranet.quarkus.api.info.content.PlatypusCounter;
 
@@ -34,9 +31,8 @@ import local.intranet.quarkus.api.info.content.PlatypusCounter;
  *
  */
 @Path("/downloads")
-@ApplicationScoped
 @Tag(name = DownloadController.TAG)
-public class DownloadController extends PlatypusCounter implements Countable, Invocationable, Statusable {
+public class DownloadController extends PlatypusCounter implements Countable, Invocationable, Statusable, Nameable {
 
 	private static final Logger LOG = LoggerFactory.getLogger(DownloadController.class);
 
@@ -62,10 +58,9 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	@Path("/{fileName}")
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
 	@Operation(hidden = true)
-	@Timed(value = Measureable.PREFIX + "getfile", description = Measureable.TIMED_DESCRIPTION)
-	@Counted(value = Measureable.PREFIX + "getFile", description = Measureable.COUNTED_DESCRIPTION)
-	// @Measured(value = Measureable.PREFIX + "getFile", description =
-	// Measureable.COUNTED_DESCRIPTION)
+	// @Timed(value = Measureable.PREFIX + "getfile", description = Measureable.TIMED_DESCRIPTION)
+	// @Counted(value = Measureable.PREFIX + "getFile", description = Measureable.COUNTED_DESCRIPTION)
+	// @Measured()
 	public Uni<Response> getFile(@PathParam(value = "\\w[\\w\\.-]*") String fileName) throws NotFoundException {
 		try {
 			final File nf = new File(fileName);
