@@ -24,6 +24,8 @@ import local.intranet.quarkus.api.info.content.PlatypusCounter;
  * 
  * {@link IndexController}
  * 
+ * ROOT routes as hello or ahoj
+ * 
  * @author Radek Kádner
  *
  */

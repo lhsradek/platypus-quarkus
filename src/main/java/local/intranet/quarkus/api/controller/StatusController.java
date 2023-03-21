@@ -33,6 +33,8 @@ import local.intranet.quarkus.api.info.content.PlatypusCounter;
  * 
  * {@link StatusController}
  * 
+ * Status info as environment, system info...
+ * 
  * @author Radek Kádner
  * 
  */

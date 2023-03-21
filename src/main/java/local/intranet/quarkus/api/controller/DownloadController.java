@@ -37,6 +37,8 @@ import local.intranet.quarkus.api.info.content.PlatypusCounter;
  * 
  * {@link DownloadController}
  * 
+ * Download files from quarkus
+ * 
  * @author Radek Kádner
  *
  */
