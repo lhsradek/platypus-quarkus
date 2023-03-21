@@ -13,11 +13,8 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.micrometer.core.annotation.Counted;
-import io.micrometer.core.annotation.Timed;
 import local.intranet.quarkus.api.domain.Countable;
 import local.intranet.quarkus.api.domain.Invocationable;
-import local.intranet.quarkus.api.domain.Measureable;
 import local.intranet.quarkus.api.domain.Nameable;
 import local.intranet.quarkus.api.domain.Statusable;
 import local.intranet.quarkus.api.info.LevelCount;
@@ -73,8 +70,6 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	@GET
 	@Path("/loggingEvent")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Timed(value = Measureable.PREFIX + "countTotalLoggingEvents", description = Measureable.TIMED_DESCRIPTION)
-	@Counted(value = Measureable.PREFIX + "countTotalLoggingEvents", description = Measureable.COUNTED_DESCRIPTION)
 	@Operation(operationId = "loggingEventInfo", summary = "Count Total LoggingEvents", description = "<strong>Count Total Logging Events</strong><br/><br/>"
 			+ "This method is calling LoggingEventService.countTotalLoggingEvents<br/><br/>"
 			+ "See <a href=\"/javadoc/local/intranet/quarkus/api/controller/InfoController.html#loggingEventInfo()\" "
@@ -101,8 +96,6 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	@GET
 	@Path("/role")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Timed(value = Measureable.PREFIX + "getRoleInfo", description = Measureable.TIMED_DESCRIPTION)
-	@Counted(value = Measureable.PREFIX + "getRoleInfo", description = Measureable.COUNTED_DESCRIPTION)
 	@Operation(operationId = "roleInfo", summary = "Get Role Info", description = "<strong>Get Role Info</strong><br/><br/>"
 			+ "This method is calling RoleService.getRoleInfo"
 			+ "See <a href=\"/javadoc/local/intranet/quarkus/api/controller/InfoController.html#roleInfo()\" "
@@ -128,8 +121,6 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	@GET
 	@Path("/user")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Timed(value = Measureable.PREFIX + "getUserInfo", description = Measureable.TIMED_DESCRIPTION)
-	@Counted(value = Measureable.PREFIX + "getUserInfo", description = Measureable.COUNTED_DESCRIPTION)
 	@Operation(operationId = "userInfo", summary = "Get User Info", description = "<strong>Get User Info</strong><br/><br/>"
 			+ "This method is calling UserService.getUserInfo"
 			+ "See <a href=\"/javadoc/local/intranet/quarkus/api/controller/InfoController.html#userInfo()\" "

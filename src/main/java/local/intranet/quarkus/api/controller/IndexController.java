@@ -10,11 +10,8 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.micrometer.core.annotation.Counted;
-import io.micrometer.core.annotation.Timed;
 import local.intranet.quarkus.api.domain.Countable;
 import local.intranet.quarkus.api.domain.Invocationable;
-import local.intranet.quarkus.api.domain.Measureable;
 import local.intranet.quarkus.api.domain.Nameable;
 import local.intranet.quarkus.api.domain.Statusable;
 import local.intranet.quarkus.api.info.Message;
@@ -65,8 +62,6 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	@GET
 	@Path("/hello")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Timed(value = Measureable.PREFIX + "hello", description = Measureable.TIMED_DESCRIPTION)
-	@Counted(value = Measureable.PREFIX + "hello", description = Measureable.COUNTED_DESCRIPTION)
 	@Operation(operationId = "hello", summary = "Hello", description = "This method say: <strong>" + HELLO
 			+ "</strong><br/><br/>"
 			+ "See <a href=\"/javadoc/local/intranet/quarkus/api/controller/IndexController.html#hello()\" "
@@ -89,8 +84,6 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	@GET
 	@Path("/ahoj")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Timed(value = Measureable.PREFIX + "ahoj", description = Measureable.TIMED_DESCRIPTION)
-	@Counted(value = Measureable.PREFIX + "ahoj", description = Measureable.COUNTED_DESCRIPTION)
 	@Operation(operationId = "ahoj", summary = "Ahoj", description = "This method say: <strong>" + AHOJ
 	+ "</strong><br/><br/>"
 	+ "See <a href=\"/javadoc/local/intranet/quarkus/api/controller/IndexController.html#ahoj()\" "

@@ -16,12 +16,9 @@ import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.micrometer.core.annotation.Counted;
-import io.micrometer.core.annotation.Timed;
 import local.intranet.quarkus.api.controller.IndexController;
 import local.intranet.quarkus.api.domain.Countable;
 import local.intranet.quarkus.api.domain.Invocationable;
-import local.intranet.quarkus.api.domain.Measureable;
 import local.intranet.quarkus.api.domain.Nameable;
 import local.intranet.quarkus.api.domain.Statusable;
 import local.intranet.quarkus.api.domain.type.StatusType;
@@ -173,8 +170,6 @@ public abstract class PlatypusCounter implements Countable, Invocationable, Stat
 	@GET
 	@Path("counter")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Timed(value = Measureable.PREFIX + "counterInfo", description = Measureable.TIMED_DESCRIPTION)
-	@Counted(value = Measureable.PREFIX + "counterInfo", description = Measureable.COUNTED_DESCRIPTION)
 	@Operation(summary = "Get Counter Info", description = "<strong>Get Counter Info</strong><br/><br/>"
 			+ "This method is calling CounterService.getCounterInfo<br/><br/>"
 			+ "See <a href=\"/javadoc/local/intranet/quarkus/api/info/content/PlatypusCounter.html#counterInfo()\" "

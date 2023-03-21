@@ -20,11 +20,8 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.micrometer.core.annotation.Counted;
-import io.micrometer.core.annotation.Timed;
 import local.intranet.quarkus.api.domain.Countable;
 import local.intranet.quarkus.api.domain.Invocationable;
-import local.intranet.quarkus.api.domain.Measureable;
 import local.intranet.quarkus.api.domain.Nameable;
 import local.intranet.quarkus.api.domain.Statusable;
 import local.intranet.quarkus.api.info.content.PlatypusCounter;
@@ -76,8 +73,6 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	@GET
 	@Path(value = "/plainStatus")
 	@Produces(MediaType.TEXT_PLAIN)
-	@Timed(value = Measureable.PREFIX + "plainStatus", description = Measureable.TIMED_DESCRIPTION)
-	@Counted(value = Measureable.PREFIX + "plainStatus", description = Measureable.COUNTED_DESCRIPTION)
 	@Operation(operationId = "plainStatus", summary = "Get Plain Status", description = "<strong>Get OK if Platypus-Quarkus API is running</strong><br/><br/>"
 			+ "See <a href=\"/javadoc/local/intranet/quarkus/api/controller/StatusController.html#plainStatus()\" "
 			+ "target=\"_blank\">StatusController.plainStatus</a>")
@@ -130,8 +125,6 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	@GET
 	@Path(value = "/getOperatingSystem")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Timed(value = Measureable.PREFIX + "getOperatingSystem", description = Measureable.TIMED_DESCRIPTION)
-	@Counted(value = Measureable.PREFIX + "getOperatingSystem", description = Measureable.COUNTED_DESCRIPTION)
 	@Operation(operationId = "getOperatingSystem", summary = "Get Operating System", description = "<strong>Get Operating System and load average</strong><br/><br/>"
 			+ "See <a href=\"/javadoc/local/intranet/quarkus/api/controller/StatusController.html#getOperatingSystem()\" "
 			+ "target=\"_blank\">StatusController.getOperatingSystem</a>")

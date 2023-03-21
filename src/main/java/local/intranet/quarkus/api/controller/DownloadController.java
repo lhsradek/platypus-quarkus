@@ -23,12 +23,9 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.micrometer.core.annotation.Counted;
-import io.micrometer.core.annotation.Timed;
 import io.smallrye.mutiny.Uni;
 import local.intranet.quarkus.api.domain.Countable;
 import local.intranet.quarkus.api.domain.Invocationable;
-import local.intranet.quarkus.api.domain.Measureable;
 import local.intranet.quarkus.api.domain.Nameable;
 import local.intranet.quarkus.api.domain.Statusable;
 import local.intranet.quarkus.api.info.content.PlatypusCounter;
@@ -77,8 +74,6 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	@Path("/")
 	@Produces(MediaType.TEXT_HTML)
 	@Operation(hidden = true)
-	@Timed(value = Measureable.PREFIX + "listFiles", description = Measureable.TIMED_DESCRIPTION)
-	@Counted(value = Measureable.PREFIX + "listFiles", description = Measureable.COUNTED_DESCRIPTION)
 	public synchronized String listFiles() throws NotFoundException {
 		final String dir = downloadDirectory;
 		if (new File(dir).exists()) {
@@ -115,9 +110,6 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	@Path("/{fileName}")
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
 	@Operation(hidden = true)
-	@Timed(value = Measureable.PREFIX + "getfile", description = Measureable.TIMED_DESCRIPTION)
-	@Counted(value = Measureable.PREFIX + "getFile", description = Measureable.COUNTED_DESCRIPTION)
-	// @Measured()
 	public Uni<Response> getFile(@PathParam("fileName") String fileName) throws NotFoundException {
 		try {
 			if (new File(downloadDirectory).exists()) {
