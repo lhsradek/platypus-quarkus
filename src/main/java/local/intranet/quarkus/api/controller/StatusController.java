@@ -60,6 +60,7 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	protected static final String TAG = "status-controller";
 
 	private static final String STATUS_BRACKET = "_";
+	private static final String EQUAL_WITH_COLONS = "=::";
 
 	/**
 	 *
@@ -102,7 +103,7 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue,
 						LinkedHashMap::new));
 		for (Map.Entry<String, String> e : map.entrySet()) {
-			if (!e.getKey().equals(STATUS_BRACKET)) { // nelíbí
+			if (!e.getKey().equals(STATUS_BRACKET) || !e.getKey().equals(EQUAL_WITH_COLONS)) { // nelíbí
 				if (e.getValue() != null && e.getValue().length() > 0) {
 					ret.add(Map.entry(e.getKey(), e.getValue()));
 				}
