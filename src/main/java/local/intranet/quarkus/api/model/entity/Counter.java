@@ -19,8 +19,8 @@ import local.intranet.quarkus.api.domain.DefaultFieldLengths;
  * {@link Counter} is entity for CRUD with
  * {@link local.intranet.quarkus.api.model.repository.CounterRepository}
  * 
- * https://quarkus.io/guides/getting-started-reactive
- * Mutiny - an intuitive and event-driven reactive programming library
+ * https://quarkus.io/guides/getting-started-reactive Mutiny - an intuitive and
+ * event-driven reactive programming library
  * 
  * {@link Audited} is for hibernate envers
  * 
@@ -90,7 +90,7 @@ public class Counter {
 
 	/**
 	 * 
-	 * Set counterName {@link String}
+	 * Set counterName
 	 * 
 	 * @param counterName {@link String}
 	 */

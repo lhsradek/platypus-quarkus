@@ -74,12 +74,13 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	@Path("/")
 	@Produces(MediaType.TEXT_HTML)
 	@Operation(hidden = true)
-	public synchronized String listFiles() throws NotFoundException {
+	public String listFiles() throws NotFoundException {
 		final String dir = downloadDirectory;
 		if (new File(dir).exists()) {
 			final Set<String> set = Stream.of(new File(dir).listFiles()).filter(file -> !file.isDirectory())
 					.map(File::getName)
-					.collect(Collectors.toCollection(() -> new TreeSet<>(String.CASE_INSENSITIVE_ORDER)));
+					.collect(Collectors.toCollection(TreeSet::new));
+					// .collect(Collectors.toCollection(() -> new TreeSet<>(String.CASE_INSENSITIVE_ORDER)));
 			final StringJoiner message = new StringJoiner(System.lineSeparator());
 			message.add("<html><body><div>");
 			message.add("<h2>Platypus Quarkus files</h2><p>");
