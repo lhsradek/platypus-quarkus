@@ -2,17 +2,23 @@ package local.intranet.quarkus.api.controller;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.OperatingSystemMXBean;
+import java.text.MessageFormat;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Enumeration;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
+import javax.enterprise.context.RequestScoped;
+import javax.servlet.ServletContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import org.eclipse.microprofile.openapi.annotations.Operation;
@@ -36,6 +42,7 @@ import local.intranet.quarkus.api.info.content.PlatypusCounter;
  * 
  */
 @Path("/app/v1/status")
+@RequestScoped
 @Tag(name = StatusController.TAG)
 public class StatusController extends PlatypusCounter implements Countable, Invocationable, Statusable, Nameable {
 
@@ -58,6 +65,9 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	 * TAG = "status-controller"
 	 */
 	protected static final String TAG = "status-controller";
+
+	@Context
+	protected ServletContext servletContext;
 
 	private static final String STATUS_BRACKET = "_";
 	private static final String EQUAL_WITH_COLONS = "=::";
@@ -116,6 +126,45 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 
 	/**
 	 *
+	 * Info of Servlet context
+	 *
+	 * @see <a href= "/q/swagger-ui/#/status-controller/platypusServletContext"
+	 *      target=
+	 *      "_blank">/q/swagger-ui/#/status-controller/platypusServletContext</a>
+	 *
+	 * @return {@link List}&lt;{@link Map.Entry}&lt;{@link String},{@link String}&gt;&gt;
+	 */
+	@GET
+	@Path(value = "/servletContext")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Operation(operationId = "platypusServletContext", summary = "Get ServletContext", description = "<strong>Get ServletContext</strong><br/><br/>"
+			+ "See <a href=\"/javadoc/local/intranet/quarkus/api/controller/StatusController.html#"
+			+ "platypusServletContext()\" " + "target=\"_blank\">StatusController.platypusServletContext</a>")
+	public List<Map.Entry<String, String>> platypusServletContext() {
+		final List<Map.Entry<String, String>> ret = new ArrayList<>();
+		final Map<String, String> map = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+		for (Enumeration<String> en = servletContext.getAttributeNames(); en.hasMoreElements();) {
+			final String key = en.nextElement();
+			final String value = servletContext.getAttribute(key).toString();
+			map.put(key, value);
+		}
+		map.put("serverInfo", servletContext.getServerInfo());
+		map.put("virtualServerName", servletContext.getVirtualServerName());
+		map.put("servletContextName", servletContext.getServletContextName());
+		map.put("version",
+				MessageFormat.format("{0}.{1}", servletContext.getMajorVersion(), servletContext.getMinorVersion()));
+		for (Map.Entry<String, String> e : map.entrySet()) {
+			if (e.getValue() != null && e.getValue().length() > 0) {
+				ret.add(Map.entry(e.getKey(), e.getValue()));
+			}
+		}
+		incrementCounter();
+		LOG.trace("{}", ret);
+		return ret;
+	}
+
+	/**
+	 *
 	 * Get Operating System
 	 *
 	 * @see <a href="/q/swagger-ui/#/status-controller/getOperatingSystem" target=
@@ -150,7 +199,30 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	 */
 	public String timeZone() {
 		final String ret = ZoneId.systemDefault().getId();
-		incrementCounter();
+		LOG.trace("{}", ret);
+		return ret;
+	}
+
+	/**
+	 *
+	 * Get virtualServerName from ServletContext.getVirtualServerName()
+	 *
+	 * @return getlServerName()
+	 */
+	public String getServerName() {
+		final String ret = servletContext.getVirtualServerName();
+		LOG.trace("{}", ret);
+		return ret;
+	}
+
+	/**
+	 *
+	 * Get server info from ServletContext.getServerInfo()
+	 *
+	 * @return servletContext.getServerInfo()
+	 */
+	public String getServerInfo() {
+		final String ret = servletContext.getServerInfo();
 		LOG.trace("{}", ret);
 		return ret;
 	}

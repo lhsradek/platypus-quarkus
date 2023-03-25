@@ -2,6 +2,7 @@ package local.intranet.quarkus.api.controller;
 
 import java.util.List;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -35,6 +36,7 @@ import local.intranet.quarkus.api.service.UserService;
  *
  */
 @Path("/app/v1/info")
+@ApplicationScoped
 @Tag(name = InfoController.TAG)
 public class InfoController extends PlatypusCounter implements Countable, Invocationable, Statusable, Nameable {
 

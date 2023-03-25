@@ -1,5 +1,6 @@
 package local.intranet.quarkus.api.controller;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -28,6 +29,7 @@ import local.intranet.quarkus.api.info.content.PlatypusCounter;
  */
 @Path("/")
 @Tag(name = IndexController.TAG)
+@ApplicationScoped
 public class IndexController extends PlatypusCounter implements Countable, Invocationable, Statusable, Nameable {
 
 	private static final Logger LOG = LoggerFactory.getLogger(IndexController.class);

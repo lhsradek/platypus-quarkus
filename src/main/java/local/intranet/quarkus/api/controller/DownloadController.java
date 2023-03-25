@@ -8,6 +8,8 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Path;
@@ -40,6 +42,7 @@ import local.intranet.quarkus.api.info.content.PlatypusCounter;
  *
  */
 @Path("/downloads")
+@ApplicationScoped
 @Tag(name = DownloadController.TAG)
 public class DownloadController extends PlatypusCounter implements Countable, Invocationable, Statusable, Nameable {
 
@@ -62,6 +65,8 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 
 	private static final String ATTACHMENT_FILENAME = "attachment;filename=";
 	
+	@Inject
+	protected StatusController statusController;
 	
 	/**
 	 * 
@@ -84,11 +89,11 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 			final StringJoiner message = new StringJoiner(System.lineSeparator());
 			message.add("<html><body><div>");
 			message.add("<h2>Platypus Quarkus files</h2><p>");
+			message.add("<h3>" + statusController.getServerName() + "</h3><p>");
 			if (set.size() > 0) {
 				message.add("<ul>");
 				set.forEach(k -> {
-					message.add(
-							MessageFormat.format("<li><a alt=\"{0}\" href=\"/downloads/{0}\">{0}</a></li>", k, k, k));
+					message.add(MessageFormat.format("<li><a alt=\"{0}\" href=\"/downloads/{0}\">{0}</a></li>", k));
 				});
 				message.add("</ul>");
 			}
