@@ -9,7 +9,8 @@
 * SmallRye Health
 * Prometheus Metrics
 * Spring DATA JPA with CrudRepository and JpaRepository
-* Logging DB Logback
+* Logging to db with Logback
+* Javadoc
 
 -----
 

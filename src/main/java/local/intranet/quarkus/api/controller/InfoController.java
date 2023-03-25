@@ -2,7 +2,6 @@ package local.intranet.quarkus.api.controller;
 
 import java.util.List;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -36,7 +35,6 @@ import local.intranet.quarkus.api.service.UserService;
  *
  */
 @Path("/app/v1/info")
-@ApplicationScoped
 @Tag(name = InfoController.TAG)
 public class InfoController extends PlatypusCounter implements Countable, Invocationable, Statusable, Nameable {
 
@@ -72,11 +70,9 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	@GET
 	@Path("/loggingEvent")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Operation(operationId = "loggingEventInfo", summary = "Count Total LoggingEvents", description = "<strong>Count Total Logging Events</strong><br/><br/>"
+	@Operation(operationId = "loggingEventInfo", summary = "Count Total LoggingEvents", description = "**Count Total Logging Events**<br/><br/>"
 			+ "This method is calling LoggingEventService.countTotalLoggingEvents<br/><br/>"
-			+ "See <a href=\"/javadoc/local/intranet/quarkus/api/controller/InfoController.html#loggingEventInfo()\" "
-			+ "target=\"_blank\">InfoController.loggingEventInfo</a>")
-
+			+ "See [InfoController.loggingEventInfo](/javadoc/local/intranet/quarkus/api/controller/InfoController.html#loggingEventInfo())")
 	public List<LevelCount> loggingEventInfo() {
 		final List<LevelCount> ret = loggingEventService.countTotalLoggingEvents();
 		incrementCounter();
@@ -98,10 +94,9 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	@GET
 	@Path("/role")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Operation(operationId = "roleInfo", summary = "Get Role Info", description = "<strong>Get Role Info</strong><br/><br/>"
-			+ "This method is calling RoleService.getRoleInfo"
-			+ "See <a href=\"/javadoc/local/intranet/quarkus/api/controller/InfoController.html#roleInfo()\" "
-			+ "target=\"_blank\">InfoController.roleInfo</a>")
+	@Operation(operationId = "roleInfo", summary = "Get Role Info", description = "**Get Role Info**<br/><br/>"
+			+ "This method is calling RoleService.getRoleInfo<br/<br>"
+			+ "See [InfoController.roleInfo](/javadoc/local/intranet/quarkus/api/controller/InfoController.html#roleInfo())")
 	public RoleInfo roleInfo() {
 		final RoleInfo ret = roleService.getRoleInfo();
 		incrementCounter();
@@ -123,10 +118,9 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	@GET
 	@Path("/user")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Operation(operationId = "userInfo", summary = "Get User Info", description = "<strong>Get User Info</strong><br/><br/>"
-			+ "This method is calling UserService.getUserInfo"
-			+ "See <a href=\"/javadoc/local/intranet/quarkus/api/controller/InfoController.html#userInfo()\" "
-			+ "target=\"_blank\">InfoController.userInfo</a>")
+	@Operation(operationId = "userInfo", summary = "Get User Info", description = "**Get User Info**<br/><br/>"
+			+ "This method is calling UserService.getUserInfo<br/><br/>"
+			+ "See [InfoController.userInfo](/javadoc/local/intranet/quarkus/api/controller/InfoController.html#userInfo())")
 	public UserInfo userInfo() {
 		final UserInfo ret = userService.getUserInfo("admin");
 		incrementCounter();

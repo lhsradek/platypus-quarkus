@@ -10,21 +10,23 @@ import java.util.stream.Stream;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.eclipse.microprofile.openapi.annotations.OpenAPIDefinition;
 import org.eclipse.microprofile.openapi.annotations.Operation;
-import org.eclipse.microprofile.openapi.annotations.tags.Tag;
+import org.eclipse.microprofile.openapi.annotations.info.Contact;
+import org.eclipse.microprofile.openapi.annotations.info.Info;
+import org.eclipse.microprofile.openapi.annotations.info.License;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.quarkus.vertx.web.Param;
+import io.quarkus.vertx.web.Route;
+import io.quarkus.vertx.web.RoutingExchange;
 import io.smallrye.mutiny.Uni;
 import local.intranet.quarkus.api.domain.Countable;
 import local.intranet.quarkus.api.domain.Invocationable;
@@ -41,9 +43,28 @@ import local.intranet.quarkus.api.info.content.PlatypusCounter;
  * @author Radek Kádner
  *
  */
-@Path("/downloads")
+//@formatter:off
+@OpenAPIDefinition( 
+	    info = @Info(
+	        title="Platypus Quarkus",
+	        version = "1.0.0-SNAPSHOT",
+	        contact = @Contact(
+	            name = "Radek Kádner",
+	            url = "https://www.linkedin.com/in/radekkadner/",
+	            email = "radek.kadner@gmail.com"),
+	        	description = "* Flyway for migrate data\n"
+	        			+ "* Hibernate Envers Audit\n"
+	        			+ "* SmallRye Health\n"
+	        			+ "* Prometheus Metrics\n"
+	        			+ "* Spring DATA JPA with CrudRepository and JpaRepository\n"
+	        			+ "* Logging to db with Logback\n"
+	        			+ "* [Javadoc](/javadoc/)\n",
+	        license = @License(
+	            name = "The MIT License",
+	            url = "https://opensource.org/licenses/MIT"))
+	)
+//@formatter:on
 @ApplicationScoped
-@Tag(name = DownloadController.TAG)
 public class DownloadController extends PlatypusCounter implements Countable, Invocationable, Statusable, Nameable {
 
 	private static final Logger LOG = LoggerFactory.getLogger(DownloadController.class);
@@ -60,32 +81,30 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	 */
 	@ConfigProperty(name = "platypus.quarkus.downloadDirectory")
 	protected String downloadDirectory;
-	
+
 	private static final String CONTENT_DISPOSITION = "Content-Disposition";
 
 	private static final String ATTACHMENT_FILENAME = "attachment;filename=";
-	
+
 	@Inject
 	protected StatusController statusController;
-	
+
 	/**
 	 * 
 	 * List of files from Quarkus in downloads directory as JSON
 	 * 
+	 * @param ex {@link RoutingExchange}
 	 * @return {@link String}
-	 * @throws NotFoundException {@link NotFoundException}
 	 */
-	@GET
-	@Path("/")
-	@Produces(MediaType.TEXT_HTML)
 	@Operation(hidden = true)
-	public String listFiles() throws NotFoundException {
+	@Route(path = "/downloads", methods = Route.HttpMethod.GET, produces = { MediaType.TEXT_HTML })
+	public void listFiles(RoutingExchange ex) {
 		final String dir = downloadDirectory;
 		if (new File(dir).exists()) {
 			final Set<String> set = Stream.of(new File(dir).listFiles()).filter(file -> !file.isDirectory())
-					.map(File::getName)
-					.collect(Collectors.toCollection(TreeSet::new));
-					// .collect(Collectors.toCollection(() -> new TreeSet<>(String.CASE_INSENSITIVE_ORDER)));
+					.map(File::getName).collect(Collectors.toCollection(TreeSet::new));
+			// .collect(Collectors.toCollection(() -> new
+			// TreeSet<>(String.CASE_INSENSITIVE_ORDER)));
 			final StringJoiner message = new StringJoiner(System.lineSeparator());
 			message.add("<html><body><div>");
 			message.add("<h2>Platypus Quarkus files</h2><p>");
@@ -98,9 +117,9 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 				message.add("</ul>");
 			}
 			message.add("</p></div></body></html>");
-			return message.toString();
+			ex.ok(message.toString());
 		} else {
-			throw new NotFoundException();
+			ex.notFound().toString();
 		}
 	}
 
@@ -108,15 +127,14 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	 * 
 	 * Download file from Quarkus
 	 * 
-	 * @param fileName {link @String}
+	 * @param fileName {@link String}
+	 * @param ex       {@link RoutingExchange}
 	 * @return {@link Uni}&lt;{@link Response}&gt;
 	 * @throws NotFoundException {@link NotFoundException}
 	 */
-	@GET
-	@Path("/{fileName}")
-	@Produces(MediaType.APPLICATION_OCTET_STREAM)
 	@Operation(hidden = true)
-	public Uni<Response> getFile(@PathParam("fileName") String fileName) throws NotFoundException {
+	@Route(path = "/downloads:name", methods = Route.HttpMethod.GET, produces = { MediaType.APPLICATION_OCTET_STREAM })
+	public Uni<Response> getFile(@Param String fileName, RoutingExchange ex) throws NotFoundException {
 		try {
 			if (new File(downloadDirectory).exists()) {
 				final File nf = new File(fileName);

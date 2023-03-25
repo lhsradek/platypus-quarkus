@@ -13,7 +13,6 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-import javax.enterprise.context.RequestScoped;
 import javax.servlet.ServletContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -42,7 +41,6 @@ import local.intranet.quarkus.api.info.content.PlatypusCounter;
  * 
  */
 @Path("/app/v1/status")
-@RequestScoped
 @Tag(name = StatusController.TAG)
 public class StatusController extends PlatypusCounter implements Countable, Invocationable, Statusable, Nameable {
 
@@ -84,9 +82,8 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	@GET
 	@Path(value = "/plainStatus")
 	@Produces(MediaType.TEXT_PLAIN)
-	@Operation(operationId = "plainStatus", summary = "Get Plain Status", description = "<strong>Get OK if Platypus-Quarkus API is running</strong><br/><br/>"
-			+ "See <a href=\"/javadoc/local/intranet/quarkus/api/controller/StatusController.html#plainStatus()\" "
-			+ "target=\"_blank\">StatusController.plainStatus</a>")
+	@Operation(operationId = "plainStatus", summary = "Get Plain Status", description = "**Get OK if Platypus-Quarkus API is running**<br/><br/>"
+			+ "See [StatusController.plainStatus](/javadoc/local/intranet/quarkus/api/controller/StatusController.html#plainStatus())")
 	public String plainStatus() {
 		incrementCounter();
 		return STATUS_OK;
@@ -104,9 +101,8 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	@GET
 	@Path(value = "/platypusEnvironment")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Operation(operationId = "platypusEnvironment", summary = "Get Environment", description = "<strong>Get Environment</strong><br/><br/>"
-			+ "See <a href=\"/javadoc/local/intranet/quarkus/api/controller/StatusController.html#"
-			+ "platypusEnvironment()\" target=\"_blank\">StatusController.platypusEnvironment</a>")
+	@Operation(operationId = "platypusEnvironment", summary = "Get Environment", description = "**Get Environment</strong>**<br/><br/>"
+			+ "See [StatusController.platypusEnvironment](/javadoc/local/intranet/quarkus/api/controller/StatusController.html#platypusEnvironment())")
 	public List<Map.Entry<String, String>> platypusEnvironment() {
 		final List<Map.Entry<String, String>> ret = Collections.synchronizedList(new ArrayList<>());
 		final Map<String, String> map = System.getenv().entrySet().stream().sorted(Map.Entry.comparingByKey())
@@ -137,9 +133,8 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	@GET
 	@Path(value = "/servletContext")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Operation(operationId = "platypusServletContext", summary = "Get ServletContext", description = "<strong>Get ServletContext</strong><br/><br/>"
-			+ "See <a href=\"/javadoc/local/intranet/quarkus/api/controller/StatusController.html#"
-			+ "platypusServletContext()\" " + "target=\"_blank\">StatusController.platypusServletContext</a>")
+	@Operation(operationId = "platypusServletContext", summary = "Get ServletContext", description = "**Get ServletContext**<br/><br/>"
+			+ "See [StatusController.platypusServletContext](/javadoc/local/intranet/quarkus/api/controller/StatusController.html#platypusServletContext())")
 	public List<Map.Entry<String, String>> platypusServletContext() {
 		final List<Map.Entry<String, String>> ret = new ArrayList<>();
 		final Map<String, String> map = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
@@ -175,9 +170,8 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	@GET
 	@Path(value = "/getOperatingSystem")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Operation(operationId = "getOperatingSystem", summary = "Get Operating System", description = "<strong>Get Operating System and load average</strong><br/><br/>"
-			+ "See <a href=\"/javadoc/local/intranet/quarkus/api/controller/StatusController.html#getOperatingSystem()\" "
-			+ "target=\"_blank\">StatusController.getOperatingSystem</a>")
+	@Operation(operationId = "getOperatingSystem", summary = "Get Operating System", description = "**Get Operating System and load average**<br/><br/>"
+			+ "See [StatusController.getOperatingSystem](/javadoc/local/intranet/quarkus/api/controller/StatusController.html#getOperatingSystem())")
 	public synchronized List<Map.Entry<String, Object>> getOperatingSystem() {
 		final List<Map.Entry<String, Object>> ret = new ArrayList<>();
 		final OperatingSystemMXBean system = ManagementFactory.getOperatingSystemMXBean();

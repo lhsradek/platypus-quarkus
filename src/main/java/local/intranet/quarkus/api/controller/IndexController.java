@@ -1,6 +1,5 @@
 package local.intranet.quarkus.api.controller;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -29,7 +28,6 @@ import local.intranet.quarkus.api.info.content.PlatypusCounter;
  */
 @Path("/")
 @Tag(name = IndexController.TAG)
-@ApplicationScoped
 public class IndexController extends PlatypusCounter implements Countable, Invocationable, Statusable, Nameable {
 
 	private static final Logger LOG = LoggerFactory.getLogger(IndexController.class);
@@ -64,10 +62,8 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	@GET
 	@Path("/hello")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Operation(operationId = "hello", summary = "Hello", description = "This method say: <strong>" + HELLO
-			+ "</strong><br/><br/>"
-			+ "See <a href=\"/javadoc/local/intranet/quarkus/api/controller/IndexController.html#hello()\" "
-			+ "target=\"_blank\">IndexController.hello</a>")
+	@Operation(operationId = "hello", summary = "Hello", description = "This method say: **" + HELLO + "**<br/><br/>"
+			+ "See [IndexController.hello](/javadoc/local/intranet/quarkus/api/controller/IndexController.html#hello())")
 	public Message hello() {
 		incrementCounter();
 		LOG.debug("{}", HELLO);
@@ -86,14 +82,12 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	@GET
 	@Path("/ahoj")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Operation(operationId = "ahoj", summary = "Ahoj", description = "This method say: <strong>" + AHOJ
-	+ "</strong><br/><br/>"
-	+ "See <a href=\"/javadoc/local/intranet/quarkus/api/controller/IndexController.html#ahoj()\" "
-	+ "target=\"_blank\">IndexController.ahoj</a>")
+	@Operation(operationId = "ahoj", summary = "Ahoj", description = "This method say: **" + AHOJ + "**<br/><br/>"
+			+ "See [IndexController.ahoj](/javadoc/local/intranet/quarkus/api/controller/IndexController.html#ahoj())")
 	public Message ahoj() {
 		incrementCounter();
 		LOG.debug("{}", AHOJ);
 		return new Message(AHOJ);
 	}
-	
+
 }
