@@ -50,7 +50,7 @@ import local.intranet.quarkus.api.info.content.PlatypusCounter;
 	        version = "1.0.0-SNAPSHOT",
 	        contact = @Contact(
 	            name = "Radek Kádner",
-	            url = "https://www.linkedin.com/in/radekkadner/",
+	            url = "https://github.com/lhsradek/platypus-quarkus",
 	            email = "radek.kadner@gmail.com"),
 	        	description = "* Flyway for migrate data\n"
 	        			+ "* Hibernate Envers Audit\n"
