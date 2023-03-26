@@ -2,6 +2,7 @@ package local.intranet.quarkus.api.model.repository;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.rest.core.annotation.RestResource;
 
 import io.smallrye.common.constraint.NotNull;
 import local.intranet.quarkus.api.model.entity.Counter;
@@ -18,6 +19,22 @@ import local.intranet.quarkus.api.model.entity.Counter;
  */
 public interface CounterRepository extends CrudRepository<Counter, Long> {
 
+	@Override
+	@RestResource(exported = false)
+	void deleteById(Long id);
+
+	@Override
+	@RestResource(exported = false)
+	void delete(Counter entity);
+	
+	@Override
+	@RestResource(exported = false)
+	void deleteAll();
+
+	@Override
+	@RestResource(exported = false)
+	long count();
+	
 	/**
 	 *
 	 * Find by name
@@ -27,5 +44,5 @@ public interface CounterRepository extends CrudRepository<Counter, Long> {
 	 */
 	@Query(value = "select u from Counter u where u.counterName = ?1")
 	Counter findByName(@NotNull String counterName);
-
+	
 }
