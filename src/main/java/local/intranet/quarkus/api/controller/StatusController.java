@@ -3,6 +3,7 @@ package local.intranet.quarkus.api.controller;
 import java.lang.management.ManagementFactory;
 import java.lang.management.OperatingSystemMXBean;
 import java.time.ZoneId;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -113,7 +114,7 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 		for (Map.Entry<String, String> e : map.entrySet()) {
 			if (!(e.getKey().equals(STATUS_BRACKET) || e.getKey().equals(EQUAL_WITH_COLONS))) { // nelíbí
 				if (e.getValue() != null && e.getValue().length() > 0) {
-					ret.add(Map.entry(e.getKey(), e.getValue()));
+					ret.add(new SimpleEntry<String, String>(e.getKey(), e.getValue()));
 				}
 			}
 		}
@@ -137,16 +138,16 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	@GetMapping(value = "/getOperatingSystem", produces = MediaType.APPLICATION_JSON_VALUE)
 	@Operation(summary = "Get Operating System", description = "**Get Operating System and load average**<br/><br/>"
 			+ "See [StatusController.getOperatingSystem](/javadoc/local/intranet/quarkus/api/controller/StatusController.html#getOperatingSystem())")
-	public synchronized List<Map.Entry<String, Object>> getOperatingSystem() {
-		final List<Map.Entry<String, Object>> ret = new ArrayList<>();
+	public List<Map.Entry<String, String>> getOperatingSystem() {
+		final List<Map.Entry<String, String>> ret = new ArrayList<>();
 		final OperatingSystemMXBean system = ManagementFactory.getOperatingSystemMXBean();
-		ret.add(Map.entry("name", system.getName()));
-		ret.add(Map.entry("loadAverage", system.getSystemLoadAverage()));
-		ret.add(Map.entry("arch", system.getArch()));
-		ret.add(Map.entry("processors", system.getAvailableProcessors()));
-		ret.add(Map.entry("version", system.getVersion()));
+		ret.add(new SimpleEntry<String, String>("name", system.getName()));
+		ret.add(new SimpleEntry<String, String>("loadAverage", String.valueOf(system.getSystemLoadAverage())));
+		ret.add(new SimpleEntry<String, String>("arch", system.getArch()));
+		ret.add(new SimpleEntry<String, String>("processors", String.valueOf(system.getAvailableProcessors())));
+		ret.add(new SimpleEntry<String, String>("version", system.getVersion()));
 		incrementCounter();
-		LOG.trace("{}", ret);
+		LOG.debug("{}", ret);
 		return ret;
 	}
 
