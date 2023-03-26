@@ -93,4 +93,13 @@ public class RolePlain implements Nameable {
 		return users;
 	}
 
+	/**
+	 * 
+	 * Returns a string representation of the object.
+	 */
+	@Override
+	public String toString() {
+		return "RolePlain [id=" + id + ", roleName=" + roleName + ", enabled=" + enabled + ", users=" + users + "]";
+	}
+
 }

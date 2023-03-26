@@ -6,15 +6,14 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import local.intranet.quarkus.api.info.LevelCount;
 import local.intranet.quarkus.api.info.LoggingEventInfo;
@@ -33,12 +32,12 @@ import local.intranet.quarkus.api.model.repository.LoggingEventRepository;
  * @author Radek Kádner
  *
  */
-@Singleton
+@Service
 public class LoggingEventService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(LoggingEventService.class);
 
-	@Inject
+	@Autowired
 	protected LoggingEventRepository loggingEventRepository;
 
 	/**

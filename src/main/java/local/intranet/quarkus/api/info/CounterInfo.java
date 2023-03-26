@@ -6,13 +6,12 @@ import java.time.ZonedDateTime;
 
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import io.smallrye.common.constraint.NotNull;
-import local.intranet.quarkus.api.domain.Countable;
 import local.intranet.quarkus.api.domain.Invocationable;
-import local.intranet.quarkus.api.domain.Nameable;
-import local.intranet.quarkus.api.domain.Statusable;
 import local.intranet.quarkus.api.domain.type.StatusType;
 
 /**
@@ -23,12 +22,12 @@ import local.intranet.quarkus.api.domain.type.StatusType;
  * @author Radek Kádner
  *
  */
-@JsonPropertyOrder({ "id", "name", "count", "date", "status" })
-public class CounterInfo implements Invocationable, Nameable, Statusable, Countable {
+@JsonPropertyOrder({ "id", "counterName", "count", "date", "status" })
+public class CounterInfo {
 
 	private final Long id;
 	private final String counterName;
-	private final Long cnt;
+	private final Long count;
 	private final ZonedDateTime date;
 	private final StatusType status;
 
@@ -38,20 +37,29 @@ public class CounterInfo implements Invocationable, Nameable, Statusable, Counta
 	 * 
 	 * @param id          {@link Long}
 	 * @param counterName {@link String}
-	 * @param cnt         {@link Long}
+	 * @param count       {@link Long}
 	 * @param timestmp    {@link Long} in milli
 	 * @param status      {@link String}
 	 */
-	public CounterInfo(Long id, @NotNull String counterName, Long cnt, Long timestmp, String status) {
+	public CounterInfo(Long id, @NotNull String counterName, Long count, Long timestmp, String status) {
 		this.id = id;
 		this.counterName = counterName;
-		this.cnt = cnt;
+		this.count = count;
 		this.date = ZonedDateTime.ofInstant(Instant.ofEpochMilli(timestmp), ZoneId.systemDefault());
 		this.status = StatusType.valueOf(status);
 	}
 
-	@Override
-	public String getName() {
+	/**
+	 * 
+	 * Get name
+	 * 
+	 * <p>
+	 * &#64;JsonInclude(JsonInclude.Include.NON_NULL)
+	 * 
+	 * @return name {@link String}
+	 */
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	public String getCounterName() {
 		return counterName;
 	}
 
@@ -66,29 +74,41 @@ public class CounterInfo implements Invocationable, Nameable, Statusable, Counta
 		return id;
 	}
 
-	@Override
-	public Long countValue() {
-		return cnt;
+	/**
+	 * 
+	 * Number of invocations
+	 *
+	 * &#64;JsonProperty("count")
+	 * 
+	 * @return number of invocations as count in JSON
+	 */
+	@Size(min = 0)
+	public Long getCount() {
+		return count;
 	}
 
-	@Override
-	public ZonedDateTime lastInvocation() {
+	/**
+	 *
+	 * Time of last invocation
+	 * 
+	 * &#64;JsonInclude(JsonInclude.Include.NON_DEFAULT)
+	 * 
+	 * @return lastInvocation
+	 */
+	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+	@JsonFormat(pattern = Invocationable.JSON_DATE_FORMAT, timezone = JsonFormat.DEFAULT_TIMEZONE)
+	public ZonedDateTime getDate() {
 		return date;
-	}
-
-	@Override
-	public StatusType getStatus() {
-		return status;
 	}
 
 	/**
 	 * 
-	 * Returns a string representation of the object.
+	 * Get status
+	 * 
+	 * @return {@link StatusType}
 	 */
-	@Override
-	public String toString() {
-		return "CounterInfo [id=" + id + ", counterName=" + counterName + ", cnt=" + cnt + ", date=" + date
-				+ ", status=" + status + "]";
+	public StatusType getStatus() {
+		return status;
 	}
 
 }

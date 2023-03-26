@@ -31,7 +31,6 @@ public class LevelCount {
 	 * @param total {@link Long}
 	 */
 	public LevelCount(@NotNull String level, @NotNull Long total) {
-		super();
 		this.level = level;
 		this.total = total;
 	}

@@ -56,4 +56,13 @@ public class RoleInfo implements Nameable {
 		return ret;
 	}
 
+	/**
+	 * 
+	 * Returns a string representation of the object.
+	 */
+	@Override
+	public String toString() {
+		return "RoleInfo [role=" + role + "]";
+	}
+	
 }

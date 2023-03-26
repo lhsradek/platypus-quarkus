@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
@@ -15,6 +13,8 @@ import org.hibernate.envers.AuditReaderFactory;
 import org.hibernate.envers.internal.reader.AuditReaderImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * 
@@ -24,17 +24,17 @@ import org.slf4j.LoggerFactory;
  * @author Radek Kádner
  *
  */
-@Dependent
+@Component
 public class Provider {
 
 	private static final Logger LOG = LoggerFactory.getLogger(Provider.class);
 
-	@Inject
+	@Autowired
 	protected EntityManagerFactory entityManagerFactory;
 
 	@PersistenceContext
 	protected EntityManager entityManager;
-
+	
 	/**
 	 * 
 	 * Get queryProvider
@@ -56,12 +56,13 @@ public class Provider {
 				query.append(pair.toString());
 			}
 		});
+		LOG.trace("{}", query.toString());
 		return query.toString();
 	}
 
 	/**
 	 * 
-	 * Get AuditReader
+	 * Get {@link AuditReader}
 	 * 
 	 * @return {@link AuditReader}
 	 */

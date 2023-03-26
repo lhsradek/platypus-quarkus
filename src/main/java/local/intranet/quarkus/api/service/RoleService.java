@@ -4,12 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import local.intranet.quarkus.api.info.RoleInfo;
 import local.intranet.quarkus.api.info.RolePlain;
@@ -25,12 +24,12 @@ import local.intranet.quarkus.api.model.repository.RoleRepository;
  * @author Radek Kádner
  *
  */
-@Singleton
+@Service
 public class RoleService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(RoleService.class);
 
-	@Inject
+	@Autowired
 	protected RoleRepository roleRepository;
 
 	/**

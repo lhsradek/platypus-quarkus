@@ -5,16 +5,16 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
-import javax.inject.Inject;
-import javax.transaction.Transactional;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+import javax.validation.constraints.Size;
 
-import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import local.intranet.quarkus.api.controller.IndexController;
 import local.intranet.quarkus.api.domain.Countable;
@@ -22,11 +22,8 @@ import local.intranet.quarkus.api.domain.Invocationable;
 import local.intranet.quarkus.api.domain.Nameable;
 import local.intranet.quarkus.api.domain.Statusable;
 import local.intranet.quarkus.api.domain.type.StatusType;
-import local.intranet.quarkus.api.exception.PlatypusQuarkusException;
-import local.intranet.quarkus.api.info.CounterInfo;
 import local.intranet.quarkus.api.model.entity.Counter;
 import local.intranet.quarkus.api.model.repository.CounterRepository;
-import local.intranet.quarkus.api.service.CounterService;
 
 /**
  * 
@@ -35,19 +32,17 @@ import local.intranet.quarkus.api.service.CounterService;
  * @author Radek Kádner
  *
  */
+@Component
 public abstract class PlatypusCounter implements Countable, Invocationable, Statusable, Nameable {
 
 	private static final Logger LOG = LoggerFactory.getLogger(PlatypusCounter.class);
 
 	private static final String SUBCLASS = "_Subclass";
 
-	@Inject
+	@Autowired
 	protected CounterRepository counterRepository;
 
-	@Inject
-	protected CounterService counterService;
-
-	@Inject
+	@Autowired
 	protected Provider provider;
 
 	/**
@@ -79,6 +74,8 @@ public abstract class PlatypusCounter implements Countable, Invocationable, Stat
 	}
 
 	@Override
+	@Size(min = 0)
+	@JsonProperty("count")
 	public Long countValue() {
 		final Long ret;
 		final String counterName = getName();
@@ -98,7 +95,7 @@ public abstract class PlatypusCounter implements Countable, Invocationable, Stat
 	 * 
 	 * @return {@link Long}
 	 */
-	@Transactional
+	// @Transactional
 	public Long incrementCounter() {
 		final Long ret;
 		final String counterName = getName();
@@ -139,6 +136,9 @@ public abstract class PlatypusCounter implements Countable, Invocationable, Stat
 	}
 
 	@Override
+	@JsonProperty("date")
+	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+	@JsonFormat(pattern = JSON_DATE_FORMAT, timezone = JsonFormat.DEFAULT_TIMEZONE)
 	public ZonedDateTime lastInvocation() {
 		final ZonedDateTime ret;
 		final String counterName = getName();
@@ -153,34 +153,10 @@ public abstract class PlatypusCounter implements Countable, Invocationable, Stat
 	}
 
 	@Override
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	@JsonProperty("counterName")
 	public String getName() {
 		return getClass().getSimpleName().replace(SUBCLASS, "");
-	}
-
-	/**
-	 * 
-	 * Counter informations
-	 * <p>
-	 * Used
-	 * {@link local.intranet.quarkus.api.service.CounterService#getCounterInfo}.
-	 * 
-	 * @return {@link CounterInfo}
-	 * @throws PlatypusQuarkusException {@link PlatypusQuarkusException}
-	 */
-	@GET
-	@Path("counter")
-	@Produces(MediaType.APPLICATION_JSON)
-	@Operation(summary = "Get Counter Info", description = "<strong>Get Counter Info</strong><br/><br/>"
-			+ "This method is calling CounterService.getCounterInfo<br/><br/>"
-			+ "See <a href=\"/javadoc/local/intranet/quarkus/api/info/content/PlatypusCounter.html#counterInfo()\" "
-			+ "target=\"_blank\">PlatypusCounter.counterInfo</a>")
-	public CounterInfo counterInfo() throws PlatypusQuarkusException {
-		final String counterName = getName();
-		final CounterInfo ret = counterService.getCounterInfo(counterName);
-		// incrementCounter();
-		LOG.debug("name:'{}' cnt:{} date:'{}': status:'{}'", counterName, ret.countValue(),
-				formatDateTime(ret.lastInvocation()), ret.getStatus());
-		return ret;
 	}
 
 }

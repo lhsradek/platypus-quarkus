@@ -9,8 +9,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
-import org.hibernate.envers.Audited;
-
 import io.smallrye.common.constraint.NotNull;
 import local.intranet.quarkus.api.domain.DefaultFieldLengths;
 
@@ -22,13 +20,11 @@ import local.intranet.quarkus.api.domain.DefaultFieldLengths;
  * https://quarkus.io/guides/getting-started-reactive Mutiny - an intuitive and
  * event-driven reactive programming library
  * 
- * {@link Audited} is for hibernate envers
- * 
  * @author Radek Kádner
  *
  */
 @Entity
-@Audited
+// @Audited
 @Cacheable
 @Table(name = "platypus_counter")
 public class Counter {
