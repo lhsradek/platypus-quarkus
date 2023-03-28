@@ -54,8 +54,8 @@ public class DownloadController {
 
 	/**
 	 * 
-	 * String TAG = "download-controller" protected static final String TAG =
-	 * "download-controller";
+	 * String TAG = "download-controller"
+	 * protected static final String TAG = "download-controller";
 	 */
 
 	private static final String CONTENT_DISPOSITION = "Content-Disposition";

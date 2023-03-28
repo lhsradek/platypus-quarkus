@@ -37,6 +37,10 @@ public class LoggingEventService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(LoggingEventService.class);
 
+	/**
+	 * 
+	 * {@link LoggingEventRepository} for {@link #countTotalLoggingEvents} and {@link #findPageByLevelString}
+	 */
 	@Autowired
 	protected LoggingEventRepository loggingEventRepository;
 

@@ -29,6 +29,10 @@ public class RoleService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(RoleService.class);
 
+	/**
+	 * 
+	 * {@link RoleRepository} for {@link #getUsersRoles}
+	 */
 	@Autowired
 	protected RoleRepository roleRepository;
 

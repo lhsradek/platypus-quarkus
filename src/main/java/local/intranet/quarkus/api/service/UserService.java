@@ -28,6 +28,10 @@ public class UserService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(UserService.class);
 
+	/**
+	 * 
+	 * {@link UserRepository} for {@link #loadUserByUsername}
+	 */
 	@Autowired
 	protected UserRepository userRepository;
 

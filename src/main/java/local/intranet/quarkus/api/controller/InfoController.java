@@ -50,15 +50,31 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	 */
 	protected static final String TAG = "info-controller";
 
+	/**
+	 * 
+	 * {@link LoggingEventService} for {@link #loggingEventInfo()}
+	 */
 	@Autowired
 	protected LoggingEventService loggingEventService;
 
+	/**
+	 * 
+	 * {@link RoleService} for {@link #roleInfo()}
+	 */
 	@Autowired
 	protected RoleService roleService;
 
+	/**
+	 * 
+	 * {@link UserService} for {@link #userInfo()}
+	 */
 	@Autowired
 	protected UserService userService;
 
+	/**
+	 * 
+	 * {@link CounterService} for {@link #infoCounter()}
+	 */
 	@Autowired
 	protected CounterService counterService;
 

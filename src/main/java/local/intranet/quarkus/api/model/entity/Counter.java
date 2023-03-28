@@ -17,7 +17,7 @@ import local.intranet.quarkus.api.domain.DefaultFieldLengths;
  * 
  * {@link Counter} is entity for CRUD with
  * {@link local.intranet.quarkus.api.model.repository.CounterRepository}
- * 
+ * <p>
  * https://quarkus.io/guides/getting-started-reactive Mutiny - an intuitive and
  * event-driven reactive programming library
  * 

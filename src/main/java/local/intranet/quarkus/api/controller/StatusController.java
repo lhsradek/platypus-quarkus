@@ -65,6 +65,10 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	 */
 	protected static final String TAG = "status-controller";
 
+	/**
+	 * 
+	 * {@link CounterService} for {@link #statusCounter()}
+	 */
 	@Autowired
 	protected CounterService counterService;
 

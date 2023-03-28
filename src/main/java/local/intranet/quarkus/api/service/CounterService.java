@@ -31,6 +31,10 @@ public class CounterService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(CounterService.class);
 
+	/**
+	 * 
+	 * {@link CounterRepository} for {@link #getCounterInfo}
+	 */
 	@Autowired
 	protected CounterRepository counterRepository;
 

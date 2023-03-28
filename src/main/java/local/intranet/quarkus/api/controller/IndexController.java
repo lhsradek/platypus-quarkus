@@ -41,6 +41,10 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	 */
 	protected static final String TAG = "index-controller";
 
+	/**
+	 * 
+	 * {@link CounterService} for {@link #indexCounter()}
+	 */
 	@Autowired
 	protected CounterService counterService;
 
