@@ -18,21 +18,25 @@ import local.intranet.quarkus.api.model.entity.Counter;
  */
 public interface CounterRepository extends CrudRepository<Counter, Long> {
 
-	// @Override
+	@Override
 	// @RestResource(exported = false)
-	// void deleteById(Long id);
+	void deleteById(Long id);
 
-	// @Override
+	@Override
 	// @RestResource(exported = false)
-	// void delete(Counter entity);
+	void delete(Counter entity);
 	
-	// @Override
+	@Override
 	// @RestResource(exported = false)
-	// void deleteAll();
+	void deleteAll();
 
-	// @Override
+	@Override
 	// @RestResource(exported = false)
-	// long count();
+	<S extends Counter> S save(S entity);
+
+	@Override
+	// @RestResource(exported = false)
+	long count();
 	
 	/**
 	 *

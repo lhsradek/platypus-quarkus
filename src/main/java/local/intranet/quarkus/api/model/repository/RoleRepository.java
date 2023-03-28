@@ -21,26 +21,25 @@ import local.intranet.quarkus.api.model.entity.Role;
  */
 public interface RoleRepository extends CrudRepository<Role, Long> {
 
-	// @Override
+	@Override
 	// @RestResource(exported = false)
-	// void deleteById(Long id);
+	void deleteById(Long id);
 
-	// @Override
+	@Override
 	// @RestResource(exported = false)
-	// void delete(Role entity);
+	void delete(Role entity);
 	
-	// @Override
+	@Override
 	// @RestResource(exported = false)
-	// void deleteAll();
+	void deleteAll();
 
-	// @Override
+	@Override
 	// @RestResource(exported = false)
-	// @SuppressWarnings("unchecked")
-	// Role save(Role entity);
+	<S extends Role> S save(S entity);
 	
-	// @Override
+	@Override
 	// @RestResource(exported = false)
-	// long count();
+	long count();
 	
 	/**
 	 *

@@ -24,39 +24,38 @@ import local.intranet.quarkus.api.model.entity.LoggingEvent;
  */
 public interface LoggingEventRepository extends JpaRepository<LoggingEvent, Long> {
 
-	// @Override
+	@Override
 	// @RestResource(exported = false)
-	// void deleteById(Long id);
+	void deleteById(Long id);
 
-	// @Override
+	@Override
 	// @RestResource(exported = false)
-	// void delete(LoggingEvent entity);
+	void delete(LoggingEvent entity);
 	
-	// @Override
+	@Override
 	// @RestResource(exported = false)
-	// void deleteAll();
+	void deleteAll();
 	
-	// @Override
+	@Override
 	// @RestResource(exported = false)
-	// void deleteAllInBatch();
+	void deleteAllInBatch();
 
-	// @Override
+	@Override
 	// @RestResource(exported = false)
-	// void deleteInBatch(Iterable<LoggingEvent> entities);
+	void deleteInBatch(Iterable<LoggingEvent> entities);
 	
-	// @Override
+	@Override
 	// @RestResource(exported = false)
-	// @SuppressWarnings("unchecked")
-	// LoggingEvent save(LoggingEvent entity);
+	<S extends LoggingEvent> S save(S entity);
 	
-	// @Override
-	// @RestResource(exported = false)
-	// @SuppressWarnings("unchecked")
-	// LoggingEvent saveAndFlush(LoggingEvent entity);
 	
-	// @Override
+	@Override
 	// @RestResource(exported = false)
-	// long count();
+	<S extends LoggingEvent> S saveAndFlush(S entity);
+	
+	@Override
+	// @RestResource(exported = false)
+	long count();
 	
 	/**
 	 * 

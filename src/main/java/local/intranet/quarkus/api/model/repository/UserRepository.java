@@ -18,26 +18,25 @@ import local.intranet.quarkus.api.model.entity.User;
  */
 public interface UserRepository extends CrudRepository<User, Long> {
 
-	// @Override
+	@Override
 	// @RestResource(exported = false)
-	// void deleteById(Long id);
+	void deleteById(Long id);
 
-	// @Override
+	@Override
 	// @RestResource(exported = false)
-	// void delete(User entity);
+	void delete(User entity);
 	
-	// @Override
+	@Override
 	// @RestResource(exported = false)
-	// void deleteAll();
+	void deleteAll();
 
-	// @Override
+	@Override
 	// @RestResource(exported = false)
-	// @SuppressWarnings("unchecked")
-	// User save(User entity);
+	<S extends User> S save(S entity);
 	
-	// @Override
+	@Override
 	// @RestResource(exported = false)
-	// long count();
+	long count();
 	
 	/**
 	 *
