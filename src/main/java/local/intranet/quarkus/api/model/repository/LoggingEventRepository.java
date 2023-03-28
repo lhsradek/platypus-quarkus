@@ -6,7 +6,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.rest.core.annotation.RestResource;
 
 import local.intranet.quarkus.api.model.entity.LoggingEvent;
 
@@ -25,39 +24,39 @@ import local.intranet.quarkus.api.model.entity.LoggingEvent;
  */
 public interface LoggingEventRepository extends JpaRepository<LoggingEvent, Long> {
 
-	@Override
-	@RestResource(exported = false)
-	void deleteById(Long id);
+	// @Override
+	// @RestResource(exported = false)
+	// void deleteById(Long id);
 
-	@Override
-	@RestResource(exported = false)
-	void delete(LoggingEvent entity);
+	// @Override
+	// @RestResource(exported = false)
+	// void delete(LoggingEvent entity);
 	
-	@Override
-	@RestResource(exported = false)
-	void deleteAll();
+	// @Override
+	// @RestResource(exported = false)
+	// void deleteAll();
 	
-	@Override
-	@RestResource(exported = false)
-	void deleteAllInBatch();
+	// @Override
+	// @RestResource(exported = false)
+	// void deleteAllInBatch();
 
-	@Override
-	@RestResource(exported = false)
-	void deleteInBatch(Iterable<LoggingEvent> entities);
+	// @Override
+	// @RestResource(exported = false)
+	// void deleteInBatch(Iterable<LoggingEvent> entities);
 	
-	@Override
-	@RestResource(exported = false)
-	@SuppressWarnings("unchecked")
-	LoggingEvent save(LoggingEvent entity);
+	// @Override
+	// @RestResource(exported = false)
+	// @SuppressWarnings("unchecked")
+	// LoggingEvent save(LoggingEvent entity);
 	
-	@Override
-	@RestResource(exported = false)
-	@SuppressWarnings("unchecked")
-	LoggingEvent saveAndFlush(LoggingEvent entity);
+	// @Override
+	// @RestResource(exported = false)
+	// @SuppressWarnings("unchecked")
+	// LoggingEvent saveAndFlush(LoggingEvent entity);
 	
-	@Override
-	@RestResource(exported = false)
-	long count();
+	// @Override
+	// @RestResource(exported = false)
+	// long count();
 	
 	/**
 	 * 

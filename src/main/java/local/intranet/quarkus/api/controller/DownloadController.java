@@ -1,7 +1,10 @@
 package local.intranet.quarkus.api.controller;
 
 import java.io.File;
-import java.util.Set;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -19,14 +22,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.quarkus.qute.CheckedTemplate;
 import io.quarkus.qute.TemplateInstance;
-import io.quarkus.vertx.web.Param;
+import io.smallrye.common.constraint.NotNull;
 import io.smallrye.mutiny.Uni;
-import local.intranet.quarkus.api.info.content.PlatypusCounter;
+import local.intranet.quarkus.api.info.content.template.DownloadTemplate;
 
 /**
  * 
@@ -45,8 +48,7 @@ import local.intranet.quarkus.api.info.content.PlatypusCounter;
 @RestController
 @RequestMapping(value = "/downloads")
 // @Tag(name = DownloadController.TAG)
-public class DownloadController
-		extends PlatypusCounter /* implements Countable, Invocationable, Statusable, Nameable */ {
+public class DownloadController {
 
 	private static final Logger LOG = LoggerFactory.getLogger(DownloadController.class);
 
@@ -64,41 +66,27 @@ public class DownloadController
 
 	/**
 	 * 
-	 * HTML Template for /downloads
-	 *
-	 */
-	@CheckedTemplate
-	protected static class Templates {
-
-		/**
-		 * 
-		 * @param files {@link Set}&lt;{@link String}&gt;
-		 * @return {@link TemplateInstance}
-		 */
-		public static native TemplateInstance files(Set<String> files);
-	}
-
-	/**
-	 * 
 	 * List of files from Quarkus in downloads directory as HTML
 	 * 
-	 * @return {@link TemplateInstance}
+	 *  @return {@link TemplateInstance}
 	 * @throws NotFoundException {@link NotFoundException}
 	 */
 	// @GET
 	// @Path("/")
 	// @Produces(MediaType.TEXT_HTML)
 	@Operation(hidden = true)
-	@GetMapping(value = "/", produces = MediaType.TEXT_HTML_VALUE)
+	@GetMapping(value = { "/" }, produces = MediaType.TEXT_HTML_VALUE)
 	public TemplateInstance listFiles() throws NotFoundException {
 		final String dir = DOWNLOAD_DIRECTORY;
 		if (new File(dir).exists()) {
-			final Set<String> set = Stream.of(new File(dir).listFiles()).filter(file -> !file.isDirectory())
-					.map(File::getName).collect(Collectors.toCollection(TreeSet::new));
-			// .collect(Collectors.toCollection(() -> new
-			// TreeSet<>(String.CASE_INSENSITIVE_ORDER)));
+			final TreeSet<File> set = Stream.of(new File(dir).listFiles())
+					.collect(Collectors.toCollection(TreeSet::new));
 			// incrementCounter();
-			return Templates.files(set);
+			final List<Map.Entry<String, File>> ret = new ArrayList<>();
+			for (File f : set) {
+				ret.add(new SimpleEntry<String, File>(f.getName(), f));
+			}
+			return DownloadTemplate.files(ret);
 		} else {
 			throw new NotFoundException();
 		}
@@ -113,12 +101,12 @@ public class DownloadController
 	 * @throws NotFoundException {@link NotFoundException}
 	 */
 	// @GET
-	// @Path("/{name}")
+	// @Path("file/{name}")
 	// @Operation(hidden = true)
 	// @Produces(MediaType.APPLICATION_OCTET_STREAM)
 	@Operation(hidden = true)
-	@GetMapping(value = "/{name}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-	public Uni<Response> getFile(@Param String fileName) throws NotFoundException {
+	@GetMapping(value = "/file/{name}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	public Uni<Response> getFile(@NotNull @PathVariable String fileName) throws NotFoundException {
 		try {
 			if (new File(DOWNLOAD_DIRECTORY).exists()) {
 				final File nf = new File(fileName);
