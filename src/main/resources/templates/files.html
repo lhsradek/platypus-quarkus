@@ -29,7 +29,7 @@ Quarkus Version: 2.16.5.Final
 					<ul>
 						{#for map in files}
 						{#if !map.value.isDirectory}
-						<li><big><a alt="{map.key}" target="_blank" href="/downloads/{map.key}">{map.key}</a></big><small> ({map.value.length})</small></li>
+						<li><a alt="{map.key}" target="_blank" href="/downloads/{map.key}">{map.key}</a><small> ({map.value.length})</small></li>
 						{/if}
 						{/for}
 					</ul>
@@ -43,7 +43,7 @@ Quarkus Version: 2.16.5.Final
 					<ul>
 						{#for map in files}
 						{#if map.value.isDirectory}
-						<li><big>{map.key}</big><small> ({map.value.length})</small></li>
+						<li>{map.key}<small> ({map.value.length})</small></li>
 						{/if}
 						{/for}
 					</ul>

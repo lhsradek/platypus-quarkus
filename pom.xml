@@ -35,12 +35,10 @@
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-spring-web</artifactId>
     </dependency>
-    <!-- 
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-spring-data-rest</artifactId>
     </dependency>
-    -->
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-hibernate-orm</artifactId>
@@ -279,11 +277,12 @@
          <name>dev</name>
        </property>
      </activation>
-	<properties>
-	  <skipITs>false</skipITs>
-	  <quarkus.profile>dev</quarkus.profile>
-	</properties>
-	</profile>
+     <properties>
+       <skipITs>false</skipITs>
+       <quarkus.profile>dev</quarkus.profile>
+       <quarkus.package.type>mutable-jar</quarkus.package.type>
+     </properties>
+    </profile>
     <profile>
       <id>native</id>
       <activation>
