@@ -69,7 +69,7 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 
 	/**
 	 * 
-	 * {@link CounterService} for {@link #indexCounter()}
+	 * {@link CounterService} for {@link #downloadCounter()}
 	 */
 	@Inject
 	protected CounterService counterService;
