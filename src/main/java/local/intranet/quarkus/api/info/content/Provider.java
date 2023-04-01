@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
@@ -13,8 +15,6 @@ import org.hibernate.envers.AuditReaderFactory;
 import org.hibernate.envers.internal.reader.AuditReaderImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 /**
  * 
@@ -24,12 +24,12 @@ import org.springframework.stereotype.Component;
  * @author Radek Kádner
  *
  */
-@Component
+@ApplicationScoped
 public class Provider {
 
 	private static final Logger LOG = LoggerFactory.getLogger(Provider.class);
 
-	@Autowired
+	@Inject
 	protected EntityManagerFactory entityManagerFactory;
 
 	@PersistenceContext

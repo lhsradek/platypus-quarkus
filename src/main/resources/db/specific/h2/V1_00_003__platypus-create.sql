@@ -9,7 +9,7 @@ CREATE SEQUENCE revinfo_seq MINVALUE 1;
 -- TABLE revinfo -----
 
 CREATE TABLE revinfo (
-    rev BIGINT DEFAULT nextval('revinfo_seq') PRIMARY KEY,
+    rev INTEGER DEFAULT nextval('revinfo_seq') PRIMARY KEY,
     revtstmp BIGINT
 );
 
@@ -28,10 +28,10 @@ CREATE TABLE platypus_counter (
 
 CREATE TABLE platypus_counter_aud (
     id BIGINT NOT NULL,
-    rev BIGINT REFERENCES revinfo (rev),
+    rev INTEGER REFERENCES revinfo (rev),
     revtype TINYINT,
     counter_name VARCHAR(255) NULL,
-    counter_name_mod BOOLEAN,
+    countername_mod BOOLEAN,
     cnt BIGINT NULL,
     cnt_mod BOOLEAN,
     timestmp BIGINT NULL,

@@ -2,15 +2,17 @@ package local.intranet.quarkus.api.controller;
 
 import java.util.List;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import local.intranet.quarkus.api.domain.Countable;
 import local.intranet.quarkus.api.domain.Invocationable;
@@ -36,9 +38,8 @@ import local.intranet.quarkus.api.service.UserService;
  * @author Radek Kádner
  *
  */
-// @Path("/app/v1/info")
-@RestController
-@RequestMapping(value = "/app/v1/info")
+@Path("/app/v1/info")
+@ApplicationScoped
 @Tag(name = InfoController.TAG)
 public class InfoController extends PlatypusCounter implements Countable, Invocationable, Statusable, Nameable {
 
@@ -54,28 +55,28 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	 * 
 	 * {@link LoggingEventService} for {@link #loggingEventInfo()}
 	 */
-	@Autowired
+	@Inject
 	protected LoggingEventService loggingEventService;
 
 	/**
 	 * 
 	 * {@link RoleService} for {@link #roleInfo()}
 	 */
-	@Autowired
+	@Inject
 	protected RoleService roleService;
 
 	/**
 	 * 
 	 * {@link UserService} for {@link #userInfo()}
 	 */
-	@Autowired
+	@Inject
 	protected UserService userService;
 
 	/**
 	 * 
 	 * {@link CounterService} for {@link #infoCounter()}
 	 */
-	@Autowired
+	@Inject
 	protected CounterService counterService;
 
 	/**
@@ -90,10 +91,9 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	 * 
 	 * @return {@link List}&le;{@link LevelCount}&ge;
 	 */
-	// @GET
-	// @Path("/loggingEvent")
-	// @Produces(MediaType.APPLICATION_JSON)
-	@GetMapping(value = "/loggingEvent", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GET
+	@Path("/loggingEvent")
+	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Count Total LoggingEvents", description = "**Count Total Logging Events**<br/><br/>"
 			+ "This method is calling LoggingEventService.countTotalLoggingEvents<br/><br/>"
 			+ "See [InfoController.loggingEventInfo](/javadoc/local/intranet/quarkus/api/controller/InfoController.html#loggingEventInfo())")
@@ -115,10 +115,9 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	 * 
 	 * @return {@link RoleInfo}
 	 */
-	// @GET
-	// @Path("/role")
-	// @Produces(MediaType.APPLICATION_JSON)
-	@GetMapping(value = "/role", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GET
+	@Path("/role")
+	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Get Role Info", description = "**Get Role Info**<br/><br/>"
 			+ "This method is calling RoleService.getRoleInfo<br/<br>"
 			+ "See [InfoController.roleInfo](/javadoc/local/intranet/quarkus/api/controller/InfoController.html#roleInfo())")
@@ -140,10 +139,9 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	 * 
 	 * @return {@link UserInfo}
 	 */
-	// @GET
-	// @Path("/user")
-	// @Produces(MediaType.APPLICATION_JSON)
-	@GetMapping(value = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GET
+	@Path("/user")
+	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Get User Info", description = "**Get User Info**<br/><br/>"
 			+ "This method is calling UserService.getUserInfo<br/><br/>"
 			+ "See [InfoController.userInfo](/javadoc/local/intranet/quarkus/api/controller/InfoController.html#userInfo())")
@@ -165,10 +163,9 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	 * @return {@link CounterInfo}
 	 * @throws PlatypusQuarkusException {@link PlatypusQuarkusException}
 	 */
-	// @GET
-	// @Path("counter")
-	// @Produces(MediaType.APPLICATION_JSON)
-	@GetMapping(value = "/infoCounter", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GET
+	@Path("counter")
+	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Get Counter Info", description = "**Get Counter Info**<br/><br/>"
 			+ "This method is calling CounterService.getCounterInfo<br/><br/>"
 			+ "See [InfoController.infoCounter](/javadoc/local/intranet/quarkus/api/controller/InfoController.html#infoCounter())")

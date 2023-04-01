@@ -5,12 +5,12 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
+import javax.inject.Inject;
+import javax.transaction.Transactional;
 import javax.validation.constraints.Size;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -32,17 +32,16 @@ import local.intranet.quarkus.api.model.repository.CounterRepository;
  * @author Radek Kádner
  *
  */
-@Component
 public abstract class PlatypusCounter implements Countable, Invocationable, Statusable, Nameable {
 
 	private static final Logger LOG = LoggerFactory.getLogger(PlatypusCounter.class);
 
 	private static final String SUBCLASS = "_Subclass";
 
-	@Autowired
+	@Inject
 	protected CounterRepository counterRepository;
 
-	@Autowired
+	@Inject
 	protected Provider provider;
 
 	/**
@@ -95,7 +94,7 @@ public abstract class PlatypusCounter implements Countable, Invocationable, Stat
 	 * 
 	 * @return {@link Long}
 	 */
-	// @Transactional
+	@Transactional
 	public Long incrementCounter() {
 		final Long ret;
 		final String counterName = getName();

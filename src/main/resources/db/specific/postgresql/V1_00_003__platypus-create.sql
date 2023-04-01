@@ -12,7 +12,7 @@ CREATE SEQUENCE hibernate_sequence INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854
 -- TABLE revinfo -----
 
 CREATE TABLE revinfo (
-    rev BIGINT NOT NULL,
+    rev INT NOT NULL,
     revtstmp BIGINT NULL,
     CONSTRAINT revinfo_rev_pkey PRIMARY KEY (rev)
 );
@@ -34,10 +34,10 @@ CREATE TABLE platypus_counter (
 
 CREATE TABLE platypus_counter_aud (
     id BIGINT NOT NULL,
-    rev BIGINT REFERENCES revinfo (rev) NOT NULL,
+    rev INT REFERENCES revinfo (rev) NOT NULL,
     revtype SMALLINT NULL,
     counter_name VARCHAR(255) NULL,
-    counter_name_mod BOOLEAN NULL,
+    countername_mod BOOLEAN NULL,
     cnt BIGINT NULL,
     cnt_mod BOOLEAN,
     timestmp BIGINT NULL,

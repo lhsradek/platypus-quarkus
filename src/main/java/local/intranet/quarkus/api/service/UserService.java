@@ -1,15 +1,16 @@
 package local.intranet.quarkus.api.service;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+
 import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import io.micrometer.core.instrument.config.validate.ValidationException;
 import io.quarkus.security.ForbiddenException;
 import io.quarkus.security.UnauthorizedException;
-import io.smallrye.common.constraint.NotNull;
 import local.intranet.quarkus.api.info.UserInfo;
 import local.intranet.quarkus.api.model.entity.User;
 import local.intranet.quarkus.api.model.repository.UserRepository;
@@ -23,7 +24,7 @@ import local.intranet.quarkus.api.model.repository.UserRepository;
  * @author Radek Kádner
  *
  */
-@Service
+@ApplicationScoped
 public class UserService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(UserService.class);
@@ -32,7 +33,7 @@ public class UserService {
 	 * 
 	 * {@link UserRepository} for {@link #loadUserByUsername}
 	 */
-	@Autowired
+	@Inject
 	protected UserRepository userRepository;
 
 	/**

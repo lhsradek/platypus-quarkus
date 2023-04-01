@@ -18,13 +18,13 @@
 			<password>${quarkus.datasource.password}</password>
 		</connectionSource>
 	</appender>
-	
+
 	<appender name="DB_ASYNC"
-        class="ch.qos.logback.classic.AsyncAppender">
-         <appender-ref ref="DB" />
-         <includeCallerData>true</includeCallerData>
-    </appender>
-	
+		class="ch.qos.logback.classic.AsyncAppender">
+		<appender-ref ref="DB" />
+		<includeCallerData>true</includeCallerData>
+	</appender>
+
 	<logger name="local.intranet" level="DEBUG">
 		<appender-ref ref="DB_ASYNC" />
 	</logger>

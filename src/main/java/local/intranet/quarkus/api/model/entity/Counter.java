@@ -1,5 +1,6 @@
 package local.intranet.quarkus.api.model.entity;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,8 +10,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
 import org.hibernate.envers.Audited;
+import org.jetbrains.annotations.NotNull;
 
-import io.smallrye.common.constraint.NotNull;
 import local.intranet.quarkus.api.domain.DefaultFieldLengths;
 
 /**
@@ -26,7 +27,7 @@ import local.intranet.quarkus.api.domain.DefaultFieldLengths;
  */
 @Entity
 @Audited
-// @Cacheable
+@Cacheable
 @Table(name = "platypus_counter")
 public class Counter {
 
@@ -158,11 +159,11 @@ public class Counter {
 	/**
 	 * 
 	 * Returns a string representation of the object.
+	 */
 	@Override
 	public String toString() {
 		return "Counter [id=" + id + ", counterName=" + counterName + ", cnt=" + cnt + ", timestmp=" + timestmp
 				+ ", status=" + status + "]";
 	}
-	 */
 
 }

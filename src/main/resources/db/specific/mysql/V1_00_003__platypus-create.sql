@@ -8,7 +8,7 @@
 CREATE SEQUENCE hibernate_sequence MINVALUE 1;
 
 CREATE TABLE revinfo (
-  rev BIGINT(20) AUTO_INCREMENT,
+  rev INTEGER AUTO_INCREMENT,
   revtstmp BIGINT(20) DEFAULT NULL,
   PRIMARY KEY (rev)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
@@ -25,10 +25,10 @@ CREATE TABLE platypus_counter (
 
 CREATE TABLE platypus_counter_aud (
     id BIGINT(20) NOT NULL,
-    rev BIGINT(20) REFERENCES revinfo (rev),
+    rev INTEGER REFERENCES revinfo (rev),
     revtype TINYINT(4) DEFAULT NULL,
     counter_name VARCHAR(255) DEFAULT NULL,
-    counter_name_mod BIT(1) DEFAULT NULL,
+    countername_mod BIT(1) DEFAULT NULL,
     cnt BIGINT(20) DEFAULT NULL,
     cnt_mod BIT(1) DEFAULT NULL,
     timestmp BIGINT(20) DEFAULT NULL,

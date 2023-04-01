@@ -1,13 +1,16 @@
 package local.intranet.quarkus.api.controller;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import local.intranet.quarkus.api.domain.Countable;
 import local.intranet.quarkus.api.domain.Invocationable;
@@ -28,8 +31,8 @@ import local.intranet.quarkus.api.service.CounterService;
  * @author Radek Kádner
  *
  */
-// @Path("")
-@RestController
+@Path("")
+@ApplicationScoped
 @Tag(name = IndexController.TAG)
 public class IndexController extends PlatypusCounter implements Countable, Invocationable, Statusable, Nameable {
 
@@ -45,7 +48,7 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	 * 
 	 * {@link CounterService} for {@link #indexCounter()}
 	 */
-	@Autowired
+	@Inject
 	protected CounterService counterService;
 
 	/**
@@ -69,10 +72,9 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	 * 
 	 * @return {@link Message}
 	 */
-	// @GET
-	// @Path("/hello")
-	// @Produces(MediaType.APPLICATION_JSON)
-	@GetMapping(value = "/hello", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GET
+	@Path("/hello")
+	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Hello", description = "This method say: **" + HELLO + "**<br/><br/>"
 			+ "See [IndexController.hello](/javadoc/local/intranet/quarkus/api/controller/IndexController.html#hello())")
 	public Message hello() {
@@ -90,10 +92,9 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	 * 
 	 * @return {@link Message}
 	 */
-	// @GET
-	// @Path("/ahoj")
-	// @Produces(MediaType.APPLICATION_JSON)
-	@GetMapping(value = "/ahoj", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GET
+	@Path("/ahoj")
+	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Ahoj", description = "This method say: **" + AHOJ + "**<br/><br/>"
 			+ "See [IndexController.ahoj](/javadoc/local/intranet/quarkus/api/controller/IndexController.html#ahoj())")
 	public Message ahoj() {
@@ -112,10 +113,9 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	 * @return {@link CounterInfo}
 	 * @throws PlatypusQuarkusException {@link PlatypusQuarkusException}
 	 */
-	// @GET
-	// @Path("counter")
-	// @Produces(MediaType.APPLICATION_JSON)
-	@GetMapping(value = "/indexCounter", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GET
+	@Path("/indexCounter")
+	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Get Counter Info", description = "**Get Counter Info**<br/><br/>"
 			+ "This method is calling CounterService.getCounterInfo<br/><br/>"
 			+ "See [IndexController.indexCounter](/javadoc/local/intranet/quarkus/api/controller/IndexController.html#indexCounter())")

@@ -90,7 +90,6 @@ If you want to learn more about building native executables, please consult http
 - JDBC Driver - PostgreSQL for Flyway ([guide](https://quarkus.io/guides/datasource)): Connect to the PostgreSQL database via JDBC
 - Micrometer Registry Prometheus ([guide](https://quarkus.io/guides/micrometer)): Enable Prometheus support for Micrometer
 - Quarkus Extension for Spring Data JPA API ([guide](https://quarkus.io/guides/spring-data-jpa)): Use Spring Data JPA annotations to create your data access layer
-- Quarkus Extension for Spring Web API ([guide](https://quarkus.io/guides/spring-web)): Use Spring Web annotations to create your REST services
 - Quarkus Extension for Spring Data REST ([guide](https://quarkus.io/guides/spring-data-rest)): Generate JAX-RS resources for a Spring Data application
 
 ## Provided Code

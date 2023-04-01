@@ -4,11 +4,12 @@ import java.util.List;
 
 import javax.validation.constraints.Size;
 
+import org.jetbrains.annotations.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import io.smallrye.common.constraint.NotNull;
 import local.intranet.quarkus.api.domain.DefaultFieldLengths;
 import local.intranet.quarkus.api.domain.Nameable;
 

@@ -2,8 +2,6 @@ package local.intranet.quarkus.api.domain;
 
 import javax.validation.constraints.Size;
 
-import org.springframework.data.repository.NoRepositoryBean;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -13,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author Radek Kádner
  *
  */
-@NoRepositoryBean
 public interface Countable {
 
 	/**

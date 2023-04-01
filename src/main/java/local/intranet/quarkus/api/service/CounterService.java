@@ -4,11 +4,12 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import io.smallrye.common.constraint.NotNull;
 import local.intranet.quarkus.api.domain.type.StatusType;
@@ -26,7 +27,7 @@ import local.intranet.quarkus.api.model.repository.CounterRepository;
  * @author Radek Kádner
  *
  */
-@Service
+@ApplicationScoped
 public class CounterService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(CounterService.class);
@@ -35,7 +36,7 @@ public class CounterService {
 	 * 
 	 * {@link CounterRepository} for {@link #getCounterInfo}
 	 */
-	@Autowired
+	@Inject
 	protected CounterRepository counterRepository;
 
 	/**
@@ -74,5 +75,5 @@ public class CounterService {
 		}
 		return ret;
 	}
-
+	
 }

@@ -11,15 +11,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import local.intranet.quarkus.api.domain.Countable;
 import local.intranet.quarkus.api.domain.Invocationable;
@@ -39,9 +41,8 @@ import local.intranet.quarkus.api.service.CounterService;
  * @author Radek Kádner
  * 
  */
-// @Path("/app/v1/status")
-@RestController
-@RequestMapping(value = "/app/v1/status")
+@Path("/app/v1/status")
+@ApplicationScoped
 @Tag(name = StatusController.TAG)
 public class StatusController extends PlatypusCounter implements Countable, Invocationable, Statusable, Nameable {
 
@@ -69,7 +70,7 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	 * 
 	 * {@link CounterService} for {@link #statusCounter()}
 	 */
-	@Autowired
+	@Inject
 	protected CounterService counterService;
 
 	private static final String STATUS_BRACKET = "_";
@@ -84,10 +85,9 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	 * 
 	 * @return "OK" if Platypus-Quarkus API is running
 	 */
-	// @GET
-	// @Path(value = "/plainStatus")
-	// @Produces(MediaType.TEXT_PLAIN)
-	@GetMapping(value = "/plainStatus", produces = MediaType.TEXT_PLAIN_VALUE)
+	@GET
+	@Path(value = "/plainStatus")
+	@Produces(MediaType.TEXT_PLAIN)
 	@Operation(summary = "Get Plain Status", description = "**Get OK if Platypus-Quarkus API is running**<br/><br/>"
 			+ "See [StatusController.plainStatus](/javadoc/local/intranet/quarkus/api/controller/StatusController.html#plainStatus())")
 	public String plainStatus() {
@@ -104,10 +104,9 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	 * 
 	 * @return {@link List}&lt;{@link Map.Entry}&lt;{@link String},{@link String}&gt;&gt;
 	 */
-	// @GET
-	// @Path(value = "/platypusEnvironment")
-	// @Produces(MediaType.APPLICATION_JSON)
-	@GetMapping(value = "/platypusEnvironment", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GET
+	@Path(value = "/platypusEnvironment")
+	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Get Environment", description = "**Get Environment</strong>**<br/><br/>"
 			+ "See [StatusController.platypusEnvironment](/javadoc/local/intranet/quarkus/api/controller/StatusController.html#platypusEnvironment())")
 	public List<Map.Entry<String, String>> platypusEnvironment() {
@@ -136,10 +135,9 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	 * 
 	 * @return {@link List}&lt;{@link Map.Entry}&lt;{@link String},{@link Object}&gt;&gt;
 	 */
-	// @GET
-	// @Path(value = "/getOperatingSystem")
-	// @Produces(MediaType.APPLICATION_JSON)
-	@GetMapping(value = "/getOperatingSystem", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GET
+	@Path(value = "/getOperatingSystem")
+	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Get Operating System", description = "**Get Operating System and load average**<br/><br/>"
 			+ "See [StatusController.getOperatingSystem](/javadoc/local/intranet/quarkus/api/controller/StatusController.html#getOperatingSystem())")
 	public List<Map.Entry<String, String>> getOperatingSystem() {
@@ -165,10 +163,9 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	 * @return {@link CounterInfo}
 	 * @throws PlatypusQuarkusException {@link PlatypusQuarkusException}
 	 */
-	// @GET
-	// @Path("counter")
-	// @Produces(MediaType.APPLICATION_JSON)
-	@GetMapping(value = "/statusCounter", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GET
+	@Path("counter")
+	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Get Counter Info", description = "**Get Counter Info**<br/><br/>"
 			+ "This method is calling CounterService.getCounterInfo<br/><br/>"
 			+ "See [StatusController.statusCounter](/javadoc/local/intranet/quarkus/api/controller/StatusController.html#statusCounter())")
