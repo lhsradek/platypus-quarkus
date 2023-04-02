@@ -14,6 +14,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.quarkus.arc.properties.IfBuildProperty;
 import local.intranet.quarkus.api.domain.Countable;
 import local.intranet.quarkus.api.domain.Invocationable;
 import local.intranet.quarkus.api.domain.Nameable;
@@ -60,7 +61,7 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	 */
 	@Inject
 	protected PlatypusJob platypusJob;
-	
+
 	/**
 	 * 
 	 * HELLO = "Hello from Platypus-Quarkus"
@@ -117,28 +118,27 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	 * 
 	 * Job Counter
 	 * <p>
-	 * Used
-	 * {@link local.intranet.quarkus.api.scheduler.PlatypusJob#getCounter}.
+	 * Used {@link local.intranet.quarkus.api.scheduler.PlatypusJob#getCounter}.
 	 * 
 	 * @see <a href="/q/swagger-ui/#/index-controller/jobCounter" target=
 	 *      "_blank">/q/swagger-ui/#/index-controller/jobCounter</a>
-	 *      
+	 * 
 	 * @return {@link String}
 	 */
 	@GET
 	@Path("/jobCounter")
 	@Produces(MediaType.TEXT_PLAIN)
+	@IfBuildProperty(name = "platypusJob.enable", stringValue = "true")
 	@Operation(summary = "Get Job Counter", description = "**Get Job Counter**<br/><br/>"
 			+ "This method is calling PlatypusJob.getCounter<br/><br/>"
 			+ "See [IndexController.jobCounter](/javadoc/local/intranet/quarkus/api/controller/IndexController.html#jobCounter())")
-    public String jobCounter() {
+	public String jobCounter() {
 		final int ret = platypusJob.getCounter();
 		incrementCounter();
 		LOG.trace("cnt:{}", ret);
 		return MessageFormat.format("count: {0}", ret);
 	}
 
-	
 	/**
 	 * 
 	 * Counter informations
