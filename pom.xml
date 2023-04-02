@@ -33,27 +33,15 @@
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-spring-data-rest</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.quarkus</groupId>
       <artifactId>quarkus-hibernate-orm</artifactId>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-hibernate-orm-panache</artifactId>
     </dependency>
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-hibernate-orm-rest-data-panache</artifactId>
-    </dependency>
 	<dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-resteasy</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-resteasy-links</artifactId>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
@@ -78,10 +66,6 @@
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-vertx-http</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-jdbc-postgresql</artifactId>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
@@ -121,17 +105,19 @@
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-scheduler</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-jdbc-postgresql</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
       <artifactId>quarkus-jdbc-mysql</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.quarkiverse.logging.logback</groupId>
-      <artifactId>quarkus-logging-logback</artifactId>
-      <version>0.13.0</version>
-    </dependency>
-    <dependency>
-      <groupId>ch.qos.logback.db</groupId>
-      <artifactId>logback-classic-db</artifactId>
-      <version>1.2.11.1</version>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-jdbc-h2</artifactId>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
@@ -140,14 +126,6 @@
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-micrometer-registry-prometheus</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-opentelemetry</artifactId>
-    </dependency>
-    <dependency>
-       <groupId>io.opentelemetry</groupId>
-       <artifactId>opentelemetry-exporter-otlp</artifactId>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
@@ -171,28 +149,24 @@
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-kotlin</artifactId>
     </dependency>
-    <!--
     <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-jdbc-mysql</artifactId>
+      <groupId>io.quarkiverse.logging.logback</groupId>
+      <artifactId>quarkus-logging-logback</artifactId>
+      <version>0.13.0</version>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback.db</groupId>
+      <artifactId>logback-classic-db</artifactId>
+      <version>1.2.11.1</version>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-mysql-client</artifactId>
+      <artifactId>quarkus-opentelemetry</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-jdbc-h2</artifactId>
+       <groupId>io.opentelemetry</groupId>
+       <artifactId>opentelemetry-exporter-otlp</artifactId>
     </dependency>
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-hibernate-search-orm-elasticsearch</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-elasticsearch-rest-client</artifactId>
-    </dependency>
-    -->
   </dependencies>
   <build>
     <plugins>

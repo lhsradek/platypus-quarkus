@@ -1,5 +1,7 @@
 package local.intranet.quarkus.api.controller;
 
+import java.text.MessageFormat;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -20,6 +22,7 @@ import local.intranet.quarkus.api.exception.PlatypusQuarkusException;
 import local.intranet.quarkus.api.info.CounterInfo;
 import local.intranet.quarkus.api.info.Message;
 import local.intranet.quarkus.api.info.content.PlatypusCounter;
+import local.intranet.quarkus.api.scheduler.PlatypusJob;
 import local.intranet.quarkus.api.service.CounterService;
 
 /**
@@ -51,6 +54,13 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	@Inject
 	protected CounterService counterService;
 
+	/**
+	 * 
+	 * {@link PlatypusJob} for {@link #jobCounter()}
+	 */
+	@Inject
+	protected PlatypusJob platypusJob;
+	
 	/**
 	 * 
 	 * HELLO = "Hello from Platypus-Quarkus"
@@ -103,6 +113,32 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 		return new Message(AHOJ);
 	}
 
+	/**
+	 * 
+	 * Job Counter
+	 * <p>
+	 * Used
+	 * {@link local.intranet.quarkus.api.scheduler.PlatypusJob#getCounter}.
+	 * 
+	 * @see <a href="/q/swagger-ui/#/index-controller/jobCounter" target=
+	 *      "_blank">/q/swagger-ui/#/index-controller/jobCounter</a>
+	 *      
+	 * @return {@link String}
+	 */
+	@GET
+	@Path("/jobCounter")
+	@Produces(MediaType.TEXT_PLAIN)
+	@Operation(summary = "Get Job Counter", description = "**Get Job Counter**<br/><br/>"
+			+ "This method is calling PlatypusJob.getCounter<br/><br/>"
+			+ "See [IndexController.jobCounter](/javadoc/local/intranet/quarkus/api/controller/IndexController.html#jobCounter())")
+    public String jobCounter() {
+		final int ret = platypusJob.getCounter();
+		incrementCounter();
+		LOG.trace("cnt:{}", ret);
+		return MessageFormat.format("count: {0}", ret);
+	}
+
+	
 	/**
 	 * 
 	 * Counter informations

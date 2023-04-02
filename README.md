@@ -6,7 +6,9 @@
 </p>
 
 ```
-mvn io.quarkus:quarkus-maven-plugin:2.12.0.Final:create -DprojectGroupId=local.intranet.quarkus -DprojectArtifactId=platypus-quarkus -DclassName="local.intranet.quarkus.HelloResource" -Dpath="/hello" -Dextensions=agroal,resteasy,resteasy-qute,resteasy-links,resteasy-jackson,resteasy-jaxb,resteasy-jsonb,smallrye-jwt,smallrye-health,smallrye-openapi,swagger-ui,jdbc-mysql,jdbc-h2,hibernate-orm,hibernate-orm-panache,hibernate-validator,micrometer-registry-prometheus,flyway,spring-data-jpa,vertx,vertx-http,redis-client,hibernate-envers,logging-logback,logging-gelf,opentelemetry
+mvn io.quarkus:quarkus-maven-plugin:2.12.0.Final:create -DprojectGroupId=local.intranet.quarkus -DprojectArtifactId=platypus-quarkus -DclassName="local.intranet.quarkus.HelloResource" -Dpath="/hello" -Dextensions=agroal,resteasy,resteasy-qute,resteasy-links,resteasy-jackson,resteasy-jaxb,
+resteasy-jsonb,smallrye-jwt,smallrye-health,smallrye-openapi,swagger-ui,jdbc-mysql,jdbc-h2,hibernate-orm,hibernate-orm-panache,hibernate-validator,
+micrometer-registry-prometheus,flyway,spring-data-jpa,vertx,vertx-http,redis-client,hibernate-envers,logging-logback,logging-gelf,opentelemetry,scheduler
 ```
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
@@ -62,6 +64,7 @@ If you want to learn more about building native executables, please consult http
 - Eclipse Vert.x ([guide](https://quarkus.io/guides/vertx)): Write reactive applications with the Vert.x API
 - Hibernate Envers ([guide](https://quarkus.io/guides/hibernate-orm#envers)): Enable Hibernate Envers capabilities in your JPA applications
 - Hibernate Validator ([guide](https://quarkus.io/guides/validation)): Validate object properties (field, getter) and method parameters for your beans (REST, CDI, JPA)
+- Scheduler - tasks ([guide](https://quarkus.io/guides/scheduler)): Schedule jobs and tasks
 - SmallRye JWT ([guide](https://quarkus.io/guides/security-jwt)): Secure your applications with JSON Web Token
 - SmallRye OpenAPI ([guide](https://quarkus.io/guides/openapi-swaggerui)): Document your REST APIs with OpenAPI - comes with Swagger UI
 - JDBC Driver - H2 ([guide](https://quarkus.io/guides/datasource)): Connect to the H2 database via JDBC
