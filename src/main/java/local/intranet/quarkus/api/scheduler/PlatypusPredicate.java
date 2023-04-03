@@ -19,11 +19,19 @@ public class PlatypusPredicate implements SkipPredicate {
 
 	/**
 	 * 
-	 * platypus.job.enabled
+	 * <code>platypus.job.enabled</code> from application.properties
+	 * 
+	 * <p>
+	 * Change to Boolean:
+	 * <code>
+	 * if (Boolean.valueOf(job)) {
+	 * ...
+	 * }
+	 * </code>
 	 * 
 	 */
 	@ConfigProperty(name = "platypus.job.enabled")
-	public String job;
+	protected String job;
 
 	@Override
 	public boolean test(ScheduledExecution execution) {

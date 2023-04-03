@@ -6,10 +6,10 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.quarkus.arc.properties.IfBuildProperty;
 import io.quarkus.scheduler.Scheduled;
 
 /**
@@ -24,17 +24,41 @@ public class PlatypusJob {
 
 	private static final Logger LOG = LoggerFactory.getLogger(PlatypusJob.class);
 
-	private static final String HELLO_FROM_PLATYPUS_QUARKUS = "Hello from job of Platypus Quarkus";
 	private final AtomicInteger counter = new AtomicInteger();
 
+	/**
+	 * 
+	 * <code>platypus.job.enabled</code> from application.properties
+	 * 
+	 * <p>
+	 * Change to Boolean:
+	 * <code>
+	 * if (Boolean.valueOf(job)) {
+	 * ...
+	 * }
+	 * </code>
+	 * 
+	 */
+	@ConfigProperty(name = "platypus.job.enabled") // toBoolean
+	protected String job;
+
+	/**
+	 * 
+	 * <code>platypus.job.message</code> from application.properties
+	 * 
+	 */
+	@ConfigProperty(name = "platypus.job.message")
+	protected String jobMessage;
+	
 	/**
 	 * 
 	 * Start method
 	 */
 	@PostConstruct
-	@IfBuildProperty(name = "platypus.job.enabled", stringValue = "true")
 	public void start() {
-		LOG.info("Start scheduler");
+		if (Boolean.valueOf(job)) {
+			LOG.info("Start scheduler");
+		}
 	}
 
 	/**
@@ -42,9 +66,10 @@ public class PlatypusJob {
 	 * End method
 	 */
 	@PreDestroy
-	@IfBuildProperty(name = "platypus.job.enabled", stringValue = "true")
 	public void end() {
-		LOG.info("End scheduler");
+		if (Boolean.valueOf(job)) {
+			LOG.info("End scheduler");
+		}
 	}
 
 	/**
@@ -54,7 +79,7 @@ public class PlatypusJob {
 	 */
 	@Scheduled(cron = "{platypus.job.cron}", skipExecutionIf = PlatypusPredicate.class)
 	public void job() {
-		LOG.info(HELLO_FROM_PLATYPUS_QUARKUS);
+		LOG.info(jobMessage);
 	}
 
 	/**
