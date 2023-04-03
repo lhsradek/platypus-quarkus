@@ -4,6 +4,7 @@ import java.lang.management.ManagementFactory;
 import java.lang.management.OperatingSystemMXBean;
 import java.time.ZoneId;
 import java.util.AbstractMap.SimpleEntry;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -188,6 +189,22 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 		final String ret = ZoneId.systemDefault().getId();
 		LOG.trace("{}", ret);
 		return ret;
+	}
+	
+	/**
+	 * 
+	 * get Info
+	 * 
+	 * @return {@link Map}&lt;{@link String}, {@link String}&gt;
+	 */
+	public Map<String, String> getInfo() {
+		final Map<String, String> map = new ConcurrentHashMap<>();
+		map.put("Environment", "dev");
+		map.put("GroupId", "local.intranet.quarkus");
+		map.put("ArtifactId", "platypus-quarkus");
+		map.put("Version", "1.0.0-SNAPSHOT");
+		map.put("QuarkusVersion", "2.16.5.Final");
+		return map;
 	}
 
 }

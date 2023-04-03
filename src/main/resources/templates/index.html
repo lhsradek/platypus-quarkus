@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en">{@java.util.Map<String,String> map}
     <head>
         <meta charset="UTF-8">
-        <title>platypus-quarkus - 1.0.0-SNAPSHOT</title>
+        <title>{map.get("ArtifactId")} - {map.get("Version")}</title>
         <style>
             body {
                 margin: 0;
@@ -235,10 +235,11 @@
                         <div class="app-details">
                             <h5>Application</h5>
                             <ul>
-                                <li>GroupId: <code>local.intranet.quarkus</code></li>
-                                <li>ArtifactId: <code>platypus-quarkus</code></li>
-                                <li>Version: <code>1.0.0-SNAPSHOT</code></li>
-                                <li>Quarkus Version: <code>2.16.5.Final</code></li>
+                                <li>GroupId: <code>{map.get("GroupId")}</code></li>
+                                <li>ArtifactId: <code>{map.get("ArtifactId")}</code></li>
+                                <li>Version: <code>{map.get("Version")}</code></li>
+                                <li>Quarkus Version: <code>{map.get("QuarkusVersion")}</code></li>
+                                <li>Environment: <code>{map.get("Environment")}</code></li>
                             </ul>
                         </div>
                     </div>
@@ -248,9 +249,15 @@
         <div class="content-wrapper">
             <div class="grid">
                 <div class="left-column">
-                    <h1>You just made a <a style="text-decoration: none;" alt="platypus-quarkus" href="https://github.com/lhsradek/platypus-quarkus" target="_blank">Platypus Quarkus</a> application.</h1>
+                    <h1>You just made a <a style="text-decoration: none;" alt="{map.get("ArtifactId")}"
+                    href="https://github.com/lhsradek/platypus-quarkus" target="_blank">
+                    {map.get("ArtifactId").replace("-", " ")}</a> application.</h1>
                     <p>This page is served by Quarkus.</p>
+                    {#if map.get("Environment").equals("dev")}
                     <a href="/q/dev/" target="_blank" class="cta-button">Visit the Dev UI</a>
+                    {#else}
+                    <br/>
+                    {/if}
                     <p>This page: <code>src/main/resources/META-INF/resources/index.html</code></p>
                     <p>App configuration: <code>src/main/resources/application.properties</code></p>
                     <p>Static assets: <code>src/main/resources/META-INF/resources/</code></p>
@@ -259,14 +266,15 @@
                     <ul class="provided-code">
                                 <li class="provided-code">
             <b>RESTEasy Reactive</b>&nbsp;Easily start your Reactive RESTful Web Services
+            {#if map.get("Environment").equals("dev")}
             <br />&rsaquo; <code>@Path: <a href="/q/swagger-ui" class="path-link" target="_blank">/q/swagger-ui</a></code>
+            {/if}
             <br />&rsaquo; <code>@Path: <a href="/q/metrics" class="path-link" target="_blank">/q/metrics</a></code>
             <br />&rsaquo; <code>@Path: <a href="/q/health-ui" class="path-link" target="_blank">/q/health-ui</a></code>
             <br />&rsaquo; <code>@Path: <a href="/hello" class="path-link" target="_blank">/hello</a></code>
             <br />&rsaquo; <code>@Path: <a href="/ahoj" class="path-link" target="_blank">/ahoj</a></code>
             <br />&rsaquo; <code>@Path: <a href="/javadoc" class="path-link" target="_blank">/javadoc</a></code>
             <br />&rsaquo; <code>@Path: <a href="/downloads" class="path-link">/downloads</a></code>
-            <!-- <br />&rsaquo; <code>@Path: <a href="/downloads/readme.txt" class="path-link" target="_blank">readme.txt</a></code> -->
             <br />&rsaquo; <code>@Path: <a href="/q/dev/io.quarkus.quarkus-resteasy-reactive/endpoints" class="path-link" target="_blank">endpoints</a></code>
             <br />&rsaquo; <a href="https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources" class="guide-link" target="_blank">Related guide</a>
         </li>

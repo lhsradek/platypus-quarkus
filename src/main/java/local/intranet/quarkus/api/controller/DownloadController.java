@@ -74,6 +74,13 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	@Inject
 	protected CounterService counterService;
 
+	/**
+	 * 
+	 * {@link StatusController} for {@link #listFiles()}
+	 */
+	@Inject
+	protected StatusController statusController;
+	
 	private static final String CONTENT_DISPOSITION = "Content-Disposition";
 	private static final String ATTACHMENT_FILENAME = "attachment;filename=";
 	private static final String DOWNLOAD_DIRECTORY = "src/main/resources/META-INF/resources/downloads";
@@ -82,7 +89,7 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	 * 
 	 * List of files from Quarkus in downloads directory as HTML
 	 * 
-	 *  @return {@link TemplateInstance}
+	 * @return {@link TemplateInstance}
 	 * @throws NotFoundException {@link NotFoundException}
 	 */
 	@GET
@@ -99,7 +106,8 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 			for (File f : set) {
 				ret.add(new SimpleEntry<String, File>(f.getName(), f));
 			}
-			return DownloadTemplate.files(ret);
+			final Map<String, String> map = statusController.getInfo();
+			return DownloadTemplate.files(ret, map);
 		} else {
 			throw new NotFoundException();
 		}

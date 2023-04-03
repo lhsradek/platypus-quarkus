@@ -28,22 +28,6 @@ public class PlatypusJob {
 
 	/**
 	 * 
-	 * <code>platypus.job.enabled</code> from application.properties
-	 * 
-	 * <p>
-	 * Change to Boolean:
-	 * <code>
-	 * if (Boolean.valueOf(job)) {
-	 * ...
-	 * }
-	 * </code>
-	 * 
-	 */
-	@ConfigProperty(name = "platypus.job.enabled") // toBoolean
-	protected String job;
-
-	/**
-	 * 
 	 * <code>platypus.job.message</code> from application.properties
 	 * 
 	 */
@@ -56,9 +40,7 @@ public class PlatypusJob {
 	 */
 	@PostConstruct
 	public void start() {
-		if (Boolean.valueOf(job)) {
-			LOG.info("Start scheduler");
-		}
+		LOG.debug("Start scheduler");
 	}
 
 	/**
@@ -67,9 +49,7 @@ public class PlatypusJob {
 	 */
 	@PreDestroy
 	public void end() {
-		if (Boolean.valueOf(job)) {
-			LOG.info("End scheduler");
-		}
+		LOG.debug("End scheduler");
 	}
 
 	/**

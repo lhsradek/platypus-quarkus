@@ -1,6 +1,7 @@
 package local.intranet.quarkus.api.controller;
 
 import java.text.MessageFormat;
+import java.util.Map;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -14,6 +15,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.quarkus.qute.TemplateInstance;
 import local.intranet.quarkus.api.domain.Countable;
 import local.intranet.quarkus.api.domain.Invocationable;
 import local.intranet.quarkus.api.domain.Nameable;
@@ -22,6 +24,7 @@ import local.intranet.quarkus.api.exception.PlatypusQuarkusException;
 import local.intranet.quarkus.api.info.CounterInfo;
 import local.intranet.quarkus.api.info.Message;
 import local.intranet.quarkus.api.info.content.PlatypusCounter;
+import local.intranet.quarkus.api.info.content.template.IndexTemplate;
 import local.intranet.quarkus.api.scheduler.PlatypusJob;
 import local.intranet.quarkus.api.service.CounterService;
 
@@ -59,6 +62,13 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	@Inject
 	protected PlatypusJob platypusJob;
 	
+	/**
+	 * 
+	 * {@link StatusController} for {@link #index()}
+	 */
+	@Inject
+	protected StatusController statusController;
+
 	/**
 	 * 
 	 * HELLO = "Hello from Platypus-Quarkus"
@@ -109,6 +119,21 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 		incrementCounter();
 		LOG.debug("{}", AHOJ);
 		return new Message(AHOJ);
+	}
+
+	/**
+	 * 
+	 * List of files from Quarkus in downloads directory as HTML
+	 * 
+	 *  @return {@link TemplateInstance}
+	 */
+	@GET
+	@Path("/")
+	@Produces(MediaType.TEXT_HTML)
+	@Operation(hidden = true)
+	public TemplateInstance index() {
+		final Map<String, String> map = statusController.getInfo();
+		return IndexTemplate.index(map);
 	}
 
 	/**

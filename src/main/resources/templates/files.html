@@ -14,11 +14,12 @@
 	<div class="content">
 		<div class="content-middle" alight="right">
 			<h2><span><a href="/">Application</a><br/>
-<small><code>
-GroupId: local.intranet.quarkus				
-ArtifactId: platypus-quarkus
-Version: 1.0.0-SNAPSHOT
-Quarkus Version: 2.16.5.Final
+{@java.util.Map<String,String> map}<small><code>
+GroupId: {map.get("GroupId")}
+ArtifactId: {map.get("ArtifactId")}
+Version: {map.get("Version")}
+Quarkus Version: {map.get("QuarkusVersion")}
+Environment: {map.get("Environment")}
 </code></small></span></h2 class=".banner-wrapper">
 		</div>
 		<div th:class="content-columns">
@@ -27,9 +28,9 @@ Quarkus Version: 2.16.5.Final
 					<h2>&#128053; Files</h2>
 					<p>
 					<ul>
-						{#for map in files}
-						{#if !map.value.isDirectory}
-						<li><a alt="{map.key}" target="_blank" href="/downloads/{map.key}">{map.key}</a><small> ({map.value.length})</small></li>
+						{#for m in files}
+						{#if !m.value.isDirectory}
+						<li><a alt="{m.key}" target="_blank" href="/downloads/{m.key}">{m.key}</a><small> ({m.value.length})</small></li>
 						{/if}
 						{/for}
 					</ul>
