@@ -33,7 +33,7 @@ public class PlatypusJob {
 	 * Start method
 	 */
 	@PostConstruct
-	@IfBuildProperty(name = "platypusJob.enable", stringValue = "true")
+	@IfBuildProperty(name = "platypus.job.enabled", stringValue = "true")
 	public void start() {
 		LOG.info("Start scheduler");
 	}
@@ -43,7 +43,7 @@ public class PlatypusJob {
 	 * End method
 	 */
 	@PreDestroy
-	@IfBuildProperty(name = "platypusJob.enable", stringValue = "true")
+	@IfBuildProperty(name = "platypus.job.enabled", stringValue = "true")
 	public void end() {
 		LOG.info("End scheduler");
 	}
@@ -53,8 +53,8 @@ public class PlatypusJob {
 	 * Cron job is defined in application.properties
 	 * 
 	 */
-	@Scheduled(cron = "{platypusJob.cron}")
-	@IfBuildProperty(name = "platypusJob.enable", stringValue = "true")
+	@IfBuildProperty(name = "platypus.job.enabled", stringValue = "true")
+	@Scheduled(cron = "{platypus.job.cron}")
 	public void job() {
 		LOG.info(HELLO_FROM_PLATYPUS_QUARKUS);
 	}

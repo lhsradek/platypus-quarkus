@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.hibernate.envers.AuditReader;
 import org.hibernate.envers.AuditReaderFactory;
 import org.hibernate.envers.internal.reader.AuditReaderImpl;
@@ -29,11 +30,27 @@ public class Provider {
 
 	private static final Logger LOG = LoggerFactory.getLogger(Provider.class);
 
+	/**
+	 * 
+	 * {@link EntityManagerFactory}
+	 */
 	@Inject
-	protected EntityManagerFactory entityManagerFactory;
+	public EntityManagerFactory entityManagerFactory;
 
+	/**
+	 * 
+	 * {@link EntityManager}
+	 */
 	@PersistenceContext
-	protected EntityManager entityManager;
+	public EntityManager entityManager;
+	
+	/**
+	 * 
+	 * platypus.job.enabled
+	 * 
+	 */
+	@ConfigProperty(name = "platypus.job.enabled")
+	public String job;
 	
 	/**
 	 * 
