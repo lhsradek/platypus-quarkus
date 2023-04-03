@@ -29,8 +29,6 @@ import local.intranet.quarkus.api.service.CounterService;
  * 
  * {@link IndexController}
  * 
- * ROOT routes as hello or ahoj
- * 
  * @author Radek Kádner
  *
  */
@@ -137,7 +135,6 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 		LOG.trace("cnt:{}", ret);
 		return MessageFormat.format("count: {0}", ret);
 	}
-
 	
 	/**
 	 * 

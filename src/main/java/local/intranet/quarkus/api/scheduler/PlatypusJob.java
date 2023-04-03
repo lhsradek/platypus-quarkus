@@ -18,7 +18,6 @@ import io.quarkus.scheduler.Scheduled;
  * 
  * @author Radek Kádner
  *
- *
  */
 @ApplicationScoped
 public class PlatypusJob {
@@ -53,8 +52,7 @@ public class PlatypusJob {
 	 * Cron job is defined in application.properties
 	 * 
 	 */
-	@IfBuildProperty(name = "platypus.job.enabled", stringValue = "true")
-	@Scheduled(cron = "{platypus.job.cron}")
+	@Scheduled(cron = "{platypus.job.cron}", skipExecutionIf = PlatypusPredicate.class)
 	public void job() {
 		LOG.info(HELLO_FROM_PLATYPUS_QUARKUS);
 	}

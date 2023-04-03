@@ -10,7 +10,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 
-import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.hibernate.envers.AuditReader;
 import org.hibernate.envers.AuditReaderFactory;
 import org.hibernate.envers.internal.reader.AuditReaderImpl;
@@ -43,14 +42,6 @@ public class Provider {
 	 */
 	@PersistenceContext
 	public EntityManager entityManager;
-	
-	/**
-	 * 
-	 * platypus.job.enabled
-	 * 
-	 */
-	@ConfigProperty(name = "platypus.job.enabled")
-	public String job;
 	
 	/**
 	 * 
