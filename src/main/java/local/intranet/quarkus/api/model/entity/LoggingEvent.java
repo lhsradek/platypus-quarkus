@@ -1,13 +1,11 @@
 package local.intranet.quarkus.api.model.entity;
 
-import javax.persistence.Cacheable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
-
-import org.hibernate.annotations.Immutable;
 
 import local.intranet.quarkus.api.domain.DefaultFieldLengths;
 
@@ -30,8 +28,6 @@ import local.intranet.quarkus.api.domain.DefaultFieldLengths;
  *
  */
 @Entity
-@Immutable
-@Cacheable
 @Table(name = "logging_event")
 public class LoggingEvent {
 

@@ -4,12 +4,12 @@ import java.lang.management.ManagementFactory;
 import java.lang.management.OperatingSystemMXBean;
 import java.time.ZoneId;
 import java.util.AbstractMap.SimpleEntry;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -19,11 +19,13 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.smallrye.config.SmallRyeConfig;
 import local.intranet.quarkus.api.domain.Countable;
 import local.intranet.quarkus.api.domain.Invocationable;
 import local.intranet.quarkus.api.domain.Nameable;
@@ -60,6 +62,12 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	 * STATUS_PROTECTED = "[PROTECTED]"
 	 */
 	public static final String STATUS_PROTECTED = "[PROTECTED]";
+	
+	/**
+	 * 
+	 * UNKNOWN = "unknown"
+	 */
+	public static final String UNKNOWN = "unknown";
 
 	/**
 	 * 
@@ -73,7 +81,7 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	 */
 	@Inject
 	protected CounterService counterService;
-
+	
 	private static final String STATUS_BRACKET = "_";
 	private static final String EQUAL_WITH_COLONS = "=::";
 
@@ -127,6 +135,38 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 		return ret;
 	}
 
+	/**
+	 *
+	 * Info of Environment.
+	 *
+	 * @see <a href="/q/swagger-ui/#/status-controller/platypusEnvironment" target=
+	 *      "_blank">/q/swagger-ui/#/status-controller/platypusEnvironment</a>
+	 * 
+	 * @return {@link List}&lt;{@link Map.Entry}&lt;{@link String},{@link String}&gt;&gt;
+	 */
+	@GET
+	@Path(value = "/platypusProperties")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Operation(summary = "Get Environment", description = "**Get Environment</strong>**<br/><br/>"
+			+ "See [StatusController.platypusProperties](/javadoc/local/intranet/quarkus/api/controller/StatusController.html#platypusProperties())")
+	public List<Map.Entry<String, String>> platypusProperties() {
+		final List<Map.Entry<String, String>> ret = Collections.synchronizedList(new ArrayList<>());
+		for (String key : ConfigProvider.getConfig().unwrap(SmallRyeConfig.class).getPropertyNames()) {
+			if (key.contains("password") ) {
+				ret.add(new SimpleEntry<String, String>(key, STATUS_PROTECTED));
+			} else {
+				ret.add(new SimpleEntry<String, String>(key,
+					ConfigProvider.getConfig().unwrap(SmallRyeConfig.class).getRawValue(key)));
+			}
+		}
+		incrementCounter();
+		LOG.trace("{}", ret);
+		return ret;
+	}
+
+	// map.put("QuarkusVersion", String.join(" ", ConfigProvider.getConfig().unwrap(SmallRyeConfig.class).getPropertyNames()));
+
+	
 	/**
 	 *
 	 * Get Operating System
@@ -199,11 +239,14 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	 */
 	public Map<String, String> getInfo() {
 		final Map<String, String> map = new ConcurrentHashMap<>();
-		map.put("Environment", "dev");
 		map.put("GroupId", "local.intranet.quarkus");
 		map.put("ArtifactId", "platypus-quarkus");
-		map.put("Version", "1.0.0-SNAPSHOT");
+		map.put("Version", ConfigProvider.getConfig().getValue("quarkus.application.version", String.class)); 
 		map.put("QuarkusVersion", "2.16.5.Final");
+		map.put("Environment", String.join(" ", ConfigProvider.getConfig().unwrap(SmallRyeConfig.class).getProfiles()));
+		map.put("quarkus.application.name", ConfigProvider.getConfig().getValue("quarkus.application.name", String.class));
+		map.put("quarkus.http.host", ConfigProvider.getConfig().getValue("quarkus.http.host", String.class));
+		map.put("quarkus.datasource.db-kind", ConfigProvider.getConfig().getValue("quarkus.datasource.db-kind", String.class)); 
 		return map;
 	}
 

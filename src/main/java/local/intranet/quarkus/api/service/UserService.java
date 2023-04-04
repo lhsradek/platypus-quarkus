@@ -4,13 +4,13 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import org.eclipse.microprofile.openapi.annotations.Operation;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.micrometer.core.instrument.config.validate.ValidationException;
 import io.quarkus.security.ForbiddenException;
 import io.quarkus.security.UnauthorizedException;
+import io.smallrye.common.constraint.NotNull;
 import local.intranet.quarkus.api.info.UserInfo;
 import local.intranet.quarkus.api.model.entity.User;
 import local.intranet.quarkus.api.model.repository.UserRepository;

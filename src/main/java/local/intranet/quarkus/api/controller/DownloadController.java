@@ -25,12 +25,12 @@ import org.eclipse.microprofile.openapi.annotations.info.Contact;
 import org.eclipse.microprofile.openapi.annotations.info.Info;
 import org.eclipse.microprofile.openapi.annotations.info.License;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.repository.query.Param;
 
 import io.quarkus.qute.TemplateInstance;
+import io.smallrye.common.annotation.Blocking;
+import io.smallrye.common.constraint.NotNull;
 import local.intranet.quarkus.api.domain.Countable;
 import local.intranet.quarkus.api.domain.Invocationable;
 import local.intranet.quarkus.api.domain.Nameable;
@@ -94,6 +94,7 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	 */
 	@GET
 	@Path("/")
+	@Blocking
 	@Produces(MediaType.TEXT_HTML)
 	@Operation(hidden = true)
 	public TemplateInstance listFiles() throws NotFoundException {
@@ -123,25 +124,20 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	 */
 	@GET
 	@Path("file/{name}")
+	@Blocking
 	@Operation(hidden = true)
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
-	public Response getFile(@NotNull @Param("fileName") String fileName) throws NotFoundException {
-		try {
-			if (new File(DOWNLOAD_DIRECTORY).exists()) {
-				final File nf = new File(fileName);
-				LOG.trace("file:'{}' exists:{}", fileName, nf.exists());
-				final ResponseBuilder response = Response.ok((Object) nf);
-				response.header(CONTENT_DISPOSITION, ATTACHMENT_FILENAME + nf);
-				final Response ret = response.build();
-				incrementCounter();
-				return ret;
-			} else {
-				throw new NotFoundException();
-			}
-		} catch (Exception e) {
-			// LOG.warn("file:'{}' statusCode:{}", fileName,
-			// Response.Status.NOT_FOUND.getStatusCode());
-			// LOG.error(Response.Status.NOT_FOUND.toString(), e);
+	public Response getFile(@NotNull String fileName) throws NotFoundException {
+		LOG.debug("filename:'{}'", fileName);
+		if (new File(DOWNLOAD_DIRECTORY).exists()) {
+			final File nf = new File(fileName);
+			LOG.trace("file:'{}' exists:{}", fileName, nf.exists());
+			final ResponseBuilder response = Response.ok((Object) nf);
+			response.header(CONTENT_DISPOSITION, ATTACHMENT_FILENAME + nf);
+			final Response ret = response.build();
+			incrementCounter();
+			return ret;
+		} else {
 			throw new NotFoundException();
 		}
 	}

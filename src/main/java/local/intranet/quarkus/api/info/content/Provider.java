@@ -4,15 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceContext;
+import javax.enterprise.context.Dependent;
 
-import org.hibernate.envers.AuditReader;
-import org.hibernate.envers.AuditReaderFactory;
-import org.hibernate.envers.internal.reader.AuditReaderImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,24 +17,32 @@ import org.slf4j.LoggerFactory;
  * @author Radek Kádner
  *
  */
-@ApplicationScoped
+@Dependent
 public class Provider {
 
 	private static final Logger LOG = LoggerFactory.getLogger(Provider.class);
 
-	/**
+    /**
+	 * 
+	 * {@link SessionFactory}
+	 * 
+	@Inject
+    public SessionFactory sessionFactory;
+	 */
+    
+    /**
 	 * 
 	 * {@link EntityManagerFactory}
-	 */
 	@Inject
 	public EntityManagerFactory entityManagerFactory;
+	 */
 
 	/**
 	 * 
 	 * {@link EntityManager}
-	 */
 	@PersistenceContext
 	public EntityManager entityManager;
+	 */
 	
 	/**
 	 * 
@@ -72,8 +73,9 @@ public class Provider {
 	 * 
 	 * Get {@link AuditReader}
 	 * 
+	 * Suitable for envers data history
+	 * 
 	 * @return {@link AuditReader}
-	 */
 	public AuditReader auditReader() {
 		AuditReader ret = AuditReaderFactory.get(entityManager);
 		if (!((AuditReaderImpl) ret).getSession().isOpen()) {
@@ -82,5 +84,6 @@ public class Provider {
 		}
 		return ret;
 	}
+	 */
 
 }

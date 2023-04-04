@@ -2,10 +2,9 @@ package local.intranet.quarkus.api.info;
 
 import javax.validation.constraints.Size;
 
-import org.jetbrains.annotations.NotNull;
-
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import io.smallrye.common.constraint.NotNull;
 import local.intranet.quarkus.api.domain.DefaultFieldLengths;
 
 /**

@@ -1,10 +1,10 @@
 package local.intranet.quarkus.api.model.repository;
 
-import org.jetbrains.annotations.NotNull;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import io.smallrye.common.constraint.NotNull;
 import local.intranet.quarkus.api.model.entity.Counter;
 
 /**

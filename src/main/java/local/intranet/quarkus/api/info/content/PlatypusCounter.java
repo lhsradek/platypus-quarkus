@@ -16,6 +16,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.smallrye.common.annotation.Blocking;
 import local.intranet.quarkus.api.controller.IndexController;
 import local.intranet.quarkus.api.domain.Countable;
 import local.intranet.quarkus.api.domain.Invocationable;
@@ -94,6 +95,7 @@ public abstract class PlatypusCounter implements Countable, Invocationable, Stat
 	 * 
 	 * @return {@link Long}
 	 */
+	@Blocking
 	@Transactional
 	public Long incrementCounter() {
 		final Long ret;
