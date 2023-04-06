@@ -29,8 +29,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.quarkus.qute.TemplateInstance;
+import io.quarkus.vertx.web.Param;
 import io.smallrye.common.annotation.Blocking;
-import io.smallrye.common.constraint.NotNull;
+import io.smallrye.mutiny.Uni;
 import local.intranet.quarkus.api.domain.Countable;
 import local.intranet.quarkus.api.domain.Invocationable;
 import local.intranet.quarkus.api.domain.Nameable;
@@ -80,7 +81,7 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	 */
 	@Inject
 	protected StatusController statusController;
-	
+
 	private static final String CONTENT_DISPOSITION = "Content-Disposition";
 	private static final String ATTACHMENT_FILENAME = "attachment;filename=";
 	private static final String DOWNLOAD_DIRECTORY = "src/main/resources/META-INF/resources/downloads";
@@ -97,6 +98,7 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	@Blocking
 	@Produces(MediaType.TEXT_HTML)
 	@Operation(hidden = true)
+	// @Route(path = "/", methods = Route.HttpMethod.GET, produces = MediaType.TEXT_HTML, type = Route.HandlerType.BLOCKING)
 	public TemplateInstance listFiles() throws NotFoundException {
 		final String dir = DOWNLOAD_DIRECTORY;
 		if (new File(dir).exists()) {
@@ -119,7 +121,7 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	 * Download file from Quarkus
 	 * 
 	 * @param fileName {@link String}
-	 * @return {@link Response}
+	 * @return {@link Uni}&lt;{@link Response}&gt;
 	 * @throws NotFoundException {@link NotFoundException}
 	 */
 	@GET
@@ -127,15 +129,16 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	@Blocking
 	@Operation(hidden = true)
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
-	public Response getFile(@NotNull String fileName) throws NotFoundException {
+	// @Route(path = "file:name", methods = Route.HttpMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM, type = Route.HandlerType.BLOCKING)
+	public Uni<Response> getFile(@Param String fileName) throws NotFoundException {
 		LOG.debug("filename:'{}'", fileName);
 		if (new File(DOWNLOAD_DIRECTORY).exists()) {
 			final File nf = new File(fileName);
 			LOG.trace("file:'{}' exists:{}", fileName, nf.exists());
 			final ResponseBuilder response = Response.ok((Object) nf);
 			response.header(CONTENT_DISPOSITION, ATTACHMENT_FILENAME + nf);
-			final Response ret = response.build();
 			incrementCounter();
+			final Uni<Response> ret = Uni.createFrom().item(response.build());
 			return ret;
 		} else {
 			throw new NotFoundException();
@@ -155,6 +158,7 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	@GET
 	@Path("/downloadCounter")
 	@Produces(MediaType.APPLICATION_JSON)
+	// @Route(path = "/downloadCounter", methods = Route.HttpMethod.GET, produces = MediaType.APPLICATION_JSON)
 	@Operation(summary = "Get Counter Info", description = "**Get Counter Info**<br/><br/>"
 			+ "This method is calling CounterService.getCounterInfo<br/><br/>"
 			+ "See [DownloadController.downloadCounter](/javadoc/local/intranet/quarkus/api/controller/DownloadController.html#downloadCounter())")

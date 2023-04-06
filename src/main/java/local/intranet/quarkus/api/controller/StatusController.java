@@ -116,7 +116,7 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	@GET
 	@Path(value = "/platypusEnvironment")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Operation(summary = "Get Environment", description = "**Get Environment</strong>**<br/><br/>"
+	@Operation(summary = "Get Environment", description = "**Get Environment**<br/><br/>"
 			+ "See [StatusController.platypusEnvironment](/javadoc/local/intranet/quarkus/api/controller/StatusController.html#platypusEnvironment())")
 	public List<Map.Entry<String, String>> platypusEnvironment() {
 		final List<Map.Entry<String, String>> ret = Collections.synchronizedList(new ArrayList<>());
@@ -165,7 +165,6 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	}
 
 	// map.put("QuarkusVersion", String.join(" ", ConfigProvider.getConfig().unwrap(SmallRyeConfig.class).getPropertyNames()));
-
 	
 	/**
 	 *
@@ -243,9 +242,9 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 		map.put("ArtifactId", "platypus-quarkus");
 		map.put("Version", ConfigProvider.getConfig().getValue("quarkus.application.version", String.class)); 
 		map.put("QuarkusVersion", "2.16.5.Final");
-		map.put("Environment", String.join(" ", ConfigProvider.getConfig().unwrap(SmallRyeConfig.class).getProfiles()));
+		// map.put("Environment", String.join(" ", ConfigProvider.getConfig().unwrap(SmallRyeConfig.class).getProfiles()));
+		map.put("quarkus.profile", ConfigProvider.getConfig().getValue("quarkus.profile", String.class));
 		map.put("quarkus.application.name", ConfigProvider.getConfig().getValue("quarkus.application.name", String.class));
-		map.put("quarkus.http.host", ConfigProvider.getConfig().getValue("quarkus.http.host", String.class));
 		map.put("quarkus.datasource.db-kind", ConfigProvider.getConfig().getValue("quarkus.datasource.db-kind", String.class)); 
 		return map;
 	}

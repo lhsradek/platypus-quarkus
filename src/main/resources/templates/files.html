@@ -15,11 +15,12 @@
 		<div class="content-middle" alight="right">
 			<h2><span><a href="/">Application</a><br/>
 {@java.util.Map<String,String> map}<small><code>
-GroupId: {map.get("GroupId")}
-ArtifactId: {map.get("ArtifactId")}
-Version: {map.get("Version")}
-Quarkus Version: {map.get("QuarkusVersion")}
-Environment: {map.get("Environment")}
+GroupId:'{map.get("GroupId")}'
+ArtifactId:'{map.get("ArtifactId")}'
+Version:'{map.get("Version")}'
+Quarkus Version:'{map.get("QuarkusVersion")}'
+quarkus.profile:'{map.get("quarkus.profile")}'
+quarkus.application.name:'{map.get("quarkus.application.name")}'
 </code></small></span></h2 class=".banner-wrapper">
 		</div>
 		<div th:class="content-columns">
