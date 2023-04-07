@@ -28,10 +28,12 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.micrometer.core.annotation.Timed;
+import io.opentelemetry.instrumentation.annotations.WithSpan;
 import io.quarkus.qute.TemplateInstance;
 import io.quarkus.vertx.web.Param;
 import io.smallrye.common.annotation.Blocking;
-import io.smallrye.mutiny.Uni;
+import io.smallrye.mutiny.Multi;
 import local.intranet.quarkus.api.domain.Countable;
 import local.intranet.quarkus.api.domain.Invocationable;
 import local.intranet.quarkus.api.domain.Nameable;
@@ -51,13 +53,14 @@ import local.intranet.quarkus.api.service.CounterService;
  * @author Radek Kádner
  *
  */
+@Timed
+@Path("/downloads")
+@ApplicationScoped
+@Tag(name = DownloadController.TAG)
 @OpenAPIDefinition(info = @Info(title = "Platypus Quarkus", version = "1.0.0-SNAPSHOT", contact = @Contact(name = "Radek Kádner", url = "https://github.com/lhsradek/platypus-quarkus", email = "radek.kadner@gmail.com"), description = "* Flyway for migrate data\n"
 		+ "* Hibernate Envers Audit\n" + "* SmallRye Health\n" + "* Prometheus Metrics\n"
 		+ "* Spring DATA JPA with CrudRepository and JpaRepository\n" + "* Logging to db with Logback\n"
 		+ "* [Javadoc](/javadoc/)\n", license = @License(name = "The MIT License", url = "https://opensource.org/licenses/MIT")))
-@Path("/downloads")
-@ApplicationScoped
-@Tag(name = DownloadController.TAG)
 public class DownloadController extends PlatypusCounter implements Countable, Invocationable, Statusable, Nameable {
 
 	private static final Logger LOG = LoggerFactory.getLogger(DownloadController.class);
@@ -95,6 +98,7 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	 */
 	@GET
 	@Path("/")
+	@WithSpan
 	@Blocking
 	@Produces(MediaType.TEXT_HTML)
 	@Operation(hidden = true)
@@ -121,16 +125,17 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	 * Download file from Quarkus
 	 * 
 	 * @param fileName {@link String}
-	 * @return {@link Uni}&lt;{@link Response}&gt;
+	 * @return {@link Multi}&lt;{@link Response}&gt;
 	 * @throws NotFoundException {@link NotFoundException}
 	 */
 	@GET
+	@WithSpan
 	@Path("file/{name}")
 	@Blocking
 	@Operation(hidden = true)
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
 	// @Route(path = "file:name", methods = Route.HttpMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM, type = Route.HandlerType.BLOCKING)
-	public Uni<Response> getFile(@Param String fileName) throws NotFoundException {
+	public Multi<Response> getFile(@Param String fileName) throws NotFoundException {
 		LOG.debug("filename:'{}'", fileName);
 		if (new File(DOWNLOAD_DIRECTORY).exists()) {
 			final File nf = new File(fileName);
@@ -138,7 +143,7 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 			final ResponseBuilder response = Response.ok((Object) nf);
 			response.header(CONTENT_DISPOSITION, ATTACHMENT_FILENAME + nf);
 			incrementCounter();
-			final Uni<Response> ret = Uni.createFrom().item(response.build());
+			final Multi<Response> ret = Multi.createFrom().item(response.build());
 			return ret;
 		} else {
 			throw new NotFoundException();
@@ -156,17 +161,17 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	 * @throws PlatypusQuarkusException {@link PlatypusQuarkusException}
 	 */
 	@GET
+	@WithSpan
 	@Path("/downloadCounter")
 	@Produces(MediaType.APPLICATION_JSON)
-	// @Route(path = "/downloadCounter", methods = Route.HttpMethod.GET, produces = MediaType.APPLICATION_JSON)
 	@Operation(summary = "Get Counter Info", description = "**Get Counter Info**<br/><br/>"
 			+ "This method is calling CounterService.getCounterInfo<br/><br/>"
 			+ "See [DownloadController.downloadCounter](/javadoc/local/intranet/quarkus/api/controller/DownloadController.html#downloadCounter())")
+	// @Route(path = "/downloadCounter", methods = Route.HttpMethod.GET, produces = MediaType.APPLICATION_JSON, type = Route.HandlerType.BLOCKING)
 	public CounterInfo downloadCounter() throws PlatypusQuarkusException {
 		final String counterName = getName();
 		final CounterInfo ret = counterService.getCounterInfo(counterName);
-		LOG.debug("name:'{}' cnt:{} date:'{}': status:'{}'", counterName, ret.getCount(), formatDateTime(ret.getDate()),
-				ret.getStatus());
+		LOG.debug("name:'{}' cnt:{} date:'{}': status:'{}'", counterName, ret.getCount(), formatDateTime(ret.getDate()),ret.getStatus());
 		return ret;
 	}
 

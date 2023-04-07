@@ -14,6 +14,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.micrometer.core.annotation.Timed;
 import local.intranet.quarkus.api.domain.Countable;
 import local.intranet.quarkus.api.domain.Invocationable;
 import local.intranet.quarkus.api.domain.Nameable;
@@ -38,6 +39,7 @@ import local.intranet.quarkus.api.service.UserService;
  * @author Radek Kádner
  *
  */
+@Timed
 @Path("/app/v1/info")
 @ApplicationScoped
 @Tag(name = InfoController.TAG)

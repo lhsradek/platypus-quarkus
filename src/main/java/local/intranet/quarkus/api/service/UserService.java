@@ -7,7 +7,6 @@ import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.micrometer.core.instrument.config.validate.ValidationException;
 import io.quarkus.security.ForbiddenException;
 import io.quarkus.security.UnauthorizedException;
 import io.smallrye.common.constraint.NotNull;
@@ -42,13 +41,13 @@ public class UserService {
 	 * 
 	 * @param username {@link String}
 	 * @return {@link UserInfo}
-	 * @throws ValidationException   {@link ValidationException}
-	 * @throws UnauthorizedException {@link UnauthorizedException}
-	 * @throws ForbiddenException    {@link ForbiddenException}
+	 * @throws IllegalArgumentException {@link IllegalArgumentException}
+	 * @throws UnauthorizedException    {@link UnauthorizedException}
+	 * @throws ForbiddenException       {@link ForbiddenException}
 	 */
 	@Operation(hidden = true)
 	public UserInfo getUserInfo(@NotNull String username)
-			throws ValidationException, UnauthorizedException, ForbiddenException {
+			throws IllegalArgumentException, UnauthorizedException, ForbiddenException {
 		final UserInfo ret = loadUserByUsername(username);
 		LOG.trace("username:{} password:{} enabled:{}", ret.getUsername(), ret.getPassword(),
 				ret.isEnabled());
@@ -61,18 +60,19 @@ public class UserService {
 	 *
 	 * @param username the username identifying the user whose data is required.
 	 * @return a fully populated user record (never <code>null</code>)
-	 * @throws UnauthorizedException {@link UnauthorizedException}
-	 * @throws ForbiddenException    {@link ForbiddenException}
+	 * @throws IllegalArgumentException {@link IllegalArgumentException}
+	 * @throws UnauthorizedException    {@link UnauthorizedException}
+	 * @throws ForbiddenException       {@link ForbiddenException}
 	 */
 	@Operation(hidden = true)
 	public UserInfo loadUserByUsername(@NotNull String username)
-			throws UnauthorizedException, ForbiddenException {
+			throws IllegalArgumentException, UnauthorizedException, ForbiddenException {
 		if (username.length() == 0) {
 			throw new ForbiddenException();
 		}
 		User user = userRepository.findByName(username);
 		if (user == null) {
-			throw new ForbiddenException();
+			throw new IllegalArgumentException("Undeifined username!");
 		}
 		if (user.isAccountNonExpired() && user.isAccountNonLocked() && user.isCredentialsNonExpired()
 				&& user.isEnabled()) {

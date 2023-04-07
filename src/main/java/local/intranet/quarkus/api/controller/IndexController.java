@@ -1,6 +1,7 @@
 package local.intranet.quarkus.api.controller;
 
 import java.text.MessageFormat;
+import java.util.List;
 import java.util.Map;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -15,7 +16,9 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.micrometer.core.annotation.Timed;
 import io.quarkus.qute.TemplateInstance;
+import io.smallrye.common.annotation.Blocking;
 import local.intranet.quarkus.api.domain.Countable;
 import local.intranet.quarkus.api.domain.Invocationable;
 import local.intranet.quarkus.api.domain.Nameable;
@@ -25,6 +28,7 @@ import local.intranet.quarkus.api.info.CounterInfo;
 import local.intranet.quarkus.api.info.Message;
 import local.intranet.quarkus.api.info.content.PlatypusCounter;
 import local.intranet.quarkus.api.info.content.template.IndexTemplate;
+import local.intranet.quarkus.api.info.content.template.PropertiesTemplate;
 import local.intranet.quarkus.api.scheduler.PlatypusJob;
 import local.intranet.quarkus.api.service.CounterService;
 
@@ -35,6 +39,7 @@ import local.intranet.quarkus.api.service.CounterService;
  * @author Radek Kádner
  *
  */
+@Timed
 @Path("")
 @ApplicationScoped
 @Tag(name = IndexController.TAG)
@@ -123,7 +128,7 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 
 	/**
 	 * 
-	 * List of files from Quarkus in downloads directory as HTML
+	 * Index from Quarkus as HTML
 	 * 
 	 *  @return {@link TemplateInstance}
 	 */
@@ -136,6 +141,24 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 		return IndexTemplate.index(map);
 	}
 
+	/**
+	 * 
+	 * Properties from Quarkus as HTML
+	 * 
+	 *  @return {@link TemplateInstance}
+	 */
+	@GET
+	@Path("/properties")
+	@Produces(MediaType.TEXT_HTML)
+	@Blocking
+	@Operation(hidden = true)
+	public TemplateInstance properties() {
+		final Map<String, String> map = statusController.getInfo();
+		final List<Map.Entry<String, String>> os = statusController.getOperatingSystem();
+		final List<Map.Entry<String, String>> list = statusController.platypusProperties();
+		return PropertiesTemplate.properties(map, os, list);
+	}
+	
 	/**
 	 * 
 	 * Job Counter

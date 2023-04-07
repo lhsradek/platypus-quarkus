@@ -6,6 +6,7 @@ import java.time.ZonedDateTime;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.slf4j.Logger;
@@ -47,6 +48,7 @@ public class CounterService {
 	 * @return {@link CounterInfo}
 	 * @throws PlatypusQuarkusException {@link PlatypusQuarkusException}
 	 */
+	@Transactional
 	@Operation(hidden = true)
 	public CounterInfo getCounterInfo(@NotNull String counterName) throws PlatypusQuarkusException {
 		final CounterInfo ret;

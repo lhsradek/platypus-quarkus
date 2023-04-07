@@ -3,14 +3,15 @@ package local.intranet.quarkus.api.controller;
 import java.lang.management.ManagementFactory;
 import java.lang.management.OperatingSystemMXBean;
 import java.time.ZoneId;
-import java.util.AbstractMap.SimpleEntry;
+import java.util.AbstractMap.SimpleImmutableEntry;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashMap;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -19,12 +20,15 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.commons.lang3.StringUtils;
 import org.eclipse.microprofile.config.ConfigProvider;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.micrometer.core.annotation.Timed;
 import io.smallrye.config.SmallRyeConfig;
 import local.intranet.quarkus.api.domain.Countable;
 import local.intranet.quarkus.api.domain.Invocationable;
@@ -44,6 +48,7 @@ import local.intranet.quarkus.api.service.CounterService;
  * @author Radek Kádner
  * 
  */
+@Timed
 @Path("/app/v1/status")
 @ApplicationScoped
 @Tag(name = StatusController.TAG)
@@ -82,8 +87,42 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	@Inject
 	protected CounterService counterService;
 	
+	/**
+	 * 
+	 * <code>platypus.remote.server</code> for application.properties
+	 * 
+	 */
+	@ConfigProperty(name = "platypus.remote.server")
+	public String remoteServer;
+	
+	/**
+	 * 
+	 * <code>quarkus.version</code> for application.properties
+	 * 
+	 */
+	@ConfigProperty(name = "platypus.quarkus.version")
+	public String quarkusVersion;
+	
+	/**
+	 * 
+	 * <code>quarkus.application.artifactId</code> for application.properties
+	 * 
+	 */
+	@ConfigProperty(name = "platypus.application.artifactId")
+	public String quarkusApplicationArtifactId;
+	
+	/**
+	 * 
+	 * <code>quarkus.application.groupId</code> for application.properties
+	 * 
+	 */
+	@ConfigProperty(name = "platypus.application.groupId")
+	public String quarkusApplicationGroupId;
+	
 	private static final String STATUS_BRACKET = "_";
 	private static final String EQUAL_WITH_COLONS = "=::";
+	private static final String USER = "USER";
+	private static final String PASSWORD = "PASSWORD";
 
 	/**
 	 *
@@ -106,66 +145,43 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 
 	/**
 	 *
-	 * Info of Environment.
+	 * Info of Properties
 	 *
-	 * @see <a href="/q/swagger-ui/#/status-controller/platypusEnvironment" target=
-	 *      "_blank">/q/swagger-ui/#/status-controller/platypusEnvironment</a>
-	 * 
-	 * @return {@link List}&lt;{@link Map.Entry}&lt;{@link String},{@link String}&gt;&gt;
-	 */
-	@GET
-	@Path(value = "/platypusEnvironment")
-	@Produces(MediaType.APPLICATION_JSON)
-	@Operation(summary = "Get Environment", description = "**Get Environment**<br/><br/>"
-			+ "See [StatusController.platypusEnvironment](/javadoc/local/intranet/quarkus/api/controller/StatusController.html#platypusEnvironment())")
-	public List<Map.Entry<String, String>> platypusEnvironment() {
-		final List<Map.Entry<String, String>> ret = Collections.synchronizedList(new ArrayList<>());
-		final Map<String, String> map = System.getenv().entrySet().stream().sorted(Map.Entry.comparingByKey())
-				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue,
-						LinkedHashMap::new));
-		for (Map.Entry<String, String> e : map.entrySet()) {
-			if (!(e.getKey().equals(STATUS_BRACKET) || e.getKey().equals(EQUAL_WITH_COLONS))) { // nelíbí
-				if (e.getValue() != null && e.getValue().length() > 0) {
-					ret.add(new SimpleEntry<String, String>(e.getKey(), e.getValue()));
-				}
-			}
-		}
-		incrementCounter();
-		LOG.trace("{}", ret);
-		return ret;
-	}
-
-	/**
-	 *
-	 * Info of Environment.
-	 *
-	 * @see <a href="/q/swagger-ui/#/status-controller/platypusEnvironment" target=
-	 *      "_blank">/q/swagger-ui/#/status-controller/platypusEnvironment</a>
+	 * @see <a href="/q/swagger-ui/#/status-controller/platypusProperties" target=
+	 *      "_blank">/q/swagger-ui/#/status-controller/platypusProperties</a>
 	 * 
 	 * @return {@link List}&lt;{@link Map.Entry}&lt;{@link String},{@link String}&gt;&gt;
 	 */
 	@GET
 	@Path(value = "/platypusProperties")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Operation(summary = "Get Environment", description = "**Get Environment</strong>**<br/><br/>"
+	@Operation(summary = "Get Properties", description = "**Get Properties</strong>**<br/><br/>"
 			+ "See [StatusController.platypusProperties](/javadoc/local/intranet/quarkus/api/controller/StatusController.html#platypusProperties())")
 	public List<Map.Entry<String, String>> platypusProperties() {
-		final List<Map.Entry<String, String>> ret = Collections.synchronizedList(new ArrayList<>());
-		for (String key : ConfigProvider.getConfig().unwrap(SmallRyeConfig.class).getPropertyNames()) {
-			if (key.contains("password") ) {
-				ret.add(new SimpleEntry<String, String>(key, STATUS_PROTECTED));
-			} else {
-				ret.add(new SimpleEntry<String, String>(key,
-					ConfigProvider.getConfig().unwrap(SmallRyeConfig.class).getRawValue(key)));
+		final List<Map.Entry<String, String>> ret = new ArrayList<>();
+		final Map<String, String> map = new TreeMap<>();
+		StreamSupport
+				.stream(ConfigProvider.getConfig().unwrap(SmallRyeConfig.class).getPropertyNames().spliterator(), false)
+				.forEach(k -> {
+					if (!(k == null || ConfigProvider.getConfig().unwrap(SmallRyeConfig.class).getRawValue(k) == null) )
+						map.put(k, ConfigProvider.getConfig().unwrap(SmallRyeConfig.class).getRawValue(k));
+				});
+		map.forEach((k, v) -> {
+			if (!(k == null || k.equals(STATUS_BRACKET) || k.equals(EQUAL_WITH_COLONS)
+					|| k.toUpperCase().contains(USER))) { // nelíbí
+				if (k.toUpperCase().contains(PASSWORD)) {
+					ret.add(new SimpleImmutableEntry<String, String>(k, STATUS_PROTECTED));
+				} else {
+					ret.add(new SimpleImmutableEntry<String, String>(k,
+							ConfigProvider.getConfig().unwrap(SmallRyeConfig.class).getRawValue(k)));
+				}
 			}
-		}
+		});
 		incrementCounter();
 		LOG.trace("{}", ret);
 		return ret;
 	}
 
-	// map.put("QuarkusVersion", String.join(" ", ConfigProvider.getConfig().unwrap(SmallRyeConfig.class).getPropertyNames()));
-	
 	/**
 	 *
 	 * Get Operating System
@@ -183,11 +199,11 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	public List<Map.Entry<String, String>> getOperatingSystem() {
 		final List<Map.Entry<String, String>> ret = new ArrayList<>();
 		final OperatingSystemMXBean system = ManagementFactory.getOperatingSystemMXBean();
-		ret.add(new SimpleEntry<String, String>("name", system.getName()));
-		ret.add(new SimpleEntry<String, String>("loadAverage", String.valueOf(system.getSystemLoadAverage())));
-		ret.add(new SimpleEntry<String, String>("arch", system.getArch()));
-		ret.add(new SimpleEntry<String, String>("processors", String.valueOf(system.getAvailableProcessors())));
-		ret.add(new SimpleEntry<String, String>("version", system.getVersion()));
+		ret.add(new SimpleImmutableEntry<String, String>("name", system.getName()));
+		ret.add(new SimpleImmutableEntry<String, String>("loadAverage", String.valueOf(system.getSystemLoadAverage())));
+		ret.add(new SimpleImmutableEntry<String, String>("arch", system.getArch()));
+		ret.add(new SimpleImmutableEntry<String, String>("processors", String.valueOf(system.getAvailableProcessors())));
+		ret.add(new SimpleImmutableEntry<String, String>("version", system.getVersion()));
 		incrementCounter();
 		LOG.debug("{}", ret);
 		return ret;
@@ -238,11 +254,15 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	 */
 	public Map<String, String> getInfo() {
 		final Map<String, String> map = new ConcurrentHashMap<>();
-		map.put("GroupId", "local.intranet.quarkus");
-		map.put("ArtifactId", "platypus-quarkus");
-		map.put("Version", ConfigProvider.getConfig().getValue("quarkus.application.version", String.class)); 
-		map.put("QuarkusVersion", "2.16.5.Final");
-		// map.put("Environment", String.join(" ", ConfigProvider.getConfig().unwrap(SmallRyeConfig.class).getProfiles()));
+		map.put("quarkus.application.groupId", quarkusApplicationGroupId);
+		map.put("quarkus.application.artifactId", quarkusApplicationArtifactId);
+		final ArrayList<String> arr = new ArrayList<>();
+		for (String s : Arrays.asList(quarkusApplicationArtifactId.replace("-", " ").split(" "))) {
+			arr.add(StringUtils.capitalize(s));
+		}
+		map.put("quarkus.application.header", String.join(" ", arr));
+		map.put("quarkus.application.version", ConfigProvider.getConfig().getValue("quarkus.application.version", String.class)); 
+		map.put("quarkus.version", quarkusVersion);
 		map.put("quarkus.profile", ConfigProvider.getConfig().getValue("quarkus.profile", String.class));
 		map.put("quarkus.application.name", ConfigProvider.getConfig().getValue("quarkus.application.name", String.class));
 		map.put("quarkus.datasource.db-kind", ConfigProvider.getConfig().getValue("quarkus.datasource.db-kind", String.class)); 
