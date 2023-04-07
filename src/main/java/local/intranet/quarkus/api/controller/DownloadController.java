@@ -113,8 +113,7 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 			for (File f : set) {
 				ret.add(new SimpleEntry<String, File>(f.getName(), f));
 			}
-			final Map<String, String> map = statusController.getInfo();
-			return DownloadTemplate.files(ret, map);
+			return DownloadTemplate.files(ret);
 		} else {
 			throw new NotFoundException();
 		}

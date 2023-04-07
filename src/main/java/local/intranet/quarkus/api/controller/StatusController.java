@@ -118,6 +118,14 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	@ConfigProperty(name = "platypus.application.groupId")
 	public String quarkusApplicationGroupId;
 	
+	/**
+	 * 
+	 * <code>quarkus.application.groupId</code> for application.properties
+	 * 
+	 */
+	@ConfigProperty(name = "quarkus.application.name")
+	public String quarkusApplicationName;
+	
 	private static final String STATUS_BRACKET = "_";
 	private static final String EQUAL_WITH_COLONS = "=::";
 	private static final String USER = "USER";
@@ -199,7 +207,10 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 		final List<Map.Entry<String, String>> ret = new ArrayList<>();
 		final OperatingSystemMXBean system = ManagementFactory.getOperatingSystemMXBean();
 		ret.add(new SimpleImmutableEntry<String, String>("name", system.getName()));
-		ret.add(new SimpleImmutableEntry<String, String>("loadAverage", String.valueOf(system.getSystemLoadAverage())));
+		final double d = system.getSystemLoadAverage();
+		if (d > 0) {
+			ret.add(new SimpleImmutableEntry<String, String>("loadAverage", String.valueOf(system.getSystemLoadAverage())));
+		}
 		ret.add(new SimpleImmutableEntry<String, String>("arch", system.getArch()));
 		ret.add(new SimpleImmutableEntry<String, String>("processors", String.valueOf(system.getAvailableProcessors())));
 		ret.add(new SimpleImmutableEntry<String, String>("version", system.getVersion()));

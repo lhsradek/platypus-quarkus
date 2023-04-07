@@ -270,7 +270,7 @@
                     <ul class="provided-code">
                                 <li class="provided-code">
             <b>RESTEasy Reactive</b>&nbsp;Easily start your Reactive RESTful Web Services
-            {#if map.get("quarkus.profile").equals("dev")}
+            {#if !map.get("quarkus.profile").equals("prod")}
             <br />&rsaquo; <code>@Path: <a href="/q/swagger-ui" class="path-link" target="_blank">/q/swagger-ui</a></code>
             {/if}
             <br />&rsaquo; <code>@Path: <a href="/q/metrics" class="path-link" target="_blank">/q/metrics</a></code>
