@@ -118,7 +118,7 @@ public abstract class PlatypusCounter implements Countable, Invocationable, Stat
 			counter = counterRepository.save(counter);
 			ret = counter.getCnt();
 		}
-		LOG.debug("name:'{}' count:{}", counterName, ret);
+		LOG.debug("name:'{}' count:{}", counter.getCounterName(), ret);
 		return ret;
 	}
 

@@ -5,7 +5,7 @@
 </p>
 
 ```
-mvn io.quarkus:quarkus-maven-plugin:2.12.0.Final:create -DprojectGroupId=local.intranet.quarkus -DprojectArtifactId=platypus-quarkus -DclassName="local.intranet.quarkus.HelloResource" -Dpath="/hello" -Dextensions=agroal,resteasy-reactive,resteasy-reactive-qute,resteasy-reactive-jackson,resteasy-reactive-jaxb,resteasy-reactive-jsonb,smallrye-jwt,smallrye-health,smallrye-openapi,swagger-ui,jdbc-mysql,jdbc-h2,hibernate-orm,hibernate-orm,hibernate-validator,micrometer-registry-prometheus,flyway,spring-data-jpa,vertx,vertx-http,redis-client,hibernate-envers,logging-logback,logging-gelf,opentelemetry,scheduler,undertow,csrf-reactive
+mvn io.quarkus:quarkus-maven-plugin:2.12.0.Final:create -DprojectGroupId=local.intranet.quarkus -DprojectArtifactId=platypus-quarkus -DclassName="local.intranet.quarkus.HelloResource" -Dpath="/hello" -Dextensions=agroal,resteasy-reactive,resteasy-reactive-qute,resteasy-reactive-jackson,resteasy-reactive-jaxb,resteasy-reactive-jsonb,smallrye-jwt,smallrye-health,smallrye-openapi,swagger-ui,jdbc-mysql,jdbc-h2,hibernate-orm,hibernate-orm,hibernate-validator,micrometer-registry-prometheus,flyway,spring-data-jpa,vertx,vertx-http,redis-client,hibernate-envers,logging-logback,logging-gelf,opentelemetry,scheduler,undertow,csrf-reactive,cache
 ```
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.

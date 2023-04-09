@@ -11,7 +11,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
-    <quarkus.platform.version>2.16.5.Final</quarkus.platform.version>
+    <quarkus.platform.version>2.16.6.Final</quarkus.platform.version>
     <skipITs>true</skipITs>
     <surefire-plugin.version>3.0.0-M7</surefire-plugin.version>
   </properties>
@@ -142,16 +142,16 @@
       <artifactId>quarkus-vertx-http</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.smallrye.reactive</groupId>
-      <artifactId>smallrye-mutiny-vertx-web-client</artifactId>
-    </dependency>
-    <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-hibernate-envers</artifactId>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-undertow</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-websockets</artifactId>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
@@ -162,6 +162,20 @@
       <artifactId>quarkus-test-security</artifactId>
       <scope>test</scope>
       </dependency>
+    <dependency>
+      <groupId>io.quarkiverse.logging.logback</groupId>
+      <artifactId>quarkus-logging-logback</artifactId>
+      <version>0.13.0</version>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback.db</groupId>
+      <artifactId>logback-classic-db</artifactId>
+      <version>1.2.11.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+    </dependency>
     <!--
     <dependency>
       <groupId>io.quarkus</groupId>
@@ -180,20 +194,6 @@
       <artifactId>quarkus-jdbc-h2</artifactId>
     </dependency>
     -->
-    <dependency>
-      <groupId>io.quarkiverse.logging.logback</groupId>
-      <artifactId>quarkus-logging-logback</artifactId>
-      <version>0.13.0</version>
-    </dependency>
-    <dependency>
-      <groupId>ch.qos.logback.db</groupId>
-      <artifactId>logback-classic-db</artifactId>
-      <version>1.2.11.1</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
-    </dependency>
   </dependencies>
   <build>
     <plugins>

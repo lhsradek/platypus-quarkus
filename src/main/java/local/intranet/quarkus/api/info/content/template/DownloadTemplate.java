@@ -19,7 +19,8 @@ public class DownloadTemplate {
 	/**
 	 * 
 	 * @param files {@link List}&lt;{@link Map.Entry}&lt;{@link String}, {@link File}&gt;&gt;
+	 * @param map   {@link Map}&lt;{@link String}, {@link String}&gt;
 	 * @return {@link TemplateInstance}
 	 */
-	public static native TemplateInstance files(List<Map.Entry<String, File>> files);
+	public static native TemplateInstance files(List<Map.Entry<String, File>> files, Map<String, String> map);
 }

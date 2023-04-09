@@ -1,13 +1,24 @@
 /* Tablet Landscape */
 @media screen and (max-width: 1060px) {
-	#primary { width: 67%; }
-	#secondary { width: 30%; margin-left: 3%; }
+	#primary {
+		width: 67%;
+	}
+	#secondary {
+		width: 30%;
+		margin-left: 3%;
+	}
 }
 
 /* Tabled Portrait */
 @media screen and (max-width: 768px) {
-	#primary { width: 100%; }
-	#secondary { width: 100%; margin: 0; border: none; }
+	#primary {
+		width: 100%;
+	}
+	#secondary {
+		width: 100%;
+		margin: 0;
+		border: none;
+	}
 }
 
 body {
@@ -15,18 +26,19 @@ body {
 	color: #000;
 	font-size: 1.2em;
 	font-family: sans-serif, helvetica;
-	height:800px;
+	height: 800px;
 	z-index: 1;
 }
 
 body:before {
 	content: "";
 	position: absolute;
-	background-image: url('/Platypus_is_surprised_by_the_speed_of_quarkus_and_GraalVM_and_jumps_for_joy.png');
+	background-image:
+		url('/Platypus_is_surprised_by_the_speed_of_quarkus_and_GraalVM_and_jumps_for_joy.png');
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center;
-	top : 4.7em;
+	top: 4.7em;
 	bottom: 0.45em;
 	left: 0.45em;
 	right: 0.45em;
@@ -37,6 +49,7 @@ body:before {
 :link {
 	color: #c00;
 }
+
 :visited {
 	color: #c00;
 }
@@ -82,7 +95,7 @@ code {
 
 .content-columns {
 	/* Setting relative positioning allows for absolute positioning for sub-classes */
-    position: relative;
+	position: relative;
 	padding-top: 1em;
 }
 
@@ -262,7 +275,7 @@ a:hover img {
 }
 
 .submit {
-    opacity: 0.8;
+	opacity: 0.8;
 	cursor: pointer;
 	outline: none;
 	background-color: #999;

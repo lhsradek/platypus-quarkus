@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">{@java.util.Map<String,String> map}
+<html lang="en">
     <head>
         <meta charset="UTF-8">
         <title>{map.get("quarkus.application.artifactId")} - {map.get("quarkus.application.version")}</title>
@@ -231,7 +231,7 @@
             <div class="grid">
                 <div class="banner">
                     <div class="grid">
-                        <div class="callout">Congratulations!</div>
+                        <div class="callout">Welcome!</div>
                         <div class="app-details">
                             <h5>Application</h5>
                             <ul>
@@ -239,7 +239,9 @@
                                 <li>ArtifactId: <code>{map.get("quarkus.application.artifactId")}</code></li>
                                 <li>Version: <code>{map.get("quarkus.application.version")}</code></li>
                                 <li>Quarkus Version: <code>{map.get("quarkus.version")}</code></li>
-                                <br/>
+                            </ul>
+                            <br/>
+                            <ul>
                                 <li>quarkus.profile: <code>{map.get("quarkus.profile")}</code></li>
                                 <li>quarkus.application.name: <code>{map.get("quarkus.application.name")}</code></li>
                                 <li>quarkus.datasource.db-kind: <code>{map.get("quarkus.datasource.db-kind")}</code></li>
@@ -252,8 +254,7 @@
         <div class="content-wrapper">
             <div class="grid">
                 <div class="left-column">
-                    <h1><a style="text-decoration: none;" alt="{map.get("ArtifactId")}"
-                    href="https://github.com/lhsradek/platypus-quarkus" target="_blank">
+                    <h1><a style="text-decoration: none;" href="https://github.com/lhsradek/platypus-quarkus" target="_blank">
                     {map.get("quarkus.application.header")}</a> Application.</h1>
                     <p>This page is served by Quarkus.</p>
                     <a href="/properties" class="cta-button">Properties</a>&nbsp;

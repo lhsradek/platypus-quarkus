@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">{@java.util.Map<String,String> map}
+<html lang="en">
     <head>
         <meta charset="UTF-8">
         <title>{map.get("quarkus.application.artifactId")} - {map.get("quarkus.application.version")}</title>
-        <style>
+            <style>
             body {
                 margin: 0;
                 font-family: Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -176,7 +176,7 @@
                     font-weight: 300;
                     grid-column: span 12;
                 }
-            }
+            }      
         </style>
     </head>
     <body>
@@ -248,19 +248,16 @@
                 </div>
             </div>
         </div>
-        <div class="content-wrapper">
-          <div class="left-column">
-			<div>
-			<p><br/>This page: <code>src/main/resources/templates/properties.html</code></p>
- 		    <p><a href="/" class="cta-button">Home</a></p>
-			<p>
-{#for m in list}{m.key} = <code>{m.value}</code><br/>{/for}
-			</p></div>
-  	      </div>
-		  <p><br/></p>	
-          </div>
-          <div class="rigth-column">
-          </div>
-        </div>
+		<div class="content-wrapper">
+			<div class="left-column">
+				<div>
+					<p><br />This page: <code>src/main/resources/templates/properties.html</code></p>
+					<p><a href="/" class="cta-button">Home</a></p>
+					<p>
+						{#for m in list}{m.key} = <code>{m.value}</code><br />{/for}
+					</p>
+				</div>
+			</div>
+      </div>
     </body>
 </html>

@@ -2,7 +2,6 @@ package local.intranet.quarkus.api.model.repository;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
 
 import io.smallrye.common.constraint.NotNull;
 import local.intranet.quarkus.api.model.entity.Counter;
@@ -27,6 +26,6 @@ public interface CounterRepository extends CrudRepository<Counter, Long> {
 	 * @return {@link Counter}
 	 */
 	@Query(value = "select u from Counter u where u.counterName = ?1")
-	Counter findByName(@NotNull @Param("counterName") String counterName);
+	Counter findByName(@NotNull String counterName);
 	
 }

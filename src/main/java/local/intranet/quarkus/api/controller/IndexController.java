@@ -1,11 +1,10 @@
 package local.intranet.quarkus.api.controller;
 
 import java.text.MessageFormat;
-import java.util.List;
-import java.util.Map;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -98,6 +97,7 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	@GET
 	@Path("/hello")
 	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Hello", description = "This method say: **" + HELLO + "**<br/><br/>"
 			+ "See [IndexController.hello](/javadoc/local/intranet/quarkus/api/controller/IndexController.html#hello())")
 	public Message hello() {
@@ -118,6 +118,7 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	@GET
 	@Path("/ahoj")
 	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Ahoj", description = "This method say: **" + AHOJ + "**<br/><br/>"
 			+ "See [IndexController.ahoj](/javadoc/local/intranet/quarkus/api/controller/IndexController.html#ahoj())")
 	public Message ahoj() {
@@ -137,8 +138,7 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	@Produces(MediaType.TEXT_HTML)
 	@Operation(hidden = true)
 	public TemplateInstance index() {
-		final Map<String, String> map = statusController.getInfo();
-		return IndexTemplate.index(map);
+		return IndexTemplate.index(statusController.getInfo());
 	}
 
 	/**
@@ -153,10 +153,10 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	@Blocking
 	@Operation(hidden = true)
 	public TemplateInstance properties() {
-		final Map<String, String> map = statusController.getInfo();
-		final List<Map.Entry<String, String>> os = statusController.getOperatingSystem();
-		final List<Map.Entry<String, String>> list = statusController.platypusProperties();
-		return PropertiesTemplate.properties(map, os, list);
+		return PropertiesTemplate.properties(
+				statusController.getInfo(),
+				statusController.getOperatingSystem(),
+				statusController.platypusProperties());
 	}
 	
 	/**
@@ -197,6 +197,7 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	@GET
 	@Path("/indexCounter")
 	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Get Counter Info", description = "**Get Counter Info**<br/><br/>"
 			+ "This method is calling CounterService.getCounterInfo<br/><br/>"
 			+ "See [IndexController.indexCounter](/javadoc/local/intranet/quarkus/api/controller/IndexController.html#indexCounter())")
