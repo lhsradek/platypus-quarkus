@@ -11,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.micrometer.core.annotation.Timed;
+import io.opentelemetry.api.trace.SpanKind;
+import io.opentelemetry.instrumentation.annotations.WithSpan;
 import io.quarkus.scheduler.Scheduled;
 
 /**
@@ -59,6 +61,7 @@ public class PlatypusJob {
 	 * Cron job is defined in application.properties
 	 * 
 	 */
+	@WithSpan(kind = SpanKind.SERVER)
 	@Scheduled(cron = "{platypus.job.cron}", skipExecutionIf = PlatypusPredicate.class)
 	public void job() {
 		LOG.info(jobMessage);

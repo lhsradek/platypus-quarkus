@@ -121,11 +121,27 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	
 	/**
 	 * 
+	 * <code>platypus.host.name</code> for application.properties
+	 * 
+	 */
+	@ConfigProperty(name = "platypus.host.name")
+	public String platypusHostName;
+	
+	/**
+	 * 
 	 * <code>quarkus.application.groupId</code> for application.properties
 	 * 
 	 */
 	@ConfigProperty(name = "quarkus.application.name")
 	public String quarkusApplicationName;
+	
+	/**
+	 * 
+	 * <code>platypus.deployment.environment</code> for application.properties
+	 * 
+	 */
+	@ConfigProperty(name = "platypus.deployment.environment")
+	public String platypusDeploymentVnvironment;
 	
 	private static final String STATUS_BRACKET = "_";
 	private static final String EQUAL_WITH_COLONS = "=::";

@@ -21,7 +21,7 @@ public class PlatypusQuarkusException extends ConnectException {
 
 	/**
 	 * 
-	 * Constructor with param
+	 * Constructor with parameter
 	 * 
 	 * @param msg {@link String}
 	 */
@@ -31,7 +31,7 @@ public class PlatypusQuarkusException extends ConnectException {
 	
 	/**
 	 * 
-	 * Constructor with param
+	 * Constructor with parameters
 	 * 
 	 * @param code of error scale
 	 * @param msg {@link String}
@@ -43,7 +43,7 @@ public class PlatypusQuarkusException extends ConnectException {
 
 	/**
 	 * 
-	 * Constructor with params
+	 * Constructor with parameter
 	 * 
 	 * @param msg {@link String}
 	 * @param t   {@link Throwable}
