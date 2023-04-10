@@ -1,7 +1,7 @@
 package local.intranet.quarkus.api.controller;
 
 import java.io.File;
-import java.util.AbstractMap.SimpleEntry;
+import java.util.AbstractMap.SimpleImmutableEntry;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +15,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -32,8 +33,8 @@ import org.slf4j.LoggerFactory;
 import io.micrometer.core.annotation.Timed;
 import io.opentelemetry.instrumentation.annotations.WithSpan;
 import io.quarkus.qute.TemplateInstance;
-import io.quarkus.vertx.web.Param;
 import io.smallrye.common.annotation.Blocking;
+import io.smallrye.mutiny.Uni;
 import local.intranet.quarkus.api.domain.Countable;
 import local.intranet.quarkus.api.domain.Invocationable;
 import local.intranet.quarkus.api.domain.Nameable;
@@ -93,7 +94,7 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	 * 
 	 * List of files from Quarkus in downloads directory as HTML
 	 * 
-	 * @return {@link TemplateInstance}
+	 * @return {@link Uni}&lt;{@link Response}&gt;
 	 * @throws NotFoundException {@link NotFoundException}
 	 */
 	@GET
@@ -103,7 +104,7 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	@Produces(MediaType.TEXT_HTML)
 	@Operation(hidden = true)
 	// @Route(path = "/", methods = Route.HttpMethod.GET, produces = MediaType.TEXT_HTML, type = Route.HandlerType.BLOCKING)
-	public TemplateInstance listFiles() throws NotFoundException {
+	public Uni<TemplateInstance> listFiles() throws NotFoundException {
 		final String dir = DOWNLOAD_DIRECTORY;
 		if (new File(dir).exists()) {
 			final TreeSet<File> set = Stream.of(new File(dir).listFiles())
@@ -111,9 +112,9 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 			incrementCounter();
 			final List<Map.Entry<String, File>> ret = new ArrayList<>();
 			for (File f : set) {
-				ret.add(new SimpleEntry<String, File>(f.getName(), f));
+				ret.add(new SimpleImmutableEntry<String, File>(f.getName(), f));
 			}
-			return DownloadTemplate.files(ret, statusController.getInfo());
+			return Uni.createFrom().item(DownloadTemplate.files(ret, statusController.getInfo()));
 		} else {
 			throw new NotFoundException();
 		}
@@ -124,7 +125,7 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	 * Download file from Quarkus
 	 * 
 	 * @param fileName {@link String}
-	 * @return {@link Response}
+	 * @return {@link Uni}&lt;{@link Response}&gt;
 	 * @throws NotFoundException {@link NotFoundException}
 	 */
 	@GET
@@ -134,7 +135,7 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	@Operation(hidden = true)
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
 	// @Route(path = "file:name", methods = Route.HttpMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM, type = Route.HandlerType.BLOCKING)
-	public Response getFile(@Param String fileName) throws NotFoundException {
+	public Uni<Response> getFile(@PathParam("name") String fileName) throws NotFoundException {
 		LOG.debug("filename:'{}'", fileName);
 		if (new File(DOWNLOAD_DIRECTORY).exists()) {
 			final File nf = new File(fileName);
@@ -142,7 +143,7 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 			final ResponseBuilder response = Response.ok((Object) nf);
 			response.header(CONTENT_DISPOSITION, ATTACHMENT_FILENAME + nf);
 			incrementCounter();
-			return response.build();
+			return Uni.createFrom().item(response.build());
 		} else {
 			throw new NotFoundException();
 		}
