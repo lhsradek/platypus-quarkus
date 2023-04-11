@@ -123,6 +123,22 @@
                 margin-top: 1rem;
                 font-weight: 200;
             }
+            .right-column .topBtn {
+                cursor: pointer;
+                display: none;
+                border: 0px;
+                position: fixed;
+                bottom: 20px;
+                right: 30px;
+                margin: 20px 0;
+                padding: 1rem 2rem;
+                background-color: #4695EB;
+                font-size: 1rem;
+                font-weight: 800;
+                color: white;
+                text-decoration: none;
+                text-transform: uppercase;
+            }
             .right-column h5 {
                 padding: 1rem 0 .25rem 0;
                 margin: 0;
@@ -176,7 +192,7 @@
                     font-weight: 300;
                     grid-column: span 12;
                 }
-            }      
+             }      
         </style>
     </head>
     <body>
@@ -256,6 +272,11 @@
 					<p>
 						{#for m in list}{m.key} = <code>{m.value}</code><br />{/for}
 					</p>
+				</div>
+			</div>
+			<div class="right-column">
+				<div>
+                    <button type="button" class="topBtn" id="topBtn">Top</button><script src="/button.js"></script>
 				</div>
 			</div>
       </div>
