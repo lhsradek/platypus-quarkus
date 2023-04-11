@@ -16,6 +16,7 @@ import io.quarkus.test.junit.QuarkusTestProfile;
  */
 public class CustomProfile implements QuarkusTestProfile {
 
+	@Override
 	public Map<String, String> getConfigOverrides() {
 		return Map.of(
 				"quarkus.http.insecure-requests", "enabled", // http enable
