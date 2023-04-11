@@ -1,4 +1,4 @@
-package local.intranet.quarkus.test;
+package local.intranet.quarkus;
 
 import java.util.Map;
 

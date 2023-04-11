@@ -1,4 +1,4 @@
-package local.intranet.quarkus.test;
+package local.intranet.quarkus;
 
 import static io.restassured.RestAssured.given;
 
