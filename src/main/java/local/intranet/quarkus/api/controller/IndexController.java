@@ -96,13 +96,14 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	 */
 	@GET
 	@Path("/hello")
+	@Blocking
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Hello", description = "This method say: **" + HELLO + "**<br/><br/>"
 			+ "See [IndexController.hello](/javadoc/local/intranet/quarkus/api/controller/IndexController.html#hello())")
 	public Message hello() {
 		incrementCounter();
-		LOG.debug("{}", HELLO);
+		LOG.trace("msg:{}", HELLO);
 		return new Message(HELLO);
 	}
 
@@ -117,13 +118,14 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	 */
 	@GET
 	@Path("/ahoj")
+	@Blocking
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Ahoj", description = "This method say: **" + AHOJ + "**<br/><br/>"
 			+ "See [IndexController.ahoj](/javadoc/local/intranet/quarkus/api/controller/IndexController.html#ahoj())")
 	public Message ahoj() {
 		incrementCounter();
-		LOG.debug("{}", AHOJ);
+		LOG.debug("msg:{}", AHOJ);
 		return new Message(AHOJ);
 	}
 
@@ -135,10 +137,14 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	 */
 	@GET
 	@Path("/")
+	@Blocking
 	@Produces(MediaType.TEXT_HTML)
 	@Operation(hidden = true)
 	public TemplateInstance index() {
-		return IndexTemplate.index(statusController.getInfo());
+		final TemplateInstance ret = IndexTemplate.index(statusController.getInfo());
+		final Long cnt = incrementCounter();
+		LOG.debug("cnt:{}", cnt);
+		return ret;
 	}
 
 	/**
@@ -153,10 +159,13 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	@Blocking
 	@Operation(hidden = true)
 	public TemplateInstance properties() {
-		return PropertiesTemplate.properties(
+		final TemplateInstance ret = PropertiesTemplate.properties(
 				statusController.getInfo(),
 				statusController.getOperatingSystem(),
-				statusController.platypusProperties());
+				statusController.platypusProperties()); 
+		final Long cnt = incrementCounter();
+		LOG.debug("cnt:{}", cnt);
+		return ret;
 	}
 	
 	/**
