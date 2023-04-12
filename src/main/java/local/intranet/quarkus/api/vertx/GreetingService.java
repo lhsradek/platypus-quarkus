@@ -22,12 +22,30 @@ public class GreetingService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(GreetingService.class);
 	
+    /**
+     * 
+     * @param name {@link String}
+     * @return {@link String}
+     */
+    @ConsumeEvent("ahoj")              
+    public String Ahoj(String name) {
+    	final String ret;
+    	final String hello = "Ahoj"; 
+    	if (name == null) {
+    		ret = hello;
+    	} else {
+    		ret = MessageFormat.format("{0} {1}", hello, name);
+    	}
+    	LOG.trace("{}", ret);
+    	return ret;             
+    }
+    
 	/**
 	 * 
 	 * @param name {@link String}
 	 * @return {@link String}
 	 */
-    @ConsumeEvent("greetings")              
+    @ConsumeEvent("hello")              
     public String hello(String name) {
     	final String ret;
     	final String hello = "Hello"; 
@@ -39,4 +57,5 @@ public class GreetingService {
     	LOG.trace("{}", ret);
         return ret;             
     }
+    
 }

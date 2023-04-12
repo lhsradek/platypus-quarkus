@@ -16,6 +16,7 @@ public class AhojResourceTest {
 	@Test
 	public void testAhojEndpoint() {
 		given()
+		.param("query", "Platypus Ahooooj")
         .when().get("/ahoj")
         .then()
         .statusCode(200)

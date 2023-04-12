@@ -21,11 +21,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
-import org.eclipse.microprofile.openapi.annotations.OpenAPIDefinition;
 import org.eclipse.microprofile.openapi.annotations.Operation;
-import org.eclipse.microprofile.openapi.annotations.info.Contact;
-import org.eclipse.microprofile.openapi.annotations.info.Info;
-import org.eclipse.microprofile.openapi.annotations.info.License;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,10 +54,12 @@ import local.intranet.quarkus.api.service.CounterService;
 @Path("/downloads")
 @ApplicationScoped
 @Tag(name = DownloadController.TAG)
+/*
 @OpenAPIDefinition(info = @Info(title = "Platypus Quarkus", version = "1.0.0-SNAPSHOT", contact = @Contact(name = "Radek Kádner", url = "https://github.com/lhsradek/platypus-quarkus", email = "radek.kadner@gmail.com"), description = "* Flyway for migrate data\n"
 		+ "* Hibernate Envers Audit\n" + "* SmallRye Health\n" + "* Prometheus Metrics\n"
 		+ "* Spring DATA JPA with CrudRepository and JpaRepository\n" + "* Logging to db with Logback\n"
 		+ "* [Javadoc](/javadoc/)\n", license = @License(name = "The MIT License", url = "https://opensource.org/licenses/MIT")))
+*/		
 public class DownloadController extends PlatypusCounter implements Countable, Invocationable, Statusable, Nameable {
 
 	private static final Logger LOG = LoggerFactory.getLogger(DownloadController.class);

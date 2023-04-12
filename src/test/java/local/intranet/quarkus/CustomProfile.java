@@ -19,8 +19,18 @@ public class CustomProfile implements QuarkusTestProfile {
 	@Override
 	public Map<String, String> getConfigOverrides() {
 		return Map.of(
+				"platypus.job.enables", "false",
+				"platypus.remote.server", "localhost",
+				
+				"quarkus.flyway.migrate-at-start", "true",   // start flyway
+				
+				// "quarkus.hibernate-envers.active", "false"
 				"quarkus.http.insecure-requests", "enabled", // http enable
-				"quarkus.flyway.migrate-at-start", "true"    // start flyway
+				"quarkus.http.host", "localhost",
+				// "quarkus.http.port", "8080",
+				"quarkus.http.port", "8443",
+				"quarkus.micrometer.enabled", "false"
+				// "quarkus.scheduler.enabled", "false",
 		);
 	}
 

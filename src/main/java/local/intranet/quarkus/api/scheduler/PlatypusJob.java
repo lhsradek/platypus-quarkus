@@ -1,10 +1,13 @@
 package local.intranet.quarkus.api.scheduler;
 
+import java.text.MessageFormat;
+import java.util.StringJoiner;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.slf4j.Logger;
@@ -14,6 +17,8 @@ import io.micrometer.core.annotation.Timed;
 import io.opentelemetry.api.trace.SpanKind;
 import io.opentelemetry.instrumentation.annotations.WithSpan;
 import io.quarkus.scheduler.Scheduled;
+import local.intranet.quarkus.api.controller.InfoController;
+import local.intranet.quarkus.api.controller.StatusController;
 
 /**
  * 
@@ -23,13 +28,19 @@ import io.quarkus.scheduler.Scheduled;
  *
  */
 @Timed
-@ApplicationScoped
+@Singleton
 public class PlatypusJob {
 
 	private static final Logger LOG = LoggerFactory.getLogger(PlatypusJob.class);
 
 	private final AtomicInteger counter = new AtomicInteger();
 
+	@Inject
+	protected InfoController infoController;
+	
+	@Inject
+	protected StatusController statusController;
+	
 	/**
 	 * 
 	 * <code>platypus.job.message</code> from application.properties
@@ -64,7 +75,11 @@ public class PlatypusJob {
 	@WithSpan(kind = SpanKind.SERVER)
 	@Scheduled(cron = "{platypus.job.cron}", skipExecutionIf = PlatypusPredicate.class)
 	public void job() {
-		LOG.info(jobMessage);
+		final StringJoiner buf = new StringJoiner(", "); 
+		infoController.loggingEventInfo().forEach(k -> {
+			buf.add(MessageFormat.format("{0}={1}", k.getLevel(), String.join("", k.getTotal().toString().split("/s+"))));
+		});
+		LOG.info(MessageFormat.format("{0} status:{1} level:[{2}]", jobMessage, statusController.plainStatus(), buf.toString()));
 	}
 
 	/**

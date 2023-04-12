@@ -1,6 +1,7 @@
 package local.intranet.quarkus;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.is;
 
 import org.junit.jupiter.api.Test;
 
@@ -12,9 +13,39 @@ import io.quarkus.test.junit.TestProfile;
 public class VertxResourceTest {
 
 	@Test
-	public void testVertxEndpoint() {
+	public void testAhojVertxEndpoint() {
 		given()
-        .when().get("/vertx/web")
+		.param("query", "Vertz Ahooooj")
+		.when().get("/vertx/ahoj")
+        .then()
+        .statusCode(200)
+		.body(is("Ahoj"));
+	}
+
+	@Test
+	public void testHelloVertxEndpoint() {
+		given()
+		.param("query", "Vertz Hellooooo")
+		.when().get("/vertx/hello")
+		.then()
+        .statusCode(200)
+		.body(is("Hello"));
+	}
+	
+	@Test
+	public void testPLatypusVertxEndpoint() {
+		given()
+		.param("query", "Vertz Platypus")
+		.when().get("/vertx/platypus")
+		.then()
+		.statusCode(200);
+	}
+	
+	@Test
+	public void testQuarkusVertxEndpoint() {
+		given()
+		.param("query", "Vertz Quarkus")
+        .when().get("/vertx/quarkus")
         .then()
         .statusCode(200);
 	}

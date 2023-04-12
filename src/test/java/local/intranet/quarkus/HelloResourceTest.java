@@ -16,7 +16,8 @@ public class HelloResourceTest {
 	@Test
 	public void testHelloEndpoint() {
 		given()
-        .when().get("/hello")
+		.param("query", "Platypus Hellooooo")
+		.when().get("/hello")
         .then()
         .statusCode(200)
         .body("content", is(IndexController.HELLO));
