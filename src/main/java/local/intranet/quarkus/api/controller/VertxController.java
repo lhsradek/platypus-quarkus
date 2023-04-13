@@ -1,4 +1,4 @@
-package local.intranet.quarkus.api.vertx;
+package local.intranet.quarkus.api.controller;
 
 import java.nio.charset.StandardCharsets;
 
@@ -6,7 +6,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -29,7 +28,7 @@ import io.vertx.mutiny.ext.web.client.WebClient;
 /**
  * 
  * 
- * {@link VertxResource}
+ * {@link VertxController}
  * 
  * https://quarkus.io/guides/vertx
  *
@@ -37,16 +36,16 @@ import io.vertx.mutiny.ext.web.client.WebClient;
 @Timed
 @Path("/vertx")
 @ApplicationScoped
-@Tag(name = VertxResource.TAG)
-public class VertxResource {
+@Tag(name = VertxController.TAG)
+public class VertxController {
 	
-	private static final Logger LOG = LoggerFactory.getLogger(VertxResource.class);
+	private static final Logger LOG = LoggerFactory.getLogger(VertxController.class);
 
 	/**
 	 * 
-	 * String TAG = "vertx-resource"
+	 * String TAG = "vertx-controller"
 	 */
-	protected static final String TAG = "vertx-resource";
+	protected static final String TAG = "vertx-controller";
 
 	private final Vertx vertx;
 	private final WebClient client;
@@ -60,10 +59,10 @@ public class VertxResource {
 
 	/**
 	 * 
-	 * @param vertx {@link VertxResource} 
+	 * @param vertx {@link VertxController} 
 	 */
 	@Inject
-	public VertxResource(Vertx vertx) {
+	public VertxController(Vertx vertx) {
 		this.vertx = vertx;
 		this.client = WebClient.create(vertx);
 	}
@@ -79,7 +78,7 @@ public class VertxResource {
 	@Produces(MediaType.TEXT_PLAIN)
 	public Uni<String> ahoj(@QueryParam("name") String name) {
 		final Uni<String> ret = bus.<String>request("ahoj", name).onItem().transform(response -> response.body());
-		LOG.trace("{}", name);
+		LOG.debug("{}", name);
 		return ret;
 	}
 	
@@ -136,7 +135,6 @@ public class VertxResource {
 	 * 
 	 * @return {@link Uni}&lt;{@link String}&gt;
 	 */
-	@PUT
 	@Path("/lorem")
 	@Operation(hidden = true)
 	@Produces(MediaType.TEXT_PLAIN)
@@ -169,4 +167,18 @@ public class VertxResource {
 		return null;
 	}
 
+	/**
+	 * 
+	 * @return {@link Uni}&lt;{@link JsonArray}&gt;
+	@GET
+	@Path("/startJob")
+	@Produces(MediaType.TEXT_PLAIN)
+	// @Operation(hidden = true)
+	public void startJob() {
+		final String url = "/api/v1/info/startJob";
+		client.getAbs(url).send().onItem();
+		LOG.trace("{}", url);
+	}
+	 */
+	
 }

@@ -26,6 +26,7 @@ import local.intranet.quarkus.api.info.LevelCount;
 import local.intranet.quarkus.api.info.RoleInfo;
 import local.intranet.quarkus.api.info.UserInfo;
 import local.intranet.quarkus.api.info.content.PlatypusCounter;
+import local.intranet.quarkus.api.scheduler.PlatypusJob;
 import local.intranet.quarkus.api.service.CounterService;
 import local.intranet.quarkus.api.service.LoggingEventService;
 import local.intranet.quarkus.api.service.RoleService;
@@ -82,6 +83,13 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	@Inject
 	protected CounterService counterService;
 
+	/**
+	 * 
+	 * {@link PlatypusJob} for {@link #startJob()}
+	 */
+	@Inject
+	protected PlatypusJob platypusJob;
+	
 	/**
 	 * 
 	 * LoggingEvent informations
@@ -184,4 +192,30 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 		return ret;
 	}
 
+	/**
+	 * 
+	 * Start Job
+	 * <p>
+	 * Used
+	 * {@link local.intranet.quarkus.api.scheduler.PlatypusJob#startJob}.
+	 * 
+	 * @return boolean
+	 */
+	@GET
+	@Path("startJob")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Operation(hidden = true)
+	/*
+	@Operation(summary = "Start Job", description = "**Start Job**<br/><br/>"
+			+ "This method is calling PlatypusJob.startJob<br/><br/>"
+			+ "See [PlatypusJob.startJob](/javadoc/local/intranet/quarkus/api/scheduler/PlatypusJob.html#startJob())")
+	*/
+	public boolean startJob() {
+		final String counterName = getName();
+		final boolean ret = platypusJob.startJob();
+		LOG.debug("name:'{}' ret:'{}'", counterName, ret);
+		return ret;
+	}
+	
 }

@@ -81,6 +81,28 @@ public class PlatypusJob {
 		});
 		LOG.info(MessageFormat.format("{0} status:{1} level:[{2}]", jobMessage, statusController.plainStatus(), buf.toString()));
 	}
+	
+	/**
+	 *
+	 * startJob
+	 * @return boolean
+	 */
+	public boolean startJob() {
+		job();
+		LOG.debug("Start Job");
+		return true;
+	}
+	
+	/**
+	 *
+	 * testJob
+	 * @return boolean
+	 */
+	public boolean testJob() {
+		LOG.debug("Test Job");
+		return true;
+	}
+
 
 	/**
 	 * 
@@ -91,6 +113,10 @@ public class PlatypusJob {
 	 */
 	public int getCounter() {
 		return counter.get();
+	}
+
+	public Object test() {
+		return null;
 	}
 
 }

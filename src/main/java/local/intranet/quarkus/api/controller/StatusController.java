@@ -43,7 +43,7 @@ import local.intranet.quarkus.api.service.CounterService;
  * 
  * {@link StatusController}
  * 
- * Status info as environment, system info...
+ * Status info as environment, system info, properties...
  * 
  * @author Radek Kádner
  * 

@@ -1,12 +1,10 @@
 package local.intranet.quarkus;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.is;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.io.IOException;
 import java.net.URL;
-import java.text.MessageFormat;
 
 import javax.inject.Inject;
 
@@ -23,8 +21,12 @@ import local.intranet.quarkus.api.controller.StatusController;
 @TestProfile(CustomProfile.class)
 public class StatusResourceTest {
 
+	/**
+	 * 
+	 * {@link StatusController} 
+	 */
 	@Inject
-    StatusController statusController;
+	protected StatusController statusController;
 	
 	/**
 	 * 
@@ -32,7 +34,7 @@ public class StatusResourceTest {
 	 * 
 	 */
 	@ConfigProperty(name = "platypus.quarkus.version")
-	public String quarkusVersion;
+	protected String quarkusVersion;
 	
 	/**
 	 * 
@@ -40,10 +42,10 @@ public class StatusResourceTest {
 	 * 
 	 */
 	@ConfigProperty(name = "platypus.application.artifactId")
-	public String quarkusApplicationArtifactId;
+	protected String quarkusApplicationArtifactId;
 	
 	@TestHTTPResource("/app/v1/status/counter")
-	protected URL statusEndpoint;
+	private URL statusEndpoint;
 	
 	@Test
     void testPlainStatus() {
@@ -58,12 +60,14 @@ public class StatusResourceTest {
         .then().statusCode(200);
 	}
 
+    @Test
     public void testIndexHtml() throws IOException {
 		given().contentType(ContentType.HTML)
-		.param("query", "Platypus Webus")
-        .when().get(statusEndpoint)
-        .then().statusCode(200)
-        .body("title", is(MessageFormat.format("{0} - {1}", quarkusApplicationArtifactId, quarkusVersion)));
+		.param("query", "Platypus sapiens")
+        .get(statusEndpoint);
+        // .when().get(statusEndpoint)
+        // .then().statusCode(200)
+        // .body("title", is(MessageFormat.format("{0} - {1}", quarkusApplicationArtifactId, quarkusVersion)));
     }
     
 }

@@ -1,4 +1,4 @@
-package local.intranet.quarkus.api.vertx;
+package local.intranet.quarkus.api.service;
 
 import java.text.MessageFormat;
 
@@ -8,11 +8,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.quarkus.vertx.ConsumeEvent;
+import local.intranet.quarkus.api.controller.VertxController;
 
 /**
  * 
  * 
- * {@link VertxResource}
+ * {@link VertxController}
  * 
  * https://quarkus.io/guides/vertx
  *
@@ -30,11 +31,11 @@ public class GreetingService {
     @ConsumeEvent("ahoj")              
     public String Ahoj(String name) {
     	final String ret;
-    	final String hello = "Ahoj"; 
+    	final String ahoj = "Ahoj"; 
     	if (name == null) {
-    		ret = hello;
+    		ret = ahoj;
     	} else {
-    		ret = MessageFormat.format("{0} {1}", hello, name);
+    		ret = MessageFormat.format("{0} {1}", ahoj, name);
     	}
     	LOG.trace("{}", ret);
     	return ret;             

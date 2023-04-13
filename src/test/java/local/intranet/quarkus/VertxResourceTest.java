@@ -15,7 +15,7 @@ public class VertxResourceTest {
 	@Test
 	public void testAhojVertxEndpoint() {
 		given()
-		.param("query", "Vertz Ahooooj")
+		.param("query", "Platypus Vertx Ahooooj")
 		.when().get("/vertx/ahoj")
         .then()
         .statusCode(200)
@@ -25,7 +25,7 @@ public class VertxResourceTest {
 	@Test
 	public void testHelloVertxEndpoint() {
 		given()
-		.param("query", "Vertz Hellooooo")
+		.param("query", "Platypus Vertx Hellooooo")
 		.when().get("/vertx/hello")
 		.then()
         .statusCode(200)
@@ -35,7 +35,7 @@ public class VertxResourceTest {
 	@Test
 	public void testPLatypusVertxEndpoint() {
 		given()
-		.param("query", "Vertz Platypus")
+		.param("query", "Platypus Vertx sapiens")
 		.when().get("/vertx/platypus")
 		.then()
 		.statusCode(200);
@@ -44,10 +44,19 @@ public class VertxResourceTest {
 	@Test
 	public void testQuarkusVertxEndpoint() {
 		given()
-		.param("query", "Vertz Quarkus")
+		.param("query", "Platypus Vertx Quarkus")
         .when().get("/vertx/quarkus")
         .then()
         .statusCode(200);
 	}
 
+	/*
+	@Test
+	public void testPLatypusJobEndpoint() {
+		given()
+		.param("query", "Platypus Vertx Job")
+		.put("/vertx/startJob");
+	}
+	*/
+	
 }
