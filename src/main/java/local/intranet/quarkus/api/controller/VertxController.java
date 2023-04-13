@@ -24,11 +24,15 @@ import io.vertx.mutiny.core.Vertx;
 import io.vertx.mutiny.core.eventbus.EventBus;
 import io.vertx.mutiny.ext.web.client.HttpResponse;
 import io.vertx.mutiny.ext.web.client.WebClient;
+import local.intranet.quarkus.api.domain.Statusable;
+import local.intranet.quarkus.api.domain.type.StatusType;
 
 /**
  * 
  * 
  * {@link VertxController}
+ * 
+ * Vert.x for quarkus
  * 
  * https://quarkus.io/guides/vertx
  *
@@ -37,7 +41,7 @@ import io.vertx.mutiny.ext.web.client.WebClient;
 @Path("/vertx")
 @ApplicationScoped
 @Tag(name = VertxController.TAG)
-public class VertxController {
+public class VertxController implements Statusable {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(VertxController.class);
 
@@ -67,7 +71,15 @@ public class VertxController {
 		this.client = WebClient.create(vertx);
 	}
 
+	@Override
+	@Operation(hidden = true)
+	public StatusType getStatus() {
+		return StatusType.UP;
+	}
+
 	/**
+	 * 
+	 * Say ahoj ${name}
 	 * 
 	 * @param name {@link String}
 	 * @return {@link Uni}&lt;{@link String}&gt;
@@ -84,6 +96,8 @@ public class VertxController {
 	
 	/**
 	 * 
+	 * Say hello ${name}
+	 * 
 	 * @param name {@link String}
 	 * @return {@link Uni}&lt;{@link String}&gt;
 	 */
@@ -98,6 +112,8 @@ public class VertxController {
 	}
 	
 	/**
+	 * 
+	 * Wiki Platypus
 	 * 
 	 * @return {@link Uni}&lt;{@link JsonArray}&gt;
 	 */
@@ -116,6 +132,8 @@ public class VertxController {
 	
 	/**
 	 * 
+	 * Wiki Quarkus
+	 * 
 	 * @return {@link Uni}&lt;{@link JsonArray}&gt;
 	 */
 	@GET
@@ -132,6 +150,8 @@ public class VertxController {
     }
 	
 	/**
+	 * 
+	 * Lorem
 	 * 
 	 * @return {@link Uni}&lt;{@link String}&gt;
 	 */
@@ -168,6 +188,8 @@ public class VertxController {
 	}
 
 	/**
+	 * 
+	 * Start Job
 	 * 
 	 * @return {@link Uni}&lt;{@link JsonArray}&gt;
 	@GET

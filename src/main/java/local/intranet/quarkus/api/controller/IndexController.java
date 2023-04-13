@@ -35,6 +35,8 @@ import local.intranet.quarkus.api.service.CounterService;
  * 
  * {@link IndexController}
  * 
+ * index for quarkus
+ * 
  * @author Radek Kádner
  *
  */
