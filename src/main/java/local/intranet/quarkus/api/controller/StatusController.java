@@ -158,7 +158,7 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	 * @return "OK" if Platypus-Quarkus API is running
 	 */
 	@GET
-	@Path(value = "/plainStatus")
+	@Path("/plainStatus")
 	@Produces(MediaType.TEXT_PLAIN)
 	@Operation(summary = "Get Plain Status", description = "**Get OK if Platypus-Quarkus API is running**<br/><br/>"
 			+ "See [StatusController.plainStatus](/javadoc/local/intranet/quarkus/api/controller/StatusController.html#plainStatus())")
@@ -177,7 +177,7 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	 * @return {@link List}&lt;{@link Map.Entry}&lt;{@link String},{@link String}&gt;&gt;
 	 */
 	@GET
-	@Path(value = "/platypusProperties")
+	@Path("/platypusProperties")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Get Properties", description = "**Get Properties</strong>**<br/><br/>"
@@ -217,7 +217,7 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	 * @return {@link List}&lt;{@link Map.Entry}&lt;{@link String},{@link Object}&gt;&gt;
 	 */
 	@GET
-	@Path(value = "/getOperatingSystem")
+	@Path("/getOperatingSystem")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Get Operating System", description = "**Get Operating System and load average**<br/><br/>"
@@ -249,7 +249,7 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	 * @throws PlatypusQuarkusException {@link PlatypusQuarkusException}
 	 */
 	@GET
-	@Path("counter")
+	@Path("/statusCounter")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Get Counter Info", description = "**Get Counter Info**<br/><br/>"

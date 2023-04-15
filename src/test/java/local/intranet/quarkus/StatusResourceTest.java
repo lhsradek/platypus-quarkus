@@ -44,7 +44,7 @@ public class StatusResourceTest {
 	@ConfigProperty(name = "platypus.application.artifactId")
 	protected String quarkusApplicationArtifactId;
 	
-	@TestHTTPResource("/app/v1/status/counter")
+	@TestHTTPResource("/app/v1/status/statusCounter")
 	private URL statusEndpoint;
 	
 	@Test

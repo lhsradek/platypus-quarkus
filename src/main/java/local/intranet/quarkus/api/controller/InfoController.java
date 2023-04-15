@@ -178,7 +178,7 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	 * @throws PlatypusQuarkusException {@link PlatypusQuarkusException}
 	 */
 	@GET
-	@Path("counter")
+	@Path("/infoCounter")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Get Counter Info", description = "**Get Counter Info**<br/><br/>"
