@@ -88,8 +88,8 @@ public class PlatypusJob {
 	 * @return boolean
 	 */
 	public boolean startJob() {
-		job();
 		LOG.debug("Start Job");
+		job();
 		return true;
 	}
 	

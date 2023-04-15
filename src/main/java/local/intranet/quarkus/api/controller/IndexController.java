@@ -163,7 +163,7 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	public TemplateInstance properties() {
 		final TemplateInstance ret = PropertiesTemplate.properties(
 				statusController.getInfo(),
-				statusController.getOperatingSystem(),
+				statusController.operatingSystem(),
 				statusController.platypusProperties()); 
 		final Long cnt = incrementCounter();
 		LOG.debug("cnt:{}", cnt);

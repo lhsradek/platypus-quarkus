@@ -29,7 +29,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.micrometer.core.annotation.Timed;
+import io.quarkus.runtime.Application;
 import io.smallrye.config.SmallRyeConfig;
+import local.intranet.quarkus.PlatypusApplication;
 import local.intranet.quarkus.api.domain.Countable;
 import local.intranet.quarkus.api.domain.Invocationable;
 import local.intranet.quarkus.api.domain.Nameable;
@@ -97,27 +99,11 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	
 	/**
 	 * 
-	 * <code>quarkus.version</code> for application.properties
-	 * 
-	 */
-	@ConfigProperty(name = "platypus.quarkus.version")
-	public String quarkusVersion;
-	
-	/**
-	 * 
 	 * <code>quarkus.application.artifactId</code> for application.properties
 	 * 
 	 */
 	@ConfigProperty(name = "platypus.application.artifactId")
 	public String quarkusApplicationArtifactId;
-	
-	/**
-	 * 
-	 * <code>quarkus.application.groupId</code> for application.properties
-	 * 
-	 */
-	@ConfigProperty(name = "platypus.application.groupId")
-	public String quarkusApplicationGroupId;
 	
 	/**
 	 * 
@@ -141,7 +127,7 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	 * 
 	 */
 	@ConfigProperty(name = "platypus.deployment.environment")
-	public String platypusDeploymentVnvironment;
+	public String platypusDeploymentEnvironment;
 	
 	private static final String STATUS_BRACKET = "_";
 	private static final String EQUAL_WITH_COLONS = "=::";
@@ -191,14 +177,14 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 					if (!(k == null || ConfigProvider.getConfig().unwrap(SmallRyeConfig.class).getRawValue(k) == null) )
 						map.put(k, ConfigProvider.getConfig().unwrap(SmallRyeConfig.class).getRawValue(k));
 				});
+		map.put("quarkus.version", quarkusVersion()); // add quarkus.version 
 		map.forEach((k, v) -> {
 			if (!(k == null || k.equals(STATUS_BRACKET) || k.equals(EQUAL_WITH_COLONS)
 					|| k.toUpperCase().contains(USER))) { // nelíbí
 				if (k.toUpperCase().contains(PASSWORD)) {
 					ret.add(new SimpleImmutableEntry<String, String>(k, STATUS_PROTECTED));
 				} else {
-					ret.add(new SimpleImmutableEntry<String, String>(k,
-							ConfigProvider.getConfig().unwrap(SmallRyeConfig.class).getRawValue(k)));
+					ret.add(new SimpleImmutableEntry<String, String>(k, map.get(k)));
 				}
 			}
 		});
@@ -211,18 +197,18 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	 *
 	 * Get Operating System
 	 *
-	 * @see <a href="/q/swagger-ui/#/status-controller/getOperatingSystem" target=
-	 *      "_blank">/q/swagger-ui/#/status-controller/getOperatingSystem</a>
+	 * @see <a href="/q/swagger-ui/#/status-controller/operatingSystem" target=
+	 *      "_blank">/q/swagger-ui/#/status-controller/operatingSystem</a>
 	 * 
 	 * @return {@link List}&lt;{@link Map.Entry}&lt;{@link String},{@link Object}&gt;&gt;
 	 */
 	@GET
-	@Path("/getOperatingSystem")
+	@Path("/operatingSystem")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Get Operating System", description = "**Get Operating System and load average**<br/><br/>"
-			+ "See [StatusController.getOperatingSystem](/javadoc/local/intranet/quarkus/api/controller/StatusController.html#getOperatingSystem())")
-	public List<Map.Entry<String, String>> getOperatingSystem() {
+			+ "See [StatusController.operatingSystem](/javadoc/local/intranet/quarkus/api/controller/StatusController.html#operatingSystem())")
+	public List<Map.Entry<String, String>> operatingSystem() {
 		final List<Map.Entry<String, String>> ret = new ArrayList<>();
 		final OperatingSystemMXBean system = ManagementFactory.getOperatingSystemMXBean();
 		ret.add(new SimpleImmutableEntry<String, String>("name", system.getName()));
@@ -265,6 +251,30 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	}
 
 	/**
+	 * 
+	 * get Info
+	 * 
+	 * @return {@link Map}&lt;{@link String}, {@link String}&gt;
+	 */
+	public Map<String, String> getInfo() {
+		final Map<String, String> map = new ConcurrentHashMap<>();
+		map.put("quarkus.application.groupId", PlatypusApplication.class.getPackage().getName());
+		map.put("quarkus.application.artifactId", quarkusApplicationArtifactId);
+		final ArrayList<String> arr = new ArrayList<>();
+		for (String s : Arrays.asList(quarkusApplicationArtifactId.replace("-", " ").split(" "))) {
+			arr.add(StringUtils.capitalize(s));
+		}
+		map.put("quarkus.application.header", String.join(" ", arr));
+		map.put("quarkus.application.version", ConfigProvider.getConfig().getValue("quarkus.application.version", String.class)); 
+		map.put("quarkus.version", quarkusVersion());
+		map.put("quarkus.profile", ConfigProvider.getConfig().getValue("quarkus.profile", String.class));
+		// map.put("quarkus.application.name", ConfigProvider.getConfig().getValue("quarkus.application.name", String.class));
+		map.put("quarkus.application.name", Application.currentApplication().getName());
+		map.put("quarkus.datasource.db-kind", ConfigProvider.getConfig().getValue("quarkus.datasource.db-kind", String.class)); 
+		return map;
+	}
+
+	/**
 	 *
 	 * Get time zone
 	 *
@@ -277,26 +287,15 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	}
 	
 	/**
+	 *
+	 * Quarkus Implementation version
+	 *
+	 * @return {@link Package#getImplementationVersion()}
 	 * 
-	 * get Info
-	 * 
-	 * @return {@link Map}&lt;{@link String}, {@link String}&gt;
 	 */
-	public Map<String, String> getInfo() {
-		final Map<String, String> map = new ConcurrentHashMap<>();
-		map.put("quarkus.application.groupId", quarkusApplicationGroupId);
-		map.put("quarkus.application.artifactId", quarkusApplicationArtifactId);
-		final ArrayList<String> arr = new ArrayList<>();
-		for (String s : Arrays.asList(quarkusApplicationArtifactId.replace("-", " ").split(" "))) {
-			arr.add(StringUtils.capitalize(s));
-		}
-		map.put("quarkus.application.header", String.join(" ", arr));
-		map.put("quarkus.application.version", ConfigProvider.getConfig().getValue("quarkus.application.version", String.class)); 
-		map.put("quarkus.version", quarkusVersion);
-		map.put("quarkus.profile", ConfigProvider.getConfig().getValue("quarkus.profile", String.class));
-		map.put("quarkus.application.name", ConfigProvider.getConfig().getValue("quarkus.application.name", String.class));
-		map.put("quarkus.datasource.db-kind", ConfigProvider.getConfig().getValue("quarkus.datasource.db-kind", String.class)); 
-		return map;
+	public String quarkusVersion() {
+		final String ret = Application.class.getPackage().getImplementationVersion();
+		return ret;
 	}
-
+	
 }
