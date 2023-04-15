@@ -30,14 +30,6 @@ public class StatusResourceTest {
 	
 	/**
 	 * 
-	 * <code>quarkus.version</code> from application.properties
-	 * 
-	 */
-	@ConfigProperty(name = "platypus.quarkus.version")
-	protected String quarkusVersion;
-	
-	/**
-	 * 
 	 * <code>quarkus.application.artifactId</code> from application.properties
 	 * 
 	 */
@@ -65,9 +57,6 @@ public class StatusResourceTest {
 		given().contentType(ContentType.HTML)
 		.param("query", "Platypus sapiens")
         .get(statusEndpoint);
-        // .when().get(statusEndpoint)
-        // .then().statusCode(200)
-        // .body("title", is(MessageFormat.format("{0} - {1}", quarkusApplicationArtifactId, quarkusVersion)));
     }
     
 }
