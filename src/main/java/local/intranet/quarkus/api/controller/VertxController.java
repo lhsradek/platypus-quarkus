@@ -1,16 +1,21 @@
 package local.intranet.quarkus.api.controller;
 
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.UUID;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.slf4j.Logger;
@@ -20,6 +25,7 @@ import io.micrometer.core.annotation.Timed;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import io.vertx.core.json.JsonArray;
+import io.vertx.core.json.JsonObject;
 import io.vertx.mutiny.core.Vertx;
 import io.vertx.mutiny.core.eventbus.EventBus;
 import io.vertx.mutiny.ext.web.client.HttpResponse;
@@ -42,8 +48,11 @@ import local.intranet.quarkus.api.domain.type.StatusType;
 @ApplicationScoped
 @Tag(name = VertxController.TAG)
 public class VertxController implements Statusable {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(VertxController.class);
+
+	@ConfigProperty(name = "platypus.swagger.url")
+	protected URL swaggerEndpoint;
 
 	/**
 	 * 
@@ -63,7 +72,7 @@ public class VertxController implements Statusable {
 
 	/**
 	 * 
-	 * @param vertx {@link VertxController} 
+	 * @param vertx {@link VertxController}
 	 */
 	@Inject
 	public VertxController(Vertx vertx) {
@@ -77,6 +86,178 @@ public class VertxController implements Statusable {
 		return StatusType.UP;
 	}
 
+	private static final String ACCOUNTS = "/accounts";
+
+	/**
+	 * 
+	 * Accounts Person UUID
+	 * 
+	 * @param personUUID {@link UUID}
+	 * @return {@link Uni}&lt;{@link JsonArray}&gt;
+	 */
+	@GET
+	@Path(ACCOUNTS + "/persons/{personUUID}/accounts")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Operation(summary = "Accounts Person UUID", description = "**Accounts Person UUID**<br/><br/>"
+			+ "See [VertxController.quarkusAccountsPersonUUID](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusAccountsPersonUUID())")
+	// @Operation(hidden = true)
+	public Uni<JsonObject> quarkusAccountsPersonUUID(@PathParam("personUUID") UUID personUUID) {
+		final String url = swaggerEndpoint + ACCOUNTS + "/persons/" + personUUID + ACCOUNTS;
+		final Uni<JsonObject> ret = client.getAbs(url).send().onItem().transform(HttpResponse::bodyAsJsonObject);
+		LOG.trace("{}", url);
+		return ret;
+	}
+
+	/**
+	 * 
+	 * Accounts Id
+	 * 
+	 * @param id {@link String}
+	 * @return {@link Uni}&lt;{@link JsonArray}&gt;
+	 */
+	@GET
+	@Path(ACCOUNTS + "/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Operation(summary = "Accounts Id", description = "**Accounts Id**<br/><br/>"
+			+ "See [VertxController.quarkusAccountsId](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusAccountsId())")
+	// @Operation(hidden = true)
+	public Uni<JsonObject> quarkusAccountsId(@PathParam("id") String id) {
+		final String url = swaggerEndpoint + ACCOUNTS + "/" + id;
+		final Uni<JsonObject> ret = client.getAbs(url).send().onItem().transform(HttpResponse::bodyAsJsonObject);
+		LOG.trace("{}", url);
+		return ret;
+	}
+
+	private static final String PERSONS = "/persons";
+
+	/**
+	 * 
+	 * Persons Id
+	 * 
+	 * @param id {@link String}
+	 * @return {@link Uni}&lt;{@link JsonArray}&gt;
+	 */
+	@GET
+	@Path(PERSONS + "/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Operation(summary = "Persons Id", description = "**Persons Id**<br/><br/>"
+			+ "See [VertxController.quarkusPersonsId](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusPersonsId())")
+	// @Operation(hidden = true)
+	public Uni<JsonObject> quarkusPersonsId(@PathParam("id") String id) {
+		final String url = swaggerEndpoint + PERSONS + "/" + id;
+		final Uni<JsonObject> ret = client.getAbs(url).send().onItem().transform(HttpResponse::bodyAsJsonObject);
+		LOG.trace("{}", url);
+		return ret;
+	}
+
+	private static final String NAS_E02 = "/nas/e02";
+
+	/**
+	 * 
+	 * NAS e02
+	 * 
+	 * @param date {@link String}
+	 * @return {@link Uni}&lt;{@link JsonArray}&gt;
+	 */
+	@GET
+	@Path(NAS_E02)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Operation(summary = "NAS e02", description = "**NAS e02**<br/><br/>"
+			+ "See [VertxController.quarkusNas02](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusNas02())")
+	// @Operation(hidden = true)
+	public Uni<JsonArray> quarkusNas02(@QueryParam("date") String date) {
+		final String url;
+		if (date == null || date.length() == 0) {
+			url = swaggerEndpoint + NAS_E02;
+		} else {
+			url = swaggerEndpoint + NAS_E02 + "?date=" + date;
+		}
+		final Uni<JsonArray> ret = client.getAbs(url).send().onItem().transform(HttpResponse::bodyAsJsonArray);
+		LOG.trace("{}", url);
+		return ret;
+	}
+
+	private static final String NAS_E24 = "/nas/e24";
+
+	/**
+	 * 
+	 * NAS e24
+	 * 
+	 * @param date {@link String}
+	 * @return {@link Uni}&lt;{@link JsonArray}&gt;
+	 */
+	@GET
+	@Path(NAS_E24)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Operation(summary = "NAS e24", description = "**NAS e24**<br/><br/>"
+			+ "See [VertxController.quarkusNas24](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusNas24())")
+	// @Operation(hidden = true)
+	public Uni<JsonArray> quarkusNas24(@QueryParam("date") String date) {
+		final String url;
+		if (date == null || date.length() == 0) {
+			url = swaggerEndpoint + NAS_E24;
+		} else {
+			url = swaggerEndpoint + NAS_E24 + "?date=" + date;
+		}
+		final Uni<JsonArray> ret = client.getAbs(url).send().onItem().transform(HttpResponse::bodyAsJsonArray);
+		LOG.trace("{}", url);
+		return ret;
+	}
+
+	private static final String NAS_E25 = "/nas/e25";
+
+	/**
+	 * 
+	 * NAS e25
+	 * 
+	 * @param date {@link String}
+	 * @return {@link Uni}&lt;{@link JsonArray}&gt;
+	 */
+	@GET
+	@Path(NAS_E25)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Operation(summary = "NAS e25", description = "**NAS e25**<br/><br/>"
+			+ "See [VertxController.quarkusNas25](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusNas25())")
+	// @Operation(hidden = true)
+	public Uni<JsonArray> quarkusNas25(@QueryParam("date") String date) {
+		final String url;
+		if (date == null || date.length() == 0) {
+			url = swaggerEndpoint + NAS_E25;
+		} else {
+			url = swaggerEndpoint + NAS_E25 + "?date=" + date;
+		}
+		final Uni<JsonArray> ret = client.getAbs(url).send().onItem().transform(HttpResponse::bodyAsJsonArray);
+		LOG.trace("{}", url);
+		return ret;
+	}
+
+	private static final String NAS_E26 = "/nas/e26";
+
+	/**
+	 * 
+	 * NAS e26
+	 * 
+	 * @param date {@link String}
+	 * @return {@link Uni}&lt;{@link JsonArray}&gt;
+	 */
+	@GET
+	@Path(NAS_E26)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Operation(summary = "NAS e26", description = "**NAS e26**<br/><br/>"
+			+ "See [VertxController.quarkusNas26](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusNas26())")
+	// @Operation(hidden = true)
+	public Uni<JsonArray> quarkusNas26(@QueryParam("date") String date) {
+		final String url;
+		if (date == null || date.length() == 0) {
+			url = swaggerEndpoint + NAS_E26;
+		} else {
+			url = swaggerEndpoint + NAS_E26 + "?date=" + date;
+		}
+		final Uni<JsonArray> ret = client.getAbs(url).send().onItem().transform(HttpResponse::bodyAsJsonArray);
+		LOG.trace("{}", url);
+		return ret;
+	}
+
 	/**
 	 * 
 	 * Say ahoj ${name}
@@ -86,14 +267,14 @@ public class VertxController implements Statusable {
 	 */
 	@GET
 	@Path("/ahoj")
-	// @Operation(hidden = true)
+	@Operation(hidden = true)
 	@Produces(MediaType.TEXT_PLAIN)
 	public Uni<String> ahoj(@QueryParam("name") String name) {
 		final Uni<String> ret = bus.<String>request("ahoj", name).onItem().transform(response -> response.body());
 		LOG.debug("{}", name);
 		return ret;
 	}
-	
+
 	/**
 	 * 
 	 * Say hello ${name}
@@ -103,14 +284,14 @@ public class VertxController implements Statusable {
 	 */
 	@GET
 	@Path("/hello")
-	// @Operation(hidden = true)
+	@Operation(hidden = true)
 	@Produces(MediaType.TEXT_PLAIN)
 	public Uni<String> hello(@QueryParam("name") String name) {
 		final Uni<String> ret = bus.<String>request("hello", name).onItem().transform(response -> response.body());
 		LOG.trace("{}", name);
 		return ret;
 	}
-	
+
 	/**
 	 * 
 	 * Wiki Platypus
@@ -118,18 +299,20 @@ public class VertxController implements Statusable {
 	 * @return {@link Uni}&lt;{@link JsonArray}&gt;
 	 */
 	@GET
-    @Path("/platypus")
+	@Path("/platypus")
+	@Operation(summary = "Wiki Platypus", description = "**Wiki Platypus**<br/><br/>"
+			+ "See [VertxController.platypusRetrieveDataFromWikipedia](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#platypusRetrieveDataFromWikipedia())")
 	// @Operation(hidden = true)
 	@Produces(MediaType.APPLICATION_JSON)
-    public Uni<JsonArray> platypusRetrieveDataFromWikipedia() {
-        final String url = "https://en.wikipedia.org/w/api.php?action=parse&page=Platypus&format=json&prop=langlinks";
-        final Uni<JsonArray> ret = client.getAbs(url).send()
-                .onItem().transform(HttpResponse::bodyAsJsonObject)
-                .onItem().transform(json -> json.getJsonObject("parse").getJsonArray("langlinks"));
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Uni<JsonArray> platypusRetrieveDataFromWikipedia() {
+		final String url = "https://en.wikipedia.org/w/api.php?action=parse&page=Platypus&format=json&prop=langlinks";
+		final Uni<JsonArray> ret = client.getAbs(url).send().onItem().transform(HttpResponse::bodyAsJsonObject).onItem()
+				.transform(json -> json.getJsonObject("parse").getJsonArray("langlinks"));
 		LOG.trace("{}", url);
-        return ret;
-    }
-	
+		return ret;
+	}
+
 	/**
 	 * 
 	 * Wiki Quarkus
@@ -137,18 +320,20 @@ public class VertxController implements Statusable {
 	 * @return {@link Uni}&lt;{@link JsonArray}&gt;
 	 */
 	@GET
-    @Path("/quarkus")
+	@Path("/quarkus")
 	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Operation(summary = "Wiki Quarkus", description = "**Wiki Quarkus**<br/><br/>"
+			+ "See [VertxController.quarkusDataFromWikipedia](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusDataFromWikipedia())")
 	// @Operation(hidden = true)
-    public Uni<JsonArray> quarkusDataFromWikipedia() {
-        final String url = "https://en.wikipedia.org/w/api.php?action=parse&page=Quarkus&format=json&prop=langlinks";
-        final Uni<JsonArray> ret = client.getAbs(url).send()
-                .onItem().transform(HttpResponse::bodyAsJsonObject)
-                .onItem().transform(json -> json.getJsonObject("parse").getJsonArray("langlinks"));
+	public Uni<JsonArray> quarkusDataFromWikipedia() {
+		final String url = "https://en.wikipedia.org/w/api.php?action=parse&page=Quarkus&format=json&prop=langlinks";
+		final Uni<JsonArray> ret = client.getAbs(url).send().onItem().transform(HttpResponse::bodyAsJsonObject).onItem()
+				.transform(json -> json.getJsonObject("parse").getJsonArray("langlinks"));
 		LOG.trace("{}", url);
-        return ret;
-    }
-	
+		return ret;
+	}
+
 	/**
 	 * 
 	 * Lorem
@@ -166,17 +351,19 @@ public class VertxController implements Statusable {
 
 	/**
 	 *
-	 *  Now it returns null. Example:
+	 * Now it returns null. Example:
 	 *
-	 *  <p><code>
-	public Multi<String> readLargeFile() {<br/>
-		final Multi<String> ret = vertx.fileSystem().open("book.txt", new OpenOptions().setRead(true)).onItem()<br/>
-				.transformToMulti(file -> file.toMulti()).onItem()<br/>
-				.transform(content -> content.toString(StandardCharsets.UTF_8) + "\n------------\n");<br/>
-		return ret;<br/>
-	}
-	 *  </code></p>
-	 *  
+	 * <p>
+	 * <code>
+	 * public Multi<String> readLargeFile() {<br/>
+	 *     final Multi<String> ret = vertx.fileSystem().open("book.txt", new OpenOptions().setRead(true)).onItem()<br/>
+	 *       .transformToMulti(file -> file.toMulti()).onItem()<br/>
+	 *       .transform(content -> content.toString(StandardCharsets.UTF_8) + "\n------------\n");<br/>
+	 *       return ret;<br/>
+	 * }
+	 * </code>
+	 * </p>
+	 * 
 	 * @return {@link Multi}&lt;{@link String}&gt;
 	 */
 	@POST
@@ -187,20 +374,4 @@ public class VertxController implements Statusable {
 		return null;
 	}
 
-	/**
-	 * 
-	 * Start Job
-	 * 
-	 * @return {@link Uni}&lt;{@link JsonArray}&gt;
-	@GET
-	@Path("/startJob")
-	@Produces(MediaType.TEXT_PLAIN)
-	// @Operation(hidden = true)
-	public void startJob() {
-		final String url = "/api/v1/info/startJob";
-		client.getAbs(url).send().onItem();
-		LOG.trace("{}", url);
-	}
-	 */
-	
 }

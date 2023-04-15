@@ -11,7 +11,7 @@ import javax.annotation.security.RolesAllowed;
  * @author Radek Kádner
  */
 public enum RoleType {
-
+	
 	/**
 	 *
 	 * ANONYMOUS_ROLE = "anonymousRole"
@@ -41,7 +41,30 @@ public enum RoleType {
 	private RoleType(String role) {
 		this.role = role;
 	}
-
+	
+	/**
+	 * 
+	 * Method returns enum, based on value passed as parameter. Values are
+	 * compared ignoring cas. If parameter value passed is null, null is
+	 * returned. If value field of enum constant is null the name of enum is
+	 * used for comparison, If no match is found null is returned.
+	 * 
+	 * @param value {@link String}
+	 * @return {@link RoleType}
+	 */
+	public static RoleType fromValue(String value) {
+		RoleType ret = null;
+		if (value != null) {
+			for (RoleType k : values()) {
+				if (k.getRole().equalsIgnoreCase(value)) {
+					ret = k;
+					break;
+				}
+			}
+		}
+		return ret;
+	}	
+	
 	/**
 	 * 
 	 * Get role
@@ -49,7 +72,7 @@ public enum RoleType {
 	 * @return userRole, managerRole or adminRole as String
 	 */
 	public String getRole() {
-		return role;
+		return (role == null) ? name() : role;
 	}
 
 }

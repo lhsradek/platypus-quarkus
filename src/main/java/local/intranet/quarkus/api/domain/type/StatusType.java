@@ -44,12 +44,35 @@ public enum StatusType {
 
 	/**
 	 * 
+	 * Method returns enum, based on value passed as parameter. Values are
+	 * compared ignoring cas. If parameter value passed is null, null is
+	 * returned. If value field of enum constant is null the name of enum is
+	 * used for comparison, If no match is found null is returned.
+	 * 
+	 * @param value {@link String}
+	 * @return {@link RoleType}
+	 */
+	public static StatusType fromValue(String value) {
+		StatusType ret = null;
+		if (value != null) {
+			for (StatusType k : values()) {
+				if (k.getStatus().equalsIgnoreCase(value)) {
+					ret = k;
+					break;
+				}
+			}
+		}
+		return ret;
+	}	
+	
+	/**
+	 * 
 	 * Get status
 	 * 
 	 * @return UP or DOWN as String
 	 */
 	public String getStatus() {
-		return status;
+		return (status == null) ? name() : status;
 	}
 
 }

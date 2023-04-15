@@ -20,7 +20,7 @@ import local.intranet.quarkus.api.domain.Countable;
 import local.intranet.quarkus.api.domain.Invocationable;
 import local.intranet.quarkus.api.domain.Nameable;
 import local.intranet.quarkus.api.domain.Statusable;
-import local.intranet.quarkus.api.exception.PlatypusQuarkusException;
+import local.intranet.quarkus.api.exception.PlatypusException;
 import local.intranet.quarkus.api.info.CounterInfo;
 import local.intranet.quarkus.api.info.LevelCount;
 import local.intranet.quarkus.api.info.RoleInfo;
@@ -175,7 +175,7 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	 * {@link local.intranet.quarkus.api.service.CounterService#getCounterInfo}.
 	 * 
 	 * @return {@link CounterInfo}
-	 * @throws PlatypusQuarkusException {@link PlatypusQuarkusException}
+	 * @throws PlatypusException {@link PlatypusException}
 	 */
 	@GET
 	@Path("/infoCounter")
@@ -184,7 +184,7 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	@Operation(summary = "Get Counter Info", description = "**Get Counter Info**<br/><br/>"
 			+ "This method is calling CounterService.getCounterInfo<br/><br/>"
 			+ "See [InfoController.infoCounter](/javadoc/local/intranet/quarkus/api/controller/InfoController.html#infoCounter())")
-	public CounterInfo infoCounter() throws PlatypusQuarkusException {
+	public CounterInfo infoCounter() throws PlatypusException {
 		final String counterName = getName();
 		final CounterInfo ret = counterService.getCounterInfo(counterName);
 		LOG.debug("name:'{}' cnt:{} date:'{}': status:'{}'", counterName, ret.getCount(),

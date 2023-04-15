@@ -35,7 +35,7 @@ import local.intranet.quarkus.api.domain.Countable;
 import local.intranet.quarkus.api.domain.Invocationable;
 import local.intranet.quarkus.api.domain.Nameable;
 import local.intranet.quarkus.api.domain.Statusable;
-import local.intranet.quarkus.api.exception.PlatypusQuarkusException;
+import local.intranet.quarkus.api.exception.PlatypusException;
 import local.intranet.quarkus.api.info.CounterInfo;
 import local.intranet.quarkus.api.info.content.PlatypusCounter;
 import local.intranet.quarkus.api.info.content.template.DownloadTemplate;
@@ -149,7 +149,7 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	 * {@link local.intranet.quarkus.api.service.CounterService#getCounterInfo}.
 	 * 
 	 * @return {@link CounterInfo}
-	 * @throws PlatypusQuarkusException {@link PlatypusQuarkusException}
+	 * @throws PlatypusException {@link PlatypusException}
 	 */
 	@GET
 	@WithSpan
@@ -160,7 +160,7 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 			+ "This method is calling CounterService.getCounterInfo<br/><br/>"
 			+ "See [DownloadController.downloadCounter](/javadoc/local/intranet/quarkus/api/controller/DownloadController.html#downloadCounter())")
 	// @Route(path = "/downloadCounter", methods = Route.HttpMethod.GET, produces = MediaType.APPLICATION_JSON, type = Route.HandlerType.BLOCKING)
-	public CounterInfo downloadCounter() throws PlatypusQuarkusException {
+	public CounterInfo downloadCounter() throws PlatypusException {
 		final String counterName = getName();
 		final CounterInfo ret = counterService.getCounterInfo(counterName);
 		LOG.debug("name:'{}' cnt:{} date:'{}': status:'{}'", counterName, ret.getCount(), formatDateTime(ret.getDate()),ret.getStatus());

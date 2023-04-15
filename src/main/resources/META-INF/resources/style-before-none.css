@@ -1,6 +1,0 @@
-
-/* Disable image background */
-
-body:before {
-    display: none;
-}

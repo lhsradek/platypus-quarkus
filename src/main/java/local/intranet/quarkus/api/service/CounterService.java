@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import io.smallrye.common.constraint.NotNull;
 import local.intranet.quarkus.api.domain.type.StatusType;
-import local.intranet.quarkus.api.exception.PlatypusQuarkusException;
+import local.intranet.quarkus.api.exception.PlatypusException;
 import local.intranet.quarkus.api.info.CounterInfo;
 import local.intranet.quarkus.api.model.entity.Counter;
 import local.intranet.quarkus.api.model.repository.CounterRepository;
@@ -46,11 +46,11 @@ public class CounterService {
 	 * 
 	 * @param counterName {@link String}
 	 * @return {@link CounterInfo}
-	 * @throws PlatypusQuarkusException {@link PlatypusQuarkusException}
+	 * @throws PlatypusException {@link PlatypusException}
 	 */
 	@Transactional
 	@Operation(hidden = true)
-	public CounterInfo getCounterInfo(@NotNull String counterName) throws PlatypusQuarkusException {
+	public CounterInfo getCounterInfo(@NotNull String counterName) throws PlatypusException {
 		final CounterInfo ret;
 		try {
 			final ZonedDateTime zonedDateTime = ZonedDateTime
@@ -73,7 +73,7 @@ public class CounterService {
 			}
 		} catch (Exception e) {
 			LOG.error(e.getMessage(), e);
-			throw new PlatypusQuarkusException(e.getMessage());
+			throw new PlatypusException(e.getMessage());
 		}
 		return ret;
 	}

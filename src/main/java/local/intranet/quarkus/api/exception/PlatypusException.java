@@ -7,17 +7,17 @@ import org.slf4j.LoggerFactory;
 
 /**
  * 
- * {@link PlatypusQuarkusException} for
+ * {@link PlatypusException} for
  * {@link local.intranet.quarkus}
  * 
  * @author Radek Kádner
  *
  */
-public class PlatypusQuarkusException extends ConnectException {
+public class PlatypusException extends ConnectException {
 	
 	private static final long serialVersionUID = -8560956746588815416L;
 	
-	private static final Logger LOG = LoggerFactory.getLogger(PlatypusQuarkusException.class);
+	private static final Logger LOG = LoggerFactory.getLogger(PlatypusException.class);
 
 	/**
 	 * 
@@ -25,7 +25,7 @@ public class PlatypusQuarkusException extends ConnectException {
 	 * 
 	 * @param msg {@link String}
 	 */
-	public PlatypusQuarkusException(String msg) {
+	public PlatypusException(String msg) {
 		super(msg);
 	}
 	
@@ -36,7 +36,7 @@ public class PlatypusQuarkusException extends ConnectException {
 	 * @param code of error scale
 	 * @param msg {@link String}
 	 */
-	public PlatypusQuarkusException(int code, String msg) {
+	public PlatypusException(int code, String msg) {
 		super(msg);
 		LOG.error("code:{} msg:'{}'", code, msg);
 	}
@@ -48,7 +48,7 @@ public class PlatypusQuarkusException extends ConnectException {
 	 * @param msg {@link String}
 	 * @param t   {@link Throwable}
 	 */
-	public PlatypusQuarkusException(String msg, Throwable t) {
+	public PlatypusException(String msg, Throwable t) {
 		super(msg);
 		LOG.error(msg, t);
 	}

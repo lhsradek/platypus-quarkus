@@ -22,7 +22,7 @@ import local.intranet.quarkus.api.domain.Countable;
 import local.intranet.quarkus.api.domain.Invocationable;
 import local.intranet.quarkus.api.domain.Nameable;
 import local.intranet.quarkus.api.domain.Statusable;
-import local.intranet.quarkus.api.exception.PlatypusQuarkusException;
+import local.intranet.quarkus.api.exception.PlatypusException;
 import local.intranet.quarkus.api.info.CounterInfo;
 import local.intranet.quarkus.api.info.Message;
 import local.intranet.quarkus.api.info.content.PlatypusCounter;
@@ -89,6 +89,45 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 
 	/**
 	 * 
+	 * Index from Quarkus as HTML
+	 * 
+	 *  @return {@link TemplateInstance}
+	 */
+	@GET
+	@Path("/")
+	@Blocking
+	@Produces(MediaType.TEXT_HTML)
+	@Operation(hidden = true)
+	public TemplateInstance index() {
+		final TemplateInstance ret = IndexTemplate.index(statusController.getInfo());
+		final Long cnt = incrementCounter();
+		LOG.debug("cnt:{}", cnt);
+		return ret;
+	}
+
+	/**
+	 * 
+	 * Properties from Quarkus as HTML
+	 * 
+	 *  @return {@link TemplateInstance}
+	 */
+	@GET
+	@Path("/properties")
+	@Produces(MediaType.TEXT_HTML)
+	@Blocking
+	@Operation(hidden = true)
+	public TemplateInstance properties() {
+		final TemplateInstance ret = PropertiesTemplate.properties(
+				statusController.getInfo(),
+				statusController.operatingSystem(),
+				statusController.platypusProperties()); 
+		final Long cnt = incrementCounter();
+		LOG.debug("cnt:{}", cnt);
+		return ret;
+	}
+	
+	/**
+	 * 
 	 * Say: Hello ...
 	 * 
 	 * @see <a href="/q/swagger-ui/#/index-controller/hello" target=
@@ -133,45 +172,6 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 
 	/**
 	 * 
-	 * Index from Quarkus as HTML
-	 * 
-	 *  @return {@link TemplateInstance}
-	 */
-	@GET
-	@Path("/")
-	@Blocking
-	@Produces(MediaType.TEXT_HTML)
-	@Operation(hidden = true)
-	public TemplateInstance index() {
-		final TemplateInstance ret = IndexTemplate.index(statusController.getInfo());
-		final Long cnt = incrementCounter();
-		LOG.debug("cnt:{}", cnt);
-		return ret;
-	}
-
-	/**
-	 * 
-	 * Properties from Quarkus as HTML
-	 * 
-	 *  @return {@link TemplateInstance}
-	 */
-	@GET
-	@Path("/properties")
-	@Produces(MediaType.TEXT_HTML)
-	@Blocking
-	@Operation(hidden = true)
-	public TemplateInstance properties() {
-		final TemplateInstance ret = PropertiesTemplate.properties(
-				statusController.getInfo(),
-				statusController.operatingSystem(),
-				statusController.platypusProperties()); 
-		final Long cnt = incrementCounter();
-		LOG.debug("cnt:{}", cnt);
-		return ret;
-	}
-	
-	/**
-	 * 
 	 * Job Counter
 	 * <p>
 	 * Used
@@ -203,7 +203,7 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	 * {@link local.intranet.quarkus.api.service.CounterService#getCounterInfo}.
 	 * 
 	 * @return {@link CounterInfo}
-	 * @throws PlatypusQuarkusException {@link PlatypusQuarkusException}
+	 * @throws PlatypusException {@link PlatypusException}
 	 */
 	@GET
 	@Path("/indexCounter")
@@ -212,7 +212,7 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	@Operation(summary = "Get Counter Info", description = "**Get Counter Info**<br/><br/>"
 			+ "This method is calling CounterService.getCounterInfo<br/><br/>"
 			+ "See [IndexController.indexCounter](/javadoc/local/intranet/quarkus/api/controller/IndexController.html#indexCounter())")
-	public CounterInfo indexCounter() throws PlatypusQuarkusException {
+	public CounterInfo indexCounter() throws PlatypusException {
 		final String counterName = getName();
 		final CounterInfo ret = counterService.getCounterInfo(counterName);
 		LOG.debug("name:'{}' cnt:{} date:'{}': status:'{}'", counterName, ret.getCount(), formatDateTime(ret.getDate()),
