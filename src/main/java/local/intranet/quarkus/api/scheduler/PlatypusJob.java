@@ -13,7 +13,6 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.micrometer.core.annotation.Timed;
 import io.opentelemetry.api.trace.SpanKind;
 import io.opentelemetry.instrumentation.annotations.WithSpan;
 import io.quarkus.scheduler.Scheduled;
@@ -27,7 +26,7 @@ import local.intranet.quarkus.api.controller.StatusController;
  * @author Radek Kádner
  *
  */
-@Timed
+// @Timed
 @Singleton
 public class PlatypusJob {
 

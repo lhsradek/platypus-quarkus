@@ -21,7 +21,6 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.micrometer.core.annotation.Timed;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import io.vertx.core.json.JsonArray;
@@ -43,7 +42,7 @@ import local.intranet.quarkus.api.domain.type.StatusType;
  * https://quarkus.io/guides/vertx
  *
  */
-@Timed
+// @Timed
 @Path("/vertx")
 @ApplicationScoped
 @Tag(name = VertxController.TAG)

@@ -25,7 +25,6 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.micrometer.core.annotation.Timed;
 import io.opentelemetry.instrumentation.annotations.WithSpan;
 import io.quarkus.qute.TemplateInstance;
 import io.smallrye.common.annotation.Blocking;
@@ -49,7 +48,7 @@ import local.intranet.quarkus.api.service.CounterService;
  * @author Radek Kádner
  *
  */
-@Timed
+// @Timed
 @Path("/downloads")
 @ApplicationScoped
 @Tag(name = DownloadController.TAG)

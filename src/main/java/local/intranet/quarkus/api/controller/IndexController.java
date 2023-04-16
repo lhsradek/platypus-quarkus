@@ -40,7 +40,7 @@ import local.intranet.quarkus.api.service.CounterService;
  * @author Radek Kádner
  *
  */
-@Timed
+// @Timed
 @Path("")
 @ApplicationScoped
 @Tag(name = IndexController.TAG)

@@ -28,7 +28,6 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.micrometer.core.annotation.Timed;
 import io.quarkus.runtime.Application;
 import io.smallrye.config.SmallRyeConfig;
 import local.intranet.quarkus.PlatypusApplication;
@@ -50,7 +49,7 @@ import local.intranet.quarkus.api.service.CounterService;
  * @author Radek Kádner
  * 
  */
-@Timed
+// @Timed
 @Path("/app/v1/status")
 @ApplicationScoped
 @Tag(name = StatusController.TAG)
