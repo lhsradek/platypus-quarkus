@@ -73,10 +73,6 @@
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-smallrye-reactive-type-converters</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.quarkus</groupId>
       <artifactId>quarkus-arc</artifactId>
     </dependency>
     <dependency>
@@ -144,14 +140,6 @@
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-undertow</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-websockets</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-csrf-reactive</artifactId>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
@@ -293,7 +281,7 @@
      <properties>
        <skipITs>false</skipITs>
        <quarkus.profile>dev</quarkus.profile>
-       <quarkus.package.type>mutable-jar</quarkus.package.type>
+       <quarkus.package.type>jar</quarkus.package.type>
      </properties>
     </profile>
     <profile>
