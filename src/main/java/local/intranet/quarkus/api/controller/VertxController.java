@@ -47,6 +47,8 @@ import local.intranet.quarkus.api.service.CounterService;
  * Vert.x for quarkus
  * 
  * https://quarkus.io/guides/vertx
+ * https://quarkus.io/guides/vertx-reference
+ * https://how-to.vertx.io/web-and-openapi-howto/
  *
  */
 @Timed
