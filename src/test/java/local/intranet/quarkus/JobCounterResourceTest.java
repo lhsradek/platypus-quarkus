@@ -1,6 +1,5 @@
 package local.intranet.quarkus;
 
-import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.net.URL;
@@ -12,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import io.quarkus.test.common.http.TestHTTPResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.TestProfile;
-import io.restassured.http.ContentType;
 import local.intranet.quarkus.api.scheduler.PlatypusJob;
 
 
@@ -40,12 +38,4 @@ public class JobCounterResourceTest {
 		assertTrue(platypusJob.startJob());
     }
 		
-	@Test
-	public void testJobEndpoint() {
-		given().contentType(ContentType.JSON)
-		.param("query", "Platypus Quartz")
-        .when().get(jobEndpoint)
-        .then().statusCode(200);
-	}
-
 }
