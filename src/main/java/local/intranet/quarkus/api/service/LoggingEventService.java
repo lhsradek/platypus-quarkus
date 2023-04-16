@@ -38,6 +38,8 @@ public class LoggingEventService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(LoggingEventService.class);
 
+	private static final String NULL = "[NULL]";
+
 	/**
 	 * 
 	 * {@link LoggingEventRepository} for {@link #countTotalLoggingEvents} and {@link #findPageByLevelString}
@@ -102,10 +104,10 @@ public class LoggingEventService {
 	 */
 	protected LoggingEventInfo makeLoggingEventInfo(LoggingEvent loggingEvent) {
 		String[] s = loggingEvent.getCallerClass().split("\\.");
-		String arg0 = (loggingEvent.getArg0() == null) ? "[NULL]" : loggingEvent.getArg0();
-		String arg1 = (loggingEvent.getArg1() == null) ? "[NULL]" : loggingEvent.getArg1();
-		String arg2 = (loggingEvent.getArg2() == null) ? "[NULL]" : loggingEvent.getArg2();
-		String arg3 = (loggingEvent.getArg3() == null) ? "[NULL]" : loggingEvent.getArg3();
+		String arg0 = (loggingEvent.getArg0() == null) ? NULL : loggingEvent.getArg0();
+		String arg1 = (loggingEvent.getArg1() == null) ? NULL : loggingEvent.getArg1();
+		String arg2 = (loggingEvent.getArg2() == null) ? NULL : loggingEvent.getArg2();
+		String arg3 = (loggingEvent.getArg3() == null) ? NULL : loggingEvent.getArg3();
 		// LOG.trace("arg0:{} arg1:{} arg2:{} arg3:{}", arg0, arg1, arg2, arg3);
 		LoggingEventInfo ret = new LoggingEventInfo(loggingEvent.getId(), loggingEvent.getFormattedMessage(),
 				loggingEvent.getLevelString(), (s.length > 0) ? s[s.length - 1] : "", loggingEvent.getCallerMethod(),

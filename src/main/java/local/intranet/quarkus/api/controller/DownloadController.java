@@ -11,7 +11,6 @@ import java.util.stream.Stream;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Path;
@@ -155,7 +154,6 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	@WithSpan
 	@Path("/downloadCounter")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Get Counter Info", description = "**Get Counter Info**<br/><br/>"
 			+ "This method is calling CounterService.getCounterInfo<br/><br/>"
 			+ "See [DownloadController.downloadCounter](/javadoc/local/intranet/quarkus/api/controller/DownloadController.html#downloadCounter())")

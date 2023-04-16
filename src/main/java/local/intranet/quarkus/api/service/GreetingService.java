@@ -8,12 +8,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.quarkus.vertx.ConsumeEvent;
-import local.intranet.quarkus.api.controller.VertxController;
 
 /**
  * 
  * 
- * {@link VertxController}
+ * {@link GreetingService}
  * 
  * https://quarkus.io/guides/vertx
  *
