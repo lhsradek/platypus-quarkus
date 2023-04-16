@@ -6,7 +6,6 @@ import java.util.UUID;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -104,9 +103,9 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	 * @return {@link Uni}&lt;{@link JsonArray}&gt;
 	 */
 	@GET
+	@Blocking
 	@Path(ACCOUNTS + "/persons/{personUUID}/accounts")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Blocking
 	@Operation(summary = "Accounts Person UUID", description = "**Accounts Person UUID**<br/><br/>"
 			+ "See [VertxController.quarkusAccountsPersonUUID](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusAccountsPersonUUID())")
 	// @Operation(hidden = true)
@@ -126,9 +125,9 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	 * @return {@link Uni}&lt;{@link JsonArray}&gt;
 	 */
 	@GET
+	@Blocking
 	@Path(ACCOUNTS + "/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Blocking
 	@Operation(summary = "Accounts Id", description = "**Accounts Id**<br/><br/>"
 			+ "See [VertxController.quarkusAccountsId](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusAccountsId())")
 	// @Operation(hidden = true)
@@ -150,9 +149,9 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	 * @return {@link Uni}&lt;{@link JsonArray}&gt;
 	 */
 	@GET
+	@Blocking
 	@Path(PERSONS + "/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Blocking
 	@Operation(summary = "Persons Id", description = "**Persons Id**<br/><br/>"
 			+ "See [VertxController.quarkusPersonsId](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusPersonsId())")
 	// @Operation(hidden = true)
@@ -174,9 +173,9 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	 * @return {@link Uni}&lt;{@link JsonArray}&gt;
 	 */
 	@GET
+	@Blocking
 	@Path(NAS_E02)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Blocking
 	@Operation(summary = "NAS e02", description = "**NAS e02**<br/><br/>"
 			+ "See [VertxController.quarkusNas02](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusNas02())")
 	// @Operation(hidden = true)
@@ -203,8 +202,8 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	 * @return {@link Uni}&lt;{@link JsonArray}&gt;
 	 */
 	@GET
-	@Path(NAS_E24)
 	@Blocking
+	@Path(NAS_E24)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "NAS e24", description = "**NAS e24**<br/><br/>"
 			+ "See [VertxController.quarkusNas24](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusNas24())")
@@ -232,8 +231,8 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	 * @return {@link Uni}&lt;{@link JsonArray}&gt;
 	 */
 	@GET
-	@Path(NAS_E25)
 	@Blocking
+	@Path(NAS_E25)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "NAS e25", description = "**NAS e25**<br/><br/>"
 			+ "See [VertxController.quarkusNas25](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusNas25())")
@@ -261,8 +260,8 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	 * @return {@link Uni}&lt;{@link JsonArray}&gt;
 	 */
 	@GET
-	@Path(NAS_E26)
 	@Blocking
+	@Path(NAS_E26)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "NAS e26", description = "**NAS e26**<br/><br/>"
 			+ "See [VertxController.quarkusNas26](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusNas26())")
@@ -288,8 +287,8 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	 * @return {@link Uni}&lt;{@link String}&gt;
 	 */
 	@GET
-	@Path("/ahoj")
 	@Blocking
+	@Path("/ahoj")
 	@Operation(hidden = true)
 	@Produces(MediaType.TEXT_PLAIN)
 	public Uni<String> ahoj(@QueryParam("name") String name) {
@@ -307,8 +306,8 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	 * @return {@link Uni}&lt;{@link String}&gt;
 	 */
 	@GET
-	@Path("/hello")
 	@Blocking
+	@Path("/hello")
 	@Operation(hidden = true)
 	@Produces(MediaType.TEXT_PLAIN)
 	public Uni<String> hello(@QueryParam("name") String name) {
@@ -325,13 +324,12 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	 * @return {@link Uni}&lt;{@link JsonArray}&gt;
 	 */
 	@GET
-	@Path("/platypus")
 	@Blocking
+	@Path("/platypus")
 	@Operation(summary = "Wiki Platypus", description = "**Wiki Platypus**<br/><br/>"
 			+ "See [VertxController.platypusRetrieveDataFromWikipedia](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#platypusRetrieveDataFromWikipedia())")
 	// @Operation(hidden = true)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
 	public Uni<JsonArray> platypusRetrieveDataFromWikipedia() {
 		final String url = "https://en.wikipedia.org/w/api.php?action=parse&page=Platypus&format=json&prop=langlinks";
 		final Uni<JsonArray> ret = client.getAbs(url).send().onItem().transform(HttpResponse::bodyAsJsonObject).onItem()
@@ -349,9 +347,8 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	 */
 	@GET
 	@Path("/quarkus")
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
 	@Blocking
+	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Wiki Quarkus", description = "**Wiki Quarkus**<br/><br/>"
 			+ "See [VertxController.quarkusDataFromWikipedia](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusDataFromWikipedia())")
 	// @Operation(hidden = true)
@@ -419,7 +416,6 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	@GET
 	@Path("/vertxCounter")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Get Counter Info", description = "**Get Counter Info**<br/><br/>"
 			+ "This method is calling CounterService.getCounterInfo<br/><br/>"
 			+ "See [VertxController.vertxCounter](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#vertxCounter())")

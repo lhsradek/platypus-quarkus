@@ -107,7 +107,7 @@ public class PlatypusJob extends PlatypusCounter implements Countable, Invocatio
 
 	/**
 	 * 
-	 * get counter for
+	 * Get counter for
 	 * {@link local.intranet.quarkus.api.controller.IndexController#jobCounter}
 	 * 
 	 * @return long

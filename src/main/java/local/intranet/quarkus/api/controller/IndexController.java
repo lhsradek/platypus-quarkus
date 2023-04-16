@@ -4,7 +4,6 @@ import java.text.MessageFormat;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -139,7 +138,6 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	@Path("/hello")
 	@Blocking
 	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Hello", description = "This method say: **" + HELLO + "**<br/><br/>"
 			+ "See [IndexController.hello](/javadoc/local/intranet/quarkus/api/controller/IndexController.html#hello())")
 	public Message hello() {
@@ -161,7 +159,6 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	@Path("/ahoj")
 	@Blocking
 	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Ahoj", description = "This method say: **" + AHOJ + "**<br/><br/>"
 			+ "See [IndexController.ahoj](/javadoc/local/intranet/quarkus/api/controller/IndexController.html#ahoj())")
 	public Message ahoj() {
@@ -175,7 +172,7 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	 * Job Counter
 	 * <p>
 	 * Used
-	 * {@link local.intranet.quarkus.api.scheduler.PlatypusJob#getCounter}.
+	 * {@link local.intranet.quarkus.api.scheduler.PlatypusJob#jobCounter}.
 	 * 
 	 * @see <a href="/q/swagger-ui/#/index-controller/jobCounter" target=
 	 *      "_blank">/q/swagger-ui/#/index-controller/jobCounter</a>
@@ -210,7 +207,6 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	@GET
 	@Path("/indexCounter")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Get Counter Info", description = "**Get Counter Info**<br/><br/>"
 			+ "This method is calling CounterService.getCounterInfo<br/><br/>"
 			+ "See [IndexController.indexCounter](/javadoc/local/intranet/quarkus/api/controller/IndexController.html#indexCounter())")

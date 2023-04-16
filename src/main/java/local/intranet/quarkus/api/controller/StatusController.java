@@ -14,7 +14,6 @@ import java.util.stream.StreamSupport;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -165,7 +164,6 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	@GET
 	@Path("/platypusProperties")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Get Properties", description = "**Get Properties</strong>**<br/><br/>"
 			+ "See [StatusController.platypusProperties](/javadoc/local/intranet/quarkus/api/controller/StatusController.html#platypusProperties())")
 	public List<Map.Entry<String, String>> platypusProperties() {
@@ -205,7 +203,6 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	@GET
 	@Path("/operatingSystem")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Get Operating System", description = "**Get Operating System and load average**<br/><br/>"
 			+ "See [StatusController.operatingSystem](/javadoc/local/intranet/quarkus/api/controller/StatusController.html#operatingSystem())")
 	public List<Map.Entry<String, String>> operatingSystem() {
@@ -237,7 +234,6 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	@GET
 	@Path("/statusCounter")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Get Counter Info", description = "**Get Counter Info**<br/><br/>"
 			+ "This method is calling CounterService.getCounterInfo<br/><br/>"
 			+ "See [StatusController.statusCounter](/javadoc/local/intranet/quarkus/api/controller/StatusController.html#statusCounter())")

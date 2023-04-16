@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -105,7 +104,6 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	@GET
 	@Path("/loggingEvent")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Count Total LoggingEvents", description = "**Count Total Logging Events**<br/><br/>"
 			+ "This method is calling LoggingEventService.countTotalLoggingEvents<br/><br/>"
 			+ "See [InfoController.loggingEventInfo](/javadoc/local/intranet/quarkus/api/controller/InfoController.html#loggingEventInfo())")
@@ -130,7 +128,6 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	@GET
 	@Path("/role")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Get Role Info", description = "**Get Role Info**<br/><br/>"
 			+ "This method is calling RoleService.getRoleInfo<br/<br>"
 			+ "See [InfoController.roleInfo](/javadoc/local/intranet/quarkus/api/controller/InfoController.html#roleInfo())")
@@ -155,7 +152,6 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	@GET
 	@Path("/user")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Get User Info", description = "**Get User Info**<br/><br/>"
 			+ "This method is calling UserService.getUserInfo<br/><br/>"
 			+ "See [InfoController.userInfo](/javadoc/local/intranet/quarkus/api/controller/InfoController.html#userInfo())")
@@ -180,7 +176,6 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	@GET
 	@Path("/infoCounter")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Get Counter Info", description = "**Get Counter Info**<br/><br/>"
 			+ "This method is calling CounterService.getCounterInfo<br/><br/>"
 			+ "See [InfoController.infoCounter](/javadoc/local/intranet/quarkus/api/controller/InfoController.html#infoCounter())")
@@ -204,7 +199,6 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	@GET
 	@Path("startJob")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
 	@Operation(hidden = true)
 	/*
 	@Operation(summary = "Start Job", description = "**Start Job**<br/><br/>"
