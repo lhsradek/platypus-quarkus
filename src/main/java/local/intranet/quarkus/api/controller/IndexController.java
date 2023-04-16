@@ -181,15 +181,17 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	 *      "_blank">/q/swagger-ui/#/index-controller/jobCounter</a>
 	 *      
 	 * @return {@link String}
+	 * @throws PlatypusException 
 	 */
 	@GET
 	@Path("/jobCounter")
+	@Blocking
 	@Produces(MediaType.TEXT_PLAIN)
 	@Operation(summary = "Get Job Counter", description = "**Get Job Counter**<br/><br/>"
 			+ "This method is calling PlatypusJob.getCounter<br/><br/>"
 			+ "See [IndexController.jobCounter](/javadoc/local/intranet/quarkus/api/controller/IndexController.html#jobCounter())")
-    public String jobCounter() {
-		final long ret = platypusJob.getCounter();
+    public String jobCounter() throws PlatypusException {
+		final Long ret = platypusJob.jobCounter();
 		incrementCounter();
 		LOG.trace("cnt:{}", ret);
 		return MessageFormat.format("count: {0}", ret);

@@ -12,7 +12,6 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.micrometer.core.annotation.Timed;
 import io.opentelemetry.api.trace.SpanKind;
 import io.opentelemetry.instrumentation.annotations.WithSpan;
 import io.quarkus.scheduler.Scheduled;
@@ -31,7 +30,6 @@ import local.intranet.quarkus.api.info.content.PlatypusCounter;
  * @author Radek Kádner
  *
  */
-@Timed
 @Singleton
 public class PlatypusJob extends PlatypusCounter implements Countable, Invocationable, Statusable, Nameable {
 
@@ -114,8 +112,8 @@ public class PlatypusJob extends PlatypusCounter implements Countable, Invocatio
 	 * 
 	 * @return long
 	 */
-	public long getCounter() {
-		return countValue();
+	public Long jobCounter() {
+		return super.countValue();
 	}
 
 }

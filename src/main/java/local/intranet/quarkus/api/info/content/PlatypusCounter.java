@@ -7,7 +7,6 @@ import java.time.format.DateTimeFormatter;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
-import javax.validation.constraints.Size;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -74,8 +73,7 @@ public abstract class PlatypusCounter implements Countable, Invocationable, Stat
 	}
 
 	@Override
-	@Size(min = 0)
-	@JsonProperty("count")
+	@Blocking
 	public Long countValue() {
 		final Long ret;
 		final String counterName = getName();
