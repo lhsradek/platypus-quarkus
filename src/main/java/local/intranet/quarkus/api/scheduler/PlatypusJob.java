@@ -2,7 +2,6 @@ package local.intranet.quarkus.api.scheduler;
 
 import java.text.MessageFormat;
 import java.util.StringJoiner;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -19,6 +18,11 @@ import io.opentelemetry.instrumentation.annotations.WithSpan;
 import io.quarkus.scheduler.Scheduled;
 import local.intranet.quarkus.api.controller.InfoController;
 import local.intranet.quarkus.api.controller.StatusController;
+import local.intranet.quarkus.api.domain.Countable;
+import local.intranet.quarkus.api.domain.Invocationable;
+import local.intranet.quarkus.api.domain.Nameable;
+import local.intranet.quarkus.api.domain.Statusable;
+import local.intranet.quarkus.api.info.content.PlatypusCounter;
 
 /**
  * 
@@ -29,11 +33,9 @@ import local.intranet.quarkus.api.controller.StatusController;
  */
 @Timed
 @Singleton
-public class PlatypusJob {
+public class PlatypusJob extends PlatypusCounter implements Countable, Invocationable, Statusable, Nameable {
 
 	private static final Logger LOG = LoggerFactory.getLogger(PlatypusJob.class);
-
-	private final AtomicInteger counter = new AtomicInteger();
 
 	@Inject
 	protected InfoController infoController;
@@ -79,6 +81,7 @@ public class PlatypusJob {
 		infoController.loggingEventInfo().forEach(k -> {
 			buf.add(MessageFormat.format("{0}={1}", k.getLevel(), String.join("", k.getTotal().toString().split("/s+"))));
 		});
+		incrementCounter();
 		LOG.info(MessageFormat.format("{0} status:{1} level:[{2}]", jobMessage, statusController.plainStatus(), buf.toString()));
 	}
 	
@@ -109,14 +112,10 @@ public class PlatypusJob {
 	 * get counter for
 	 * {@link local.intranet.quarkus.api.controller.IndexController#jobCounter}
 	 * 
-	 * @return int
+	 * @return long
 	 */
-	public int getCounter() {
-		return counter.get();
-	}
-
-	public Object test() {
-		return null;
+	public long getCounter() {
+		return countValue();
 	}
 
 }

@@ -22,6 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.micrometer.core.annotation.Timed;
+import io.smallrye.common.annotation.Blocking;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import io.vertx.core.json.JsonArray;
@@ -30,8 +31,14 @@ import io.vertx.mutiny.core.Vertx;
 import io.vertx.mutiny.core.eventbus.EventBus;
 import io.vertx.mutiny.ext.web.client.HttpResponse;
 import io.vertx.mutiny.ext.web.client.WebClient;
+import local.intranet.quarkus.api.domain.Countable;
+import local.intranet.quarkus.api.domain.Invocationable;
+import local.intranet.quarkus.api.domain.Nameable;
 import local.intranet.quarkus.api.domain.Statusable;
-import local.intranet.quarkus.api.domain.type.StatusType;
+import local.intranet.quarkus.api.exception.PlatypusException;
+import local.intranet.quarkus.api.info.CounterInfo;
+import local.intranet.quarkus.api.info.content.PlatypusCounter;
+import local.intranet.quarkus.api.service.CounterService;
 
 /**
  * 
@@ -47,7 +54,7 @@ import local.intranet.quarkus.api.domain.type.StatusType;
 @Path("/vertx")
 @ApplicationScoped
 @Tag(name = VertxController.TAG)
-public class VertxController implements Statusable {
+public class VertxController extends PlatypusCounter implements Countable, Invocationable, Statusable, Nameable {
 
 	private static final Logger LOG = LoggerFactory.getLogger(VertxController.class);
 
@@ -72,18 +79,19 @@ public class VertxController implements Statusable {
 
 	/**
 	 * 
+	 * {@link CounterService} for {@link #vertxCounter()}
+	 */
+	@Inject
+	protected CounterService counterService;
+
+	/**
+	 * 
 	 * @param vertx {@link VertxController}
 	 */
 	@Inject
 	public VertxController(Vertx vertx) {
 		this.vertx = vertx;
 		this.client = WebClient.create(vertx);
-	}
-
-	@Override
-	@Operation(hidden = true)
-	public StatusType getStatus() {
-		return StatusType.UP;
 	}
 
 	private static final String ACCOUNTS = "/accounts";
@@ -98,12 +106,14 @@ public class VertxController implements Statusable {
 	@GET
 	@Path(ACCOUNTS + "/persons/{personUUID}/accounts")
 	@Produces(MediaType.APPLICATION_JSON)
+	@Blocking
 	@Operation(summary = "Accounts Person UUID", description = "**Accounts Person UUID**<br/><br/>"
 			+ "See [VertxController.quarkusAccountsPersonUUID](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusAccountsPersonUUID())")
 	// @Operation(hidden = true)
 	public Uni<JsonObject> quarkusAccountsPersonUUID(@PathParam("personUUID") UUID personUUID) {
 		final String url = swaggerEndpoint + ACCOUNTS + "/persons/" + personUUID + ACCOUNTS;
 		final Uni<JsonObject> ret = client.getAbs(url).send().onItem().transform(HttpResponse::bodyAsJsonObject);
+		incrementCounter();
 		LOG.trace("{}", url);
 		return ret;
 	}
@@ -118,12 +128,14 @@ public class VertxController implements Statusable {
 	@GET
 	@Path(ACCOUNTS + "/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
+	@Blocking
 	@Operation(summary = "Accounts Id", description = "**Accounts Id**<br/><br/>"
 			+ "See [VertxController.quarkusAccountsId](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusAccountsId())")
 	// @Operation(hidden = true)
 	public Uni<JsonObject> quarkusAccountsId(@PathParam("id") String id) {
 		final String url = swaggerEndpoint + ACCOUNTS + "/" + id;
 		final Uni<JsonObject> ret = client.getAbs(url).send().onItem().transform(HttpResponse::bodyAsJsonObject);
+		incrementCounter();
 		LOG.trace("{}", url);
 		return ret;
 	}
@@ -140,12 +152,14 @@ public class VertxController implements Statusable {
 	@GET
 	@Path(PERSONS + "/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
+	@Blocking
 	@Operation(summary = "Persons Id", description = "**Persons Id**<br/><br/>"
 			+ "See [VertxController.quarkusPersonsId](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusPersonsId())")
 	// @Operation(hidden = true)
 	public Uni<JsonObject> quarkusPersonsId(@PathParam("id") String id) {
 		final String url = swaggerEndpoint + PERSONS + "/" + id;
 		final Uni<JsonObject> ret = client.getAbs(url).send().onItem().transform(HttpResponse::bodyAsJsonObject);
+		incrementCounter();
 		LOG.trace("{}", url);
 		return ret;
 	}
@@ -162,6 +176,7 @@ public class VertxController implements Statusable {
 	@GET
 	@Path(NAS_E02)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Blocking
 	@Operation(summary = "NAS e02", description = "**NAS e02**<br/><br/>"
 			+ "See [VertxController.quarkusNas02](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusNas02())")
 	// @Operation(hidden = true)
@@ -173,6 +188,7 @@ public class VertxController implements Statusable {
 			url = swaggerEndpoint + NAS_E02 + "?date=" + date;
 		}
 		final Uni<JsonArray> ret = client.getAbs(url).send().onItem().transform(HttpResponse::bodyAsJsonArray);
+		incrementCounter();
 		LOG.trace("{}", url);
 		return ret;
 	}
@@ -188,6 +204,7 @@ public class VertxController implements Statusable {
 	 */
 	@GET
 	@Path(NAS_E24)
+	@Blocking
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "NAS e24", description = "**NAS e24**<br/><br/>"
 			+ "See [VertxController.quarkusNas24](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusNas24())")
@@ -200,6 +217,7 @@ public class VertxController implements Statusable {
 			url = swaggerEndpoint + NAS_E24 + "?date=" + date;
 		}
 		final Uni<JsonArray> ret = client.getAbs(url).send().onItem().transform(HttpResponse::bodyAsJsonArray);
+		incrementCounter();
 		LOG.trace("{}", url);
 		return ret;
 	}
@@ -215,6 +233,7 @@ public class VertxController implements Statusable {
 	 */
 	@GET
 	@Path(NAS_E25)
+	@Blocking
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "NAS e25", description = "**NAS e25**<br/><br/>"
 			+ "See [VertxController.quarkusNas25](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusNas25())")
@@ -227,6 +246,7 @@ public class VertxController implements Statusable {
 			url = swaggerEndpoint + NAS_E25 + "?date=" + date;
 		}
 		final Uni<JsonArray> ret = client.getAbs(url).send().onItem().transform(HttpResponse::bodyAsJsonArray);
+		incrementCounter();
 		LOG.trace("{}", url);
 		return ret;
 	}
@@ -242,6 +262,7 @@ public class VertxController implements Statusable {
 	 */
 	@GET
 	@Path(NAS_E26)
+	@Blocking
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "NAS e26", description = "**NAS e26**<br/><br/>"
 			+ "See [VertxController.quarkusNas26](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusNas26())")
@@ -254,6 +275,7 @@ public class VertxController implements Statusable {
 			url = swaggerEndpoint + NAS_E26 + "?date=" + date;
 		}
 		final Uni<JsonArray> ret = client.getAbs(url).send().onItem().transform(HttpResponse::bodyAsJsonArray);
+		incrementCounter();
 		LOG.trace("{}", url);
 		return ret;
 	}
@@ -267,10 +289,12 @@ public class VertxController implements Statusable {
 	 */
 	@GET
 	@Path("/ahoj")
+	@Blocking
 	@Operation(hidden = true)
 	@Produces(MediaType.TEXT_PLAIN)
 	public Uni<String> ahoj(@QueryParam("name") String name) {
 		final Uni<String> ret = bus.<String>request("ahoj", name).onItem().transform(response -> response.body());
+		incrementCounter();
 		LOG.debug("{}", name);
 		return ret;
 	}
@@ -284,10 +308,12 @@ public class VertxController implements Statusable {
 	 */
 	@GET
 	@Path("/hello")
+	@Blocking
 	@Operation(hidden = true)
 	@Produces(MediaType.TEXT_PLAIN)
 	public Uni<String> hello(@QueryParam("name") String name) {
 		final Uni<String> ret = bus.<String>request("hello", name).onItem().transform(response -> response.body());
+		incrementCounter();
 		LOG.trace("{}", name);
 		return ret;
 	}
@@ -300,6 +326,7 @@ public class VertxController implements Statusable {
 	 */
 	@GET
 	@Path("/platypus")
+	@Blocking
 	@Operation(summary = "Wiki Platypus", description = "**Wiki Platypus**<br/><br/>"
 			+ "See [VertxController.platypusRetrieveDataFromWikipedia](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#platypusRetrieveDataFromWikipedia())")
 	// @Operation(hidden = true)
@@ -309,6 +336,7 @@ public class VertxController implements Statusable {
 		final String url = "https://en.wikipedia.org/w/api.php?action=parse&page=Platypus&format=json&prop=langlinks";
 		final Uni<JsonArray> ret = client.getAbs(url).send().onItem().transform(HttpResponse::bodyAsJsonObject).onItem()
 				.transform(json -> json.getJsonObject("parse").getJsonArray("langlinks"));
+		incrementCounter();
 		LOG.trace("{}", url);
 		return ret;
 	}
@@ -323,6 +351,7 @@ public class VertxController implements Statusable {
 	@Path("/quarkus")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
+	@Blocking
 	@Operation(summary = "Wiki Quarkus", description = "**Wiki Quarkus**<br/><br/>"
 			+ "See [VertxController.quarkusDataFromWikipedia](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusDataFromWikipedia())")
 	// @Operation(hidden = true)
@@ -330,6 +359,7 @@ public class VertxController implements Statusable {
 		final String url = "https://en.wikipedia.org/w/api.php?action=parse&page=Quarkus&format=json&prop=langlinks";
 		final Uni<JsonArray> ret = client.getAbs(url).send().onItem().transform(HttpResponse::bodyAsJsonObject).onItem()
 				.transform(json -> json.getJsonObject("parse").getJsonArray("langlinks"));
+		incrementCounter();
 		LOG.trace("{}", url);
 		return ret;
 	}
@@ -341,11 +371,13 @@ public class VertxController implements Statusable {
 	 * @return {@link Uni}&lt;{@link String}&gt;
 	 */
 	@Path("/lorem")
+	@Blocking
 	@Operation(hidden = true)
 	@Produces(MediaType.TEXT_PLAIN)
 	public Uni<String> readShortFile() {
 		final Uni<String> ret = vertx.fileSystem().readFile("lorem.txt").onItem()
 				.transform(content -> content.toString(StandardCharsets.UTF_8));
+		incrementCounter();
 		return ret;
 	}
 
@@ -374,4 +406,29 @@ public class VertxController implements Statusable {
 		return null;
 	}
 
+	/**
+	 * 
+	 * Counter informations
+	 * <p>
+	 * Used
+	 * {@link local.intranet.quarkus.api.service.CounterService#getCounterInfo}.
+	 * 
+	 * @return {@link CounterInfo}
+	 * @throws PlatypusException {@link PlatypusException}
+	 */
+	@GET
+	@Path("/vertxCounter")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Operation(summary = "Get Counter Info", description = "**Get Counter Info**<br/><br/>"
+			+ "This method is calling CounterService.getCounterInfo<br/><br/>"
+			+ "See [VertxController.vertxCounter](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#vertxCounter())")
+	public CounterInfo vertxCounter() throws PlatypusException {
+		final String counterName = getName();
+		final CounterInfo ret = counterService.getCounterInfo(counterName);
+		LOG.debug("name:'{}' cnt:{} date:'{}': status:'{}'", counterName, ret.getCount(), formatDateTime(ret.getDate()),
+				ret.getStatus());
+		return ret;
+	}
+	
 }

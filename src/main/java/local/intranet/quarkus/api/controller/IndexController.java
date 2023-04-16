@@ -189,7 +189,7 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 			+ "This method is calling PlatypusJob.getCounter<br/><br/>"
 			+ "See [IndexController.jobCounter](/javadoc/local/intranet/quarkus/api/controller/IndexController.html#jobCounter())")
     public String jobCounter() {
-		final int ret = platypusJob.getCounter();
+		final long ret = platypusJob.getCounter();
 		incrementCounter();
 		LOG.trace("cnt:{}", ret);
 		return MessageFormat.format("count: {0}", ret);
