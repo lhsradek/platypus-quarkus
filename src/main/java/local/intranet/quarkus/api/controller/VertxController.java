@@ -24,9 +24,11 @@ import io.micrometer.core.annotation.Timed;
 import io.smallrye.common.annotation.Blocking;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
+import io.smallrye.mutiny.groups.UniOnItem;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.mutiny.core.Vertx;
+import io.vertx.mutiny.core.buffer.Buffer;
 import io.vertx.mutiny.core.eventbus.EventBus;
 import io.vertx.mutiny.ext.web.client.HttpResponse;
 import io.vertx.mutiny.ext.web.client.WebClient;
@@ -46,8 +48,7 @@ import local.intranet.quarkus.api.service.CounterService;
  * 
  * Vert.x for quarkus
  * 
- * https://quarkus.io/guides/vertx
- * https://quarkus.io/guides/vertx-reference
+ * https://quarkus.io/guides/vertx https://quarkus.io/guides/vertx-reference
  * https://how-to.vertx.io/web-and-openapi-howto/
  *
  */
@@ -59,14 +60,18 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 
 	private static final Logger LOG = LoggerFactory.getLogger(VertxController.class);
 
-	@ConfigProperty(name = "platypus.swagger.url")
-	protected URL swaggerEndpoint;
-
 	/**
 	 * 
 	 * String TAG = "vertx-controller"
 	 */
 	protected static final String TAG = "vertx-controller";
+
+	/**
+	 * 
+	 * <code>platypus.swagger.url</code> for application.properties
+	 */
+	@ConfigProperty(name = "platypus.swagger.url")
+	protected URL swaggerEndpoint;
 
 	private final Vertx vertx;
 	private final WebClient client;
@@ -113,7 +118,9 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	// @Operation(hidden = true)
 	public Uni<JsonObject> quarkusAccountsPersonUUID(@PathParam("personUUID") UUID personUUID) {
 		final String url = swaggerEndpoint + ACCOUNTS + "/persons/" + personUUID + ACCOUNTS;
-		final Uni<JsonObject> ret = client.getAbs(url).send().onItem().transform(HttpResponse::bodyAsJsonObject);
+		final Uni<HttpResponse<Buffer>> send = client.getAbs(url).send();
+		final UniOnItem<HttpResponse<Buffer>> sendOnItem = send.onItem();
+		final Uni<JsonObject> ret = sendOnItem.transform(HttpResponse::bodyAsJsonObject);
 		incrementCounter();
 		LOG.trace("{}", url);
 		return ret;
@@ -135,7 +142,9 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	// @Operation(hidden = true)
 	public Uni<JsonObject> quarkusAccountsId(@PathParam("id") String id) {
 		final String url = swaggerEndpoint + ACCOUNTS + "/" + id;
-		final Uni<JsonObject> ret = client.getAbs(url).send().onItem().transform(HttpResponse::bodyAsJsonObject);
+		final Uni<HttpResponse<Buffer>> send = client.getAbs(url).send();
+		final UniOnItem<HttpResponse<Buffer>> sendOnItem = send.onItem();
+		final Uni<JsonObject> ret = sendOnItem.transform(HttpResponse::bodyAsJsonObject);
 		incrementCounter();
 		LOG.trace("{}", url);
 		return ret;
@@ -159,7 +168,9 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	// @Operation(hidden = true)
 	public Uni<JsonObject> quarkusPersonsId(@PathParam("id") String id) {
 		final String url = swaggerEndpoint + PERSONS + "/" + id;
-		final Uni<JsonObject> ret = client.getAbs(url).send().onItem().transform(HttpResponse::bodyAsJsonObject);
+		final Uni<HttpResponse<Buffer>> send = client.getAbs(url).send();
+		final UniOnItem<HttpResponse<Buffer>> sendOnItem = send.onItem();
+		final Uni<JsonObject> ret = sendOnItem.transform(HttpResponse::bodyAsJsonObject);
 		incrementCounter();
 		LOG.trace("{}", url);
 		return ret;
@@ -188,7 +199,9 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 		} else {
 			url = swaggerEndpoint + NAS_E02 + "?date=" + date;
 		}
-		final Uni<JsonArray> ret = client.getAbs(url).send().onItem().transform(HttpResponse::bodyAsJsonArray);
+		final Uni<HttpResponse<Buffer>> send = client.getAbs(url).send();
+		final UniOnItem<HttpResponse<Buffer>> sendOnItem = send.onItem();
+		final Uni<JsonArray> ret = sendOnItem.transform(HttpResponse::bodyAsJsonArray);
 		incrementCounter();
 		LOG.trace("{}", url);
 		return ret;
@@ -217,7 +230,9 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 		} else {
 			url = swaggerEndpoint + NAS_E24 + "?date=" + date;
 		}
-		final Uni<JsonArray> ret = client.getAbs(url).send().onItem().transform(HttpResponse::bodyAsJsonArray);
+		final Uni<HttpResponse<Buffer>> send = client.getAbs(url).send();
+		final UniOnItem<HttpResponse<Buffer>> sendOnItem = send.onItem();
+		final Uni<JsonArray> ret = sendOnItem.transform(HttpResponse::bodyAsJsonArray);
 		incrementCounter();
 		LOG.trace("{}", url);
 		return ret;
@@ -246,7 +261,9 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 		} else {
 			url = swaggerEndpoint + NAS_E25 + "?date=" + date;
 		}
-		final Uni<JsonArray> ret = client.getAbs(url).send().onItem().transform(HttpResponse::bodyAsJsonArray);
+		final Uni<HttpResponse<Buffer>> send = client.getAbs(url).send();
+		final UniOnItem<HttpResponse<Buffer>> sendOnItem = send.onItem();
+		final Uni<JsonArray> ret = sendOnItem.transform(HttpResponse::bodyAsJsonArray);
 		incrementCounter();
 		LOG.trace("{}", url);
 		return ret;
@@ -275,7 +292,9 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 		} else {
 			url = swaggerEndpoint + NAS_E26 + "?date=" + date;
 		}
-		final Uni<JsonArray> ret = client.getAbs(url).send().onItem().transform(HttpResponse::bodyAsJsonArray);
+		final Uni<HttpResponse<Buffer>> send = client.getAbs(url).send();
+		final UniOnItem<HttpResponse<Buffer>> sendOnItem = send.onItem();
+		final Uni<JsonArray> ret = sendOnItem.transform(HttpResponse::bodyAsJsonArray);
 		incrementCounter();
 		LOG.trace("{}", url);
 		return ret;
@@ -334,7 +353,9 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	@Produces(MediaType.APPLICATION_JSON)
 	public Uni<JsonArray> platypusRetrieveDataFromWikipedia() {
 		final String url = "https://en.wikipedia.org/w/api.php?action=parse&page=Platypus&format=json&prop=langlinks";
-		final Uni<JsonArray> ret = client.getAbs(url).send().onItem().transform(HttpResponse::bodyAsJsonObject).onItem()
+		final Uni<HttpResponse<Buffer>> send = client.getAbs(url).send();
+		final UniOnItem<HttpResponse<Buffer>> sendOnItem = send.onItem();
+		final Uni<JsonArray> ret = sendOnItem.transform(HttpResponse::bodyAsJsonObject).onItem()
 				.transform(json -> json.getJsonObject("parse").getJsonArray("langlinks"));
 		incrementCounter();
 		LOG.trace("{}", url);
@@ -356,7 +377,9 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	// @Operation(hidden = true)
 	public Uni<JsonArray> quarkusDataFromWikipedia() {
 		final String url = "https://en.wikipedia.org/w/api.php?action=parse&page=Quarkus&format=json&prop=langlinks";
-		final Uni<JsonArray> ret = client.getAbs(url).send().onItem().transform(HttpResponse::bodyAsJsonObject).onItem()
+		final Uni<HttpResponse<Buffer>> send = client.getAbs(url).send();
+		final UniOnItem<HttpResponse<Buffer>> sendOnItem = send.onItem();
+		final Uni<JsonArray> ret = sendOnItem.transform(HttpResponse::bodyAsJsonObject).onItem()
 				.transform(json -> json.getJsonObject("parse").getJsonArray("langlinks"));
 		incrementCounter();
 		LOG.trace("{}", url);
@@ -369,8 +392,11 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	 * 
 	 * @return {@link Uni}&lt;{@link String}&gt;
 	 */
+	@GET
 	@Path("/lorem")
 	@Blocking
+	// @Operation(summary = "Lorem", description = "**Lorem**<br/><br/>"
+	//		+ "See [VertxController.readShortFile](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#readShortFile())")
 	@Operation(hidden = true)
 	@Produces(MediaType.TEXT_PLAIN)
 	public Uni<String> readShortFile() {
@@ -387,7 +413,10 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	 * <p>
 	 * <code>
 	 * public Multi<String> readLargeFile() {<br/>
-	 *     final Multi<String> ret = vertx.fileSystem().open("book.txt", new OpenOptions().setRead(true)).onItem()<br/>
+	 *     final Multi<String> ret = vertx
+	 *       .fileSystem()
+	 *       .open("book.txt", new OpenOptions()
+	 *       .setRead(true)).onItem()<br/>
 	 *       .transformToMulti(file -> file.toMulti()).onItem()<br/>
 	 *       .transform(content -> content.toString(StandardCharsets.UTF_8) + "\n------------\n");<br/>
 	 *       return ret;<br/>
@@ -428,5 +457,5 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 				ret.getStatus());
 		return ret;
 	}
-	
+
 }
