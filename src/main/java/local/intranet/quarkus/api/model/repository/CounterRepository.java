@@ -27,5 +27,5 @@ public interface CounterRepository extends CrudRepository<Counter, Long> {
 	 */
 	@Query(value = "select u from Counter u where u.counterName = ?1")
 	Counter findByName(@NotNull String counterName);
-	
+
 }

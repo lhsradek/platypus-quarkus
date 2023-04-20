@@ -18,12 +18,9 @@ import org.eclipse.microprofile.health.Liveness;
 @ApplicationScoped
 public class DataHealthCheck implements HealthCheck {
 
-    @Override
-    public HealthCheckResponse call() {
-        return HealthCheckResponse.named("Health check with data")
-                .up()
-                .withData("foo", "fooValue")
-                .withData("bar", "barValue")
-                .build();
-    }
+	@Override
+	public HealthCheckResponse call() {
+		return HealthCheckResponse.named("Health check with data").up().withData("foo", "fooValue")
+				.withData("bar", "barValue").build();
+	}
 }

@@ -23,11 +23,11 @@ public class StatusResourceTest {
 
 	/**
 	 * 
-	 * {@link StatusController} 
+	 * {@link StatusController}
 	 */
 	@Inject
 	protected StatusController statusController;
-	
+
 	/**
 	 * 
 	 * <code>quarkus.application.artifactId</code> from application.properties
@@ -35,28 +35,24 @@ public class StatusResourceTest {
 	 */
 	@ConfigProperty(name = "platypus.application.artifactId")
 	protected String quarkusApplicationArtifactId;
-	
+
 	@TestHTTPResource("/app/v1/status/statusCounter")
 	private URL statusEndpoint;
-	
+
 	@Test
-    void testPlainStatus() {
-        assertFalse(statusController.plainStatus() == null);
-	}
-	
-    @Test
-	public void testStatusEndpoint() {
-		given().contentType(ContentType.JSON)
-		.param("query", "Platypus Plastic")
-        .when().get(statusEndpoint)
-        .then().statusCode(200);
+	void testPlainStatus() {
+		assertFalse(statusController.plainStatus() == null);
 	}
 
-    @Test
-    public void testIndexHtml() throws IOException {
-		given().contentType(ContentType.HTML)
-		.param("query", "Platypus sapiens")
-        .get(statusEndpoint);
-    }
-    
+	@Test
+	public void testStatusEndpoint() {
+		given().contentType(ContentType.JSON).param("query", "Platypus Plastic").when().get(statusEndpoint).then()
+				.statusCode(200);
+	}
+
+	@Test
+	public void testIndexHtml() throws IOException {
+		given().contentType(ContentType.HTML).param("query", "Platypus sapiens").get(statusEndpoint);
+	}
+
 }

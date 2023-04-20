@@ -32,15 +32,15 @@ public class Provider {
 
 	private static final Logger LOG = LoggerFactory.getLogger(Provider.class);
 
-    /**
+	/**
 	 * 
 	 * {@link SessionFactory}
 	 * 
 	 */
 	@Inject
-    public SessionFactory sessionFactory;
-    
-    /**
+	public SessionFactory sessionFactory;
+
+	/**
 	 * 
 	 * {@link EntityManagerFactory}
 	 */
@@ -53,7 +53,7 @@ public class Provider {
 	 */
 	@PersistenceContext
 	public EntityManager entityManager;
-	
+
 	/**
 	 * 
 	 * Get queryProvider

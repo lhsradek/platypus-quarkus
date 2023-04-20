@@ -18,7 +18,8 @@ public class DownloadTemplate {
 
 	/**
 	 * 
-	 * @param files {@link List}&lt;{@link Map.Entry}&lt;{@link String}, {@link File}&gt;&gt;
+	 * @param files {@link List}&lt;{@link Map.Entry}&lt;{@link String},
+	 *              {@link File}&gt;&gt;
 	 * @param map   {@link Map}&lt;{@link String}, {@link String}&gt;
 	 * @return {@link TemplateInstance}
 	 */

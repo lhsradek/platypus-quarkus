@@ -13,29 +13,28 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.TestProfile;
 import local.intranet.quarkus.api.scheduler.PlatypusJob;
 
-
 @QuarkusTest
 @TestProfile(CustomProfile.class)
 public class JobCounterResourceTest {
 
 	/**
 	 * 
-	 * {@link PlatypusJob} 
+	 * {@link PlatypusJob}
 	 */
 	@Inject
-    protected PlatypusJob platypusJob;
-	
+	protected PlatypusJob platypusJob;
+
 	@TestHTTPResource("/jobCounter")
 	private URL jobEndpoint;
-	
+
 	@Test
-    void testPlatypusJob() {
-        assertTrue(platypusJob.testJob());
+	void testPlatypusJob() {
+		assertTrue(platypusJob.testJob());
 	}
-	
+
 	@Test
 	public void testJobStart() {
 		assertTrue(platypusJob.startJob());
-    }
-		
+	}
+
 }

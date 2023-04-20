@@ -49,8 +49,7 @@ public class UserService {
 	public UserInfo getUserInfo(@NotNull String username)
 			throws IllegalArgumentException, UnauthorizedException, ForbiddenException {
 		final UserInfo ret = loadUserByUsername(username);
-		LOG.trace("username:{} password:{} enabled:{}", ret.getUsername(), ret.getPassword(),
-				ret.isEnabled());
+		LOG.trace("username:{} password:{} enabled:{}", ret.getUsername(), ret.getPassword(), ret.isEnabled());
 		return ret;
 	}
 

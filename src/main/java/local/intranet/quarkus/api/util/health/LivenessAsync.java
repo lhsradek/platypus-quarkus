@@ -20,10 +20,10 @@ import io.smallrye.mutiny.Uni;
 @ApplicationScoped
 public class LivenessAsync implements AsyncHealthCheck {
 
-    @Override
-    public Uni<HealthCheckResponse> call() {
-        return Uni.createFrom().item(HealthCheckResponse.up("liveness-reactive"))
-                .onItem().delayIt().by(Duration.ofMillis(10));
-    }
-    
+	@Override
+	public Uni<HealthCheckResponse> call() {
+		return Uni.createFrom().item(HealthCheckResponse.up("liveness-reactive")).onItem().delayIt()
+				.by(Duration.ofMillis(10));
+	}
+
 }

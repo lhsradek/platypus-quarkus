@@ -68,7 +68,7 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	 * STATUS_PROTECTED = "[PROTECTED]"
 	 */
 	public static final String STATUS_PROTECTED = "[PROTECTED]";
-	
+
 	/**
 	 * 
 	 * UNKNOWN = "unknown"
@@ -87,7 +87,7 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	 */
 	@Inject
 	protected CounterService counterService;
-	
+
 	/**
 	 * 
 	 * <code>platypus.remote.server</code> for application.properties
@@ -95,7 +95,7 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	 */
 	@ConfigProperty(name = "platypus.remote.server")
 	public String remoteServer;
-	
+
 	/**
 	 * 
 	 * <code>quarkus.application.artifactId</code> for application.properties
@@ -103,7 +103,7 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	 */
 	@ConfigProperty(name = "platypus.application.artifactId")
 	public String quarkusApplicationArtifactId;
-	
+
 	/**
 	 * 
 	 * <code>platypus.host.name</code> for application.properties
@@ -111,7 +111,7 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	 */
 	@ConfigProperty(name = "platypus.host.name")
 	public String platypusHostName;
-	
+
 	/**
 	 * 
 	 * <code>quarkus.application.groupId</code> for application.properties
@@ -119,7 +119,7 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	 */
 	@ConfigProperty(name = "quarkus.application.name")
 	public String quarkusApplicationName;
-	
+
 	/**
 	 * 
 	 * <code>platypus.deployment.environment</code> for application.properties
@@ -127,7 +127,7 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	 */
 	@ConfigProperty(name = "platypus.deployment.environment")
 	public String platypusDeploymentEnvironment;
-	
+
 	private static final String STATUS_BRACKET = "_";
 	private static final String EQUAL_WITH_COLONS = "=::";
 	private static final String USER = "USER";
@@ -173,10 +173,10 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 		StreamSupport
 				.stream(ConfigProvider.getConfig().unwrap(SmallRyeConfig.class).getPropertyNames().spliterator(), false)
 				.forEach(k -> {
-					if (!(k == null || ConfigProvider.getConfig().unwrap(SmallRyeConfig.class).getRawValue(k) == null) )
+					if (!(k == null || ConfigProvider.getConfig().unwrap(SmallRyeConfig.class).getRawValue(k) == null))
 						map.put(k, ConfigProvider.getConfig().unwrap(SmallRyeConfig.class).getRawValue(k));
 				});
-		map.put("quarkus.version", quarkusVersion()); // add quarkus.version 
+		map.put("quarkus.version", quarkusVersion()); // add quarkus.version
 		map.forEach((k, v) -> {
 			if (!(k == null || k.equals(STATUS_BRACKET) || k.equals(EQUAL_WITH_COLONS)
 					|| k.toUpperCase().contains(USER))) { // nelíbí
@@ -212,10 +212,12 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 		ret.add(new SimpleImmutableEntry<String, String>("name", system.getName()));
 		final double d = system.getSystemLoadAverage();
 		if (d > 0) {
-			ret.add(new SimpleImmutableEntry<String, String>("loadAverage", String.valueOf(system.getSystemLoadAverage())));
+			ret.add(new SimpleImmutableEntry<String, String>("loadAverage",
+					String.valueOf(system.getSystemLoadAverage())));
 		}
 		ret.add(new SimpleImmutableEntry<String, String>("arch", system.getArch()));
-		ret.add(new SimpleImmutableEntry<String, String>("processors", String.valueOf(system.getAvailableProcessors())));
+		ret.add(new SimpleImmutableEntry<String, String>("processors",
+				String.valueOf(system.getAvailableProcessors())));
 		ret.add(new SimpleImmutableEntry<String, String>("version", system.getVersion()));
 		final Long cnt = incrementCounter();
 		LOG.trace("cnt:{} ret:'{}'", cnt, ret);
@@ -261,12 +263,16 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 			arr.add(StringUtils.capitalize(s));
 		}
 		map.put("quarkus.application.header", String.join(" ", arr));
-		map.put("quarkus.application.version", ConfigProvider.getConfig().getValue("quarkus.application.version", String.class)); 
+		map.put("quarkus.application.version",
+				ConfigProvider.getConfig().getValue("quarkus.application.version", String.class));
 		map.put("quarkus.version", quarkusVersion());
 		map.put("quarkus.profile", ConfigProvider.getConfig().getValue("quarkus.profile", String.class));
-		// map.put("quarkus.application.name", ConfigProvider.getConfig().getValue("quarkus.application.name", String.class));
+		// map.put("quarkus.application.name",
+		// ConfigProvider.getConfig().getValue("quarkus.application.name",
+		// String.class));
 		map.put("quarkus.application.name", Application.currentApplication().getName());
-		map.put("quarkus.datasource.db-kind", ConfigProvider.getConfig().getValue("quarkus.datasource.db-kind", String.class)); 
+		map.put("quarkus.datasource.db-kind",
+				ConfigProvider.getConfig().getValue("quarkus.datasource.db-kind", String.class));
 		return map;
 	}
 
@@ -281,7 +287,7 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 		LOG.trace("{}", ret);
 		return ret;
 	}
-	
+
 	/**
 	 *
 	 * Quarkus Implementation version
@@ -294,5 +300,5 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 		LOG.trace("{}", ret);
 		return ret;
 	}
-	
+
 }

@@ -42,7 +42,8 @@ public class LoggingEventService {
 
 	/**
 	 * 
-	 * {@link LoggingEventRepository} for {@link #countTotalLoggingEvents} and {@link #findPageByLevelString}
+	 * {@link LoggingEventRepository} for {@link #countTotalLoggingEvents} and
+	 * {@link #findPageByLevelString}
 	 */
 	@Inject
 	protected LoggingEventRepository loggingEventRepository;

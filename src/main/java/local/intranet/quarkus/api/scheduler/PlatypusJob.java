@@ -37,10 +37,10 @@ public class PlatypusJob extends PlatypusCounter implements Countable, Invocatio
 
 	@Inject
 	protected InfoController infoController;
-	
+
 	@Inject
 	protected StatusController statusController;
-	
+
 	/**
 	 * 
 	 * <code>platypus.job.message</code> from application.properties
@@ -48,7 +48,7 @@ public class PlatypusJob extends PlatypusCounter implements Countable, Invocatio
 	 */
 	@ConfigProperty(name = "platypus.job.message")
 	protected String jobMessage;
-	
+
 	/**
 	 * 
 	 * Start method
@@ -75,17 +75,20 @@ public class PlatypusJob extends PlatypusCounter implements Countable, Invocatio
 	@WithSpan(kind = SpanKind.SERVER)
 	@Scheduled(cron = "{platypus.job.cron}", skipExecutionIf = PlatypusPredicate.class)
 	public void job() {
-		final StringJoiner buf = new StringJoiner(", "); 
+		final StringJoiner buf = new StringJoiner(", ");
 		infoController.loggingEventInfo().forEach(k -> {
-			buf.add(MessageFormat.format("{0}={1}", k.getLevel(), String.join("", k.getTotal().toString().split("/s+"))));
+			buf.add(MessageFormat.format("{0}={1}", k.getLevel(),
+					String.join("", k.getTotal().toString().split("/s+"))));
 		});
 		incrementCounter();
-		LOG.info(MessageFormat.format("{0} status:{1} level:[{2}]", jobMessage, statusController.plainStatus(), buf.toString()));
+		LOG.info(MessageFormat.format("{0} status:{1} level:[{2}]", jobMessage, statusController.plainStatus(),
+				buf.toString()));
 	}
-	
+
 	/**
 	 *
 	 * startJob
+	 * 
 	 * @return boolean
 	 */
 	public boolean startJob() {
@@ -93,17 +96,17 @@ public class PlatypusJob extends PlatypusCounter implements Countable, Invocatio
 		job();
 		return true;
 	}
-	
+
 	/**
 	 *
 	 * testJob
+	 * 
 	 * @return boolean
 	 */
 	public boolean testJob() {
 		LOG.debug("Test Job");
 		return true;
 	}
-
 
 	/**
 	 * 

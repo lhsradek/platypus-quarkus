@@ -22,6 +22,6 @@ public class PropertiesTemplate {
 	 * @param list {@link List}&lt;{@link Map.Entry}&lt;{@link String},{@link String}&gt;&gt;
 	 * @return {@link TemplateInstance}
 	 */
-	public static native TemplateInstance properties(
-			Map<String, String> map, List<Map.Entry<String, String>> os, List<Map.Entry<String, String>> list);
+	public static native TemplateInstance properties(Map<String, String> map, List<Map.Entry<String, String>> os,
+			List<Map.Entry<String, String>> list);
 }

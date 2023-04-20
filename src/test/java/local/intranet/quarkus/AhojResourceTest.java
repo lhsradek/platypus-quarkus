@@ -15,12 +15,8 @@ public class AhojResourceTest {
 
 	@Test
 	public void testAhojEndpoint() {
-		given()
-		.param("query", "Platypus Ahooooj")
-        .when().get("/ahoj")
-        .then()
-        .statusCode(200)
-        .body("content", is(IndexController.AHOJ));
+		given().param("query", "Platypus Ahooooj").when().get("/ahoj").then().statusCode(200).body("content",
+				is(IndexController.AHOJ));
 	}
 
 }

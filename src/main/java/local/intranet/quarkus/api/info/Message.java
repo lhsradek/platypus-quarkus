@@ -25,7 +25,7 @@ import local.intranet.quarkus.api.domain.Nameable;
 public class Message implements Invocationable, Nameable {
 
 	private final String content;
-	
+
 	/**
 	 * 
 	 * Constructor with param

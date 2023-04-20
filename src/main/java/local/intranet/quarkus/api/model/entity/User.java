@@ -22,8 +22,8 @@ import local.intranet.quarkus.api.domain.DefaultFieldLengths;
  * {@link User} is entity for CRUD with
  * {@link local.intranet.quarkus.api.model.repository.UserRepository}
  * <p>
- * https://quarkus.io/guides/getting-started-reactive
- * Mutiny - an intuitive and event-driven reactive programming library
+ * https://quarkus.io/guides/getting-started-reactive Mutiny - an intuitive and
+ * event-driven reactive programming library
  * 
  * @author Radek Kádner
  *
@@ -76,6 +76,7 @@ public class User {
 	/**
 	 * 
 	 * Set id
+	 * 
 	 * @param id {@link Long}
 	 */
 	public void setId(Long id) {
@@ -228,9 +229,9 @@ public class User {
 	 */
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", userName=" + userName + ", password=" + StatusController.STATUS_PROTECTED + ", accountNonExpired="
-				+ accountNonExpired + ", accountNonLocked=" + accountNonLocked + ", credentialsNonExpired="
-				+ credentialsNonExpired + ", enabled=" + enabled + ", role=" + role + "]";
+		return "User [id=" + id + ", userName=" + userName + ", password=" + StatusController.STATUS_PROTECTED
+				+ ", accountNonExpired=" + accountNonExpired + ", accountNonLocked=" + accountNonLocked
+				+ ", credentialsNonExpired=" + credentialsNonExpired + ", enabled=" + enabled + ", role=" + role + "]";
 	}
 
 }

@@ -88,7 +88,7 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	 */
 	@Inject
 	protected PlatypusJob platypusJob;
-	
+
 	/**
 	 * 
 	 * LoggingEvent informations
@@ -185,8 +185,8 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	public CounterInfo infoCounter() throws PlatypusException {
 		final String counterName = getName();
 		final CounterInfo ret = counterService.getCounterInfo(counterName);
-		LOG.debug("name:'{}' cnt:{} date:'{}': status:'{}'", counterName, ret.getCount(),
-				formatDateTime(ret.getDate()), ret.getStatus());
+		LOG.debug("name:'{}' cnt:{} date:'{}': status:'{}'", counterName, ret.getCount(), formatDateTime(ret.getDate()),
+				ret.getStatus());
 		return ret;
 	}
 
@@ -194,8 +194,7 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	 * 
 	 * Start Job
 	 * <p>
-	 * Used
-	 * {@link local.intranet.quarkus.api.scheduler.PlatypusJob#startJob}.
+	 * Used {@link local.intranet.quarkus.api.scheduler.PlatypusJob#startJob}.
 	 * 
 	 * @return boolean
 	 */
@@ -204,15 +203,16 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(hidden = true)
 	/*
-	@Operation(summary = "Start Job", description = "**Start Job**<br/><br/>"
-			+ "This method is calling PlatypusJob.startJob<br/><br/>"
-			+ "See [PlatypusJob.startJob](/javadoc/local/intranet/quarkus/api/scheduler/PlatypusJob.html#startJob())")
-	*/
+	 * @Operation(summary = "Start Job", description = "**Start Job**<br/><br/>" +
+	 * "This method is calling PlatypusJob.startJob<br/><br/>" +
+	 * "See [PlatypusJob.startJob](/javadoc/local/intranet/quarkus/api/scheduler/PlatypusJob.html#startJob())"
+	 * )
+	 */
 	public boolean startJob() {
 		final String counterName = getName();
 		final boolean ret = platypusJob.startJob();
 		LOG.debug("name:'{}' ret:'{}'", counterName, ret);
 		return ret;
 	}
-	
+
 }

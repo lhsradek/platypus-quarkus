@@ -17,45 +17,45 @@ import io.quarkus.vertx.ConsumeEvent;
  * https://quarkus.io/guides/vertx
  *
  */
-@ApplicationScoped                          
+@ApplicationScoped
 public class GreetingService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(GreetingService.class);
-	
-    /**
-     * 
-     * @param name {@link String}
-     * @return {@link String}
-     */
-    @ConsumeEvent("ahoj")              
-    public String Ahoj(String name) {
-    	final String ret;
-    	final String ahoj = "Ahoj"; 
-    	if (name == null) {
-    		ret = ahoj;
-    	} else {
-    		ret = MessageFormat.format("{0} {1}", ahoj, name);
-    	}
-    	LOG.trace("{}", ret);
-    	return ret;             
-    }
-    
+
 	/**
 	 * 
 	 * @param name {@link String}
 	 * @return {@link String}
 	 */
-    @ConsumeEvent("hello")              
-    public String hello(String name) {
-    	final String ret;
-    	final String hello = "Hello"; 
-    	if (name == null) {
-    		ret = hello;
-    	} else {
-    		ret = MessageFormat.format("{0} {1}", hello, name);
-    	}
-    	LOG.trace("{}", ret);
-        return ret;             
-    }
-    
+	@ConsumeEvent("ahoj")
+	public String Ahoj(String name) {
+		final String ret;
+		final String ahoj = "Ahoj";
+		if (name == null) {
+			ret = ahoj;
+		} else {
+			ret = MessageFormat.format("{0} {1}", ahoj, name);
+		}
+		LOG.trace("{}", ret);
+		return ret;
+	}
+
+	/**
+	 * 
+	 * @param name {@link String}
+	 * @return {@link String}
+	 */
+	@ConsumeEvent("hello")
+	public String hello(String name) {
+		final String ret;
+		final String hello = "Hello";
+		if (name == null) {
+			ret = hello;
+		} else {
+			ret = MessageFormat.format("{0} {1}", hello, name);
+		}
+		LOG.trace("{}", ret);
+		return ret;
+	}
+
 }

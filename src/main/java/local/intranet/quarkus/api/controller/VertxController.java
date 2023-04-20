@@ -396,7 +396,8 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	@Path("/lorem")
 	@Blocking
 	// @Operation(summary = "Lorem", description = "**Lorem**<br/><br/>"
-	//		+ "See [VertxController.readShortFile](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#readShortFile())")
+	// + "See
+	// [VertxController.readShortFile](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#readShortFile())")
 	@Operation(hidden = true)
 	@Produces(MediaType.TEXT_PLAIN)
 	public Uni<String> readShortFile() {

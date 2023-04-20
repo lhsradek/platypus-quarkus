@@ -64,5 +64,5 @@ public class RoleInfo implements Nameable {
 	public String toString() {
 		return "RoleInfo [role=" + role + "]";
 	}
-	
+
 }

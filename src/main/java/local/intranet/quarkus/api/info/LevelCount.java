@@ -42,7 +42,7 @@ public class LevelCount {
 	 * @return the level
 	 */
 	@Size(min = 1, max = DefaultFieldLengths.DEFAULT_STATUS)
-	@NotNull 
+	@NotNull
 	public String getLevel() {
 		return level;
 	}
@@ -54,7 +54,7 @@ public class LevelCount {
 	 * @return the total
 	 */
 	@Size(min = 0)
-	@NotNull 
+	@NotNull
 	@Size(min = 0, max = DefaultFieldLengths.DEFAULT_STATUS)
 	public Long getTotal() {
 		return total;

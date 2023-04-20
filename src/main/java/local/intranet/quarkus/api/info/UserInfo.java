@@ -124,7 +124,8 @@ public class UserInfo {
 	 */
 	@Override
 	public String toString() {
-		return "UserInfo [username=" + username + ", password=" + StatusController.STATUS_PROTECTED + ", enabled=" + enabled + "]";
+		return "UserInfo [username=" + username + ", password=" + StatusController.STATUS_PROTECTED + ", enabled="
+				+ enabled + "]";
 	}
 
 }

@@ -44,10 +44,10 @@ public enum StatusType {
 
 	/**
 	 * 
-	 * Method returns enum, based on value passed as parameter. Values are
-	 * compared ignoring cas. If parameter value passed is null, null is
-	 * returned. If value field of enum constant is null the name of enum is
-	 * used for comparison, If no match is found null is returned.
+	 * Method returns enum, based on value passed as parameter. Values are compared
+	 * ignoring cas. If parameter value passed is null, null is returned. If value
+	 * field of enum constant is null the name of enum is used for comparison, If no
+	 * match is found null is returned.
 	 * 
 	 * @param value {@link String}
 	 * @return {@link RoleType}
@@ -63,8 +63,8 @@ public enum StatusType {
 			}
 		}
 		return ret;
-	}	
-	
+	}
+
 	/**
 	 * 
 	 * Get status

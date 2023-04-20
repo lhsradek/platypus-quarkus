@@ -20,8 +20,8 @@ import javax.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class StartupHealthCheck implements HealthCheck {
 
-    @Override
-    public HealthCheckResponse call() {
-        return HealthCheckResponse.up("Startup health check");
-    }
+	@Override
+	public HealthCheckResponse call() {
+		return HealthCheckResponse.up("Startup health check");
+	}
 }

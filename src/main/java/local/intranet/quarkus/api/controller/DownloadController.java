@@ -94,7 +94,8 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	@Blocking
 	@Produces(MediaType.TEXT_HTML)
 	@Operation(hidden = true)
-	// @Route(path = "/", methods = Route.HttpMethod.GET, produces = MediaType.TEXT_HTML, type = Route.HandlerType.BLOCKING)
+	// @Route(path = "/", methods = Route.HttpMethod.GET, produces =
+	// MediaType.TEXT_HTML, type = Route.HandlerType.BLOCKING)
 	public Uni<TemplateInstance> listFiles() throws NotFoundException {
 		final String dir = DOWNLOAD_DIRECTORY;
 		if (new File(dir).exists()) {
@@ -126,7 +127,8 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	@Blocking
 	@Operation(hidden = true)
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
-	// @Route(path = "file:name", methods = Route.HttpMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM, type = Route.HandlerType.BLOCKING)
+	// @Route(path = "file:name", methods = Route.HttpMethod.GET, produces =
+	// MediaType.APPLICATION_OCTET_STREAM, type = Route.HandlerType.BLOCKING)
 	public Uni<Response> getFile(@PathParam("name") String fileName) throws NotFoundException {
 		LOG.debug("filename:'{}'", fileName);
 		if (new File(DOWNLOAD_DIRECTORY).exists()) {
@@ -159,11 +161,13 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	@Operation(summary = "Get Counter Info", description = "**Get Counter Info**<br/><br/>"
 			+ "This method is calling CounterService.getCounterInfo<br/><br/>"
 			+ "See [DownloadController.downloadCounter](/javadoc/local/intranet/quarkus/api/controller/DownloadController.html#downloadCounter())")
-	// @Route(path = "/downloadCounter", methods = Route.HttpMethod.GET, produces = MediaType.APPLICATION_JSON, type = Route.HandlerType.BLOCKING)
+	// @Route(path = "/downloadCounter", methods = Route.HttpMethod.GET, produces =
+	// MediaType.APPLICATION_JSON, type = Route.HandlerType.BLOCKING)
 	public CounterInfo downloadCounter() throws PlatypusException {
 		final String counterName = getName();
 		final CounterInfo ret = counterService.getCounterInfo(counterName);
-		LOG.debug("name:'{}' cnt:{} date:'{}': status:'{}'", counterName, ret.getCount(), formatDateTime(ret.getDate()),ret.getStatus());
+		LOG.debug("name:'{}' cnt:{} date:'{}': status:'{}'", counterName, ret.getCount(), formatDateTime(ret.getDate()),
+				ret.getStatus());
 		return ret;
 	}
 
