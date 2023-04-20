@@ -412,10 +412,10 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	 *
 	 * <p>
 	 * <code>
-	 * public Multi<String> readLargeFile() {<br/>
-	 *     final Multi<String> ret = vertx
-	 *       .fileSystem()
-	 *       .open("book.txt", new OpenOptions()
+	 * public Multi&lt;String&gt; readLargeFile() {<br/>
+	 *     final Multi&lt;String&gt; ret = vertx<br/>
+	 *       .fileSystem()<br/>
+	 *       .open("book.txt", new OpenOptions()<br/>
 	 *       .setRead(true)).onItem()<br/>
 	 *       .transformToMulti(file -> file.toMulti()).onItem()<br/>
 	 *       .transform(content -> content.toString(StandardCharsets.UTF_8) + "\n------------\n");<br/>

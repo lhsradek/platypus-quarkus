@@ -178,7 +178,7 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	 *      "_blank">/q/swagger-ui/#/index-controller/jobCounter</a>
 	 *      
 	 * @return {@link String}
-	 * @throws PlatypusException 
+	 * @throws PlatypusException {@link PlatypusException} 
 	 */
 	@GET
 	@Path("/jobCounter")
