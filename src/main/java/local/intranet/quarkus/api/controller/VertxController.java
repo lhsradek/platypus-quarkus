@@ -121,8 +121,8 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 		final Uni<HttpResponse<Buffer>> send = client.getAbs(url).send();
 		final UniOnItem<HttpResponse<Buffer>> sendOnItem = send.onItem();
 		final Uni<JsonObject> ret = sendOnItem.transform(HttpResponse::bodyAsJsonObject);
-		incrementCounter();
-		LOG.trace("{}", url);
+		final Long cnt = incrementCounter();
+		LOG.trace("cnt:{} url:'{}'", cnt, url);
 		return ret;
 	}
 
@@ -145,8 +145,8 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 		final Uni<HttpResponse<Buffer>> send = client.getAbs(url).send();
 		final UniOnItem<HttpResponse<Buffer>> sendOnItem = send.onItem();
 		final Uni<JsonObject> ret = sendOnItem.transform(HttpResponse::bodyAsJsonObject);
-		incrementCounter();
-		LOG.trace("{}", url);
+		final Long cnt = incrementCounter();
+		LOG.trace("cnt:{} url:'{}'", cnt, url);
 		return ret;
 	}
 
@@ -171,8 +171,8 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 		final Uni<HttpResponse<Buffer>> send = client.getAbs(url).send();
 		final UniOnItem<HttpResponse<Buffer>> sendOnItem = send.onItem();
 		final Uni<JsonObject> ret = sendOnItem.transform(HttpResponse::bodyAsJsonObject);
-		incrementCounter();
-		LOG.trace("{}", url);
+		final Long cnt = incrementCounter();
+		LOG.trace("cnt:{} url:'{}'", cnt, url);
 		return ret;
 	}
 
@@ -202,8 +202,8 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 		final Uni<HttpResponse<Buffer>> send = client.getAbs(url).send();
 		final UniOnItem<HttpResponse<Buffer>> sendOnItem = send.onItem();
 		final Uni<JsonArray> ret = sendOnItem.transform(HttpResponse::bodyAsJsonArray);
-		incrementCounter();
-		LOG.trace("{}", url);
+		final Long cnt = incrementCounter();
+		LOG.trace("cnt:{} url:'{}'", cnt, url);
 		return ret;
 	}
 
@@ -233,8 +233,8 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 		final Uni<HttpResponse<Buffer>> send = client.getAbs(url).send();
 		final UniOnItem<HttpResponse<Buffer>> sendOnItem = send.onItem();
 		final Uni<JsonArray> ret = sendOnItem.transform(HttpResponse::bodyAsJsonArray);
-		incrementCounter();
-		LOG.trace("{}", url);
+		final Long cnt = incrementCounter();
+		LOG.trace("cnt:{} url:'{}'", cnt, url);
 		return ret;
 	}
 
@@ -264,8 +264,8 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 		final Uni<HttpResponse<Buffer>> send = client.getAbs(url).send();
 		final UniOnItem<HttpResponse<Buffer>> sendOnItem = send.onItem();
 		final Uni<JsonArray> ret = sendOnItem.transform(HttpResponse::bodyAsJsonArray);
-		incrementCounter();
-		LOG.trace("{}", url);
+		final Long cnt = incrementCounter();
+		LOG.trace("cnt:{} url:'{}'", cnt, url);
 		return ret;
 	}
 
@@ -295,8 +295,8 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 		final Uni<HttpResponse<Buffer>> send = client.getAbs(url).send();
 		final UniOnItem<HttpResponse<Buffer>> sendOnItem = send.onItem();
 		final Uni<JsonArray> ret = sendOnItem.transform(HttpResponse::bodyAsJsonArray);
-		incrementCounter();
-		LOG.trace("{}", url);
+		final Long cnt = incrementCounter();
+		LOG.trace("cnt:{} url:'{}'", cnt, url);
 		return ret;
 	}
 
@@ -314,8 +314,8 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	@Produces(MediaType.TEXT_PLAIN)
 	public Uni<String> ahoj(@QueryParam("name") String name) {
 		final Uni<String> ret = bus.<String>request("ahoj", name).onItem().transform(response -> response.body());
-		incrementCounter();
-		LOG.debug("{}", name);
+		final Long cnt = incrementCounter();
+		LOG.trace("cnt:{} name:'{}'", cnt, name);
 		return ret;
 	}
 
@@ -357,8 +357,8 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 		final UniOnItem<HttpResponse<Buffer>> sendOnItem = send.onItem();
 		final Uni<JsonArray> ret = sendOnItem.transform(HttpResponse::bodyAsJsonObject).onItem()
 				.transform(json -> json.getJsonObject("parse").getJsonArray("langlinks"));
-		incrementCounter();
-		LOG.trace("{}", url);
+		final Long cnt = incrementCounter();
+		LOG.trace("cnt:{} url:'{}'", cnt, url);
 		return ret;
 	}
 
@@ -381,8 +381,8 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 		final UniOnItem<HttpResponse<Buffer>> sendOnItem = send.onItem();
 		final Uni<JsonArray> ret = sendOnItem.transform(HttpResponse::bodyAsJsonObject).onItem()
 				.transform(json -> json.getJsonObject("parse").getJsonArray("langlinks"));
-		incrementCounter();
-		LOG.trace("{}", url);
+		final Long cnt = incrementCounter();
+		LOG.trace("cnt:{} url:'{}'", cnt, url);
 		return ret;
 	}
 
@@ -402,7 +402,8 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	public Uni<String> readShortFile() {
 		final Uni<String> ret = vertx.fileSystem().readFile("lorem.txt").onItem()
 				.transform(content -> content.toString(StandardCharsets.UTF_8));
-		incrementCounter();
+		final Long cnt = incrementCounter();
+		LOG.trace("cnt:{}", cnt);
 		return ret;
 	}
 

@@ -109,7 +109,8 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 			+ "See [InfoController.loggingEventInfo](/javadoc/local/intranet/quarkus/api/controller/InfoController.html#loggingEventInfo())")
 	public List<LevelCount> loggingEventInfo() {
 		final List<LevelCount> ret = loggingEventService.countTotalLoggingEvents();
-		incrementCounter();
+		final Long cnt = incrementCounter();
+		LOG.trace("cnt:{}", cnt);
 		LOG.debug("serviceName:{} size:{}", LoggingEventService.class.getSimpleName(), ret.size());
 		return ret;
 	}
@@ -133,7 +134,8 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 			+ "See [InfoController.roleInfo](/javadoc/local/intranet/quarkus/api/controller/InfoController.html#roleInfo())")
 	public RoleInfo roleInfo() {
 		final RoleInfo ret = roleService.getRoleInfo();
-		incrementCounter();
+		final Long cnt = incrementCounter();
+		LOG.trace("cnt:{}", cnt);
 		LOG.debug("roleName:{} size:{}", ret.getName(), ret.getRoles().size());
 		return ret;
 	}
@@ -157,7 +159,8 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 			+ "See [InfoController.userInfo](/javadoc/local/intranet/quarkus/api/controller/InfoController.html#userInfo())")
 	public UserInfo userInfo() {
 		final UserInfo ret = userService.getUserInfo("admin");
-		incrementCounter();
+		final Long cnt = incrementCounter();
+		LOG.trace("cnt:{}", cnt);
 		LOG.debug("userName:{} nonExpired:{} nonLocked:{} enabled:{} ", ret.getUsername(), ret.isAccountNonExpired(),
 				ret.isAccountNonLocked(), ret.isEnabled());
 		return ret;

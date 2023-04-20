@@ -27,7 +27,9 @@ public class CustomProfile implements QuarkusTestProfile {
 				// "quarkus.http.host", "localhost",
 				// "quarkus.http.port", "8080",
 				"quarkus.http.port", "8443",
-				"quarkus.micrometer.enabled", "false"
+				"quarkus.micrometer.enabled", "false",
+				"quarkus.log.handler.gelf.enabled", "false",
+				"quarkus.opentelemetry.enabled", "false"
 				// "quarkus.scheduler.enabled", "false",
 		);
 	}

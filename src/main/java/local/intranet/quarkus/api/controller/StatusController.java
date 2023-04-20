@@ -148,7 +148,8 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	@Operation(summary = "Get Plain Status", description = "**Get OK if Platypus-Quarkus API is running**<br/><br/>"
 			+ "See [StatusController.plainStatus](/javadoc/local/intranet/quarkus/api/controller/StatusController.html#plainStatus())")
 	public String plainStatus() {
-		incrementCounter();
+		final Long cnt = incrementCounter();
+		LOG.trace("cnt:{}", cnt);
 		return STATUS_OK;
 	}
 
@@ -186,8 +187,8 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 				}
 			}
 		});
-		incrementCounter();
-		LOG.trace("{}", ret);
+		final Long cnt = incrementCounter();
+		LOG.trace("cnt:{} ret:'{}'", cnt, ret);
 		return ret;
 	}
 
@@ -216,8 +217,8 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 		ret.add(new SimpleImmutableEntry<String, String>("arch", system.getArch()));
 		ret.add(new SimpleImmutableEntry<String, String>("processors", String.valueOf(system.getAvailableProcessors())));
 		ret.add(new SimpleImmutableEntry<String, String>("version", system.getVersion()));
-		incrementCounter();
-		LOG.debug("{}", ret);
+		final Long cnt = incrementCounter();
+		LOG.trace("cnt:{} ret:'{}'", cnt, ret);
 		return ret;
 	}
 
@@ -240,7 +241,6 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	public CounterInfo statusCounter() throws PlatypusException {
 		final String counterName = getName();
 		final CounterInfo ret = counterService.getCounterInfo(counterName);
-		// incrementCounter();
 		LOG.debug("name:'{}' cnt:{} date:'{}': status:'{}'", counterName, ret.getCount(), formatDateTime(ret.getDate()),
 				ret.getStatus());
 		return ret;

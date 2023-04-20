@@ -100,7 +100,7 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	public TemplateInstance index() {
 		final TemplateInstance ret = IndexTemplate.index(statusController.getInfo());
 		final Long cnt = incrementCounter();
-		LOG.debug("cnt:{}", cnt);
+		LOG.trace("cnt:{}", cnt);
 		return ret;
 	}
 
@@ -121,7 +121,7 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 				statusController.operatingSystem(),
 				statusController.platypusProperties()); 
 		final Long cnt = incrementCounter();
-		LOG.debug("cnt:{}", cnt);
+		LOG.trace("cnt:{}", cnt);
 		return ret;
 	}
 	
@@ -141,8 +141,8 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	@Operation(summary = "Hello", description = "This method say: **" + HELLO + "**<br/><br/>"
 			+ "See [IndexController.hello](/javadoc/local/intranet/quarkus/api/controller/IndexController.html#hello())")
 	public Message hello() {
-		incrementCounter();
-		LOG.trace("msg:{}", HELLO);
+		final Long cnt = incrementCounter();
+		LOG.trace("cnt:{} msg:'{}'", cnt, HELLO);
 		return new Message(HELLO);
 	}
 
@@ -162,8 +162,8 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	@Operation(summary = "Ahoj", description = "This method say: **" + AHOJ + "**<br/><br/>"
 			+ "See [IndexController.ahoj](/javadoc/local/intranet/quarkus/api/controller/IndexController.html#ahoj())")
 	public Message ahoj() {
-		incrementCounter();
-		LOG.debug("msg:{}", AHOJ);
+		final Long cnt = incrementCounter();
+		LOG.trace("cnt:{} msg:'{}'", cnt, AHOJ);
 		return new Message(AHOJ);
 	}
 
@@ -189,8 +189,8 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 			+ "See [IndexController.jobCounter](/javadoc/local/intranet/quarkus/api/controller/IndexController.html#jobCounter())")
     public String jobCounter() throws PlatypusException {
 		final Long ret = platypusJob.jobCounter();
-		incrementCounter();
-		LOG.trace("cnt:{}", ret);
+		final Long cnt = incrementCounter();
+		LOG.trace("cnt:{} ret:'{}'", cnt, ret);
 		return MessageFormat.format("count: {0}", ret);
 	}
 	

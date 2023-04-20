@@ -100,7 +100,8 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 		if (new File(dir).exists()) {
 			final TreeSet<File> set = Stream.of(new File(dir).listFiles())
 					.collect(Collectors.toCollection(TreeSet::new));
-			incrementCounter();
+			final Long cnt = incrementCounter();
+			LOG.trace("cnt:{}", cnt);
 			final List<Map.Entry<String, File>> ret = new ArrayList<>();
 			for (File f : set) {
 				ret.add(new SimpleImmutableEntry<String, File>(f.getName(), f));
@@ -133,7 +134,8 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 			LOG.trace("file:'{}' exists:{}", fileName, nf.exists());
 			final ResponseBuilder response = Response.ok((Object) nf);
 			response.header(CONTENT_DISPOSITION, ATTACHMENT_FILENAME + nf);
-			incrementCounter();
+			final Long cnt = incrementCounter();
+			LOG.trace("cnt:{}", cnt);
 			return Uni.createFrom().item(response.build());
 		} else {
 			throw new NotFoundException();
