@@ -132,6 +132,7 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	private static final String EQUAL_WITH_COLONS = "=::";
 	private static final String USER = "USER";
 	private static final String PASSWORD = "PASSWORD";
+	private static final String API_KEY = "API_KEY";
 
 	/**
 	 *
@@ -178,9 +179,15 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 				});
 		map.put("quarkus.version", quarkusVersion()); // add quarkus.version
 		map.forEach((k, v) -> {
-			if (!(k == null || k.equals(STATUS_BRACKET) || k.equals(EQUAL_WITH_COLONS)
-					|| k.toUpperCase().contains(USER))) { // nelíbí
-				if (k.toUpperCase().contains(PASSWORD)) {
+			if (!(k == null || k.equals(STATUS_BRACKET) || k.equals(EQUAL_WITH_COLONS))) {
+				boolean isProtected = false;
+				for (String s : Arrays.asList(PASSWORD, USER, API_KEY)) {
+					if (k.toUpperCase().contains(s)) {
+						isProtected = true;
+						break;
+					}
+				}
+				if (isProtected) {
 					ret.add(new SimpleImmutableEntry<String, String>(k, STATUS_PROTECTED));
 				} else {
 					ret.add(new SimpleImmutableEntry<String, String>(k, map.get(k)));
