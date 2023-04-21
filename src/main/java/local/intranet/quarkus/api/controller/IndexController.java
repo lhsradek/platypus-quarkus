@@ -127,8 +127,8 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	 * 
 	 * Say: Hello ...
 	 * 
-	 * @see <a href="/q/swagger-ui/#/index-controller/hello" target=
-	 *      "_blank">/q/swagger-ui/#/index-controller/hello</a>
+	 * @see <a href="/q/swagger-ui/#/index-controller/get_hello">
+	 *      /q/swagger-ui/#/index-controller/get_hello</a>
 	 * 
 	 * @return {@link Message}
 	 */
@@ -148,8 +148,8 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	 * 
 	 * Say: Ahoj ...
 	 * 
-	 * @see <a href="/q/swagger-ui/#/index-controller/ahoj" target=
-	 *      "_blank">/q/swagger-ui/#/index-controller/ahoj</a>
+	 * @see <a href="/q/swagger-ui/#/index-controller/get_ahoj">
+	 *      /q/swagger-ui/#/index-controller/get_ahoj</a>
 	 * 
 	 * @return {@link Message}
 	 */
@@ -171,8 +171,8 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	 * <p>
 	 * Used {@link local.intranet.quarkus.api.scheduler.PlatypusJob#jobCounter}.
 	 * 
-	 * @see <a href="/q/swagger-ui/#/index-controller/jobCounter" target=
-	 *      "_blank">/q/swagger-ui/#/index-controller/jobCounter</a>
+	 * @see <a href="/q/swagger-ui/#/index-controller/get_jobCounter">
+	 *      /q/swagger-ui/#/index-controller/get_jobCounter</a>
 	 * 
 	 * @return {@link String}
 	 * @throws PlatypusException {@link PlatypusException}
@@ -197,6 +197,9 @@ public class IndexController extends PlatypusCounter implements Countable, Invoc
 	 * <p>
 	 * Used
 	 * {@link local.intranet.quarkus.api.service.CounterService#getCounterInfo}.
+	 * 
+	 * @see <a href="/q/swagger-ui/#/index-controller/get_indexCounter">
+	 *      /q/swagger-ui/#/index-controller/get_indexCounter</a>
 	 * 
 	 * @return {@link CounterInfo}
 	 * @throws PlatypusException {@link PlatypusException}

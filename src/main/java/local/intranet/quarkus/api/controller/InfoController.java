@@ -96,8 +96,8 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	 * Used
 	 * {@link local.intranet.quarkus.api.service.LoggingEventService#countTotalLoggingEvents}.
 	 * 
-	 * @see <a href="/q/swagger-ui/#/info-controller/loggingEventInfo" target=
-	 *      "_blank">/q/swagger-ui/#/info-controller/loggingEventInfo</a>
+	 * @see <a href="/q/swagger-ui/#/info-controller/get_app_v1_info_loggingEventInfo">
+	 *      /q/swagger-ui/#/info-controller/get_app_v1_info_loggingEventInfo</a>
 	 * 
 	 * @return {@link List}&le;{@link LevelCount}&ge;
 	 */
@@ -121,8 +121,8 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	 * <p>
 	 * Used {@link local.intranet.quarkus.api.service.RoleService#getRoleInfo}.
 	 * 
-	 * @see <a href="/q/swagger-ui/#/info-controller/roleInfo" target=
-	 *      "_blank">/q/swagger-ui/#/info-controller/roleInfo</a>
+	 * @see <a href="/q/swagger-ui/#/info-controller/get_app_v1_info_roleInfo">
+	 *      /q/swagger-ui/#/info-controller/get_app_v1_info_roleInfo</a>
 	 * 
 	 * @return {@link RoleInfo}
 	 */
@@ -146,8 +146,8 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	 * <p>
 	 * Used {@link local.intranet.quarkus.api.service.UserService#getUserInfo}.
 	 * 
-	 * @see <a href="/q/swagger-ui/#/info-controller/userInfo" target=
-	 *      "_blank">/q/swagger-ui/#/info-controller/userInfo</a>
+	 * @see <a href="/q/swagger-ui/#/info-controller/get_app_v1_info_userInfo">
+	 *      /q/swagger-ui/#/info-controller/get_app_v1_info_userInfo</a>
 	 * 
 	 * @return {@link UserInfo}
 	 */
@@ -172,6 +172,9 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	 * <p>
 	 * Used
 	 * {@link local.intranet.quarkus.api.service.CounterService#getCounterInfo}.
+	 * 
+	 * @see <a href="/q/swagger-ui/#/info-controller/get_app_v1_info_infoCounter">
+	 *      /q/swagger-ui/#/info-controller/get_app_v1_info_infoCounter</a>
 	 * 
 	 * @return {@link CounterInfo}
 	 * @throws PlatypusException {@link PlatypusException}

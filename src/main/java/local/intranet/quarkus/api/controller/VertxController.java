@@ -106,6 +106,9 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	 * 
 	 * Accounts Person UUID
 	 * 
+	 * @see <a href="/q/swagger-ui/#/vertx-controller/get_vertx_accounts_persons__personsUUID__accounts">
+	 *      /q/swagger-ui/#/vertx-controller/get__vertx_accounts_persons__personsUUID__accounts</a>
+	 *      
 	 * @param personUUID {@link UUID}
 	 * @return {@link Uni}&lt;{@link JsonArray}&gt;
 	 */
@@ -114,7 +117,7 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	@Path(ACCOUNTS + "/persons/{personUUID}/accounts")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Accounts Person UUID", description = "**Accounts Person UUID**<br/><br/>"
-			+ "See [VertxController.quarkusAccountsPersonUUID](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusAccountsPersonUUID())")
+			+ "See [VertxController.quarkusAccountsPersonUUID](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusAccountsPersonUUID(java.lang.UUID))")
 	// @Operation(hidden = true)
 	public Uni<JsonObject> quarkusAccountsPersonUUID(@PathParam("personUUID") UUID personUUID) {
 		final String url = swaggerEndpoint + ACCOUNTS + "/persons/" + personUUID + ACCOUNTS;
@@ -130,6 +133,9 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	 * 
 	 * Accounts Id
 	 * 
+	 * @see <a href="/q/swagger-ui/#/vertx-controller/get_vertx_accounts__id_">
+	 *      /q/swagger-ui/#/vertx-controller/get_vertx_accounts__id_</a>
+	 * 
 	 * @param id {@link String}
 	 * @return {@link Uni}&lt;{@link JsonArray}&gt;
 	 */
@@ -138,7 +144,7 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	@Path(ACCOUNTS + "/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Accounts Id", description = "**Accounts Id**<br/><br/>"
-			+ "See [VertxController.quarkusAccountsId](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusAccountsId())")
+			+ "See [VertxController.quarkusAccountsId](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusAccountsId(java.lang.String))")
 	// @Operation(hidden = true)
 	public Uni<JsonObject> quarkusAccountsId(@PathParam("id") String id) {
 		final String url = swaggerEndpoint + ACCOUNTS + "/" + id;
@@ -156,6 +162,9 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	 * 
 	 * Persons Id
 	 * 
+	 * @see <a href="/q/swagger-ui/#/vertx-controller/get_vertx_persons__id_">
+	 *      /q/swagger-ui/#/vertx-controller/get_vertx_persons__id_</a>
+	 *      
 	 * @param id {@link String}
 	 * @return {@link Uni}&lt;{@link JsonArray}&gt;
 	 */
@@ -164,7 +173,7 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	@Path(PERSONS + "/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Persons Id", description = "**Persons Id**<br/><br/>"
-			+ "See [VertxController.quarkusPersonsId](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusPersonsId())")
+			+ "See [VertxController.quarkusPersonsId](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusPersonsId(java.lang.String))")
 	// @Operation(hidden = true)
 	public Uni<JsonObject> quarkusPersonsId(@PathParam("id") String id) {
 		final String url = swaggerEndpoint + PERSONS + "/" + id;
@@ -182,6 +191,9 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	 * 
 	 * NAS e02
 	 * 
+	 * @see <a href="/q/swagger-ui/#/vertx-controller/get_vertx_nas_e02">
+	 *      /q/swagger-ui/#/vertx-controller/get_vertx_nas_e02</a>
+	 *      
 	 * @param date {@link String}
 	 * @return {@link Uni}&lt;{@link JsonArray}&gt;
 	 */
@@ -190,7 +202,7 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	@Path(NAS_E02)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "NAS e02", description = "**NAS e02**<br/><br/>"
-			+ "See [VertxController.quarkusNas02](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusNas02())")
+			+ "See [VertxController.quarkusNas02](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusNas02(java.lang.String))")
 	// @Operation(hidden = true)
 	public Uni<JsonArray> quarkusNas02(@QueryParam("date") String date) {
 		final String url;
@@ -213,6 +225,9 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	 * 
 	 * NAS e24
 	 * 
+	 * @see <a href="/q/swagger-ui/#/vertx-controller/get_vertx_nas_e24">
+	 *      /q/swagger-ui/#/vertx-controller/get_vertx_nas_e24</a>
+	 *      
 	 * @param date {@link String}
 	 * @return {@link Uni}&lt;{@link JsonArray}&gt;
 	 */
@@ -221,7 +236,7 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	@Path(NAS_E24)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "NAS e24", description = "**NAS e24**<br/><br/>"
-			+ "See [VertxController.quarkusNas24](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusNas24())")
+			+ "See [VertxController.quarkusNas24](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusNas24(java.lang.String))")
 	// @Operation(hidden = true)
 	public Uni<JsonArray> quarkusNas24(@QueryParam("date") String date) {
 		final String url;
@@ -244,6 +259,9 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	 * 
 	 * NAS e25
 	 * 
+	 * @see <a href="/q/swagger-ui/#/vertx-controller/get_vertx_nas_e25">
+	 *      /q/swagger-ui/#/vertx-controller/get_vertx_nas_e25</a>
+	 *      
 	 * @param date {@link String}
 	 * @return {@link Uni}&lt;{@link JsonArray}&gt;
 	 */
@@ -252,7 +270,7 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	@Path(NAS_E25)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "NAS e25", description = "**NAS e25**<br/><br/>"
-			+ "See [VertxController.quarkusNas25](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusNas25())")
+			+ "See [VertxController.quarkusNas25](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusNas25(java.lang.String))")
 	// @Operation(hidden = true)
 	public Uni<JsonArray> quarkusNas25(@QueryParam("date") String date) {
 		final String url;
@@ -275,6 +293,9 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	 * 
 	 * NAS e26
 	 * 
+	 * @see <a href="/q/swagger-ui/#/vertx-controller/get_vertx_nas_e26">
+	 *      /q/swagger-ui/#/vertx-controller/get_vertx_nas_e26</a>
+	 *      
 	 * @param date {@link String}
 	 * @return {@link Uni}&lt;{@link JsonArray}&gt;
 	 */
@@ -283,7 +304,7 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	@Path(NAS_E26)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "NAS e26", description = "**NAS e26**<br/><br/>"
-			+ "See [VertxController.quarkusNas26](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusNas26())")
+			+ "See [VertxController.quarkusNas26](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusNas26(java.lang.String))")
 	// @Operation(hidden = true)
 	public Uni<JsonArray> quarkusNas26(@QueryParam("date") String date) {
 		final String url;
@@ -342,6 +363,9 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	 * 
 	 * Wiki Platypus
 	 * 
+	 * @see <a href="/q/swagger-ui/#/vertx-controller/get_vertx_platypus">
+	 *      /q/swagger-ui/#/vertx-controller/get_vertx_platypus</a>
+	 *      
 	 * @return {@link Uni}&lt;{@link JsonArray}&gt;
 	 */
 	@GET
@@ -366,6 +390,9 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	 * 
 	 * Wiki Quarkus
 	 * 
+	 * @see <a href="/q/swagger-ui/#/vertx-controller/get_vertx_quarkus">
+	 * /q/swagger-ui/#/vertx-controller/get_vertx_quarkus</a>
+	 *      
 	 * @return {@link Uni}&lt;{@link JsonArray}&gt;
 	 */
 	@GET
@@ -442,6 +469,9 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	 * <p>
 	 * Used
 	 * {@link local.intranet.quarkus.api.service.CounterService#getCounterInfo}.
+	 * 
+	 * @see <a href="/q/swagger-ui/#/vertx-controller/get_vertx_vertxCounter">
+	 * /q/swagger-ui/#/vertx-controller/get_vertx_vertxCounter</a>
 	 * 
 	 * @return {@link CounterInfo}
 	 * @throws PlatypusException {@link PlatypusException}

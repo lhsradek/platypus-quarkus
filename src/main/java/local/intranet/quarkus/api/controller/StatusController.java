@@ -138,8 +138,8 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	 *
 	 * text/plain: "OK"
 	 * 
-	 * @see <a href="/q/swagger-ui/#/status-controller/plainStatus" target=
-	 *      "_blank">/q/swagger-ui/#/status-controller/plainStatus</a>
+	 * @see <a href="/q/swagger-ui/#/status-controller/get_app_v1_status_plainStatus">
+	 *      /q/swagger-ui/#/status-controller/get_app_v1_status_plainStatus</a>
 	 * 
 	 * @return "OK" if Platypus-Quarkus API is running
 	 */
@@ -158,8 +158,8 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	 *
 	 * Info of Properties
 	 *
-	 * @see <a href="/q/swagger-ui/#/status-controller/platypusProperties" target=
-	 *      "_blank">/q/swagger-ui/#/status-controller/platypusProperties</a>
+	 * @see <a href="/q/swagger-ui/#/status-controller/get_app_v1_status_platypusProperties">
+	 *      /q/swagger-ui/#/status-controller/get_app_v1_status_platypusProperties</a>
 	 * 
 	 * @return {@link List}&lt;{@link Map.Entry}&lt;{@link String},{@link String}&gt;&gt;
 	 */
@@ -203,8 +203,8 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	 *
 	 * Get Operating System
 	 *
-	 * @see <a href="/q/swagger-ui/#/status-controller/operatingSystem" target=
-	 *      "_blank">/q/swagger-ui/#/status-controller/operatingSystem</a>
+	 * @see <a href="/q/swagger-ui/#/status-controller/get_app_v1_status_operatingSystem">
+	 *      /q/swagger-ui/#/status-controller/get_app_v1_status_operatingSystem</a>
 	 * 
 	 * @return {@link List}&lt;{@link Map.Entry}&lt;{@link String},{@link Object}&gt;&gt;
 	 */
@@ -238,6 +238,9 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	 * Used
 	 * {@link local.intranet.quarkus.api.service.CounterService#getCounterInfo}.
 	 * 
+	 * @see <a href="/q/swagger-ui/#/status-controller/get_app_v1_status_statusCounter">
+	 *      /q/swagger-ui/#/status-controller/get_app_v1_status_statusCounter</a>
+	 *      
 	 * @return {@link CounterInfo}
 	 * @throws PlatypusException {@link PlatypusException}
 	 */

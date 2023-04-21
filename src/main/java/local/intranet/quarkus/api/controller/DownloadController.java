@@ -151,6 +151,9 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	 * Used
 	 * {@link local.intranet.quarkus.api.service.CounterService#getCounterInfo}.
 	 * 
+	 * @see <a href="/q/swagger-ui/#/download-controller/get_downloads_downloadCounter">
+	 *      /q/swagger-ui/#/download-controller/get_downloads_downloadCounter</a>
+	 * 
 	 * @return {@link CounterInfo}
 	 * @throws PlatypusException {@link PlatypusException}
 	 */
