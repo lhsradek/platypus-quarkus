@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -77,11 +78,11 @@ public abstract class PlatypusCounter implements Countable, Invocationable, Stat
 	public Long countValue() {
 		final Long ret;
 		final String counterName = getName();
-		final Counter counter = counterRepository.findByName(counterName);
-		if (counter == null) {
+		final Optional<Counter> counter = counterRepository.findByName(counterName);
+		if (counter.isEmpty()) {
 			ret = 0L;
 		} else {
-			ret = counter.getCnt();
+			ret = counter.get().getCnt();
 		}
 		LOG.trace("name:'{}' count:{}", counterName, ret);
 		return ret;
@@ -101,34 +102,34 @@ public abstract class PlatypusCounter implements Countable, Invocationable, Stat
 		final ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(Instant.ofEpochMilli(System.currentTimeMillis()),
 				ZoneId.systemDefault());
 		final Long timestmp = zonedDateTime.toInstant().toEpochMilli();
-		Counter counter = counterRepository.findByName(counterName);
-		if (counter == null) {
-			counter = new Counter();
-			counter.setCounterName(counterName);
-			counter.setCnt(1L);
-			counter.setTimestmp(timestmp);
-			counter.setStatus(StatusType.UP.getStatus());
-			counter = counterRepository.save(counter);
-			ret = counter.getCnt();
+		final Optional<Counter> counter = counterRepository.findByName(counterName);
+		if (counter.isEmpty()) {
+			final Counter c = new Counter();
+			c.setCounterName(counterName);
+			c.setCnt(1L);
+			c.setTimestmp(timestmp);
+			c.setStatus(StatusType.UP.getStatus());
+			final Counter c2 = counterRepository.save(c);
+			ret = c2.getCnt();
 		} else {
-			counter.setCnt(counter.getCnt() + 1L);
-			counter.setTimestmp(timestmp);
-			counter = counterRepository.save(counter);
-			ret = counter.getCnt();
+			counter.get().setCnt(counter.get().getCnt() + 1L);
+			counter.get().setTimestmp(timestmp);
+			final Counter c = counterRepository.save(counter.get());
+			ret = c.getCnt();
 		}
-		LOG.debug("name:'{}' count:{}", counter.getCounterName(), ret);
+		LOG.debug("name:'{}' count:{}", counter.get().getCounterName(), ret);
 		return ret;
 	}
 
 	@Override
 	public StatusType getStatus() {
 		final String counterName = getName();
-		final Counter counter = counterRepository.findByName(counterName);
+		final Optional<Counter> counter = counterRepository.findByName(counterName);
 		final StatusType ret;
-		if (counter == null) {
+		if (counter.isEmpty()) {
 			ret = StatusType.NONE;
 		} else {
-			ret = StatusType.valueOf(counter.getStatus());
+			ret = StatusType.valueOf(counter.get().getStatus());
 		}
 		LOG.trace("name:'{}' status:'{}'", counterName, ret);
 		return ret;
@@ -141,11 +142,11 @@ public abstract class PlatypusCounter implements Countable, Invocationable, Stat
 	public ZonedDateTime lastInvocation() {
 		final ZonedDateTime ret;
 		final String counterName = getName();
-		final Counter counter = counterRepository.findByName(counterName);
-		if (counter == null) {
+		final Optional<Counter> counter = counterRepository.findByName(counterName);
+		if (counter.isEmpty()) {
 			ret = ZonedDateTime.ofInstant(Instant.ofEpochSecond(0), ZoneId.systemDefault());
 		} else {
-			ret = ZonedDateTime.ofInstant(Instant.ofEpochSecond(counter.getTimestmp()), ZoneId.systemDefault());
+			ret = ZonedDateTime.ofInstant(Instant.ofEpochSecond(counter.get().getTimestmp()), ZoneId.systemDefault());
 		}
 		LOG.trace("name:'{}' date:'{}'", counterName, formatDateTime(ret));
 		return ret;

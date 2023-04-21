@@ -1,5 +1,7 @@
 package local.intranet.quarkus.api.service;
 
+import java.util.Optional;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
@@ -69,16 +71,16 @@ public class UserService {
 		if (username.length() == 0) {
 			throw new ForbiddenException();
 		}
-		User user = userRepository.findByName(username);
-		if (user == null) {
-			throw new IllegalArgumentException("Undeifined username!");
+		final Optional<User> user = userRepository.findByName(username);
+		if (user.isEmpty()) {
+			throw new IllegalArgumentException("Undefined username!");
 		}
-		if (user.isAccountNonExpired() && user.isAccountNonLocked() && user.isCredentialsNonExpired()
-				&& user.isEnabled()) {
-			return UserInfo.build(user);
-		} else if (!user.isCredentialsNonExpired()) {
+		if (user.get().isAccountNonExpired() && user.get().isAccountNonLocked() && user.get().isCredentialsNonExpired()
+				&& user.get().isEnabled()) {
+			return UserInfo.build(user.get());
+		} else if (!user.get().isCredentialsNonExpired()) {
 			throw new UnauthorizedException("Credentials is Expired!");
-		} else if (!user.isAccountNonExpired()) {
+		} else if (!user.get().isAccountNonExpired()) {
 			throw new UnauthorizedException("Account is Expired!");
 		} else {
 			throw new ForbiddenException();

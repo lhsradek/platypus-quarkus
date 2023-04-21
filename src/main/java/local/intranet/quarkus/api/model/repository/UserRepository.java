@@ -1,5 +1,7 @@
 package local.intranet.quarkus.api.model.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -23,9 +25,9 @@ public interface UserRepository extends CrudRepository<User, Long> {
 	 * Find by name
 	 * 
 	 * @param userName {@link String}
-	 * @return {@link User}
+	 * @return {@link Optional}&lt;{@link User}&gt;
 	 */
 	@Query(value = "select u from User u where u.userName = ?1")
-	public User findByName(@NotNull String userName);
+	public Optional<User> findByName(@NotNull String userName);
 
 }

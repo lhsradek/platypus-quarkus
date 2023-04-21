@@ -3,6 +3,7 @@ package local.intranet.quarkus.api.service;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.Optional;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -56,20 +57,20 @@ public class CounterService {
 			final ZonedDateTime zonedDateTime = ZonedDateTime
 					.ofInstant(Instant.ofEpochMilli(System.currentTimeMillis()), ZoneId.systemDefault());
 			final Long timestmp = zonedDateTime.toInstant().toEpochMilli();
-			Counter counter = counterRepository.findByName(counterName);
-			if (counter == null) {
-				counter = new Counter();
-				counter.setCounterName(counterName);
-				counter.setCnt(0L);
-				counter.setTimestmp(timestmp);
-				counter.setStatus(StatusType.UP.getStatus());
-				counter = counterRepository.save(counter);
-				ret = new CounterInfo(counter.getId(), counterName, counter.getCnt(), counter.getTimestmp(),
-						counter.getStatus());
+			final Optional<Counter> counter = counterRepository.findByName(counterName);
+			if (counter.isEmpty()) {
+				final Counter c = new Counter();
+				c.setCounterName(counterName);
+				c.setCnt(0L);
+				c.setTimestmp(timestmp);
+				c.setStatus(StatusType.UP.getStatus());
+				final Counter c2 = counterRepository.save(c);
+				ret = new CounterInfo(c2.getId(), counterName, c2.getCnt(), c2.getTimestmp(),
+						c2.getStatus());
 			} else {
-				ret = new CounterInfo(counter.getId(), counterName, counter.getCnt(), counter.getTimestmp(),
-						counter.getStatus());
-				LOG.trace("name:{} cnt:{}", counter.getCounterName(), counter.getCnt());
+				ret = new CounterInfo(counter.get().getId(), counterName, counter.get().getCnt(), counter.get().getTimestmp(),
+						counter.get().getStatus());
+				LOG.trace("name:{} cnt:{}", counter.get().getCounterName(), counter.get().getCnt());
 			}
 		} catch (Exception e) {
 			LOG.error(e.getMessage(), e);

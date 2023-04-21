@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.StreamSupport;
@@ -128,17 +129,12 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	@ConfigProperty(name = "platypus.deployment.environment")
 	public String platypusDeploymentEnvironment;
 
-	private static final String STATUS_BRACKET = "_";
-	private static final String EQUAL_WITH_COLONS = "=::";
-	private static final String USER = "USER";
-	private static final String PASSWORD = "PASSWORD";
-	private static final String API_KEY = "API_KEY";
-
 	/**
 	 *
 	 * text/plain: "OK"
 	 * 
-	 * @see <a href="/q/swagger-ui/#/status-controller/get_app_v1_status_plainStatus">
+	 * @see <a href=
+	 *      "/q/swagger-ui/#/status-controller/get_app_v1_status_plainStatus">
 	 *      /q/swagger-ui/#/status-controller/get_app_v1_status_plainStatus</a>
 	 * 
 	 * @return "OK" if Platypus-Quarkus API is running
@@ -154,11 +150,18 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 		return STATUS_OK;
 	}
 
+	private static final String STATUS_BRACKET = "_";
+	private static final String EQUAL_WITH_COLONS = "=::";
+	private static final String USER = "USER";
+	private static final String PASSWORD = "PASSWORD";
+	private static final String API_KEY = "API_KEY";
+
 	/**
 	 *
 	 * Info of Properties
 	 *
-	 * @see <a href="/q/swagger-ui/#/status-controller/get_app_v1_status_platypusProperties">
+	 * @see <a href=
+	 *      "/q/swagger-ui/#/status-controller/get_app_v1_status_platypusProperties">
 	 *      /q/swagger-ui/#/status-controller/get_app_v1_status_platypusProperties</a>
 	 * 
 	 * @return {@link List}&lt;{@link Map.Entry}&lt;{@link String},{@link String}&gt;&gt;
@@ -181,10 +184,12 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 		map.forEach((k, v) -> {
 			if (!(k == null || k.equals(STATUS_BRACKET) || k.equals(EQUAL_WITH_COLONS))) {
 				boolean isProtected = false;
-				for (String s : Arrays.asList(PASSWORD, USER, API_KEY)) {
-					if (k.toUpperCase().contains(s)) {
-						isProtected = true;
-						break;
+				if (!k.startsWith("user.")) {
+					for (String s : Arrays.asList(API_KEY, PASSWORD, USER)) {
+						if (k.toUpperCase().contains(s)) {
+							isProtected = true;
+							break;
+						}
 					}
 				}
 				if (isProtected) {
@@ -203,7 +208,8 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	 *
 	 * Get Operating System
 	 *
-	 * @see <a href="/q/swagger-ui/#/status-controller/get_app_v1_status_operatingSystem">
+	 * @see <a href=
+	 *      "/q/swagger-ui/#/status-controller/get_app_v1_status_operatingSystem">
 	 *      /q/swagger-ui/#/status-controller/get_app_v1_status_operatingSystem</a>
 	 * 
 	 * @return {@link List}&lt;{@link Map.Entry}&lt;{@link String},{@link Object}&gt;&gt;
@@ -238,9 +244,10 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	 * Used
 	 * {@link local.intranet.quarkus.api.service.CounterService#getCounterInfo}.
 	 * 
-	 * @see <a href="/q/swagger-ui/#/status-controller/get_app_v1_status_statusCounter">
+	 * @see <a href=
+	 *      "/q/swagger-ui/#/status-controller/get_app_v1_status_statusCounter">
 	 *      /q/swagger-ui/#/status-controller/get_app_v1_status_statusCounter</a>
-	 *      
+	 * 
 	 * @return {@link CounterInfo}
 	 * @throws PlatypusException {@link PlatypusException}
 	 */
@@ -306,7 +313,7 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	 * 
 	 */
 	public String quarkusVersion() {
-		final String ret = Application.class.getPackage().getImplementationVersion();
+		final String ret = Optional.ofNullable(StatusController.class.getPackage().getImplementationVersion()).orElse(UNKNOWN);
 		LOG.trace("{}", ret);
 		return ret;
 	}

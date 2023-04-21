@@ -60,8 +60,8 @@ public class LoggingEventService {
 	@Operation(hidden = true)
 	public List<LevelCount> countTotalLoggingEvents() {
 		final List<LevelCount> ret = new ArrayList<>();
-		for (Object[] o : loggingEventRepository.countTotalLoggingEvents()) {
-			ret.add(new LevelCount((String) o[0], (Long) o[1]));
+		for (Object[] row : loggingEventRepository.countTotalLoggingEvents()) {
+		 	ret.add(new LevelCount((String) row[0], (Long) row[1]));
 		}
 		LOG.trace("{}", ret);
 		return ret;
@@ -82,12 +82,12 @@ public class LoggingEventService {
 	@Operation(hidden = true)
 	public Page<LoggingEventInfo> findPageByLevelString(Pageable pageable, List<String> levelString) {
 		try {
-			Page<LoggingEvent> pa = loggingEventRepository.findPageByLevelString(pageable, levelString);
-			List<LoggingEventInfo> list = new ArrayList<>();
+			final Page<LoggingEvent> pa = loggingEventRepository.findPageByLevelString(pageable, levelString);
+			final List<LoggingEventInfo> list = new ArrayList<>();
 			for (LoggingEvent l : pa) {
 				list.add(makeLoggingEventInfo(l));
 			}
-			Page<LoggingEventInfo> ret = new PageImpl<>(list, pageable, pa.getTotalElements());
+			final Page<LoggingEventInfo> ret = new PageImpl<>(list, pageable, pa.getTotalElements());
 			LOG.trace("{}", ret);
 			return ret;
 		} catch (Exception e) {
@@ -104,13 +104,13 @@ public class LoggingEventService {
 	 * @return {@link LoggingEventInfo}
 	 */
 	protected LoggingEventInfo makeLoggingEventInfo(LoggingEvent loggingEvent) {
-		String[] s = loggingEvent.getCallerClass().split("\\.");
-		String arg0 = (loggingEvent.getArg0() == null) ? NULL : loggingEvent.getArg0();
-		String arg1 = (loggingEvent.getArg1() == null) ? NULL : loggingEvent.getArg1();
-		String arg2 = (loggingEvent.getArg2() == null) ? NULL : loggingEvent.getArg2();
-		String arg3 = (loggingEvent.getArg3() == null) ? NULL : loggingEvent.getArg3();
+		final String[] s = loggingEvent.getCallerClass().split("\\.");
+		final String arg0 = (loggingEvent.getArg0() == null) ? NULL : loggingEvent.getArg0();
+		final String arg1 = (loggingEvent.getArg1() == null) ? NULL : loggingEvent.getArg1();
+		final String arg2 = (loggingEvent.getArg2() == null) ? NULL : loggingEvent.getArg2();
+		final String arg3 = (loggingEvent.getArg3() == null) ? NULL : loggingEvent.getArg3();
 		// LOG.trace("arg0:{} arg1:{} arg2:{} arg3:{}", arg0, arg1, arg2, arg3);
-		LoggingEventInfo ret = new LoggingEventInfo(loggingEvent.getId(), loggingEvent.getFormattedMessage(),
+		final LoggingEventInfo ret = new LoggingEventInfo(loggingEvent.getId(), loggingEvent.getFormattedMessage(),
 				loggingEvent.getLevelString(), (s.length > 0) ? s[s.length - 1] : "", loggingEvent.getCallerMethod(),
 				arg0, arg1, arg2, arg3,
 				ZonedDateTime.ofInstant(Instant.ofEpochMilli(loggingEvent.getTimestmp()), ZoneId.systemDefault()));

@@ -41,7 +41,7 @@ public interface LoggingEventRepository extends JpaRepository<LoggingEvent, Long
 	 * 
 	 * @return {@link List}&lt;{@link Object[]}&gt;
 	 */
-	@Query(value = "select u.levelString, count(u.levelString) "
+	@Query(value = "select u.levelString, count(u.levelString)"
 			+ "from LoggingEvent u group by u.levelString order by u.levelString asc")
 	public List<Object[]> countTotalLoggingEvents();
 

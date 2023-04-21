@@ -1,5 +1,7 @@
 package local.intranet.quarkus.api.model.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -27,9 +29,9 @@ public interface RoleRepository extends CrudRepository<Role, Long> {
 	 * Find by name
 	 * 
 	 * @param roleName {@link String}
-	 * @return {@link Role}
+	 * @return {@link Optional}&lt;{@link Role}&gt;
 	 */
 	@Query(value = "select u from Role u where u.roleName = ?1")
-	public Role findByName(@NotNull String roleName);
+	public Optional<Role> findByName(@NotNull String roleName);
 
 }
