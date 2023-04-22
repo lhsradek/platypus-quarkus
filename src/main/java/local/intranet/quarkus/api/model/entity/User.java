@@ -47,15 +47,19 @@ public class User {
 	@Size(max = DefaultFieldLengths.DEFAULT_NAME)
 	private String password;
 
+	@NotNull
 	@Column(name = "account_non_expired")
 	private Boolean accountNonExpired;
 
+	@NotNull
 	@Column(name = "account_non_locked")
 	private Boolean accountNonLocked;
 
+	@NotNull
 	@Column(name = "credentials_non_expired")
 	private Boolean credentialsNonExpired;
 
+	@NotNull
 	@Column(name = "enabled")
 	private Boolean enabled;
 

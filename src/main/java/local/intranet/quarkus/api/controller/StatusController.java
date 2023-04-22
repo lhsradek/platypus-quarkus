@@ -186,7 +186,7 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 				boolean isProtected = false;
 				if (!k.startsWith("user.")) {
 					for (String s : Arrays.asList(API_KEY, PASSWORD, USER)) {
-						if (k.toUpperCase().contains(s)) {
+						if (k.toUpperCase().contains(s) || k.toUpperCase().contains(s.replace("_", "."))) {
 							isProtected = true;
 							break;
 						}
@@ -313,7 +313,8 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	 * 
 	 */
 	public String quarkusVersion() {
-		final String ret = Optional.ofNullable(StatusController.class.getPackage().getImplementationVersion()).orElse(UNKNOWN);
+		final String ret = Optional.ofNullable(StatusController.class.getPackage().getImplementationVersion())
+				.orElse(UNKNOWN);
 		LOG.trace("{}", ret);
 		return ret;
 	}

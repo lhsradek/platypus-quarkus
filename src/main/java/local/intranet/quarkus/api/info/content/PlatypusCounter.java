@@ -74,7 +74,6 @@ public abstract class PlatypusCounter implements Countable, Invocationable, Stat
 	}
 
 	@Override
-	@Blocking
 	public Long countValue() {
 		final Long ret;
 		final String counterName = getName();
@@ -117,7 +116,7 @@ public abstract class PlatypusCounter implements Countable, Invocationable, Stat
 			final Counter c = counterRepository.save(counter.get());
 			ret = c.getCnt();
 		}
-		LOG.debug("name:'{}' count:{}", counter.get().getCounterName(), ret);
+		LOG.debug("name:'{}' count:{}", counterName, ret);
 		return ret;
 	}
 

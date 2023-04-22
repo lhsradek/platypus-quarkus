@@ -41,6 +41,7 @@ public class Role {
 	@Size(max = DefaultFieldLengths.DEFAULT_NAME)
 	private String roleName;
 
+	@NotNull
 	@Column(name = "enabled")
 	private Boolean enabled;
 

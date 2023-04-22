@@ -6,6 +6,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+import io.smallrye.common.constraint.NotNull;
+import io.smallrye.common.constraint.Nullable;
 import local.intranet.quarkus.api.domain.DefaultFieldLengths;
 
 /**
@@ -34,37 +36,46 @@ public class LoggingEvent {
 	@Column(name = "event_id")
 	private Long id;
 
+	@Nullable
 	@Column(name = "formatted_message")
 	private String formattedMessage;
 
+	@NotNull
 	@Column(name = "level_string")
 	@Size(max = DefaultFieldLengths.DEFAULT_STATUS)
 	private String levelString;
 
+	@NotNull
 	@Column(name = "caller_class")
 	@Size(max = DefaultFieldLengths.DEFAULT_NAME)
 	private String callerClass;
 
+	@NotNull
 	@Column(name = "caller_method")
 	@Size(max = DefaultFieldLengths.DEFAULT_NAME)
 	private String callerMethod;
 
+	@Nullable
 	@Column(name = "arg0")
 	@Size(max = DefaultFieldLengths.DEFAULT_NAME)
 	private String arg0;
 
+	@Nullable
 	@Column(name = "arg1")
 	@Size(max = DefaultFieldLengths.DEFAULT_NAME)
 	private String arg1;
 
+	@Nullable
 	@Column(name = "arg2")
 	@Size(max = DefaultFieldLengths.DEFAULT_NAME)
 	private String arg2;
 
+	@Nullable
 	@Column(name = "arg3")
 	@Size(max = DefaultFieldLengths.DEFAULT_NAME)
 	private String arg3;
 
+	@NotNull
 	@Column(name = "timestmp")
 	private Long timestmp;
 

@@ -29,7 +29,6 @@ import io.micrometer.core.annotation.Timed;
 import io.opentelemetry.instrumentation.annotations.WithSpan;
 import io.quarkus.qute.TemplateInstance;
 import io.smallrye.common.annotation.Blocking;
-import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import local.intranet.quarkus.api.domain.Countable;
 import local.intranet.quarkus.api.domain.Invocationable;
@@ -95,8 +94,6 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	@Blocking
 	@Produces(MediaType.TEXT_HTML)
 	@Operation(hidden = true)
-	// @Route(path = "/", methods = Route.HttpMethod.GET, produces =
-	// MediaType.TEXT_HTML, type = Route.HandlerType.BLOCKING)
 	public Uni<TemplateInstance> listFiles() throws NotFoundException {
 		final String dir = DOWNLOAD_DIRECTORY;
 		if (new File(dir).exists()) {
@@ -106,7 +103,9 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 			LOG.trace("cnt:{}", cnt);
 			final List<Map.Entry<String, File>> ret = new ArrayList<>();
 			for (File f : set) {
-				ret.add(new SimpleImmutableEntry<String, File>(f.getName(), f));
+				if (f.canRead()) {
+					ret.add(new SimpleImmutableEntry<String, File>(f.getName(), f));
+				}
 			}
 			return Uni.createFrom().item(DownloadTemplate.files(ret, statusController.getInfo()));
 		} else {
@@ -128,18 +127,17 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	@Blocking
 	@Operation(hidden = true)
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
-	// @Route(path = "file:name", methods = Route.HttpMethod.GET, produces =
-	// MediaType.APPLICATION_OCTET_STREAM, type = Route.HandlerType.BLOCKING)
-	public Multi<Response> getFile(@PathParam("name") String fileName) throws NotFoundException {
+	public Uni<Response> getFile(@PathParam("name") String fileName) throws NotFoundException {
 		LOG.debug("filename:'{}'", fileName);
 		if (new File(DOWNLOAD_DIRECTORY).exists()) {
 			final File nf = new File(fileName);
 			LOG.trace("file:'{}' exists:{}", fileName, nf.exists());
 			final ResponseBuilder response = Response.ok((Object) nf);
 			response.header(CONTENT_DISPOSITION, ATTACHMENT_FILENAME + nf);
+			response.encoding(fileName);
 			final Long cnt = incrementCounter();
 			LOG.trace("cnt:{}", cnt);
-			return Multi.createFrom().item(response.build());
+			return Uni.createFrom().item(response.build());
 		} else {
 			throw new NotFoundException();
 		}
@@ -152,7 +150,8 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	 * Used
 	 * {@link local.intranet.quarkus.api.service.CounterService#getCounterInfo}.
 	 * 
-	 * @see <a href="/q/swagger-ui/#/download-controller/get_downloads_downloadCounter">
+	 * @see <a href=
+	 *      "/q/swagger-ui/#/download-controller/get_downloads_downloadCounter">
 	 *      /q/swagger-ui/#/download-controller/get_downloads_downloadCounter</a>
 	 * 
 	 * @return {@link CounterInfo}
