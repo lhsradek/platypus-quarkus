@@ -14,7 +14,9 @@ import local.intranet.quarkus.api.model.entity.User;
  * {@link local.intranet.quarkus.api.model.entity.User}
  * 
  * https://quarkus.pro/guides/spring-data-jpa
- * 
+ * <p>
+ * https://quarkus.pro/guides/spring-di.html
+ *
  * @author Radek Kádner
  *
  */

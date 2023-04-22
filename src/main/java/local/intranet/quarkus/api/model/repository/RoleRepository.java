@@ -14,6 +14,8 @@ import local.intranet.quarkus.api.model.entity.Role;
  * {@link local.intranet.quarkus.api.model.entity.Role}
  * 
  * https://quarkus.pro/guides/spring-data-jpa
+ * <p>
+ * https://quarkus.pro/guides/spring-di.html
  * 
  * To use RoleRepository see
  * {@link local.intranet.quarkus.api.service.RoleService#getUsersRoles} where is

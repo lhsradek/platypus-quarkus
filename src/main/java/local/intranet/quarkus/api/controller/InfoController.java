@@ -2,6 +2,7 @@ package local.intranet.quarkus.api.controller;
 
 import java.util.List;
 
+import javax.annotation.security.PermitAll;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -96,12 +97,14 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	 * Used
 	 * {@link local.intranet.quarkus.api.service.LoggingEventService#countTotalLoggingEvents}.
 	 * 
-	 * @see <a href="/q/swagger-ui/#/info-controller/get_app_v1_info_loggingEventInfo">
+	 * @see <a href=
+	 *      "/q/swagger-ui/#/info-controller/get_app_v1_info_loggingEventInfo">
 	 *      /q/swagger-ui/#/info-controller/get_app_v1_info_loggingEventInfo</a>
 	 * 
 	 * @return {@link List}&le;{@link LevelCount}&ge;
 	 */
 	@GET
+	@PermitAll
 	@Path("/loggingEvent")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Count Total LoggingEvents", description = "**Count Total Logging Events**<br/><br/>"
@@ -127,6 +130,7 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	 * @return {@link RoleInfo}
 	 */
 	@GET
+	@PermitAll
 	@Path("/role")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Get Role Info", description = "**Get Role Info**<br/><br/>"
@@ -152,13 +156,14 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	 * @return {@link UserInfo}
 	 */
 	@GET
+	@PermitAll
 	@Path("/user")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Get User Info", description = "**Get User Info**<br/><br/>"
 			+ "This method is calling UserService.getUserInfo<br/><br/>"
 			+ "See [InfoController.userInfo](/javadoc/local/intranet/quarkus/api/controller/InfoController.html#userInfo())")
 	public UserInfo userInfo() {
-		final UserInfo ret = userService.getUserInfo("admin");
+		final UserInfo ret = userService.getUserInfo("user");
 		final Long cnt = incrementCounter();
 		LOG.trace("cnt:{}", cnt);
 		LOG.debug("userName:{} nonExpired:{} nonLocked:{} enabled:{} ", ret.getUsername(), ret.isAccountNonExpired(),
@@ -180,6 +185,7 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	 * @throws PlatypusException {@link PlatypusException}
 	 */
 	@GET
+	@PermitAll
 	@Path("/infoCounter")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Get Counter Info", description = "**Get Counter Info**<br/><br/>"
@@ -202,6 +208,7 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	 * @return boolean
 	 */
 	@GET
+	@PermitAll
 	@Path("startJob")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(hidden = true)

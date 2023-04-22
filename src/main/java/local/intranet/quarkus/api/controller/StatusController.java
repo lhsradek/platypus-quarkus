@@ -13,6 +13,7 @@ import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.StreamSupport;
 
+import javax.annotation.security.PermitAll;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -140,6 +141,7 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	 * @return "OK" if Platypus-Quarkus API is running
 	 */
 	@GET
+	@PermitAll
 	@Path("/plainStatus")
 	@Produces(MediaType.TEXT_PLAIN)
 	@Operation(summary = "Get Plain Status", description = "**Get OK if Platypus-Quarkus API is running**<br/><br/>"
@@ -167,6 +169,7 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	 * @return {@link List}&lt;{@link Map.Entry}&lt;{@link String},{@link String}&gt;&gt;
 	 */
 	@GET
+	@PermitAll
 	@Path("/platypusProperties")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Get Properties", description = "**Get Properties</strong>**<br/><br/>"
@@ -215,6 +218,7 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	 * @return {@link List}&lt;{@link Map.Entry}&lt;{@link String},{@link Object}&gt;&gt;
 	 */
 	@GET
+	@PermitAll
 	@Path("/operatingSystem")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Get Operating System", description = "**Get Operating System and load average**<br/><br/>"
@@ -252,6 +256,7 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	 * @throws PlatypusException {@link PlatypusException}
 	 */
 	@GET
+	@PermitAll
 	@Path("/statusCounter")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Get Counter Info", description = "**Get Counter Info**<br/><br/>"
@@ -313,7 +318,7 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	 * 
 	 */
 	public String quarkusVersion() {
-		final String ret = Optional.ofNullable(StatusController.class.getPackage().getImplementationVersion())
+		final String ret = Optional.ofNullable(Application.class.getPackage().getImplementationVersion())
 				.orElse(UNKNOWN);
 		LOG.trace("{}", ret);
 		return ret;

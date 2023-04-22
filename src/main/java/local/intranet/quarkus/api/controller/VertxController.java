@@ -4,6 +4,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
+import javax.annotation.security.PermitAll;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -106,14 +107,16 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	 * 
 	 * Accounts Person UUID
 	 * 
-	 * @see <a href="/q/swagger-ui/#/vertx-controller/get_vertx_accounts_persons__personsUUID__accounts">
+	 * @see <a href=
+	 *      "/q/swagger-ui/#/vertx-controller/get_vertx_accounts_persons__personsUUID__accounts">
 	 *      /q/swagger-ui/#/vertx-controller/get__vertx_accounts_persons__personsUUID__accounts</a>
-	 *      
+	 * 
 	 * @param personUUID {@link UUID}
 	 * @return {@link Uni}&lt;{@link JsonArray}&gt;
 	 */
 	@GET
 	@Blocking
+	@PermitAll
 	@Path(ACCOUNTS + "/persons/{personUUID}/accounts")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Accounts Person UUID", description = "**Accounts Person UUID**<br/><br/>"
@@ -141,6 +144,7 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	 */
 	@GET
 	@Blocking
+	@PermitAll
 	@Path(ACCOUNTS + "/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Accounts Id", description = "**Accounts Id**<br/><br/>"
@@ -164,12 +168,13 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	 * 
 	 * @see <a href="/q/swagger-ui/#/vertx-controller/get_vertx_persons__id_">
 	 *      /q/swagger-ui/#/vertx-controller/get_vertx_persons__id_</a>
-	 *      
+	 * 
 	 * @param id {@link String}
 	 * @return {@link Uni}&lt;{@link JsonArray}&gt;
 	 */
 	@GET
 	@Blocking
+	@PermitAll
 	@Path(PERSONS + "/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Persons Id", description = "**Persons Id**<br/><br/>"
@@ -193,12 +198,13 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	 * 
 	 * @see <a href="/q/swagger-ui/#/vertx-controller/get_vertx_nas_e02">
 	 *      /q/swagger-ui/#/vertx-controller/get_vertx_nas_e02</a>
-	 *      
+	 * 
 	 * @param date {@link String}
 	 * @return {@link Uni}&lt;{@link JsonArray}&gt;
 	 */
 	@GET
 	@Blocking
+	@PermitAll
 	@Path(NAS_E02)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "NAS e02", description = "**NAS e02**<br/><br/>"
@@ -227,12 +233,13 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	 * 
 	 * @see <a href="/q/swagger-ui/#/vertx-controller/get_vertx_nas_e24">
 	 *      /q/swagger-ui/#/vertx-controller/get_vertx_nas_e24</a>
-	 *      
+	 * 
 	 * @param date {@link String}
 	 * @return {@link Uni}&lt;{@link JsonArray}&gt;
 	 */
 	@GET
 	@Blocking
+	@PermitAll
 	@Path(NAS_E24)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "NAS e24", description = "**NAS e24**<br/><br/>"
@@ -261,12 +268,13 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	 * 
 	 * @see <a href="/q/swagger-ui/#/vertx-controller/get_vertx_nas_e25">
 	 *      /q/swagger-ui/#/vertx-controller/get_vertx_nas_e25</a>
-	 *      
+	 * 
 	 * @param date {@link String}
 	 * @return {@link Uni}&lt;{@link JsonArray}&gt;
 	 */
 	@GET
 	@Blocking
+	@PermitAll
 	@Path(NAS_E25)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "NAS e25", description = "**NAS e25**<br/><br/>"
@@ -295,12 +303,13 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	 * 
 	 * @see <a href="/q/swagger-ui/#/vertx-controller/get_vertx_nas_e26">
 	 *      /q/swagger-ui/#/vertx-controller/get_vertx_nas_e26</a>
-	 *      
+	 * 
 	 * @param date {@link String}
 	 * @return {@link Uni}&lt;{@link JsonArray}&gt;
 	 */
 	@GET
 	@Blocking
+	@PermitAll
 	@Path(NAS_E26)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "NAS e26", description = "**NAS e26**<br/><br/>"
@@ -330,6 +339,7 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	 */
 	@GET
 	@Blocking
+	@PermitAll
 	@Path("/ahoj")
 	@Operation(hidden = true)
 	@Produces(MediaType.TEXT_PLAIN)
@@ -349,6 +359,7 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	 */
 	@GET
 	@Blocking
+	@PermitAll
 	@Path("/hello")
 	@Operation(hidden = true)
 	@Produces(MediaType.TEXT_PLAIN)
@@ -365,11 +376,12 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	 * 
 	 * @see <a href="/q/swagger-ui/#/vertx-controller/get_vertx_platypus">
 	 *      /q/swagger-ui/#/vertx-controller/get_vertx_platypus</a>
-	 *      
+	 * 
 	 * @return {@link Uni}&lt;{@link JsonArray}&gt;
 	 */
 	@GET
 	@Blocking
+	@PermitAll
 	@Path("/platypus")
 	@Operation(summary = "Wiki Platypus", description = "**Wiki Platypus**<br/><br/>"
 			+ "See [VertxController.platypusRetrieveDataFromWikipedia](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#platypusRetrieveDataFromWikipedia())")
@@ -391,13 +403,14 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	 * Wiki Quarkus
 	 * 
 	 * @see <a href="/q/swagger-ui/#/vertx-controller/get_vertx_quarkus">
-	 * /q/swagger-ui/#/vertx-controller/get_vertx_quarkus</a>
-	 *      
+	 *      /q/swagger-ui/#/vertx-controller/get_vertx_quarkus</a>
+	 * 
 	 * @return {@link Uni}&lt;{@link JsonArray}&gt;
 	 */
 	@GET
-	@Path("/quarkus")
 	@Blocking
+	@PermitAll
+	@Path("/quarkus")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Wiki Quarkus", description = "**Wiki Quarkus**<br/><br/>"
 			+ "See [VertxController.quarkusDataFromWikipedia](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusDataFromWikipedia())")
@@ -420,8 +433,9 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	 * @return {@link Uni}&lt;{@link String}&gt;
 	 */
 	@GET
-	@Path("/lorem")
 	@Blocking
+	@PermitAll
+	@Path("/lorem")
 	// @Operation(summary = "Lorem", description = "**Lorem**<br/><br/>"
 	// + "See
 	// [VertxController.readShortFile](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#readShortFile())")
@@ -457,6 +471,7 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	 */
 	@POST
 	@Path("/book")
+	@PermitAll
 	@Operation(hidden = true)
 	@Produces(MediaType.TEXT_PLAIN)
 	public Multi<String> readLargeFile() {
@@ -471,12 +486,13 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	 * {@link local.intranet.quarkus.api.service.CounterService#getCounterInfo}.
 	 * 
 	 * @see <a href="/q/swagger-ui/#/vertx-controller/get_vertx_vertxCounter">
-	 * /q/swagger-ui/#/vertx-controller/get_vertx_vertxCounter</a>
+	 *      /q/swagger-ui/#/vertx-controller/get_vertx_vertxCounter</a>
 	 * 
 	 * @return {@link CounterInfo}
 	 * @throws PlatypusException {@link PlatypusException}
 	 */
 	@GET
+	@PermitAll
 	@Path("/vertxCounter")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Get Counter Info", description = "**Get Counter Info**<br/><br/>"

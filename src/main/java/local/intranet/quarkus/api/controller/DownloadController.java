@@ -9,6 +9,7 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.annotation.security.PermitAll;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -92,6 +93,7 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	@Path("/")
 	@WithSpan
 	@Blocking
+	@PermitAll
 	@Produces(MediaType.TEXT_HTML)
 	@Operation(hidden = true)
 	public Uni<TemplateInstance> listFiles() throws NotFoundException {
@@ -125,6 +127,7 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	@WithSpan
 	@Path("file/{name}")
 	@Blocking
+	@PermitAll
 	@Operation(hidden = true)
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
 	public Uni<Response> getFile(@PathParam("name") String fileName) throws NotFoundException {

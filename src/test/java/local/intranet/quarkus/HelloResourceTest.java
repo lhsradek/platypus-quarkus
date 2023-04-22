@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.TestProfile;
+import io.quarkus.test.security.TestSecurity;
 import local.intranet.quarkus.api.controller.IndexController;
 
 @QuarkusTest
@@ -14,6 +15,7 @@ import local.intranet.quarkus.api.controller.IndexController;
 public class HelloResourceTest {
 
 	@Test
+	@TestSecurity(user = "manager", roles = { "userRole", "managerRole" })
 	public void testHelloEndpoint() {
 		given().param("query", "Platypus Hellooooo").when().get("/hello").then().statusCode(200).body("content",
 				is(IndexController.HELLO));

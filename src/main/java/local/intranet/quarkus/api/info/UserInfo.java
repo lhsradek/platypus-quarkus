@@ -22,7 +22,7 @@ import local.intranet.quarkus.api.model.entity.User;
 public class UserInfo {
 
 	private final String username;
-
+	private final String password;
 	private final boolean enabled;
 
 	/**
@@ -33,6 +33,7 @@ public class UserInfo {
 	 */
 	public UserInfo(@NotNull User user) {
 		this.username = user.getUserName();
+		this.password = user.getPassword();
 		this.enabled = true;
 	}
 
@@ -67,7 +68,7 @@ public class UserInfo {
 	@JsonIgnore
 	@Size(min = 1, max = DefaultFieldLengths.DEFAULT_NAME)
 	public String getPassword() {
-		return StatusController.STATUS_PROTECTED;
+		return password;
 	}
 
 	/**

@@ -14,6 +14,9 @@ import local.intranet.quarkus.api.model.entity.Counter;
  * {@link local.intranet.quarkus.api.model.entity.Counter}
  * 
  * https://quarkus.pro/guides/spring-data-jpa
+ * <p>
+ * https://quarkus.pro/guides/spring-di.html
+ *
  * 
  * @author Radek Kádner
  *
