@@ -52,7 +52,7 @@ public class StatusResourceTest {
 
 	@Test
 	public void testIndexHtml() throws IOException {
-		given().contentType(ContentType.HTML).param("query", "Platypus sapiens").get(statusEndpoint);
+		given().contentType(ContentType.HTML).param("query", "Platypus Sapiens").get(statusEndpoint);
 	}
 
 }

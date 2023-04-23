@@ -26,7 +26,7 @@ public class VertxResourceTest {
 
 	@Test
 	public void testPLatypusVertxEndpoint() {
-		given().param("query", "Platypus Vertx sapiens").when().get("/vertx/platypus").then().statusCode(200);
+		given().param("query", "Platypus Vertx Sapiens").when().get("/vertx/platypus").then().statusCode(200);
 	}
 
 	@Test
