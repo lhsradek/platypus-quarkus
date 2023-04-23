@@ -23,10 +23,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.micrometer.core.annotation.Timed;
-import io.quarkus.elytron.security.common.BcryptUtil;
 import io.quarkus.qute.TemplateInstance;
 import io.smallrye.common.annotation.Blocking;
-import io.smallrye.mutiny.Uni;
 import local.intranet.quarkus.api.domain.Countable;
 import local.intranet.quarkus.api.domain.Invocationable;
 import local.intranet.quarkus.api.domain.Nameable;
