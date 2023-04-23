@@ -4,12 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import io.quarkus.test.junit.QuarkusTest;
-import io.quarkus.test.junit.TestProfile;
 import local.intranet.quarkus.api.util.SecurityUtil;
 
-@QuarkusTest
-@TestProfile(CustomProfile.class)
 public class ConversionTest {
 
 	@Test
