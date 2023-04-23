@@ -2,7 +2,6 @@ package local.intranet.quarkus.api.info;
 
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import io.smallrye.common.constraint.NotNull;
@@ -39,6 +38,18 @@ public class UserInfo {
 
 	/**
 	 * 
+	 * Constructor with parameters
+	 * 
+	 * @param username {@link String}
+	 */
+	public UserInfo(@NotNull String username) {
+		this.username = username;
+		this.password = StatusController.STATUS_PROTECTED;
+		this.enabled = true;
+	}
+	
+	/**
+	 * 
 	 * Build {@link UserInfo}
 	 * 
 	 * @param user {@link User}
@@ -65,7 +76,7 @@ public class UserInfo {
 	 * 
 	 * @return {@link String}
 	 */
-	@JsonIgnore
+	// @JsonIgnore
 	@Size(min = 1, max = DefaultFieldLengths.DEFAULT_NAME)
 	public String getPassword() {
 		return password;

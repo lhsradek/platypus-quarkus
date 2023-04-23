@@ -131,6 +131,14 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	public String platypusDeploymentEnvironment;
 
 	/**
+	 * 
+	 * <code>platypus.api.key</code>from application.properties or <code>.env</code>
+	 * 
+	 */
+	@ConfigProperty(name = "platypus.api.key")
+	public String key;
+
+	/**
 	 *
 	 * text/plain: "OK"
 	 * 

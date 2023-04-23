@@ -12,7 +12,7 @@
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
     <quarkus.platform.version>2.16.6.Final</quarkus.platform.version>
-    <skipITs>true</skipITs>
+    <skipITs>false</skipITs>
     <surefire-plugin.version>3.0.0-M7</surefire-plugin.version>
   </properties>
   <dependencyManagement>
@@ -70,10 +70,6 @@
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-arc</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-redis-client</artifactId>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
@@ -155,6 +151,10 @@
        <artifactId>opentelemetry-exporter-otlp</artifactId>
     </dependency>
     <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+    </dependency>
+    <dependency>
       <groupId>io.quarkiverse.logging.logback</groupId>
       <artifactId>quarkus-logging-logback</artifactId>
       <version>0.13.0</version>
@@ -165,10 +165,11 @@
       <version>1.2.11.1</version>
     </dependency>
     <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
+      <groupId>org.codehaus.janino</groupId>
+      <artifactId>janino</artifactId>
+      <version>3.1.9</version>
     </dependency>
-    <!--
+<!--
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-reactive-pg-client</artifactId>
@@ -199,10 +200,14 @@
       <artifactId>quarkus-jdbc-h2</artifactId>
     </dependency>
     <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-redis-client</artifactId>
+    </dependency>
+    <dependency>
        <groupId>io.quarkus</groupId>
        <artifactId>quarkus-smallrye-reactive-type-converters</artifactId>
     </dependency>
-    -->
+-->
   </dependencies>
   <build>
     <plugins>
@@ -280,12 +285,6 @@
        </configuration>
       </plugin>
     </plugins>
-    <resources>
-      <resource>
-        <filtering>false</filtering>
-          <directory>src/main/resources</directory>
-        </resource>
-    </resources>
   </build>
   <profiles>
     <profile>
@@ -309,9 +308,50 @@
         </property>
       </activation>
       <properties>
-        <skipITs>false</skipITs>
+        <skipITs>true</skipITs>
+        <quarkus.profile>native</quarkus.profile>
         <quarkus.package.type>native</quarkus.package.type>
       </properties>
+      <build>
+        <resources>
+          <resource>
+            <filtering>false</filtering>
+            <directory>/</directory>
+            <includes>
+               <include>.env</include>
+            </includes>
+          </resource>
+          <resource>
+            <filtering>false</filtering>
+            <directory>src/main/resources/</directory>
+            <includes>
+               <include>lhs.intranet.local.pem</include>
+              <include>templates/login.html</include>
+              <include>templates/file.html</include>
+              <include>templates/index.html</include>
+              <include>templates/properties.html</include>
+            </includes>
+          </resource>
+        </resources>
+      </build>
+<!-- 
+      <build>
+          <resource>
+            <filtering>false</filtering>
+            <directory>src/main/resources/</directory>
+            <includes>
+              <include>logback.xml</include>
+              <include>lorem.txt</include>
+              <include>keystore.jks</include>
+              <include>ca.crt</include>
+              <include>lhs.intranet.local.crt</include>
+              <include>lhs.intranet.local.key</include>
+              <include>lhs.intranet.local.pem</include>
+            </includes>
+          </resource>
+        </resources>
+      </build>
+-->
     </profile>
   </profiles>
 </project>

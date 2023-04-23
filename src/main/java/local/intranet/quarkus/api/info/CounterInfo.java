@@ -4,8 +4,6 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
-import javax.validation.constraints.Size;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -69,7 +67,7 @@ public class CounterInfo {
 	 * 
 	 * @return {@link Long}
 	 */
-	@Size(min = 0)
+	// @Size(min = 0)
 	public Long getId() {
 		return id;
 	}
@@ -82,7 +80,7 @@ public class CounterInfo {
 	 * 
 	 * @return number of invocations as count in JSON
 	 */
-	@Size(min = 0)
+	// @Size(min = 0)
 	public Long getCount() {
 		return count;
 	}

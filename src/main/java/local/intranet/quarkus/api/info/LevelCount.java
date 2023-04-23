@@ -1,11 +1,9 @@
 package local.intranet.quarkus.api.info;
 
-import javax.validation.constraints.Size;
-
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import io.smallrye.common.constraint.NotNull;
-import local.intranet.quarkus.api.domain.DefaultFieldLengths;
+import io.smallrye.common.constraint.Nullable;
 
 /**
  * 
@@ -41,8 +39,8 @@ public class LevelCount {
 	 * 
 	 * @return the level
 	 */
-	@Size(min = 1, max = DefaultFieldLengths.DEFAULT_STATUS)
-	@NotNull
+	// @Size(min = 1, max = DefaultFieldLengths.DEFAULT_STATUS)
+	@Nullable
 	public String getLevel() {
 		return level;
 	}
@@ -53,9 +51,10 @@ public class LevelCount {
 	 * 
 	 * @return the total
 	 */
-	@Size(min = 0)
-	@NotNull
-	@Size(min = 0, max = DefaultFieldLengths.DEFAULT_STATUS)
+	// @NotNull
+	@Nullable
+	// @Size(min = 0)
+	// @Size(min = 0, max = DefaultFieldLengths.DEFAULT_STATUS)
 	public Long getTotal() {
 		return total;
 	}

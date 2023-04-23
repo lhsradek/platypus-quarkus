@@ -50,7 +50,7 @@ public class UserService {
 	@Operation(hidden = true)
 	public UserInfo getUserInfo(@NotNull String username)
 			throws IllegalArgumentException, UnauthorizedException, ForbiddenException {
-		final UserInfo ret = loadUserByUsername(username);
+		final UserInfo ret = new UserInfo(loadUserByUsername(username).getUsername());
 		LOG.trace("username:{} password:{} enabled:{}", ret.getUsername(), ret.getPassword(), ret.isEnabled());
 		return ret;
 	}
@@ -73,7 +73,7 @@ public class UserService {
 		}
 		final Optional<User> user = userRepository.findByName(username);
 		if (user.isEmpty()) {
-			throw new IllegalArgumentException("Undefined username!");
+			throw new IllegalArgumentException("Username not found!");
 		}
 		if (user.get().isAccountNonExpired() && user.get().isAccountNonLocked() && user.get().isCredentialsNonExpired()
 				&& user.get().isEnabled()) {
