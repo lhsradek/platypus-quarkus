@@ -209,7 +209,7 @@ public class SecurityUtil {
 	 * @return plain text
 	 */
 	public static String getHex(String data) {
-		final String ret =  new String(DatatypeConverter.parseHexBinary(data.toLowerCase(Locale.US)), Charset.forName("UTF-8"));
+		final String ret =  new String(DatatypeConverter.parseHexBinary(data), Charset.forName("UTF-8"));
 		return ret;
 	}
 
@@ -221,7 +221,7 @@ public class SecurityUtil {
 	 * @return hex
 	 */
 	public static String setHex(String data) {
-		final String ret = new String(DatatypeConverter.printHexBinary(data.getBytes(Charset.forName("UTF-8")))).toLowerCase(Locale.US);
+		final String ret = new String(DatatypeConverter.printHexBinary(data.getBytes(Charset.forName("UTF-8"))));
 		return ret;
 	}
 	

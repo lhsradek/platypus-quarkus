@@ -20,9 +20,9 @@ public class ConversionTest {
 				.setBase64("We have a stuffed grandfather in the closet."));
 		
 		assertEquals("My cork badtub is like your giraffe rye!", SecurityUtil
-				.getHex("4d7920636f726b20626164747562206973206c696b6520796f757220676972616666652072796521"));
+				.getHex("4D7920636F726B20626164747562206973206C696B6520796F757220676972616666652072796521"));
 		
-		assertEquals("4d7920636f726b20626164747562206973206c696b6520796f757220676972616666652072796521", SecurityUtil
+		assertEquals("4D7920636F726B20626164747562206973206C696B6520796F757220676972616666652072796521", SecurityUtil
 		 		.setHex("My cork badtub is like your giraffe rye!"));
 	}
 

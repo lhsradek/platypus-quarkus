@@ -22,10 +22,11 @@ public class PlatypusPredicate implements SkipPredicate {
 	 * <code>platypus.job.enabled</code> from application.properties
 	 * 
 	 * <p>
-	 * Change to Boolean: <code>
-	 * if (Boolean.valueOf(job)) {
-	 * ...
-	 * }
+	 * Change to Boolean:<br/>
+	 * <code><br/>
+	 * if (Boolean.valueOf(job)) {<br/>
+	 * ...<br/>
+	 * }<br/>
 	 * </code>
 	 * 
 	 */
