@@ -20,6 +20,7 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
+import javax.xml.bind.DatatypeConverter;
 
 import org.wildfly.security.password.Password;
 import org.wildfly.security.password.PasswordFactory;
@@ -60,10 +61,10 @@ public class SecurityUtil {
 	public static String encrypt(String input, SecretKey key, IvParameterSpec iv)
 			throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException,
 			InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
-		Cipher cipher = Cipher.getInstance(AESUTIL_AES_PADDING);
+		final Cipher cipher = Cipher.getInstance(AESUTIL_AES_PADDING);
 		cipher.init(Cipher.ENCRYPT_MODE, key, iv);
-		byte[] cipherText = cipher.doFinal(input.getBytes());
-		String ret = Base64.getEncoder().encodeToString(cipherText);
+		final byte[] cipherText = cipher.doFinal(input.getBytes());
+		final String ret = Base64.getEncoder().encodeToString(cipherText);
 		return ret;
 	}
 
@@ -85,9 +86,9 @@ public class SecurityUtil {
 	public static String decrypt(String cipherText, SecretKey key, IvParameterSpec iv)
 			throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException,
 			InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
-		Cipher cipher = Cipher.getInstance(AESUTIL_AES_PADDING.toUpperCase(Locale.US));
+		final Cipher cipher = Cipher.getInstance(AESUTIL_AES_PADDING.toUpperCase(Locale.US));
 		cipher.init(Cipher.DECRYPT_MODE, key, iv);
-		byte[] ret = cipher.doFinal(Base64.getDecoder().decode(cipherText));
+		final byte[] ret = cipher.doFinal(Base64.getDecoder().decode(cipherText));
 		return new String(ret);
 	}
 
@@ -100,9 +101,9 @@ public class SecurityUtil {
 	 */
 	public static SecretKey generateKey(int n) {
 		try {
-			KeyGenerator keyGenerator = KeyGenerator.getInstance(AESUTIL_AES);
+			final KeyGenerator keyGenerator = KeyGenerator.getInstance(AESUTIL_AES);
 			keyGenerator.init(n);
-			SecretKey ret = keyGenerator.generateKey();
+			final SecretKey ret = keyGenerator.generateKey();
 			return ret;
 		} catch (NoSuchAlgorithmException e) {
 			return null;
@@ -116,8 +117,8 @@ public class SecurityUtil {
 	 * @return {@link String}
 	 */
 	public static String generateSalt() {
-		SecureRandom random = new SecureRandom();
-		byte ret[] = new byte[20];
+		final SecureRandom random = new SecureRandom();
+		final byte ret[] = new byte[20];
 		random.nextBytes(ret);
 		return new String(ret);
 	}
@@ -134,9 +135,9 @@ public class SecurityUtil {
 	 */
 	public static SecretKey getKeyFromPassword(String password, String salt)
 			throws NoSuchAlgorithmException, InvalidKeySpecException {
-		SecretKeyFactory factory = SecretKeyFactory.getInstance(AESUTIL_PBKDF2_WITH_HMAC_SHA256);
-		KeySpec spec = new PBEKeySpec(password.toCharArray(), salt.getBytes(), 65536, 256);
-		SecretKey ret = new SecretKeySpec(factory.generateSecret(spec).getEncoded(), AESUTIL_AES);
+		final SecretKeyFactory factory = SecretKeyFactory.getInstance(AESUTIL_PBKDF2_WITH_HMAC_SHA256);
+		final KeySpec spec = new PBEKeySpec(password.toCharArray(), salt.getBytes(), 65536, 256);
+		final SecretKey ret = new SecretKeySpec(factory.generateSecret(spec).getEncoded(), AESUTIL_AES);
 		return ret;
 	}
 
@@ -147,9 +148,9 @@ public class SecurityUtil {
 	 * @return {@link IvParameterSpec}
 	 */
 	public static IvParameterSpec generateIv() {
-		byte[] iv = new byte[16];
+		final byte[] iv = new byte[16];
 		new SecureRandom().nextBytes(iv);
-		IvParameterSpec ret = new IvParameterSpec(iv);
+		final IvParameterSpec ret = new IvParameterSpec(iv);
 		return ret;
 	}
 
@@ -184,10 +185,7 @@ public class SecurityUtil {
 	 * @return plain text
 	 */
 	public static String getBase64(String data) {
-		String ret = "";
-		if (data != null) {
-			ret = new String(Base64.getDecoder().decode(data));
-		}
+		final String ret = new String(Base64.getDecoder().decode(data));
 		return ret;
 	}
 
@@ -199,8 +197,32 @@ public class SecurityUtil {
 	 * @return base64
 	 */
 	public static String setBase64(String data) {
-		String ret = new String(Base64.getEncoder().encode(data.getBytes(Charset.forName("UTF-8"))));
+		final String ret = new String(Base64.getEncoder().encode(data.getBytes(Charset.forName("UTF-8"))));
 		return ret;
 	}
 
+	/**
+	 * 
+	 * Get plain text from hex
+	 * 
+	 * @param data as hex
+	 * @return plain text
+	 */
+	public static String getHex(String data) {
+		final String ret =  new String(DatatypeConverter.parseHexBinary(data.toLowerCase(Locale.US)), Charset.forName("UTF-8"));
+		return ret;
+	}
+
+	/**
+	 * 
+	 * Set to Hex
+	 * 
+	 * @param data plain text
+	 * @return hex
+	 */
+	public static String setHex(String data) {
+		final String ret = new String(DatatypeConverter.printHexBinary(data.getBytes(Charset.forName("UTF-8")))).toLowerCase(Locale.US);
+		return ret;
+	}
+	
 }
