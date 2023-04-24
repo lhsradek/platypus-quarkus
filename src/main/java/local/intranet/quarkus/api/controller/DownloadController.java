@@ -30,6 +30,7 @@ import io.micrometer.core.annotation.Timed;
 import io.opentelemetry.instrumentation.annotations.WithSpan;
 import io.quarkus.qute.TemplateInstance;
 import io.smallrye.common.annotation.Blocking;
+import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import local.intranet.quarkus.api.domain.Countable;
 import local.intranet.quarkus.api.domain.Invocationable;
@@ -120,7 +121,7 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	 * Download file from Quarkus
 	 * 
 	 * @param fileName {@link String}
-	 * @return {@link Uni}&lt;{@link Response}&gt;
+	 * @return {@link Multi}&lt;{@link Response}&gt;
 	 * @throws NotFoundException {@link NotFoundException}
 	 */
 	@GET
@@ -130,7 +131,7 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	@PermitAll
 	@Operation(hidden = true)
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
-	public Uni<Response> getFile(@PathParam("name") String fileName) throws NotFoundException {
+	public Multi<Response> getFile(@PathParam("name") String fileName) throws NotFoundException {
 		LOG.debug("filename:'{}'", fileName);
 		if (new File(DOWNLOAD_DIRECTORY).exists()) {
 			final File nf = new File(fileName);
@@ -140,7 +141,7 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 			response.encoding(fileName);
 			final Long cnt = incrementCounter();
 			LOG.trace("cnt:{}", cnt);
-			return Uni.createFrom().item(response.build());
+			return Multi.createFrom().item(response.build());
 		} else {
 			throw new NotFoundException();
 		}

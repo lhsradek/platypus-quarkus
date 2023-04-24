@@ -2,6 +2,11 @@
 --
 -- This SQL script creates the required tables
 
+-- SEQUENCE hibernate_sequence -----
+
+CREATE SEQUENCE hibernate_sequence MINVALUE 1;
+
+
 -- SEQUENCE revinfo_seq -----
 
 CREATE SEQUENCE revinfo_seq MINVALUE 1;

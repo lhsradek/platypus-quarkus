@@ -3,39 +3,49 @@
 <!-- http://logback.qos.ch/manual/appenders.html -->
 <!DOCTYPE configuration>
 <!-- <configuration debug="true"> -->
-<configuration>
+<configuration debug="true">
 
-	<shutdownHook
-		class="ch.qos.logback.core.hook.DelayingShutdownHook" />
+	<!-- <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook" /> -->
+    <!-- TODO quarkus.profile=quarkus.profile/>
+    <dependency>
+      <groupId>org.codehaus.janino</groupId>
+      <artifactId>janino</artifactId>
+    </dependency>
+    <if condition='property("quarkus.profile").contains("native")'>
+		<then>-->
+ 			<appender name="DB"
+				class="ch.qos.logback.classic.db.DBAppender">
+				<connectionSource
+					class="ch.qos.logback.core.db.DriverManagerConnectionSource">
+					<driverClass>${quarkus.datasource.jdbc.driver}</driverClass>
+					<url>${quarkus.datasource.jdbc.url}</url>
+					<user>${quarkus.datasource.username}</user>
+					<password>${quarkus.datasource.password}</password>
+				</connectionSource>
+			</appender>
+			<appender name="DB_ASYNC"
+				class="ch.qos.logback.classic.AsyncAppender">
+				<appender-ref ref="DB" />
+				<includeCallerData>true</includeCallerData>
+			</appender>
 
-	<appender name="DB"
-		class="ch.qos.logback.classic.db.DBAppender">
-		<connectionSource
-			class="ch.qos.logback.core.db.DriverManagerConnectionSource">
-			<driverClass>${quarkus.datasource.jdbc.driver}</driverClass>
-			<url>${quarkus.datasource.jdbc.url}</url>
-			<user>${quarkus.datasource.username}</user>
-			<password>${quarkus.datasource.password}</password>
-		</connectionSource>
-	</appender>
+			<logger name="local.intranet" level="DEBUG">
+				<appender-ref ref="DB_ASYNC" />
+			</logger>
+			<logger name="io.quarkus" level="DEBUG">
+				<appender-ref ref="DB_ASYNC" />
+			</logger>
 
-	<appender name="DB_ASYNC"
-		class="ch.qos.logback.classic.AsyncAppender">
-		<appender-ref ref="DB" />
-		<includeCallerData>true</includeCallerData>
-	</appender>
+			<logger name="local.intranet" level="DEBUG" />
+			<logger name="io.quarkus" level="INFO" />
 
-	<logger name="local.intranet" level="DEBUG">
-		<appender-ref ref="DB_ASYNC" />
-	</logger>
-	<logger name="io.quarkus" level="INFO">
-		<appender-ref ref="DB_ASYNC" />
-	</logger>
-
-	<logger name="org.hibernate.SQL" level="WARN" />
-	<logger name="org.hibernate.type.descriptor.sql.BasicBinder"
-		level="WARN" />
-
+			<logger name="org.hibernate.SQL" level="WARN" />
+			<logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="INFO" />
+		
+<!--
+	    </then>
+	</if> -->
+ 
 	<root level="INFO" />
 
 </configuration>
