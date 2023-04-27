@@ -204,9 +204,9 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 					}
 				}
 				if (isProtected) {
-					ret.add(new SimpleImmutableEntry<String, String>(k, STATUS_PROTECTED));
+					ret.add(new SimpleImmutableEntry<>(k, STATUS_PROTECTED));
 				} else {
-					ret.add(new SimpleImmutableEntry<String, String>(k, map.get(k)));
+					ret.add(new SimpleImmutableEntry<>(k, map.get(k)));
 				}
 			}
 		});
@@ -234,16 +234,16 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	public List<Map.Entry<String, String>> operatingSystem() {
 		final List<Map.Entry<String, String>> ret = new ArrayList<>();
 		final OperatingSystemMXBean system = ManagementFactory.getOperatingSystemMXBean();
-		ret.add(new SimpleImmutableEntry<String, String>("name", system.getName()));
+		ret.add(new SimpleImmutableEntry<>("name", system.getName()));
 		final double d = system.getSystemLoadAverage();
 		if (d > 0) {
-			ret.add(new SimpleImmutableEntry<String, String>("loadAverage",
+			ret.add(new SimpleImmutableEntry<>("loadAverage",
 					String.valueOf(system.getSystemLoadAverage())));
 		}
-		ret.add(new SimpleImmutableEntry<String, String>("arch", system.getArch()));
-		ret.add(new SimpleImmutableEntry<String, String>("processors",
+		ret.add(new SimpleImmutableEntry<>("arch", system.getArch()));
+		ret.add(new SimpleImmutableEntry<>("processors",
 				String.valueOf(system.getAvailableProcessors())));
-		ret.add(new SimpleImmutableEntry<String, String>("version", system.getVersion()));
+		ret.add(new SimpleImmutableEntry<>("version", system.getVersion()));
 		final Long cnt = incrementCounter();
 		LOG.trace("cnt:{} ret:'{}'", cnt, ret);
 		return ret;
