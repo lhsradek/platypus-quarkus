@@ -12,7 +12,7 @@
       <artifactId>janino</artifactId>
     </dependency>
     <if condition='property("quarkus.profile").contains("native")'>
-		<then>-->
+		<then> -->
  			<appender name="DB"
 				class="ch.qos.logback.classic.db.DBAppender">
 				<connectionSource
@@ -35,17 +35,13 @@
 			<logger name="io.quarkus" level="DEBUG">
 				<appender-ref ref="DB_ASYNC" />
 			</logger>
-
-			<logger name="local.intranet" level="DEBUG" />
-			<logger name="io.quarkus" level="INFO" />
-
-			<logger name="org.hibernate.SQL" level="WARN" />
-			<logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="INFO" />
-		
-<!--
+    <!--
 	    </then>
 	</if> -->
  
+	<logger name="org.hibernate.SQL" level="INFO" />
+	<logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="INFO" />
+		
 	<root level="INFO" />
 
 </configuration>
