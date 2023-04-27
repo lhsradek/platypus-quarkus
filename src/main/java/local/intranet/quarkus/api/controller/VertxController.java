@@ -7,7 +7,6 @@ import java.util.UUID;
 import javax.annotation.security.PermitAll;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -50,7 +49,8 @@ import local.intranet.quarkus.api.service.CounterService;
  * 
  * Vert.x for quarkus
  * 
- * https://quarkus.io/guides/vertx https://quarkus.io/guides/vertx-reference
+ * https://quarkus.io/guides/vertx
+ * https://quarkus.io/guides/vertx-reference
  * https://how-to.vertx.io/web-and-openapi-howto/
  *
  */
@@ -118,18 +118,12 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	@Blocking
 	@PermitAll
 	@Path(ACCOUNTS)
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "ACCOUNTS", description = "**ACCOUNTS**<br/><br/>"
 			+ "See [VertxController.quarkusAccounts](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusAccounts(java.lang.String))")
 	// @Operation(hidden = true)
 	public Uni<Object> quarkusAccounts(@NotNull @FormParam("json") String json) {
-		final String url;
-		if (json.length() == 0) {
-			url = swaggerEndpoint + ACCOUNTS;
-		} else {
-			url = swaggerEndpoint + ACCOUNTS + "?json=" + json;
-		}
+		final String url = swaggerEndpoint + ACCOUNTS;
 		final Uni<Object> ret = client.postAbs(url).send().onItem().transform(HttpResponse::body);
 		final Long cnt = incrementCounter();
 		LOG.trace("cnt:{} url:'{}'", cnt, url);
@@ -205,18 +199,12 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	@Blocking
 	@PermitAll
 	@Path(PERSONS)
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "PERSONS", description = "**PERSONS**<br/><br/>"
 			+ "See [VertxController.quarkusPersons](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusPersons(java.lang.String))")
 	// @Operation(hidden = true)
 	public Uni<Object> quarkusPersons(@NotNull @FormParam("json") String json) {
-		final String url;
-		if (json.length() == 0) {
-			url = swaggerEndpoint + PERSONS;
-		} else {
-			url = swaggerEndpoint + PERSONS + "?json=" + json;
-		}
+		final String url = swaggerEndpoint + PERSONS + "?json=" + json;
 		final Uni<Object> ret = client.postAbs(url).send().onItem().transform(HttpResponse::body);
 		final Long cnt = incrementCounter();
 		LOG.info("cnt:{} ret:'{}'", cnt, ret);
@@ -263,7 +251,6 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	@Blocking
 	@PermitAll
 	@Path(ALIASES)
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "ALIASES", description = "**ALIASES**<br/><br/>"
 			+ "See [VertxController.quarkusAliases](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusAliases(java.lang.String))")
@@ -548,7 +535,7 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	 * 
 	 * @return {@link Multi}&lt;{@link String}&gt;
 	 */
-	@POST
+	@GET
 	@Path("/book")
 	@PermitAll
 	@Operation(hidden = true)
