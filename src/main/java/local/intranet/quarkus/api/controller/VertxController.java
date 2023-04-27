@@ -157,7 +157,7 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	// @Operation(hidden = true)
 	public Uni<Object> quarkusAccountsPersonUUID(@NotNull @PathParam("personUUID") UUID personUUID) {
 		final String url = swaggerEndpoint + ACCOUNTS + "/persons/" + personUUID + ACCOUNTS;
-		final Uni<Object> ret = client.postAbs(url).send().onItem().transform(HttpResponse::body);
+		final Uni<Object> ret = client.getAbs(url).send().onItem().transform(HttpResponse::body);
 		final Long cnt = incrementCounter();
 		LOG.trace("cnt:{} url:'{}'", cnt, url);
 		return ret;
@@ -183,7 +183,7 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	// @Operation(hidden = true)
 	public Uni<Object> quarkusAccountsId(@NotNull @PathParam("id") String id) {
 		final String url = swaggerEndpoint + ACCOUNTS + "/" + id;
-		final Uni<Object> ret = client.postAbs(url).send().onItem().transform(HttpResponse::body);
+		final Uni<Object> ret = client.getAbs(url).send().onItem().transform(HttpResponse::body);
 		final Long cnt = incrementCounter();
 		LOG.trace("cnt:{} url:'{}'", cnt, url);
 		return ret;
@@ -241,7 +241,7 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	// @Operation(hidden = true)
 	public Uni<Object> quarkusPersonsId(@NotNull @PathParam("id") String id) {
 		final String url = swaggerEndpoint + PERSONS + "/" + id;
-		final Uni<Object> ret = client.postAbs(url).send().onItem().transform(HttpResponse::body);
+		final Uni<Object> ret = client.getAbs(url).send().onItem().transform(HttpResponse::body);
 		final Long cnt = incrementCounter();
 		LOG.trace("cnt:{} url:'{}'", cnt, url);
 		return ret;
@@ -308,7 +308,7 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 		} else {
 			url = swaggerEndpoint + NAS_E02 + "?date=" + date;
 		}
-		final Uni<Object> ret = client.postAbs(url).send().onItem().transform(HttpResponse::body);
+		final Uni<Object> ret = client.getAbs(url).send().onItem().transform(HttpResponse::body);
 		final Long cnt = incrementCounter();
 		LOG.trace("cnt:{} url:'{}'", cnt, url);
 		return ret;
@@ -341,7 +341,7 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 		} else {
 			url = swaggerEndpoint + NAS_E24 + "?date=" + date;
 		}
-		final Uni<Object> ret = client.postAbs(url).send().onItem().transform(HttpResponse::body);
+		final Uni<Object> ret = client.getAbs(url).send().onItem().transform(HttpResponse::body);
 		final Long cnt = incrementCounter();
 		LOG.trace("cnt:{} url:'{}'", cnt, url);
 		return ret;
@@ -374,7 +374,7 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 		} else {
 			url = swaggerEndpoint + NAS_E25 + "?date=" + date;
 		}
-		final Uni<Object> ret = client.postAbs(url).send().onItem().transform(HttpResponse::body);
+		final Uni<Object> ret = client.getAbs(url).send().onItem().transform(HttpResponse::body);
 		final Long cnt = incrementCounter();
 		LOG.trace("cnt:{} url:'{}'", cnt, url);
 		return ret;
@@ -407,7 +407,7 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 		} else {
 			url = swaggerEndpoint + NAS_E26 + "?date=" + date;
 		}
-		final Uni<Object> ret = client.postAbs(url).send().onItem().transform(HttpResponse::body);
+		final Uni<Object> ret = client.getAbs(url).send().onItem().transform(HttpResponse::body);
 		final Long cnt = incrementCounter();
 		LOG.trace("cnt:{} url:'{}'", cnt, url);
 		return ret;
