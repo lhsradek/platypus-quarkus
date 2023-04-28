@@ -12,8 +12,6 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.opentelemetry.api.trace.SpanKind;
-import io.opentelemetry.instrumentation.annotations.WithSpan;
 import io.quarkus.scheduler.Scheduled;
 import local.intranet.quarkus.api.controller.InfoController;
 import local.intranet.quarkus.api.controller.StatusController;
@@ -72,7 +70,6 @@ public class PlatypusJob extends PlatypusCounter implements Countable, Invocatio
 	 * Cron job is defined in application.properties
 	 * 
 	 */
-	@WithSpan(kind = SpanKind.SERVER)
 	@Scheduled(cron = "{platypus.job.cron}", skipExecutionIf = PlatypusPredicate.class)
 	public void job() {
 		final StringJoiner buf = new StringJoiner(", ");
