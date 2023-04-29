@@ -1,20 +1,16 @@
 package local.intranet.quarkus.api.controller;
 
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.UUID;
 
 import javax.annotation.security.PermitAll;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.slf4j.Logger;
@@ -22,7 +18,6 @@ import org.slf4j.LoggerFactory;
 
 import io.micrometer.core.annotation.Timed;
 import io.smallrye.common.annotation.Blocking;
-import io.smallrye.common.constraint.NotNull;
 import io.smallrye.common.constraint.Nullable;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
@@ -66,24 +61,6 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	 */
 	protected static final String TAG = "vertx-controller";
 
-	private static final String ACCOUNTS = "/accounts";
-
-	private static final String PERSONS = "/persons";
-	private static final String NAS_E02 = "/nas/e02";
-
-	private static final String NAS_E24 = "/nas/e24";
-
-	private static final String NAS_E25 = "/nas/e25";
-
-	private static final String NAS_E26 = "/nas/e26";
-
-	/**
-	 * 
-	 * <code>platypus.swagger.url</code> for application.properties
-	 */
-	@ConfigProperty(name = "platypus.swagger.url")
-	protected URL swaggerEndpoint;
-	
 	private final Vertx vertx;
 
 	private final WebClient client;
@@ -180,59 +157,6 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 
 	/**
 	 * 
-	 * Accounts Id
-	 * 
-	 * @see <a href="/q/swagger-ui/#/vertx-controller/get_vertx_accounts__id_">
-	 *      /q/swagger-ui/#/vertx-controller/get_vertx_accounts__id_</a>
-	 * 
-	 * @param id {@link String}
-	 * @return {@link Uni}&lt;{@link Object}&gt;
-	 */
-	@GET
-	@Blocking
-	@PermitAll
-	@Path(ACCOUNTS + "/{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	@Operation(summary = "Accounts Id", description = "**Accounts Id**<br/><br/>"
-			+ "See [VertxController.quarkusAccountsId](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusAccountsId(java.lang.String))")
-	// @Operation(hidden = true)
-	public Uni<Object> quarkusAccountsId(@NotNull @PathParam("id") String id) {
-		final String url = swaggerEndpoint + ACCOUNTS + "/" + id;
-		final Uni<Object> ret = client.getAbs(url).send().onItem().transform(HttpResponse::body);
-		final Long cnt = incrementCounter();
-		LOG.trace("cnt:{} url:'{}'", cnt, url);
-		return ret;
-	}
-
-	/**
-	 * 
-	 * Accounts Person UUID
-	 * 
-	 * @see <a href=
-	 *      "/q/swagger-ui/#/vertx-controller/get_vertx_accounts_persons__personsUUID__accounts">
-	 *      /q/swagger-ui/#/vertx-controller/get__vertx_accounts_persons__personsUUID__accounts</a>
-	 * 
-	 * @param personUUID {@link UUID}
-	 * @return {@link Uni}&lt;{@link Object}&gt;
-	 */
-	@GET
-	@Blocking
-	@PermitAll
-	@Path(ACCOUNTS + "/persons/{personUUID}/accounts")
-	@Produces(MediaType.APPLICATION_JSON)
-	@Operation(summary = "Accounts Person UUID", description = "**Accounts Person UUID**<br/><br/>"
-			+ "See [VertxController.quarkusAccountsPersonUUID](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusAccountsPersonUUID(java.lang.UUID))")
-	// @Operation(hidden = true)
-	public Uni<Object> quarkusAccountsPersonUUID(@NotNull @PathParam("personUUID") UUID personUUID) {
-		final String url = swaggerEndpoint + ACCOUNTS + "/persons/" + personUUID + ACCOUNTS;
-		final Uni<Object> ret = client.getAbs(url).send().onItem().transform(HttpResponse::body);
-		final Long cnt = incrementCounter();
-		LOG.trace("cnt:{} url:'{}'", cnt, url);
-		return ret;
-	}
-
-	/**
-	 * 
 	 * Wiki Quarkus
 	 * 
 	 * @see <a href="/q/swagger-ui/#/vertx-controller/get_vertx_quarkus">
@@ -252,154 +176,6 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 		final String url = "https://en.wikipedia.org/w/api.php?action=parse&page=Quarkus&format=json&prop=langlinks";
 		final Uni<JsonArray> ret = client.getAbs(url).send().onItem().transform(HttpResponse::bodyAsJsonObject).onItem()
 				.transform(json -> json.getJsonObject("parse").getJsonArray("langlinks"));
-		final Long cnt = incrementCounter();
-		LOG.trace("cnt:{} url:'{}'", cnt, url);
-		return ret;
-	}
-
-	/**
-	 * 
-	 * NAS e02
-	 * 
-	 * @see <a href="/q/swagger-ui/#/vertx-controller/get_vertx_nas_e02">
-	 *      /q/swagger-ui/#/vertx-controller/get_vertx_nas_e02</a>
-	 * 
-	 * @param date {@link String}
-	 * @return {@link Uni}&lt;{@link Object}&gt;
-	 */
-	@GET
-	@Blocking
-	@PermitAll
-	@Path(NAS_E02)
-	@Produces(MediaType.APPLICATION_JSON)
-	@Operation(summary = "NAS e02", description = "**NAS e02**<br/><br/>"
-			+ "See [VertxController.quarkusNas02](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusNas02(java.lang.String))")
-	// @Operation(hidden = true)
-	public Uni<Object> quarkusNas02(@Nullable @QueryParam("date") String date) {
-		final String url;
-		if (date == null || date.length() == 0) {
-			url = swaggerEndpoint + NAS_E02;
-		} else {
-			url = swaggerEndpoint + NAS_E02 + "?date=" + date;
-		}
-		final Uni<Object> ret = client.getAbs(url).send().onItem().transform(HttpResponse::body);
-		final Long cnt = incrementCounter();
-		LOG.trace("cnt:{} url:'{}'", cnt, url);
-		return ret;
-	}
-
-	/**
-	 * 
-	 * NAS e24
-	 * 
-	 * @see <a href="/q/swagger-ui/#/vertx-controller/get_vertx_nas_e24">
-	 *      /q/swagger-ui/#/vertx-controller/get_vertx_nas_e24</a>
-	 * 
-	 * @param date {@link String}
-	 * @return {@link Uni}&lt;{@link Object}&gt;
-	 */
-	@GET
-	@Blocking
-	@PermitAll
-	@Path(NAS_E24)
-	@Produces(MediaType.APPLICATION_JSON)
-	@Operation(summary = "NAS e24", description = "**NAS e24**<br/><br/>"
-			+ "See [VertxController.quarkusNas24](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusNas24(java.lang.String))")
-	// @Operation(hidden = true)
-	public Uni<Object> quarkusNas24(@Nullable @QueryParam("date") String date) {
-		final String url;
-		if (date == null || date.length() == 0) {
-			url = swaggerEndpoint + NAS_E24;
-		} else {
-			url = swaggerEndpoint + NAS_E24 + "?date=" + date;
-		}
-		final Uni<Object> ret = client.getAbs(url).send().onItem().transform(HttpResponse::body);
-		final Long cnt = incrementCounter();
-		LOG.trace("cnt:{} url:'{}'", cnt, url);
-		return ret;
-	}
-
-	/**
-	 * 
-	 * NAS e25
-	 * 
-	 * @see <a href="/q/swagger-ui/#/vertx-controller/get_vertx_nas_e25">
-	 *      /q/swagger-ui/#/vertx-controller/get_vertx_nas_e25</a>
-	 * 
-	 * @param date {@link String}
-	 * @return {@link Uni}&lt;{@link Object}&gt;
-	 */
-	@GET
-	@Blocking
-	@PermitAll
-	@Path(NAS_E25)
-	@Produces(MediaType.APPLICATION_JSON)
-	@Operation(summary = "NAS e25", description = "**NAS e25**<br/><br/>"
-			+ "See [VertxController.quarkusNas25](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusNas25(java.lang.String))")
-	// @Operation(hidden = true)
-	public Uni<Object> quarkusNas25(@Nullable @QueryParam("date") String date) {
-		final String url;
-		if (date == null || date.length() == 0) {
-			url = swaggerEndpoint + NAS_E25;
-		} else {
-			url = swaggerEndpoint + NAS_E25 + "?date=" + date;
-		}
-		final Uni<Object> ret = client.getAbs(url).send().onItem().transform(HttpResponse::body);
-		final Long cnt = incrementCounter();
-		LOG.trace("cnt:{} url:'{}'", cnt, url);
-		return ret;
-	}
-
-	/**
-	 * 
-	 * NAS e26
-	 * 
-	 * @see <a href="/q/swagger-ui/#/vertx-controller/get_vertx_nas_e26">
-	 *      /q/swagger-ui/#/vertx-controller/get_vertx_nas_e26</a>
-	 * 
-	 * @param date {@link String}
-	 * @return {@link Uni}&lt;{@link Object}&gt;
-	 */
-	@GET
-	@Blocking
-	@PermitAll
-	@Path(NAS_E26)
-	@Produces(MediaType.APPLICATION_JSON)
-	@Operation(summary = "NAS e26", description = "**NAS e26**<br/><br/>"
-			+ "See [VertxController.quarkusNas26](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusNas26(java.lang.String))")
-	// @Operation(hidden = true)
-	public Uni<Object> quarkusNas26(@Nullable @QueryParam("date") String date) {
-		final String url;
-		if (date == null || date.length() == 0) {
-			url = swaggerEndpoint + NAS_E26;
-		} else {
-			url = swaggerEndpoint + NAS_E26 + "?date=" + date;
-		}
-		final Uni<Object> ret = client.getAbs(url).send().onItem().transform(HttpResponse::body);
-		final Long cnt = incrementCounter();
-		LOG.trace("cnt:{} url:'{}'", cnt, url);
-		return ret;
-	}
-
-	/**
-	 * 
-	 * Persons Id
-	 * 
-	 * @see <a href="/q/swagger-ui/#/vertx-controller/get_vertx_persons__id_">
-	 * @param id {@link String}
-	 * @return {@link Uni}&lt;{@link Object}&gt;
-	 */
-	@GET
-	@Blocking
-	@PermitAll
-	@Path(PERSONS + "/{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	@Operation(summary = "Persons Id", description = "**Persons Id**<br/><br/>"
-			+ "See [VertxController.quarkusPersonsId](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#quarkusPersonsId(java.lang.String))")
-	// @Operation(hidden = true)
-	public Uni<Object> quarkusPersonsId(@NotNull @PathParam("id") String id) {
-		final String url = swaggerEndpoint + PERSONS + "/" + id;
-		final Uni<Object> ret = client.getAbs(url).send().onItem().transform(HttpResponse::body);
 		final Long cnt = incrementCounter();
 		LOG.trace("cnt:{} url:'{}'", cnt, url);
 		return ret;
