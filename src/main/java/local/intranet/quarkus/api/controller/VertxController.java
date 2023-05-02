@@ -1,23 +1,27 @@
 package local.intranet.quarkus.api.controller;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
 import javax.annotation.security.PermitAll;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.micrometer.core.annotation.Timed;
 import io.smallrye.common.annotation.Blocking;
+import io.smallrye.common.constraint.NotNull;
 import io.smallrye.common.constraint.Nullable;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
@@ -42,12 +46,10 @@ import local.intranet.quarkus.api.service.CounterService;
  * 
  * Vert.x for quarkus
  * 
- * https://quarkus.io/guides/vertx
- * https://quarkus.io/guides/vertx-reference
+ * https://quarkus.io/guides/vertx https://quarkus.io/guides/vertx-reference
  * https://how-to.vertx.io/web-and-openapi-howto/
  *
  */
-@Timed
 @Path("/vertx")
 @ApplicationScoped
 @Tag(name = VertxController.TAG)
@@ -64,6 +66,20 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	private final Vertx vertx;
 
 	private final WebClient client;
+
+	/**
+	 *
+	 * <code>dlt.jolokia.username</code> from application.properties
+	 */
+	@ConfigProperty(name = "platypus.jolokia.username")
+	protected String jolokiaUsername;
+
+	/**
+	 *
+	 * <code>dlt.jolokia.username</code> from application.properties
+	 */
+	@ConfigProperty(name = "platypus.jolokia.password")
+	protected String jolokiaPassword;
 
 	/**
 	 * 
@@ -88,7 +104,7 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 		this.vertx = vertx;
 		this.client = WebClient.create(vertx);
 	}
-	
+
 	/**
 	 * 
 	 * Say ahoj ${name}
@@ -127,6 +143,48 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 		incrementCounter();
 		LOG.trace("{}", name);
 		return ret;
+	}
+
+	/**
+	 *
+	 * Jolokia Quarkus
+	 *
+	 * @param id {@link Integer}
+	 * @return {@link Uni}&lt;{@link Object}&gt;
+	 * @throws IllegalArgumentException {@link IllegalArgumentException}
+	 */
+	@GET
+	@Path("/jolokia/{id}")
+	@Produces({ MediaType.TEXT_PLAIN })
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	// @RequestBody(required = false, content = @Content(schema = @Schema(implementation = String.class, required = false)))
+	@Operation(summary = "Jolokia Quarkus", description = "**Jolokia Quarkus**<br/><br/>")
+	// @Operation(hidden = true)
+	public Uni<Object> quarkusDataFromJolokia(@NotNull @PathParam("id") Integer id) {
+		if (Arrays.asList(7005, 7006, 7007, 7008, // accord
+				7009, 7010 // bttf += dev
+		).contains(id)) {
+			final String url;
+			final String qs = "";
+			// if (q == null) {
+			// qs = "";
+			// } else {
+			// qs = q;
+			// }
+			if (Arrays.asList(7009, 7010).contains(id)) {
+				if (id.equals(7009)) {
+					url = "https://www.tomcat.local/jolokia/" + qs;
+				} else {
+					url = "https://docker.tomcat.local/jolokia/" + qs;
+				}
+			} else {
+				url = "http://127.0.0.1:" + id + "/jolokia/" + qs;
+			}
+			return client.getAbs(url).basicAuthentication(jolokiaUsername, jolokiaPassword).send().onItem()
+					.transform(HttpResponse::bodyAsString);
+		} else {
+			throw new IllegalArgumentException("Unknown id!");
+		}
 	}
 
 	/**
@@ -220,9 +278,6 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	@Blocking
 	@PermitAll
 	@Path("/lorem")
-	// @Operation(summary = "Lorem", description = "**Lorem**<br/><br/>"
-	// + "See
-	// [VertxController.readShortFile](/javadoc/local/intranet/quarkus/api/controller/VertxController.html#readShortFile())")
 	@Operation(hidden = true)
 	@Produces(MediaType.TEXT_PLAIN)
 	public Uni<String> readShortFile() {
