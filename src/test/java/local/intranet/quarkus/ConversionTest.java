@@ -41,6 +41,9 @@ public class ConversionTest {
 		final String de = SecurityUtil.decrypt(SecurityUtil.getHex(en), secretKey2, iv);
 		assertEquals(IndexController.AHOJ, de);
 
+		assertEquals(SecurityUtil.verifyBCryptPassword("myPassword",
+                "$2a$12$2aiw6tVPaWiyE07ukBEHHOWehfXKM2.bN4aLa3ZNjStxyULHD9DPm"), true);
+		
 		// a bit of Dadaism
 
 		assertEquals("We have a stuffed grandfather in the closet.",
