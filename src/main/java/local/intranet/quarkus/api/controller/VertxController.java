@@ -250,8 +250,8 @@ public class VertxController extends PlatypusCounter implements Countable, Invoc
 	 *       .fileSystem()<br/>
 	 *       .open("book.txt", new OpenOptions()<br/>
 	 *       .setRead(true)).onItem()<br/>
-	 *       .transformToMulti(file -> file.toMulti()).onItem()<br/>
-	 *       .transform(content -> content.toString(StandardCharsets.UTF_8) + "\n------------\n");<br/>
+	 *       .transformToMulti(file -&gt; file.toMulti()).onItem()<br/>
+	 *       .transform(content -&gt; content.toString(StandardCharsets.UTF_8) + "\n------------\n");<br/>
 	 *       return ret;<br/>
 	 * }
 	 * </code>
