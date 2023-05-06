@@ -15,6 +15,8 @@ import io.quarkus.qute.TemplateInstance;
 public class LoginTemplate {
 
 	/**
+         *
+         * For log in form
 	 * 
 	 * @param map {@link Map}&lt;{@link String}, {@link String}&gt;
 	 * @return {@link TemplateInstance}

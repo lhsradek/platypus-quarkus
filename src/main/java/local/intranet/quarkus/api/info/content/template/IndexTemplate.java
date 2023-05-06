@@ -7,7 +7,7 @@ import io.quarkus.qute.TemplateInstance;
 
 /**
  * 
- * HTML Template for /downloads
+ * HTML Template for ROOT
  *
  * @author Radek Kádner
  */
@@ -16,6 +16,8 @@ public class IndexTemplate {
 
 	/**
 	 * 
+         * For index.html
+         *
 	 * @param map {@link Map}&lt;{@link String}, {@link String}&gt;
 	 * @return {@link TemplateInstance}
 	 */

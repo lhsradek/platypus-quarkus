@@ -17,6 +17,8 @@ import io.quarkus.qute.TemplateInstance;
 public class DownloadTemplate {
 
 	/**
+         *
+         * For downloads file
 	 * 
 	 * @param files {@link List}&lt;{@link Map.Entry}&lt;{@link String},
 	 *              {@link File}&gt;&gt;

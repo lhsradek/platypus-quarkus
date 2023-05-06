@@ -16,6 +16,8 @@ import io.quarkus.qute.TemplateInstance;
 public class PropertiesTemplate {
 
 	/**
+         *
+         * For properties
 	 * 
 	 * @param map  {@link Map}&lt;{@link String}, {@link String}&gt;
 	 * @param os   {@link List}&lt;{@link Map.Entry}&lt;{@link String},{@link String}&gt;&gt;
