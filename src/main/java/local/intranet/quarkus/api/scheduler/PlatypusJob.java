@@ -36,6 +36,8 @@ public class PlatypusJob extends PlatypusCounter implements Countable, Invocatio
 	/**
 	 * 
 	 * {@link InfoController}
+         *
+         * For {@link #job()}
 	 * 
 	 */
 	@Inject
@@ -44,6 +46,8 @@ public class PlatypusJob extends PlatypusCounter implements Countable, Invocatio
 	/**
 	 * 
 	 * {@link StatusController}
+         *
+         * For {@link #job()}
 	 * 
 	 */
 	@Inject
