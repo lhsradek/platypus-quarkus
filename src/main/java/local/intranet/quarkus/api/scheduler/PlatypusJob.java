@@ -33,9 +33,19 @@ public class PlatypusJob extends PlatypusCounter implements Countable, Invocatio
 
 	private static final Logger LOG = LoggerFactory.getLogger(PlatypusJob.class);
 
+	/**
+	 * 
+	 * for {@link #job()}
+	 * 
+	 */
 	@Inject
 	protected InfoController infoController;
 
+	/**
+	 * 
+	 * for {@link #job()}
+	 * 
+	 */
 	@Inject
 	protected StatusController statusController;
 
