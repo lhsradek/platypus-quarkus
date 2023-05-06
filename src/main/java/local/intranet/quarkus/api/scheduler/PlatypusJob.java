@@ -23,7 +23,7 @@ import local.intranet.quarkus.api.info.content.PlatypusCounter;
 
 /**
  * 
- * {@link PlatypusJob} for platypusJob.enable=true
+ * {@link PlatypusJob} for Platypus Quarkus
  * 
  * @author Radek Kádner
  *
@@ -35,7 +35,7 @@ public class PlatypusJob extends PlatypusCounter implements Countable, Invocatio
 
 	/**
 	 * 
-	 * for {@link #job()}
+	 * {@link InfoController}
 	 * 
 	 */
 	@Inject
@@ -43,7 +43,7 @@ public class PlatypusJob extends PlatypusCounter implements Countable, Invocatio
 
 	/**
 	 * 
-	 * for {@link #job()}
+	 * {@link StatusController}
 	 * 
 	 */
 	@Inject
