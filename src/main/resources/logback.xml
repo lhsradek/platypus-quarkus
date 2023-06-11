@@ -5,7 +5,7 @@
 <!-- <configuration debug="true"> -->
 <configuration debug="true">
 
-	<!-- <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook" /> -->
+    <!-- <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook" /> -->
     <!-- TODO quarkus.profile=quarkus.profile/>
     <dependency>
       <groupId>org.codehaus.janino</groupId>
@@ -30,17 +30,22 @@
 			</appender>
 
 			<logger name="local.intranet" level="DEBUG">
-				<appender-ref ref="DB_ASYNC" />
-			</logger>
-			<logger name="io.quarkus" level="DEBUG">
-				<appender-ref ref="DB_ASYNC" />
-			</logger>
-    <!--
+                        	<appender-ref ref="DB_ASYNC" />
+                        </logger>
+			<logger name="io.quarkus" level="INFO">
+                        	<appender-ref ref="DB_ASYNC" />
+                        </logger>
+<!--
 	    </then>
-	</if> -->
+	</if>
+-->
  
-	<logger name="org.hibernate.SQL" level="INFO" />
-	<logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="INFO" />
+<!--
+	<logger name="local.intranet" level="DEBUG"/>
+	<logger name="io.quarkus" level="INFO"/>
+-->
+	<logger name="org.hibernate.SQL" level="DEBUG" />
+	<logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="DEBUG" />
 		
 	<root level="INFO" />
 

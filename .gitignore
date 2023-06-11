@@ -44,3 +44,13 @@ nb-configuration.xml
 /src/main/resources/META-INF/resources/downloads/
 /src/main/docker/
 *.log
+
+docker-compose.yml
+
+.mvn/
+extras/
+
+src/main/resources/keystore.jks
+src/main/resources/*.crt
+src/main/resources/*.key
+src/main/resources/*.pem

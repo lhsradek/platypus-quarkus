@@ -12,6 +12,7 @@ import javax.crypto.spec.SecretKeySpec;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.junit.jupiter.api.Test;
 
+import io.quarkus.test.junit.DisabledOnIntegrationTest;
 import io.quarkus.test.junit.QuarkusTest;
 import local.intranet.quarkus.api.controller.IndexController;
 import local.intranet.quarkus.api.util.SecurityUtil;
@@ -28,6 +29,7 @@ public class ConversionTest {
 	protected String key;
 
 	@Test
+        @DisabledOnIntegrationTest
 	public void testConversion() throws GeneralSecurityException {
 
 		final String salt = SecurityUtil.generateSalt();

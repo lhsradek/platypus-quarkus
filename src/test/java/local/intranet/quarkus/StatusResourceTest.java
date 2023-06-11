@@ -12,6 +12,7 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.common.http.TestHTTPResource;
+import io.quarkus.test.junit.DisabledOnIntegrationTest;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.TestProfile;
 import io.restassured.http.ContentType;
@@ -40,17 +41,20 @@ public class StatusResourceTest {
 	private URL statusEndpoint;
 
 	@Test
+        @DisabledOnIntegrationTest
 	void testPlainStatus() {
 		assertFalse(statusController.plainStatus() == null);
 	}
 
 	@Test
+        @DisabledOnIntegrationTest
 	public void testStatusEndpoint() {
 		given().contentType(ContentType.JSON).param("query", "Platypus Plastic").when().get(statusEndpoint).then()
 				.statusCode(200);
 	}
 
 	@Test
+        @DisabledOnIntegrationTest
 	public void testIndexHtml() throws IOException {
 		given().contentType(ContentType.HTML).param("query", "Platypus Sapiens").get(statusEndpoint);
 	}

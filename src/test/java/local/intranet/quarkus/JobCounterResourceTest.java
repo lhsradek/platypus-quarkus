@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.junit.jupiter.api.Test;
 
+import io.quarkus.test.junit.DisabledOnIntegrationTest;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.TestProfile;
 import local.intranet.quarkus.api.scheduler.PlatypusJob;
@@ -25,11 +26,13 @@ public class JobCounterResourceTest {
 	// private URL jobEndpoint;
 
 	@Test
+        @DisabledOnIntegrationTest
 	void testPlatypusJob() {
 		assertTrue(platypusJob.testJob());
 	}
 
 	@Test
+        @DisabledOnIntegrationTest
 	public void testJobStart() {
 		assertTrue(platypusJob.startJob());
 	}
