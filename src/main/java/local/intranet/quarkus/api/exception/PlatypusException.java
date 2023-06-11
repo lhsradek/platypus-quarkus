@@ -42,7 +42,7 @@ public class PlatypusException extends ConnectException {
 
 	/**
 	 * 
-	 * Constructor with parameter
+	 * Constructor with parameters
 	 * 
 	 * @param msg {@link String}
 	 * @param t   {@link Throwable}
