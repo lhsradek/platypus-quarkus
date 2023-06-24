@@ -92,8 +92,8 @@ public class PlatypusJob extends PlatypusCounter implements Countable, Invocatio
 					String.join("", k.getTotal().toString().split("/s+"))));
 		});
 		incrementCounter();
-		LOG.info(MessageFormat.format("{0} status:{1} level:[{2}]", jobMessage, statusController.plainStatus(),
-				buf.toString()));
+		LOG.info("{} status:{} level:[{}]", jobMessage, statusController.plainStatus(),
+				buf.toString());
 	}
 
 	/**
