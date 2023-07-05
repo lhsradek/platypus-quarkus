@@ -49,6 +49,7 @@ docker-compose.yml
 
 .mvn/
 extras/
+certs/
 
 src/main/resources/keystore.jks
 src/main/resources/*.crt

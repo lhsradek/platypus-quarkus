@@ -15,11 +15,9 @@ import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
@@ -29,7 +27,6 @@ import org.slf4j.LoggerFactory;
 import io.opentelemetry.instrumentation.annotations.WithSpan;
 import io.quarkus.qute.TemplateInstance;
 import io.smallrye.common.annotation.Blocking;
-import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import local.intranet.quarkus.api.domain.Countable;
 import local.intranet.quarkus.api.domain.Invocationable;
@@ -77,8 +74,6 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	@Inject
 	protected StatusController statusController;
 
-	private static final String CONTENT_DISPOSITION = "Content-Disposition";
-	private static final String ATTACHMENT_FILENAME = "attachment;filename=";
 	private static final String DOWNLOAD_DIRECTORY = "src/main/resources/META-INF/resources/downloads";
 
 	/**
@@ -101,19 +96,22 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 			final TreeSet<File> set = Stream.of(new File(dir).listFiles())
 					.collect(Collectors.toCollection(TreeSet::new));
 			final Long cnt = incrementCounter();
-			LOG.trace("cnt:{}", cnt);
 			final List<Map.Entry<String, File>> ret = new ArrayList<>();
 			for (File f : set) {
 				if (f.canRead()) {
 					ret.add(new SimpleImmutableEntry<String, File>(f.getName(), f));
 				}
 			}
+			LOG.debug("fileDir:'{}' cnt:{} ret.size:{}", dir, cnt, ret.size());
 			return Uni.createFrom().item(DownloadTemplate.files(ret, statusController.getInfo()));
 		} else {
 			throw new NotFoundException();
 		}
 	}
 
+	// private static final String CONTENT_DISPOSITION = "Content-Disposition";
+	// private static final String ATTACHMENT_FILENAME = "attachment;filename=";
+	
 	/**
 	 * 
 	 * Download file from Quarkus
@@ -121,29 +119,29 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	 * @param fileName {@link String}
 	 * @return {@link Multi}&lt;{@link Response}&gt;
 	 * @throws NotFoundException {@link NotFoundException}
-	 */
 	@GET
 	@WithSpan
 	@Path("file/{name}")
 	@Blocking
 	@PermitAll
 	@Operation(hidden = true)
-	@Produces(MediaType.APPLICATION_OCTET_STREAM)
+	@Produces({MediaType.APPLICATION_OCTET_STREAM})
 	public Multi<Response> getFile(@PathParam("name") String fileName) throws NotFoundException {
-		LOG.debug("filename:'{}'", fileName);
 		if (new File(DOWNLOAD_DIRECTORY).exists()) {
 			final File nf = new File(fileName);
-			LOG.trace("file:'{}' exists:{}", fileName, nf.exists());
 			final ResponseBuilder response = Response.ok((Object) nf);
 			response.header(CONTENT_DISPOSITION, ATTACHMENT_FILENAME + nf);
 			response.encoding(fileName);
+			response.language(Locale.US);
+			response.expires(new Date());
 			final Long cnt = incrementCounter();
-			LOG.trace("cnt:{}", cnt);
+			LOG.debug("fileName:'{}' cnt:{}", fileName, cnt);
 			return Multi.createFrom().item(response.build());
 		} else {
 			throw new NotFoundException();
 		}
 	}
+	 */
 
 	/**
 	 * 

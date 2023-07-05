@@ -26,7 +26,7 @@ public class CustomProfile implements QuarkusTestProfile {
 				"quarkus.http.insecure-requests", "enabled", // http enable
 				// "quarkus.http.host", "localhost",
 				// "quarkus.http.port", "8080",
-				"quarkus.http.port", "8686",
+				"quarkus.http.port", "8383",
 				"quarkus.micrometer.enabled", "false",
 				"quarkus.log.handler.gelf.enabled", "false",
 				"quarkus.opentelemetry.enabled", "false",
