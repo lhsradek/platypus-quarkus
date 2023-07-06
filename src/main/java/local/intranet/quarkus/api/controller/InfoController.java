@@ -132,7 +132,7 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 	@Path("/role")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Get Role Info", description = "**Get Role Info**<br/><br/>"
-			+ "This method is calling RoleService.getRoleInfo<br/<br>"
+			+ "This method is calling RoleService.getRoleInfo<br/><br/>"
 			+ "See [InfoController.roleInfo](/javadoc/local/intranet/quarkus/api/controller/InfoController.html#roleInfo())")
 	public RoleInfo roleInfo() {
 		final RoleInfo ret = roleService.getRoleInfo();
