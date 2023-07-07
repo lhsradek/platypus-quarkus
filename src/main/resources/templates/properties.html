@@ -70,12 +70,12 @@
 			<div class="left-column">
 				<p><br />This page: <code>src/main/resources/templates/properties.html</code></p>
 				<a href="/" class="cta-button">Home</a>&nbsp;
-				{#if !map.get("quarkus.profile").equals("prod")}
+				{#if map.get("quarkus.profile").equals("prod")}
+				<a href="/downloads" class="cta-button">Downloads</a>&nbsp;
 				<a href="/q/dev/" target="_blank" class="cta-button">Visit the Dev UI</a>&nbsp;
 				{#else}
 				<br />&nbsp;
 				{/if}
-				<a href="/downloads" class="cta-button">Downloads</a>&nbsp;
 				<p>
 					{#for m in list}{m.key} = <code>{m.value}</code><br />{/for}
 				</p>

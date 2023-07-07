@@ -73,12 +73,12 @@
 			<div class="left-column">
 				<p><br />This page: <code>src/main/resources/templates/index.html</code></p>
 				<a href="/properties" class="cta-button">Properties</a>&nbsp;
-				{#if !map.get("quarkus.profile").equals("prod")}
+				{#if map.get("quarkus.profile").equals("prod")}
+				<a href="/downloads" class="cta-button">Downloads</a>&nbsp;
 				<a href="/q/dev/" target="_blank" class="cta-button">Visit the Dev UI</a>&nbsp;
 				{#else}
 				<br />&nbsp;
 				{/if}
-				<a href="/downloads" class="cta-button">Downloads</a>&nbsp;
 				<h1><a style="text-decoration: none;" href="https://github.com/lhsradek/platypus-quarkus"
 						target="_blank">
 						{map.get("quarkus.application.header")}</a> Application.</h1>

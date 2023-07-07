@@ -42,7 +42,7 @@ nb-configuration.xml
 /mvn/
 /src/main/resources/META-INF/resources/javadoc/
 /src/main/resources/META-INF/resources/downloads/
-/src/main/docker/
+.metadata/
 *.log
 
 docker-compose.yml
@@ -50,6 +50,8 @@ docker-compose.yml
 .mvn/
 extras/
 certs/
+
+platypus-quarkus-v1.img
 
 src/main/resources/keystore.jks
 src/main/resources/*.crt

@@ -7,7 +7,7 @@
   <properties>
     <compiler-plugin.version>3.10.1</compiler-plugin.version>
     <maven.javadoc.failOnError>false</maven.javadoc.failOnError>
-    <maven.compiler.release>17</maven.compiler.release>
+    <maven.compiler.release>11</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
@@ -172,10 +172,14 @@
       <version>1.2.11.1</version>
     </dependency>
     <dependency>
+       <groupId>io.quarkus</groupId>
+       <artifactId>quarkus-container-image-docker</artifactId>
+    </dependency>
+<!--
+    <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-redis-client</artifactId>
     </dependency>
-<!--
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-smallrye-jwt</artifactId>
@@ -188,10 +192,6 @@
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-test-security-jwt</artifactId>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-       <groupId>io.quarkus</groupId>
-       <artifactId>quarkus-container-image-docker</artifactId>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
@@ -340,6 +340,14 @@
               <include>kibana.platel.crt</include>
             </includes>
           </resource>
+          <resource>
+            <filtering>false</filtering>
+	    <directory>src/main/resources/META-INF/resources/downloads/</directory>
+            <includes>
+              <include>personal/radek.jpg</include>
+              <include>prevod.txt</include>
+            </includes>
+          </resource>
         </resources>
       </build>
     </profile>
@@ -365,6 +373,14 @@
               <include>keystore.jks</include>
               <include>kibana.platel.key</include>
               <include>kibana.platel.crt</include>
+            </includes>
+          </resource>
+          <resource>
+            <filtering>false</filtering>
+	    <directory>src/main/resources/META-INF/resources/downloads/</directory>
+            <includes>
+              <include>personal/radek.jpg</include>
+              <include>prevod.txt</include>
             </includes>
           </resource>
         </resources>
@@ -397,6 +413,14 @@
               <include>keystore.jks</include>
               <include>kibana.platel.key</include>
               <include>kibana.platel.crt</include>
+            </includes>
+          </resource>
+          <resource>
+            <filtering>false</filtering>
+	    <directory>src/main/resources/META-INF/resources/downloads/</directory>
+            <includes>
+              <include>personal/radek.jpg</include>
+              <include>prevod.txt</include>
             </includes>
           </resource>
         </resources>
