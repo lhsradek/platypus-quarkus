@@ -340,14 +340,6 @@
               <include>kibana.platel.crt</include>
             </includes>
           </resource>
-          <resource>
-            <filtering>false</filtering>
-	    <directory>src/main/resources/META-INF/resources/downloads/</directory>
-            <includes>
-              <include>personal/radek.jpg</include>
-              <include>prevod.txt</include>
-            </includes>
-          </resource>
         </resources>
       </build>
     </profile>
@@ -373,14 +365,6 @@
               <include>keystore.jks</include>
               <include>kibana.platel.key</include>
               <include>kibana.platel.crt</include>
-            </includes>
-          </resource>
-          <resource>
-            <filtering>false</filtering>
-	    <directory>src/main/resources/META-INF/resources/downloads/</directory>
-            <includes>
-              <include>personal/radek.jpg</include>
-              <include>prevod.txt</include>
             </includes>
           </resource>
         </resources>
@@ -413,14 +397,6 @@
               <include>keystore.jks</include>
               <include>kibana.platel.key</include>
               <include>kibana.platel.crt</include>
-            </includes>
-          </resource>
-          <resource>
-            <filtering>false</filtering>
-	    <directory>src/main/resources/META-INF/resources/downloads/</directory>
-            <includes>
-              <include>personal/radek.jpg</include>
-              <include>prevod.txt</include>
             </includes>
           </resource>
         </resources>
