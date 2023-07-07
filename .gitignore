@@ -45,8 +45,6 @@ nb-configuration.xml
 .metadata/
 *.log
 
-docker-compose.yml
-
 .mvn/
 extras/
 certs/
