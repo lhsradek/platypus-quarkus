@@ -1,9 +1,5 @@
 # Platypus Quarkus Project
 
-<p>
-<img src="/png/Platypus_is_surprised_by_the_speed_of_quarkus_and_GraalVM_and_jumps_for_joy.png" width="400px" height="400px"/>
-</p>
-
 ```
 [lhs@phaw10kadner platypus-quarkus]$ bin/restart
 ================= STOP =================

@@ -7,7 +7,7 @@
   <properties>
     <compiler-plugin.version>3.10.1</compiler-plugin.version>
     <maven.javadoc.failOnError>false</maven.javadoc.failOnError>
-    <maven.compiler.release>11</maven.compiler.release>
+    <maven.compiler.release>17</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
@@ -172,14 +172,14 @@
       <version>1.2.11.1</version>
     </dependency>
     <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-redis-client</artifactId>
+    </dependency>
+    <dependency>
        <groupId>io.quarkus</groupId>
        <artifactId>quarkus-container-image-docker</artifactId>
     </dependency>
 <!--
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-redis-client</artifactId>
-    </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-smallrye-jwt</artifactId>
@@ -280,6 +280,7 @@
           </execution>
         </executions>
       </plugin>
+      <!--
       <plugin>
           <groupId>io.smallrye</groupId>
           <artifactId>jandex-maven-plugin</artifactId>
@@ -293,6 +294,7 @@
               </execution>
           </executions>
       </plugin>
+      -->     
       <plugin>
          <groupId>org.apache.maven.plugins</groupId>
          <artifactId>maven-javadoc-plugin</artifactId>
@@ -314,6 +316,26 @@
        </configuration>
       </plugin>
     </plugins>
+    <!--    
+    <resources>
+      <resource>
+        <filtering>false</filtering>
+        <directory>src/main/resources/</directory>
+        <includes>
+          <include>application.properties</include>
+          <include>logback.xml</include>
+          <include>book.txt</include>
+          <include>keystore.jks</include>
+          <include>not.intranet.local.crt</include>
+          <include>not.intranet.local.key</include>
+          <include>templates/index.html</include>
+          <include>templates/files.html</include>
+          <include>templates/properties.html</include>
+          <include>templates/login.html</include>
+        </includes>
+      </resource>
+    </resources>
+    -->  		    
   </build>
   <profiles>
     <profile>
@@ -324,23 +346,6 @@
         <quarkus.package.type>jar</quarkus.package.type>
       </properties>
       <build>
-        <resources>
-          <resource>
-            <filtering>false</filtering>
-            <directory>src/main/resources/</directory>
-            <includes>
-              <include>templates/index.html</include>
-              <include>templates/files.html</include>
-              <include>templates/properties.html</include>
-              <include>templates/login.html</include>
-              <include>logback.xml</include>
-              <include>book.txt</include>
-              <include>keystore.jks</include>
-              <include>kibana.platel.key</include>
-              <include>kibana.platel.crt</include>
-            </includes>
-          </resource>
-        </resources>
       </build>
     </profile>
     <profile>
@@ -350,25 +355,6 @@
         <quarkus.profile>test</quarkus.profile>
         <quarkus.package.type>jar</quarkus.package.type>
       </properties>
-      <build>
-        <resources>
-          <resource>
-            <filtering>false</filtering>
-            <directory>src/main/resources/</directory>
-            <includes>
-              <include>templates/index.html</include>
-              <include>templates/files.html</include>
-              <include>templates/properties.html</include>
-              <include>templates/login.html</include>
-              <include>logback.xml</include>
-              <include>book.txt</include>
-              <include>keystore.jks</include>
-              <include>kibana.platel.key</include>
-              <include>kibana.platel.crt</include>
-            </includes>
-          </resource>
-        </resources>
-      </build>
     </profile>
     <profile>
       <id>native</id>
@@ -382,25 +368,6 @@
         <quarkus.profile>native</quarkus.profile>
         <quarkus.package.type>native</quarkus.package.type>
       </properties>
-      <build>
-        <resources>
-          <resource>
-            <filtering>false</filtering>
-            <directory>src/main/resources/</directory>
-            <includes>
-              <include>templates/index.html</include>
-              <include>templates/files.html</include>
-              <include>templates/properties.html</include>
-              <include>templates/login.html</include>
-              <include>logback.xml</include>
-              <include>book.txt</include>
-              <include>keystore.jks</include>
-              <include>kibana.platel.key</include>
-              <include>kibana.platel.crt</include>
-            </includes>
-          </resource>
-        </resources>
-      </build>
     </profile>
   </profiles>
 </project>

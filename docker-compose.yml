@@ -22,6 +22,10 @@ services:
     hostname: "${APP_NICK}.${INT_NETWORK}"
     restart: ${DOCKER_RESTART_POLICY}
     environment:
+      - MAVEN_S2I_ARTIFACT_DIRS=target
+      - S2I_SOURCE_DEPLOYMENTS_FILTER=*-runner.jar lib
+      - AB_JOLOKIA_OFF=true
+      - JAVA_OPTIONS=-Dquarkus.http.host=0.0.0.0
       - JAVA_OPTS=${JAVA_OPTS}
       - PLATYPUS_APPLICATION_ARTIFACTID=platypus-quarkus
       - PLATYPUS_HOST_NAME=not.intranet.local
@@ -32,6 +36,7 @@ services:
       - QUARKUS_PROFILE=dev
       - QUARKUS_APPLICATION_NAME=fpt-platypus
       - QUARKUS_DEVSERVICES_ENABLED=true
+      - QUARKUS_DEVSERVICES_TIMEOUt=120
       - QUARKUS_DATASOURCE_DB-KIND=postgresql
       - QUARKUS_DATASOURCE_JDBC=jdbc:postgresql://postgres:5432/platypus?search_path=public
       - QUARKUS_DATASOURCE_USERNAME=${DB_USERNAME}
@@ -94,6 +99,9 @@ services:
 # === Redis ===
 #        
 #   redis:
+#     depends_on:
+#       postgres:
+#         condition: service_healthy
 #     image: redis:7-alpine
 #     # Alpine Linux
 #     container_name: "${APP_NICK}-${APP_ID}-redis"

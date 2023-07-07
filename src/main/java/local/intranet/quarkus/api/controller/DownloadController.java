@@ -1,13 +1,18 @@
 package local.intranet.quarkus.api.controller;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import java.util.AbstractMap.SimpleImmutableEntry;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 import javax.annotation.security.PermitAll;
 import javax.enterprise.context.ApplicationScoped;
@@ -19,6 +24,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.slf4j.Logger;
@@ -27,7 +33,6 @@ import org.slf4j.LoggerFactory;
 import io.opentelemetry.instrumentation.annotations.WithSpan;
 import io.quarkus.qute.TemplateInstance;
 import io.smallrye.common.annotation.Blocking;
-import io.smallrye.mutiny.Uni;
 import local.intranet.quarkus.api.domain.Countable;
 import local.intranet.quarkus.api.domain.Invocationable;
 import local.intranet.quarkus.api.domain.Nameable;
@@ -74,14 +79,21 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	@Inject
 	protected StatusController statusController;
 
-	private static final String DOWNLOAD_DIRECTORY = "src/main/resources/META-INF/resources/downloads";
+	/**
+	 * 
+	 * <code>platypus.download.directory</code> from application.properties
+	 * 
+	 */
+	@ConfigProperty(name = "platypus.download.directory")
+	public String downloadDirectory;
 
 	/**
 	 * 
 	 * List of files from Quarkus in downloads directory as HTML
 	 * 
-	 * @return {@link Uni}&lt;{@link Response}&gt;
+	 * @return {@link Response}
 	 * @throws NotFoundException {@link NotFoundException}
+	 * @throws IOException {@link IOException}
 	 */
 	@GET
 	@Path("/")
@@ -90,28 +102,62 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	@PermitAll
 	@Produces(MediaType.TEXT_HTML)
 	@Operation(hidden = true)
-	public Uni<TemplateInstance> listFiles() throws NotFoundException {
-		final String dir = DOWNLOAD_DIRECTORY;
-		if (new File(dir).exists()) {
-			final TreeSet<File> set = Stream.of(new File(dir).listFiles())
-					.collect(Collectors.toCollection(TreeSet::new));
-			final Long cnt = incrementCounter();
-			final List<Map.Entry<String, File>> ret = new ArrayList<>();
-			for (File f : set) {
-				if (f.canRead()) {
-					ret.add(new SimpleImmutableEntry<String, File>(f.getName(), f));
+	// @Operation(summary = "List Files", description = "**List Files**<br/><br/>"
+	// + "See
+	// [DownloadController.listFiles](/javadoc/local/intranet/quarkus/api/controller/DownloadController.html#listFiles())")
+	public TemplateInstance listFiles() throws NotFoundException, IOException {
+		LOG.debug("Working Directory: '{}'", System.getProperty("user.dir"));
+		final File file = new File(downloadDirectory);
+		if (file.exists()) {
+			if (file.isDirectory()) {
+				final TreeSet<File> set = Stream.of(file.listFiles()).collect(Collectors.toCollection(TreeSet::new));
+				final Long cnt = incrementCounter();
+				final List<Map.Entry<String, File>> ret = new ArrayList<>();
+				for (File f : set) {
+					if (f.canRead()) {
+						ret.add(new SimpleImmutableEntry<String, File>(f.getName(), f));
+					}
 				}
+				LOG.debug("fileDir:'{}' cnt:{} ret.size:{}", downloadDirectory, cnt, ret.size());
+				return DownloadTemplate.downloads(ret, statusController.getInfo());
+			} else {
+				final Long cnt = incrementCounter();
+				final List<Map.Entry<String, File>> ret = new ArrayList<>();
+				// ret.add(new SimpleImmutableEntry<String, File>(file.getName(),
+				// file.getAbsoluteFile()));
+				// LOG.debug("fileDir:'{}' file.length:{}", downloadDirectory, file.length());
+
+				final URL jar = new URL("file://" + file.getAbsolutePath());
+				final ZipInputStream zip = new ZipInputStream(jar.openStream());
+				final Map<String, File> map = new TreeMap<>();
+				while (true) {
+					final ZipEntry e = zip.getNextEntry();
+					if (e == null)
+						break;
+					final String name = e.getName();
+					if (name.startsWith("META-INF/resources/downloads/")
+							&& !name.contains("personal")) {
+						final File f = new File(e.getName());
+						if (!e.isDirectory()) {
+							map.put(f.getName(), f);
+						}
+					}
+				}
+				map.forEach((k, v) -> {
+					ret.add(new SimpleImmutableEntry<String, File>(k, v));
+				});
+				LOG.debug("fileDir:'{}' cnt:{} ret.size:{}", downloadDirectory, cnt, ret.size());
+				return DownloadTemplate.downloads(ret, statusController.getInfo());
 			}
-			LOG.debug("fileDir:'{}' cnt:{} ret.size:{}", dir, cnt, ret.size());
-			return Uni.createFrom().item(DownloadTemplate.files(ret, statusController.getInfo()));
 		} else {
+			LOG.error("NotFoundException");
 			throw new NotFoundException();
 		}
 	}
 
 	// private static final String CONTENT_DISPOSITION = "Content-Disposition";
 	// private static final String ATTACHMENT_FILENAME = "attachment;filename=";
-	
+
 	/**
 	 * 
 	 * Download file from Quarkus
@@ -125,19 +171,19 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 	@Blocking
 	@PermitAll
 	@Operation(hidden = true)
-	@Produces({MediaType.APPLICATION_OCTET_STREAM})
+	@Produces({ MediaType.APPLICATION_OCTET_STREAM })
 	public Multi<Response> getFile(@PathParam("name") String fileName) throws NotFoundException {
-		if (new File(DOWNLOAD_DIRECTORY).exists()) {
+		if (new File(downloadDirectory).exists()) {
 			final File nf = new File(fileName);
 			final ResponseBuilder response = Response.ok((Object) nf);
 			response.header(CONTENT_DISPOSITION, ATTACHMENT_FILENAME + nf);
 			response.encoding(fileName);
 			response.language(Locale.US);
-			response.expires(new Date());
 			final Long cnt = incrementCounter();
 			LOG.debug("fileName:'{}' cnt:{}", fileName, cnt);
 			return Multi.createFrom().item(response.build());
 		} else {
+			LOG.error("NotFoundException");
 			throw new NotFoundException();
 		}
 	}

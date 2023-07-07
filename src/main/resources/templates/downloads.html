@@ -74,17 +74,15 @@
 				<p><br />This page: <code>src/main/resources/templates/files.html</code></p>
 				<a href="/" class="cta-button">Home</a>&nbsp;
 				<a href="/properties" class="cta-button">Properties</a>&nbsp;
-				{#if !map.get("quarkus.profile").equals("prod")}
-				<a href="/q/dev/" target="_blank" class="cta-button">Visit the Dev UI</a>&nbsp;
-				{#else}
+				{#if map.get("quarkus.profile").equals("prod")}
 				<br />&nbsp;
+				{#else}
+				<a href="/q/dev/" target="_blank" class="cta-button">Visit the Dev UI</a>&nbsp;
 				{/if}
 				<h2>&#128053; Files</h2>
 				<p>
 				<ul class="provided-code">{#for map in files}{#if !map.value.isDirectory}
-					<li class="provided-code"><a target="_blank" href="/downloads/{map.key}">{map.key}</a>
-						<small>({map.value.length})</small>
-					</li class="provided-code">{/if}{/for}
+					<li class="provided-code"><a target="_blank" href="/downloads/{map.key}">{map.key}</a></li class="provided-code">{/if}{/for}
 				</ul class="provided-code">
 				</p>
 			</div>
