@@ -164,9 +164,9 @@ volumes:
   postgres:
     external: false
     name: "${APP_ID}-db"
-  adminer:
-    external: false
-    name: "${APP_ID}-adminer"
-  redis:
-    external: false
-    name: "${APP_ID}-redis"
+  # adminer:
+  #   external: false
+  #   name: "${APP_ID}-adminer"
+  # redis:
+  #   external: false
+  #   name: "${APP_ID}-redis"
