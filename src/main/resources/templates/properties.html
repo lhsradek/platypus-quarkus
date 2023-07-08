@@ -74,7 +74,11 @@
 				<br />&nbsp;
 				{#else}
 				<a href="/downloads" class="cta-button">Downloads</a>&nbsp;
+				{#if map.get("quarkus.profile").equals("native")}
+				<br />&nbsp;
+				{#else}
 				<a href="/q/dev/" target="_blank" class="cta-button">Visit the Dev UI</a>&nbsp;
+				{/if}
 				{/if}
 				<p>
 					{#for m in list}{m.key} = <code>{m.value}</code><br />{/for}

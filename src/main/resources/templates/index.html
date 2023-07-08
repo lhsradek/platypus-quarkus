@@ -77,7 +77,11 @@
 				<br />&nbsp;
 				{#else}
 				<a href="/downloads" class="cta-button">Downloads</a>&nbsp;
+				{#if map.get("quarkus.profile").equals("native")}
+				<br />&nbsp;
+				{#else}
 				<a href="/q/dev/" target="_blank" class="cta-button">Visit the Dev UI</a>&nbsp;
+				{/if}
 				{/if}
 				<h1><a style="text-decoration: none;" href="https://github.com/lhsradek/platypus-quarkus"
 						target="_blank">
@@ -96,15 +100,19 @@
 						{/if}
 						<br />&rsaquo;
 						<code>@Path: <a href="/q/metrics" class="path-link" target="_blank">/q/metrics</a></code>
+				{#if !map.get("quarkus.profile").equals("native")}
 						<br />&rsaquo;
 						<code>@Path: <a href="/q/health-ui" class="path-link" target="_blank">/q/health-ui</a></code>
+				{/if}
 						<br />&rsaquo; <code>@Path: <a href="/hello" class="path-link" target="_blank">/hello</a></code>
 						<br />&rsaquo; <code>@Path: <a href="/ahoj" class="path-link" target="_blank">/ahoj</a></code>
 						<br />&rsaquo;
 						<code>@Path: <a href="/javadoc" class="path-link" target="_blank">/javadoc</a></code>
 						<br />&rsaquo; <code>@Path: <a href="/downloads" class="path-link">/downloads</a></code>
+				{#if !map.get("quarkus.profile").equals("native")}
 						<br />&rsaquo;
 						<code>@Path: <a href="/q/dev/io.quarkus.quarkus-resteasy-reactive/endpoints" class="path-link" target="_blank">endpoints</a></code>
+				{/if}
 					</li>
 
 				</ul>

@@ -77,7 +77,11 @@
 				{#if map.get("quarkus.profile").equals("prod")}
 				<br />&nbsp;
 				{#else}
+				{#if map.get("quarkus.profile").equals("native")}
+				<br />&nbsp;
+				{#else}
 				<a href="/q/dev/" target="_blank" class="cta-button">Visit the Dev UI</a>&nbsp;
+				{/if}
 				{/if}
 				<h2>&#128053; Files</h2>
 				<p>

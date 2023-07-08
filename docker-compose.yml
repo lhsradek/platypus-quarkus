@@ -16,7 +16,7 @@ services:
         condition: service_healthy
     build:
       context: .
-      dockerfile: src/main/docker/Dockerfile.jvm
+      dockerfile: src/main/docker/Dockerfile.native
     image: lhsradek/platypus-quarkus:v1
     container_name: "${APP_NICK}-${APP_ID}"
     hostname: "${APP_NICK}.${INT_NETWORK}"
@@ -33,7 +33,8 @@ services:
       - PLATYPUS_API_KEY=${PLATYPUS_API_KEY}
       - PLATYPUS_JOLOKIA_USERNAME=${JOLOKIA_USERNAME}
       - PLATYPUS_JOLOKIA_PASSWORD=${JOLOKIA_PASSWORD}
-      - QUARKUS_PROFILE=dev
+      # - QUARKUS_PROFILE=dev
+      - QUARKUS_PROFILE=native
       - QUARKUS_APPLICATION_NAME=fpt-platypus
       - QUARKUS_DEVSERVICES_ENABLED=true
       - QUARKUS_DEVSERVICES_TIMEOUt=120
@@ -64,7 +65,7 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
     ports:
-      # - "8480:8480"
+      - "8480:8480"
       - "8484:8484"
     volumes:
       - ./target/platypus-quarkus-1.0.0-SNAPSHOT-native-image-source-jar:/project:rw

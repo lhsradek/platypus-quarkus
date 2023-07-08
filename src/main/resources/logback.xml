@@ -13,6 +13,7 @@
     </dependency>
     <if condition='property("quarkus.profile").contains("native")'>
 		<then> -->
+<!--
  			<appender name="DB"
 				class="ch.qos.logback.classic.db.DBAppender">
 				<connectionSource
@@ -35,18 +36,20 @@
 			<logger name="io.quarkus" level="INFO">
                         	<appender-ref ref="DB_ASYNC" />
                         </logger>
-<!--
 	    </then>
 	</if>
 -->
  
 <!--
-	<logger name="local.intranet" level="DEBUG"/>
-	<logger name="io.quarkus" level="INFO"/>
 -->
+	<logger name="local.intranet" level="DEBUG"/>
+	<logger name="io.quarkus" level="DEBUG"/>
 	<logger name="org.hibernate.SQL" level="DEBUG" />
 	<logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="DEBUG" />
 		
+<!--
 	<root level="INFO" />
+-->
+	<root level="DEBUG" />
 
 </configuration>
