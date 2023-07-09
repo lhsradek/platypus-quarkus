@@ -33,7 +33,7 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
     ports:
-      # - "8080:8080"
+      - "8080:8080"
       - "8443:8443"
     volumes:
       - ./certs:/work/certs:ro

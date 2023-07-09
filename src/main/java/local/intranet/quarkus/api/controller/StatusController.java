@@ -220,7 +220,7 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 			}
 		});
 		final Long cnt = incrementCounter();
-		LOG.debug("cnt:{} ret:'{}'", cnt, ret);
+		LOG.trace("cnt:{} ret:'{}'", cnt, ret);
 		return ret;
 	}
 
