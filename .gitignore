@@ -45,7 +45,6 @@ nb-configuration.xml
 *.log
 
 .mvn/
-extras/
 certs/
 
 platypus-quarkus-v1.img
