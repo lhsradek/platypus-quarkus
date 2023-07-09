@@ -78,6 +78,8 @@
 # FROM registry.access.redhat.com/ubi8/openjdk-11:1.11
 # ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en'
 FROM registry.access.redhat.com/ubi8/openjdk-17:1.16
+LABEL org.opencontainers.image.authors="radek.kadner@gmail.com"
+LABEL description="https://github.com/lhsradek/platypus-quarkus"
 
 ENV LANG='cs_CZ.UTF-8' LANGUAGE='en_US:en'
 
@@ -90,7 +92,7 @@ COPY --chown=185 target/quarkus-app/quarkus/ /deployments/quarkus/
 RUN mkdir -p /deployments/data
 RUN chown jboss:jboss /deployments/data
 
-EXPOSE 8484
+EXPOSE 8080
 USER 185
 ENV AB_JOLOKIA_OFF=""
 ENV JAVA_OPTS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"

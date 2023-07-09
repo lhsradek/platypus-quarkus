@@ -5,6 +5,10 @@
 <!-- <configuration debug="true"> -->
 <configuration debug="true">
 
+<!--
+    <property resource="application.properties" />
+-->
+
     <!-- <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook" /> -->
     <!-- TODO quarkus.profile=quarkus.profile/>
     <dependency>
@@ -13,15 +17,20 @@
     </dependency>
     <if condition='property("quarkus.profile").contains("native")'>
 		<then> -->
-<!--
  			<appender name="DB"
 				class="ch.qos.logback.classic.db.DBAppender">
 				<connectionSource
 					class="ch.qos.logback.core.db.DriverManagerConnectionSource">
-					<driverClass>${quarkus.datasource.jdbc.driver}</driverClass>
+ 				        <!--
+     		                        <driverClass>${quarkus.datasource.jdbc.driver}</driverClass>
 					<url>${quarkus.datasource.jdbc.url}</url>
-					<user>${quarkus.datasource.username}</user>
-					<password>${quarkus.datasource.password}</password>
+					<user>${db.username}</user>
+					<password>${db.password}</password>
+					-->
+					<driverClass>org.postgresql.Driver</driverClass>
+					<url>jdbc:postgresql://postgres:5432/platypus?search_path=public</url>
+					<user>postgres</user>
+					<password>postgres</password>
 				</connectionSource>
 			</appender>
 			<appender name="DB_ASYNC"
@@ -36,6 +45,7 @@
 			<logger name="io.quarkus" level="INFO">
                         	<appender-ref ref="DB_ASYNC" />
                         </logger>
+<!--
 	    </then>
 	</if>
 -->
@@ -43,13 +53,10 @@
 <!--
 -->
 	<logger name="local.intranet" level="DEBUG"/>
-	<logger name="io.quarkus" level="DEBUG"/>
-	<logger name="org.hibernate.SQL" level="DEBUG" />
-	<logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="DEBUG" />
+	<logger name="io.quarkus" level="INFO"/>
+	<logger name="org.hibernate.SQL" level="INFO" />
+	<logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="INFO" />
 		
-<!--
 	<root level="INFO" />
--->
-	<root level="DEBUG" />
 
 </configuration>

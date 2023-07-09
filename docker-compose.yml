@@ -15,20 +15,30 @@ services:
       postgres:
         condition: service_healthy
     build:
-      context: .
+      context: . 
       dockerfile: src/main/docker/Dockerfile.native
+      args:
+        - JAVA_OPTS=${JAVA_OPTS} -Dmaven.test.skip=false -Dquarkus.native.container-build=true
+        - MAVEN_TEST_SKIP=false
+        # - QUARKUS_NATIVE_CONTAINER-BUILD=true 
+        # - DB_USERNAME=${DB_USERNAME}
+        # - DB_PASSWORD=${DB_PASSWORD}
     image: lhsradek/platypus-quarkus:v1
     container_name: "${APP_NICK}-${APP_ID}"
     hostname: "${APP_NICK}.${INT_NETWORK}"
     restart: ${DOCKER_RESTART_POLICY}
     environment:
-      - MAVEN_S2I_ARTIFACT_DIRS=target
-      - S2I_SOURCE_DEPLOYMENTS_FILTER=*-runner.jar lib
+      # - MAVEN_S2I_ARTIFACT_DIRS=target
+      # - S2I_SOURCE_DEPLOYMENTS_FILTER=*-runner.jar lib
+      # - DB_USERNAME=${DB_USERNAME}
+      # - DB_PASSWORD=${DB_PASSWORD}
+      # - MAVEN_TEST_SKIP=false
+      # - QUARKUS_NATIVE_CONTAINER-BUILD=true 
       - AB_JOLOKIA_OFF=true
       - JAVA_OPTIONS=-Dquarkus.http.host=0.0.0.0
       - JAVA_OPTS=${JAVA_OPTS}
       - PLATYPUS_APPLICATION_ARTIFACTID=platypus-quarkus
-      - PLATYPUS_HOST_NAME=not.intranet.local
+      - PLATYPUS_HOST_NAME=ftp.platel
       - PLATYPUS_REMOTE_SERVER=host.docker.internal
       - PLATYPUS_API_KEY=${PLATYPUS_API_KEY}
       - PLATYPUS_JOLOKIA_USERNAME=${JOLOKIA_USERNAME}
@@ -48,7 +58,7 @@ services:
       - QUARKUS_HIBERNATE-ORM_LOG_FORMAT-SQL=true
       - QUARKUS_HIBERNATE-ORM_DATABASE_GENERATION=none
       - QUARKUS_HIBERNATE-ORM_DATABASE_DEFAULT-SCHEMA=public
-      - QUARKUS_HIBERNATE-ORM_DIALECT=org.hibernate.dialect.PostgreSQL95Dialect
+      # - QUARKUS_HIBERNATE-ORM_DIALECT=org.hibernate.dialect.PostgreSQL95Dialect
       - QUARKUS_HIBERNATE-ORM_PACKAGES=local.intranet.quarkus.api.model.entity,io.quarkus.hibernate.orm.panache,org.hibernate.envers
       - QUARKUS_HIBERNATE-ENVERS_ACTIVE=true
       - QUARKUS_HIBERNATE-ENVERS_GLOBAL-WITH-MODIFIED-FLAG=true
@@ -65,11 +75,12 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
     ports:
-      - "8480:8480"
-      - "8484:8484"
+      # - "8080:8080"
+      - "8443:8443"
     volumes:
+      - ./certs:/work/certs:ro
       - ./target/platypus-quarkus-1.0.0-SNAPSHOT-native-image-source-jar:/project:rw
-
+      - ./src/main/resources/META-INF/resources/downloads:/work/downloads:ro
 # 
 # === PostgreSQL ===
 # 
@@ -99,25 +110,25 @@ services:
 #
 # === Redis ===
 #        
-#   redis:
-#     depends_on:
-#       postgres:
-#         condition: service_healthy
-#     image: redis:7-alpine
-#     # Alpine Linux
-#     container_name: "${APP_NICK}-${APP_ID}-redis"
-#     hostname: "redis"
-#     # hostname: "redis.${INT_NETWORK}"
-#     restart: ${DOCKER_RESTART_POLICY}
-#     networks:
-#       # local network:
-#       - default
-#     environment:
-#       - REDIS_PASSWORD=${REDIS_PASSWORD}
-#     # ports:
-#     #  - 16379:6379
-#     volumes:
-#       - redis:/data
+  redis:
+    depends_on:
+      postgres:
+        condition: service_healthy
+    image: redis:7-alpine
+    # Alpine Linux
+    container_name: "${APP_NICK}-${APP_ID}-redis"
+    hostname: "redis"
+    # hostname: "redis.${INT_NETWORK}"
+    restart: ${DOCKER_RESTART_POLICY}
+    networks:
+      # local network:
+      - default
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+    # ports:
+    #  - 16379:6379
+    volumes:
+      - redis:/data
 
 #         
 # === Nginx for Adminer ===
@@ -168,7 +179,7 @@ services:
 #       - default
 #     volumes:
 #       - adminer:/var/www/html:rw
-         
+          
 volumes:
   postgres:
     external: false
@@ -176,6 +187,6 @@ volumes:
   # adminer:
   #   external: false
   #   name: "${APP_ID}-adminer"
-  # redis:
-  #   external: false
-  #   name: "${APP_ID}-redis"
+  redis:
+    external: false
+    name: "${APP_ID}-redis"

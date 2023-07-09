@@ -114,6 +114,7 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 				final Long cnt = incrementCounter();
 				final List<Map.Entry<String, File>> ret = new ArrayList<>();
 				for (File f : set) {
+				        LOG.trace("name:'{}' file:'{}'", f.getName(), f);
 					if (f.canRead()) {
 						ret.add(new SimpleImmutableEntry<String, File>(f.getName(), f));
 					}
@@ -135,6 +136,7 @@ public class DownloadController extends PlatypusCounter implements Countable, In
 					if (e == null)
 						break;
 					final String name = e.getName();
+				        LOG.trace("name:'{}' file:'{}'", name, e);
 					if (name.startsWith("META-INF/resources/downloads/")
 							&& !name.contains("personal")) {
 						final File f = new File(e.getName());

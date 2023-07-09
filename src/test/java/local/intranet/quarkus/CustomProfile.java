@@ -22,11 +22,13 @@ public class CustomProfile implements QuarkusTestProfile {
 				// "platypus.job.enables", "false",
 				// "platypus.remote.server", "localhost",
 				"quarkus.flyway.migrate-at-start", "true", // start flyway
-				// "quarkus.hibernate-envers.active", "false"
+				// "quarkus.hibernate-envers.active", "false",
 				"quarkus.http.insecure-requests", "enabled", // http enable
 				// "quarkus.http.host", "localhost",
 				// "quarkus.http.port", "8080",
-				"quarkus.http.port", "8383",
+                                // "quarkus.datasource.jdbc.url" "jdbc:postgresql://postgres:5432/platypus?search_path=public",
+                                // "quarkus.datasource.jdbc.url", "jdbc:postgresql://localhost:5432/lhs_platypus_fpt?search_path=public",
+				// "quarkus.flyway.jdbc-url", "jdbc:postgresql://localhost:5432/lhs_platypus_fpt?search_path=public",
 				"quarkus.micrometer.enabled", "false",
 				"quarkus.log.handler.gelf.enabled", "false",
 				"quarkus.opentelemetry.enabled", "false",

@@ -83,14 +83,22 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 
 	/**
 	 * 
-	 * {@link CounterService} for {@link #statusCounter()}
+	 * {@link CounterService} from {@link #statusCounter()}
 	 */
 	@Inject
 	protected CounterService counterService;
 
 	/**
 	 * 
-	 * <code>platypus.remote.server</code> for application.properties
+	 * <code>platypus.engine</code> from application.properties
+	 * 
+	 */
+	@ConfigProperty(name = "platypus.engine")
+	public String platypusEngine;
+
+	/**
+	 * 
+	 * <code>platypus.remote.server</code> from application.properties
 	 * 
 	 */
 	@ConfigProperty(name = "platypus.remote.server")
@@ -98,7 +106,7 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 
 	/**
 	 * 
-	 * <code>quarkus.application.artifactId</code> for application.properties
+	 * <code>quarkus.application.artifactId</code> from application.properties
 	 * 
 	 */
 	@ConfigProperty(name = "platypus.application.artifactId")
@@ -106,7 +114,7 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 
 	/**
 	 * 
-	 * <code>platypus.host.name</code> for application.properties
+	 * <code>platypus.host.name</code> from application.properties
 	 * 
 	 */
 	@ConfigProperty(name = "platypus.host.name")
@@ -114,7 +122,7 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 
 	/**
 	 * 
-	 * <code>quarkus.application.groupId</code> for application.properties
+	 * <code>quarkus.application.groupId</code> from application.properties
 	 * 
 	 */
 	@ConfigProperty(name = "quarkus.application.name")
@@ -122,7 +130,7 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 
 	/**
 	 * 
-	 * <code>platypus.deployment.environment</code> for application.properties
+	 * <code>platypus.deployment.environment</code> from application.properties
 	 * 
 	 */
 	@ConfigProperty(name = "platypus.deployment.environment")
@@ -167,6 +175,8 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	/**
 	 *
 	 * Info of Properties
+	 * <p>
+	 * Add <code>quarkus.version</code>.
 	 *
 	 * @see <a href=
 	 *      "/q/swagger-ui/#/status-controller/get_app_v1_status_platypusProperties">
@@ -174,12 +184,13 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	 * 
 	 * @return {@link List}&lt;{@link Map.Entry}&lt;{@link String},{@link String}&gt;&gt;
 	 */
-	@GET
-	@PermitAll
-	@Path("/platypusProperties")
-	@Produces(MediaType.APPLICATION_JSON)
-	@Operation(summary = "Get Properties", description = "**Get Properties</strong>**<br/><br/>"
-			+ "See [StatusController.platypusProperties](/javadoc/local/intranet/quarkus/api/controller/StatusController.html#platypusProperties())")
+	// @GET
+	// @PermitAll
+	// @Path("/platypusProperties")
+	// @Produces(MediaType.APPLICATION_JSON)
+	@Operation(hidden = true)
+	// @Operation(summary = "Get Properties", description = "**Get Properties</strong>**<br/><br/>"
+	// 		+ "See [StatusController.platypusProperties](/javadoc/local/intranet/quarkus/api/controller/StatusController.html#platypusProperties())")
 	public List<Map.Entry<String, String>> platypusProperties() {
 		final List<Map.Entry<String, String>> ret = new ArrayList<>();
 		final Map<String, String> map = new TreeMap<>();
@@ -209,7 +220,7 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 			}
 		});
 		final Long cnt = incrementCounter();
-		LOG.trace("cnt:{} ret:'{}'", cnt, ret);
+		LOG.debug("cnt:{} ret:'{}'", cnt, ret);
 		return ret;
 	}
 
@@ -223,12 +234,13 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	 * 
 	 * @return {@link List}&lt;{@link Map.Entry}&lt;{@link String},{@link Object}&gt;&gt;
 	 */
-	@GET
-	@PermitAll
-	@Path("/operatingSystem")
-	@Produces(MediaType.APPLICATION_JSON)
-	@Operation(summary = "Get Operating System", description = "**Get Operating System and load average**<br/><br/>"
-			+ "See [StatusController.operatingSystem](/javadoc/local/intranet/quarkus/api/controller/StatusController.html#operatingSystem())")
+	// @GET
+	// @PermitAll
+	// @Path("/operatingSystem")
+	// @Produces(MediaType.APPLICATION_JSON)
+	@Operation(hidden = true)
+	// @Operation(summary = "Get Operating System", description = "**Get Operating System and load average**<br/><br/>"
+	// 		+ "See [StatusController.operatingSystem](/javadoc/local/intranet/quarkus/api/controller/StatusController.html#operatingSystem())")
 	public List<Map.Entry<String, String>> operatingSystem() {
 		final List<Map.Entry<String, String>> ret = new ArrayList<>();
 		final OperatingSystemMXBean system = ManagementFactory.getOperatingSystemMXBean();
@@ -279,11 +291,14 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 	/**
 	 * 
 	 * get Info
+	 * <p>
+	 * Add <code>platypus.engine</code>.
 	 * 
 	 * @return {@link Map}&lt;{@link String}, {@link String}&gt;
 	 */
 	public Map<String, String> getInfo() {
 		final Map<String, String> map = new ConcurrentHashMap<>();
+		map.put("platypus.engine", platypusEngine);
 		map.put("quarkus.application.groupId", PlatypusApplication.class.getPackage().getName());
 		map.put("quarkus.application.artifactId", quarkusApplicationArtifactId);
 		final ArrayList<String> arr = new ArrayList<>();
@@ -292,7 +307,7 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 		}
 		map.put("quarkus.application.header", String.join(" ", arr));
 		map.put("quarkus.application.version",
-				ConfigProvider.getConfig().getValue("quarkus.application.version", String.class));
+		ConfigProvider.getConfig().getValue("quarkus.application.version", String.class));
 		map.put("quarkus.version", quarkusVersion());
 		map.put("quarkus.profile", ConfigProvider.getConfig().getValue("quarkus.profile", String.class));
 		// map.put("quarkus.application.name",
@@ -300,7 +315,7 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 		// String.class));
 		map.put("quarkus.application.name", Application.currentApplication().getName());
 		map.put("quarkus.datasource.db-kind",
-				ConfigProvider.getConfig().getValue("quarkus.datasource.db-kind", String.class));
+		ConfigProvider.getConfig().getValue("quarkus.datasource.db-kind", String.class));
 		return map;
 	}
 

@@ -59,6 +59,7 @@
 						</ul>
 						<br />
 						<ul>
+							<li>platypus.engine: <code>{map.get("platypus.engine")}</code></li>
 							<li>quarkus.profile: <code>{map.get("quarkus.profile")}</code></li>
 							<li>quarkus.application.name: <code>{map.get("quarkus.application.name")}</code></li>
 							<li>quarkus.datasource.db-kind: <code>{map.get("quarkus.datasource.db-kind")}</code></li>
@@ -100,19 +101,44 @@
 						{/if}
 						<br />&rsaquo;
 						<code>@Path: <a href="/q/metrics" class="path-link" target="_blank">/q/metrics</a></code>
-				{#if !map.get("quarkus.profile").equals("native")}
+				                {#if map.get("quarkus.profile").equals("native")}
+						<br />&rsaquo;
+						<code>@Path: <a href="/q/health" class="path-link" target="_blank">/q/health</a></code>
+						<ul class="provided-code">
+						<li>
+						<code>@Path: <a href="/q/health/live" class="path-link" target="_blank">/q/health/live</a></code>
+						</li>
+						<li>
+						<code>@Path: <a href="/q/health/ready" class="path-link" target="_blank">/q/health/ready</a></code>
+						</li>
+						<!--/*
+						<li>
+						<code>@Path: <a href="/q/health/group" class="path-link" target="_blank">/q/health/group</a></code>
+						</li>
+						<li>
+						<code>@Path: <a href="/q/health/group/*" class="path-link" target="_blank">/q/health/group/*</a></code>
+						</li>
+						<li>
+						<code>@Path: <a href="/q/health/well" class="path-link" target="_blank">/q/health/well</a></code>
+						</li>
+						*/--> 
+						<li>
+						<code>@Path: <a href="/q/health/started" class="path-link" target="_blank">/q/health/started</a></code>
+						</li>
+						</ul>
+						{#else}
 						<br />&rsaquo;
 						<code>@Path: <a href="/q/health-ui" class="path-link" target="_blank">/q/health-ui</a></code>
-				{/if}
+				                {/if}
 						<br />&rsaquo; <code>@Path: <a href="/hello" class="path-link" target="_blank">/hello</a></code>
 						<br />&rsaquo; <code>@Path: <a href="/ahoj" class="path-link" target="_blank">/ahoj</a></code>
 						<br />&rsaquo;
 						<code>@Path: <a href="/javadoc" class="path-link" target="_blank">/javadoc</a></code>
 						<br />&rsaquo; <code>@Path: <a href="/downloads" class="path-link">/downloads</a></code>
-				{#if !map.get("quarkus.profile").equals("native")}
+				                {#if !map.get("quarkus.profile").equals("native")}
 						<br />&rsaquo;
 						<code>@Path: <a href="/q/dev/io.quarkus.quarkus-resteasy-reactive/endpoints" class="path-link" target="_blank">endpoints</a></code>
-				{/if}
+				                {/if}
 					</li>
 
 				</ul>

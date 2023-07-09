@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- https://springframework.guru/using-logback-spring-boot/ -->
+<!-- http://logback.qos.ch/manual/appenders.html -->
+<!DOCTYPE configuration>
+<!-- <configuration debug="true"> -->
+<configuration debug="true">
+
+    <!-- <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook" /> -->
+ 
+	<logger name="local.intranet" level="DEBUG"/>
+	<logger name="io.quarkus" level="INFO"/>
+	<logger name="org.hibernate.SQL" level="INFO" />
+	<logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="INFO" />
+		
+	<root level="INFO" />
+
+</configuration>
