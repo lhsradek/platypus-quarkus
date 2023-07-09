@@ -46,6 +46,7 @@ fi
 
 IMG="lhsradek/platypus-quarkus:v1"
 IMGFILE="platypus-quarkus-v1.img"
+# docker-compose ${ARGS} pull
 # docker save -o ${IMGFILE} ${IMG}
 ## docker push ${IMG} # !
 echo "Start ${IMG} (${IMGFILE})";
