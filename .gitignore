@@ -43,6 +43,8 @@ nb-configuration.xml
 /src/main/resources/META-INF/resources/downloads/
 .metadata/
 *.log
+mvnw
+mvnw.cmd
 
 .mvn/
 extras/
