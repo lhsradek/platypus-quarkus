@@ -27,6 +27,18 @@ services:
     container_name: "${APP_NICK}-${APP_ID}"
     hostname: "${APP_NICK}.${INT_NETWORK}"
     restart: ${DOCKER_RESTART_POLICY}
+    networks:
+      default:
+        ipv4_address: ${ES_NET}.80
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      # - "8080:8080"
+      - "8443:8443"
+    volumes:
+      - ./certs:/work/certs:ro
+      - ./target/platypus-quarkus-1.0.0-SNAPSHOT-native-image-source-jar:/project:rw
+      - ./src/main/resources/META-INF/resources/downloads:/work/downloads:ro
     environment:
       # - MAVEN_S2I_ARTIFACT_DIRS=target
       # - S2I_SOURCE_DEPLOYMENTS_FILTER=*-runner.jar lib
@@ -70,17 +82,6 @@ services:
       - QUARKUS_FLYWAY_USERNAME=${DB_USERNAME}
       - QUARKUS_FLYWAY_PASSWORD=${DB_PASSWORD}
       - QUARKUS_FLYWAY_LOCATIONS=classpath:db/migration,db/specific/postgresql
-    networks:
-      - default
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-    ports:
-      # - "8080:8080"
-      - "8443:8443"
-    volumes:
-      - ./certs:/work/certs:ro
-      - ./target/platypus-quarkus-1.0.0-SNAPSHOT-native-image-source-jar:/project:rw
-      - ./src/main/resources/META-INF/resources/downloads:/work/downloads:ro
 # 
 # === PostgreSQL ===
 # 
@@ -95,7 +96,8 @@ services:
     # ports:
     #   - 15432:5432
     networks:
-      - default
+      default:
+        ipv4_address: ${ES_NET}.81
     volumes:
       - ./extras/docker-entrypoint-initdb.d/init-user-db.sh:/docker-entrypoint-initdb.d/init-user-db.sh:ro
       - postgres:/var/lib/postgresql/data
@@ -121,8 +123,8 @@ services:
     # hostname: "redis.${INT_NETWORK}"
     restart: ${DOCKER_RESTART_POLICY}
     networks:
-      # local network:
-      - default
+      default:
+        ipv4_address: ${ES_NET}.82
     environment:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
     # ports:
@@ -154,8 +156,8 @@ services:
 #       - ./logs/nginx:/var/log/nginx
 #       - adminer:/var/www/html/ad:rw
 #     networks:
-#       # local network:
-#       - default
+#       default:
+#         ipv4_address: ${ES_NET}.83
 #     healthcheck:
 #       test: "curl -s -I http://localhost/nginx_status | grep -q 'HTTP/1.1 200 OK'"
 #       interval: 10s
@@ -175,8 +177,8 @@ services:
 #     hostname: "ad-php.${INT_NETWORK}"
 #     restart: ${DOCKER_RESTART_POLICY}
 #     networks:
-#       # local network:
-#       - default
+#       default:
+#         ipv4_address: ${ES_NET}.84
 #     volumes:
 #       - adminer:/var/www/html:rw
           
