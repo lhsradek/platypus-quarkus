@@ -47,7 +47,6 @@ mvnw
 mvnw.cmd
 
 .mvn/
-extras/
 certs/
 
 platypus-quarkus-v1.img
