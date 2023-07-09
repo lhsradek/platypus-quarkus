@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+read_var() {
+    VAR=$(grep -m 1 "$1" "$2" | xargs)
+    IFS="=" read -ra VAR <<< "$VAR"
+    echo "${VAR[1]}"
+}
+
+QUARKUS_BUILD=$(read_var QUARKUS_BUILD .env)
+DB_USERNAME=$(read_var DB_USERNAME .env)
+DB_PASSWORD=$(read_var DB_PASSWORD .env)
+
+if [[ $QUARKUS_BUILD == 1 ]]; then
+  #  echo "/mvnw -X -e"
+  # ./mvnw clean install compile -Pdev -Dmaven.test.skip=true
+  ./mvnw clean package -Pnative -Dmaven.test.skip=true -Dquarkus.native.container-build=true 
+fi
+
+DOCKER_NETWORK=$(read_var DOCKER_NETWORK .env)
+
+scriptPath="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+rootPath="$(dirname "${scriptPath}")"
+
+if [[ ! -f "$rootPath/.env" ]]; then
+    echo "ERROR: File .env not found";
+    echo;
+    exit 1;
+fi
+
+if [[ ! -f "$rootPath/docker-compose.yml" ]]; then
+    echo "ERROR: File docker-compose.yml not found.";
+    echo;
+    exit 1;
+fi
+
+# if !(docker network inspect "${DOCKER_NETWORK}" >/dev/null 2>&1); then
+#     echo "ERROR: Docker network ${DOCKER_NETWORK} is not running. Start it first."
+#     exit 1;
+# fi
+
+ARGS="-f $rootPath/docker-compose.yml"
+
+if [[ -f "$rootPath/docker-compose.yml" ]]; then
+    ARGS="$ARGS -f $rootPath/docker-compose.yml"
+fi
+
+IMG="lhsradek/platypus-quarkus:v1"
+IMGFILE="platypus-quarkus-v1.img"
+# docker save -o ${IMGFILE} ${IMG}
+## docker push ${IMG} # !
+echo "Start ${IMG} (${IMGFILE})";
+
+if [[ $QUARKUS_BUILD == 1 ]]; then
+    docker-compose ${ARGS} up --build -d
+else
+    docker-compose ${ARGS} up -d
+fi
