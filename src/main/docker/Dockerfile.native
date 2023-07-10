@@ -14,7 +14,7 @@
 # docker run -i --rm -p 8080:8080 quarkus/platypus-quarkus
 #
 ###
-FROM registry.access.redhat.com/ubi8/ubi-minimal:8.8
+FROM registry.access.redhat.com/ubi9/ubi-minimal:9.2
 LABEL org.opencontainers.image.authors="radek.kadner@gmail.com"
 LABEL description="https://github.com/lhsradek/platypus-quarkus"
 WORKDIR /work/
