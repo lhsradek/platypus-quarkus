@@ -71,7 +71,6 @@ services:
       - QUARKUS_HIBERNATE-ORM_LOG_FORMAT-SQL=true
       - QUARKUS_HIBERNATE-ORM_DATABASE_GENERATION=none
       - QUARKUS_HIBERNATE-ORM_DATABASE_DEFAULT-SCHEMA=public
-      # - QUARKUS_HIBERNATE-ORM_DIALECT=org.hibernate.dialect.PostgreSQL95Dialect
       - QUARKUS_HIBERNATE-ORM_PACKAGES=local.intranet.quarkus.api.model.entity,io.quarkus.hibernate.orm.panache,org.hibernate.envers
       - QUARKUS_HIBERNATE-ENVERS_ACTIVE=true
       - QUARKUS_HIBERNATE-ENVERS_GLOBAL-WITH-MODIFIED-FLAG=true
