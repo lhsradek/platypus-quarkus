@@ -200,7 +200,7 @@ public class StatusController extends PlatypusCounter implements Countable, Invo
 					if (!(k == null || ConfigProvider.getConfig().unwrap(SmallRyeConfig.class).getRawValue(k) == null))
 						map.put(k, ConfigProvider.getConfig().unwrap(SmallRyeConfig.class).getRawValue(k));
 				});
-		map.put("quarkus.version", quarkusVersion()); // add quarkus.version
+		map.put("platypus.engine", platypusEngine);
 		map.forEach((k, v) -> {
 			if (!(k == null || k.equals(STATUS_BRACKET) || k.equals(EQUAL_WITH_COLONS))) {
 				boolean isProtected = false;
