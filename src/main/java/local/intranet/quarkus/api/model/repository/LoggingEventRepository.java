@@ -14,7 +14,6 @@ import local.intranet.quarkus.api.model.entity.LoggingEvent;
  * {@link LoggingEventRepository} is repository for JPA with
  * {@link local.intranet.quarkus.api.model.entity.LoggingEvent}
  * <p>
- * 
  * https://quarkus.pro/guides/spring-data-jpa
  * <p>
  * https://quarkus.pro/guides/spring-di.html

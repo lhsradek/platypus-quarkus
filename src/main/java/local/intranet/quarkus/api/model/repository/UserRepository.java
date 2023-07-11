@@ -12,7 +12,7 @@ import local.intranet.quarkus.api.model.entity.User;
  * 
  * {@link UserRepository} is repository for CRUD with
  * {@link local.intranet.quarkus.api.model.entity.User}
- * 
+ * <p>
  * https://quarkus.pro/guides/spring-data-jpa
  * <p>
  * https://quarkus.pro/guides/spring-di.html
