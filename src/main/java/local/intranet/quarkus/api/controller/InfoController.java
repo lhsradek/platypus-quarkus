@@ -193,7 +193,7 @@ public class InfoController extends PlatypusCounter implements Countable, Invoca
 		final String counterName = getName();
 		final CounterInfo ret = counterService.getCounterInfo(counterName);
 		LOG.debug("name:'{}' cnt:{} date:'{}': status:'{}'", counterName, ret.getCount(), formatDateTime(ret.getDate()),
-				ret.getStatus());
+		ret.getStatus());
 		return ret;
 	}
 
