@@ -23,7 +23,8 @@ import local.intranet.quarkus.api.model.repository.LoggingEventRepository;
 
 /**
  * 
- * {@link LoggingEventService} for {@link local.intranet.quarkus.api}
+ * {@link LoggingEventService} for
+ * {@link local.intranet.quarkus.api.controller.InfoController#loggingEventInfo()}
  * <p>
  * An entity {@link LoggingEvent} without setters is only used to read data
  * written by logback-spring DbAppender

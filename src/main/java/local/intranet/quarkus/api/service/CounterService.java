@@ -22,8 +22,9 @@ import local.intranet.quarkus.api.model.repository.CounterRepository;
 
 /**
  * 
- * {@link CounterService}
- * 
+ * {@link CounterService} for
+ * {@link local.intranet.quarkus.api.controller.InfoController#infoCounter()}
+ * <p>
  * https://quarkus.pro/guides/spring-di.html
  * 
  * @author Radek Kádner

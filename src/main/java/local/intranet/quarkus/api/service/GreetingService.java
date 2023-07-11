@@ -13,7 +13,7 @@ import io.quarkus.vertx.ConsumeEvent;
  * 
  * 
  * {@link GreetingService}
- * 
+ * <p>
  * https://quarkus.io/guides/vertx
  *
  */
