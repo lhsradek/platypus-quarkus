@@ -40,6 +40,7 @@ services:
       - ./target/platypus-quarkus-1.0.0-SNAPSHOT-native-image-source-jar:/project:rw
       - ./src/main/resources/META-INF/resources/downloads:/work/downloads:ro
     environment:
+      - TZ=${TIME_ZONE}
       # - MAVEN_S2I_ARTIFACT_DIRS=target
       # - S2I_SOURCE_DEPLOYMENTS_FILTER=*-runner.jar lib
       # - DB_USERNAME=${DB_USERNAME}
