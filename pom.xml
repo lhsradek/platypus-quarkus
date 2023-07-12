@@ -304,6 +304,29 @@
         <quarkus.package.type>jar</quarkus.package.type>
       </properties>
       <build>
+        <plugins>
+          <plugin>
+             <groupId>org.apache.maven.plugins</groupId>
+             <artifactId>maven-javadoc-plugin</artifactId>
+             <version>3.2.0</version>
+             <executions>
+               <execution>
+                 <id>attach-javadocs</id>
+                 <goals>
+                   <goal>jar</goal>
+                 </goals>
+                 <phase>package</phase>
+               </execution>
+             </executions>
+             <configuration>
+             <javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
+             <outputDirectory>${project.basedir}/src/main/resources/META-INF/resources/javadoc/</outputDirectory>
+             <release>11</release>
+             <doclint>none</doclint>
+             <quiet>true</quiet>
+           </configuration>
+          </plugin>
+        </plugins>
       </build>
     </profile>
     <profile>
@@ -363,7 +386,7 @@
                  <goals>
                    <goal>jar</goal>
                  </goals>
-                 <phase>clean</phase>
+		 <phase>clean</phase> <!-- It must be first, otherwise it will not appear in the resulting image or it will not be current. -->
                </execution>
              </executions>
              <configuration>
