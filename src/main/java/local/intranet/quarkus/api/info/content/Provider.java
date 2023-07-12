@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
  * 
  * {@link Provider} for
  * {@link local.intranet.quarkus.api.controller.IndexController}
- * 
+ * <p> 
  * https://how-to.vertx.io/hibernate-reactive-howto/
  * 
  * @author Radek Kádner
