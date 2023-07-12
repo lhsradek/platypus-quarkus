@@ -45,7 +45,7 @@ import local.intranet.quarkus.api.service.CounterService;
  * {@link VertxController}
  * 
  * Vert.x for quarkus
- * 
+ * <p>
  * https://quarkus.io/guides/vertx https://quarkus.io/guides/vertx-reference
  * https://how-to.vertx.io/web-and-openapi-howto/
  *
