@@ -12,6 +12,7 @@ DB_PASSWORD=$(read_var DB_PASSWORD .env)
 
 if [[ $QUARKUS_BUILD == 1 ]]; then
   #  echo "/mvnw -X -e"
+  rm -r -f src/main/resources/META-INF/resources/javadoc
   # ./mvnw clean install compile -Pdev -Dmaven.test.skip=true
   ./mvnw clean package -Pnative -Dmaven.test.skip=true -Dquarkus.native.container-build=true 
 fi
