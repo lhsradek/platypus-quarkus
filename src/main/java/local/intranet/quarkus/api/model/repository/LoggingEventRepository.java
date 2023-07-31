@@ -2,12 +2,12 @@ package local.intranet.quarkus.api.model.repository;
 
 import java.util.List;
 
+import local.intranet.quarkus.api.model.entity.LoggingEvent;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-
-import local.intranet.quarkus.api.model.entity.LoggingEvent;
 
 /**
  * 

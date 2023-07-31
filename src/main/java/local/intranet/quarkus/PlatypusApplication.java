@@ -2,6 +2,7 @@ package local.intranet.quarkus;
 
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.annotations.QuarkusMain;
+
 import local.intranet.quarkus.api.controller.StatusController;
 
 /**

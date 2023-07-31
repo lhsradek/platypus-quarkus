@@ -1,5 +1,7 @@
 package local.intranet.quarkus.api.service;
 
+import io.smallrye.common.constraint.NotNull;
+
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -9,16 +11,15 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
-import org.eclipse.microprofile.openapi.annotations.Operation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import io.smallrye.common.constraint.NotNull;
 import local.intranet.quarkus.api.domain.type.StatusType;
 import local.intranet.quarkus.api.exception.PlatypusException;
 import local.intranet.quarkus.api.info.CounterInfo;
 import local.intranet.quarkus.api.model.entity.Counter;
 import local.intranet.quarkus.api.model.repository.CounterRepository;
+
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 

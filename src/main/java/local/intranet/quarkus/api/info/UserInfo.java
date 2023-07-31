@@ -1,10 +1,11 @@
 package local.intranet.quarkus.api.info;
 
-import javax.validation.constraints.Size;
-
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import io.smallrye.common.constraint.NotNull;
+
+import javax.validation.constraints.Size;
+
 import local.intranet.quarkus.api.controller.StatusController;
 import local.intranet.quarkus.api.domain.DefaultFieldLengths;
 import local.intranet.quarkus.api.model.entity.User;

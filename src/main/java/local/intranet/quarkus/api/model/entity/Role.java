@@ -1,5 +1,7 @@
 package local.intranet.quarkus.api.model.entity;
 
+import io.smallrye.common.constraint.NotNull;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,7 +15,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
-import io.smallrye.common.constraint.NotNull;
 import local.intranet.quarkus.api.domain.DefaultFieldLengths;
 
 /**

@@ -1,11 +1,11 @@
 package local.intranet.quarkus.api.scheduler;
 
+import io.quarkus.scheduler.Scheduled.SkipPredicate;
+import io.quarkus.scheduler.ScheduledExecution;
+
 import javax.inject.Singleton;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-
-import io.quarkus.scheduler.Scheduled.SkipPredicate;
-import io.quarkus.scheduler.ScheduledExecution;
 
 /**
  * 

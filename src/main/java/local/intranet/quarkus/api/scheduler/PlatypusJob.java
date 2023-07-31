@@ -1,5 +1,7 @@
 package local.intranet.quarkus.api.scheduler;
 
+import io.quarkus.scheduler.Scheduled;
+
 import java.text.MessageFormat;
 import java.util.StringJoiner;
 
@@ -8,11 +10,6 @@ import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import org.eclipse.microprofile.config.inject.ConfigProperty;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import io.quarkus.scheduler.Scheduled;
 import local.intranet.quarkus.api.controller.InfoController;
 import local.intranet.quarkus.api.controller.StatusController;
 import local.intranet.quarkus.api.domain.Countable;
@@ -20,6 +17,10 @@ import local.intranet.quarkus.api.domain.Invocationable;
 import local.intranet.quarkus.api.domain.Nameable;
 import local.intranet.quarkus.api.domain.Statusable;
 import local.intranet.quarkus.api.info.content.PlatypusCounter;
+
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 

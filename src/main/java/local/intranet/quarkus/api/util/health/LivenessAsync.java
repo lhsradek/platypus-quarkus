@@ -1,13 +1,13 @@
 package local.intranet.quarkus.api.util.health;
 
+import io.smallrye.health.api.AsyncHealthCheck;
+import io.smallrye.mutiny.Uni;
+
 import java.time.Duration;
 
 import javax.enterprise.context.ApplicationScoped;
 
 import org.eclipse.microprofile.health.HealthCheckResponse;
-
-import io.smallrye.health.api.AsyncHealthCheck;
-import io.smallrye.mutiny.Uni;
 
 /**
  * 

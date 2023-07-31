@@ -1,13 +1,13 @@
 package local.intranet.quarkus.api.service;
 
+import io.quarkus.vertx.ConsumeEvent;
+
 import java.text.MessageFormat;
 
 import javax.enterprise.context.ApplicationScoped;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import io.quarkus.vertx.ConsumeEvent;
 
 /**
  * 

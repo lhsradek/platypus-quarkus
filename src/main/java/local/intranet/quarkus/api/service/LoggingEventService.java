@@ -9,17 +9,17 @@ import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
+import local.intranet.quarkus.api.info.LevelCount;
+import local.intranet.quarkus.api.info.LoggingEventInfo;
+import local.intranet.quarkus.api.model.entity.LoggingEvent;
+import local.intranet.quarkus.api.model.repository.LoggingEventRepository;
+
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-
-import local.intranet.quarkus.api.info.LevelCount;
-import local.intranet.quarkus.api.info.LoggingEventInfo;
-import local.intranet.quarkus.api.model.entity.LoggingEvent;
-import local.intranet.quarkus.api.model.repository.LoggingEventRepository;
 
 /**
  * 

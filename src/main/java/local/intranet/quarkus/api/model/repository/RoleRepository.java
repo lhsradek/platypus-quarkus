@@ -1,12 +1,13 @@
 package local.intranet.quarkus.api.model.repository;
 
+import io.smallrye.common.constraint.NotNull;
+
 import java.util.Optional;
+
+import local.intranet.quarkus.api.model.entity.Role;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-
-import io.smallrye.common.constraint.NotNull;
-import local.intranet.quarkus.api.model.entity.Role;
 
 /**
  * 
