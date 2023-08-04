@@ -78,15 +78,11 @@
 				<br />&nbsp;
 				{#else}
 				<a href="/downloads" class="cta-button">Downloads</a>&nbsp;
-				{#if map.get("quarkus.profile").equals("native")}
-				<br />&nbsp;
-				{#else}
-				<a href="/q/dev/" target="_blank" class="cta-button">Visit the Dev UI</a>&nbsp;
+				{#if !map.get("quarkus.profile").equals("native")}
+				<a href="/q/dev/" target="_blank" class="cta-button">Visit the Dev UI</a>
 				{/if}
 				{/if}
-				<h1><a style="text-decoration: none;" href="https://github.com/lhsradek/platypus-quarkus"
-						target="_blank">
-						{map.get("quarkus.application.header")}</a> Application.</h1>
+				<h1><a style="text-decoration: none;" href="https://github.com/lhsradek/platypus-quarkus" target="_blank">{map.get("quarkus.application.header")}</a> Application.</h1>
 				<p><br />App configuration: <code>src/main/resources/application.properties</code></p>
 				<p>Static assets: <code>src/main/resources/META-INF/resources/</code></p>
 				<p>Code: <code>src/main/java</code></p>
