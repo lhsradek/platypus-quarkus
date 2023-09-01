@@ -13,7 +13,7 @@
     <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
     <quarkus.platform.version>2.16.10.Final</quarkus.platform.version>
     <skipITs>false</skipITs>
-    <surefire-plugin.version>3.0.0</surefire-plugin.version>
+    <surefire-plugin.version>3.1.0</surefire-plugin.version>
     <maven.javadoc.failOnError>false</maven.javadoc.failOnError>
     <doclint>none</doclint>
   </properties>
