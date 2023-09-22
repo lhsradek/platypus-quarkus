@@ -1,0 +1,430 @@
+.
+├── application
+│   └── html
+│       └── ad
+├── bin
+│   ├── restart
+│   ├── start
+│   └── stop
+├── certs
+│   ├── ca.crt
+│   ├── fpt.platel.crt
+│   ├── fpt.platel.key
+│   ├── keystore.jks
+│   ├── kibana.platel.crt
+│   ├── kibana.platel.key
+│   ├── not.intranet.local.crt
+│   ├── not.intranet.local.key
+│   └── not.intranet.local.pem
+├── docker-compose.yml
+├── extras
+│   ├── docker-entrypoint-initdb.d
+│   │   └── init-user-db.sh
+│   ├── nginx
+│   │   ├── default-http.conf
+│   │   └── default-https.conf
+│   └── var
+│       └── lib
+│           └── postgresql
+│               └── data
+│                   ├── pg_hba.conf
+│                   └── postgresql.conf
+├── LICENSE.txt
+├── logs
+│   └── nginx
+├── mvnw
+├── mvnw.cmd
+├── note.md
+├── png
+│   ├── Platypus_is_surprised_by_the_speed_of_quarkus_and_GraalVM_and_jumps_for_joy.png
+│   ├── quarkus01.png
+│   ├── quarkus02.png
+│   ├── quarkus03.png
+│   ├── quarkus04.png
+│   ├── quarkus05.png
+│   ├── quarkus06.png
+│   ├── quarkus07.png
+│   └── quarkus08.png
+├── pom.xml
+├── README.md
+├── src
+│   ├── main
+│   │   ├── docker
+│   │   │   ├── Dockerfile.jvm
+│   │   │   ├── Dockerfile.legacy-jar
+│   │   │   ├── Dockerfile.native
+│   │   │   └── Dockerfile.native-micro
+│   │   ├── java
+│   │   │   └── local
+│   │   │       └── intranet
+│   │   │           ├── package-info.java
+│   │   │           └── quarkus
+│   │   │               ├── api
+│   │   │               │   ├── controller
+│   │   │               │   │   ├── DownloadController.java
+│   │   │               │   │   ├── IndexController.java
+│   │   │               │   │   ├── InfoController.java
+│   │   │               │   │   ├── package-info.java
+│   │   │               │   │   ├── StatusController.java
+│   │   │               │   │   └── VertxController.java
+│   │   │               │   ├── domain
+│   │   │               │   │   ├── Countable.java
+│   │   │               │   │   ├── DefaultFieldLengths.java
+│   │   │               │   │   ├── Invocationable.java
+│   │   │               │   │   ├── Nameable.java
+│   │   │               │   │   ├── package-info.java
+│   │   │               │   │   ├── Statusable.java
+│   │   │               │   │   └── type
+│   │   │               │   │       ├── package-info.java
+│   │   │               │   │       ├── RoleType.java
+│   │   │               │   │       └── StatusType.java
+│   │   │               │   ├── exception
+│   │   │               │   │   ├── package-info.java
+│   │   │               │   │   └── PlatypusException.java
+│   │   │               │   ├── info
+│   │   │               │   │   ├── content
+│   │   │               │   │   │   ├── package-info.java
+│   │   │               │   │   │   ├── PlatypusCounter.java
+│   │   │               │   │   │   ├── Provider.java
+│   │   │               │   │   │   └── template
+│   │   │               │   │   │       ├── DownloadTemplate.java
+│   │   │               │   │   │       ├── IndexTemplate.java
+│   │   │               │   │   │       ├── LoginTemplate.java
+│   │   │               │   │   │       ├── package-info.java
+│   │   │               │   │   │       └── PropertiesTemplate.java
+│   │   │               │   │   ├── CounterInfo.java
+│   │   │               │   │   ├── LevelCount.java
+│   │   │               │   │   ├── LoggingEventInfo.java
+│   │   │               │   │   ├── Message.java
+│   │   │               │   │   ├── package-info.java
+│   │   │               │   │   ├── RoleInfo.java
+│   │   │               │   │   ├── RolePlain.java
+│   │   │               │   │   └── UserInfo.java
+│   │   │               │   ├── model
+│   │   │               │   │   ├── entity
+│   │   │               │   │   │   ├── Counter.java
+│   │   │               │   │   │   ├── LoggingEvent.java
+│   │   │               │   │   │   ├── package-info.java
+│   │   │               │   │   │   ├── Role.java
+│   │   │               │   │   │   └── User.java
+│   │   │               │   │   ├── package-info.java
+│   │   │               │   │   └── repository
+│   │   │               │   │       ├── CounterRepository.java
+│   │   │               │   │       ├── LoggingEventRepository.java
+│   │   │               │   │       ├── package-info.java
+│   │   │               │   │       ├── RoleRepository.java
+│   │   │               │   │       └── UserRepository.java
+│   │   │               │   ├── package-info.java
+│   │   │               │   ├── service
+│   │   │               │   │   ├── CounterService.java
+│   │   │               │   │   ├── GreetingService.java
+│   │   │               │   │   ├── LoggingEventService.java
+│   │   │               │   │   ├── package-info.java
+│   │   │               │   │   ├── RoleService.java
+│   │   │               │   │   └── UserService.java
+│   │   │               │   ├── scheduler
+│   │   │               │   │   ├── package-info.java
+│   │   │               │   │   ├── PlatypusJob.java
+│   │   │               │   │   └── PlatypusPredicate.java
+│   │   │               │   └── util
+│   │   │               │       ├── health
+│   │   │               │       │   ├── LivenessAsync.java
+│   │   │               │       │   ├── package-info.java
+│   │   │               │       │   ├── SimpleHealthCheck.java
+│   │   │               │       │   └── StartupHealthCheck.java
+│   │   │               │       ├── package-info.java
+│   │   │               │       └── SecurityUtil.java
+│   │   │               ├── package-info.java
+│   │   │               └── PlatypusApplication.java
+│   │   └── resources
+│   │       ├── application.properties
+│   │       ├── book.txt
+│   │       ├── ca.crt
+│   │       ├── db
+│   │       │   ├── migration
+│   │       │   │   └── V1_01_001__platypus-insert.sql
+│   │       │   └── specific
+│   │       │       ├── h2
+│   │       │       │   ├── V1_00_001__logback-create.sql
+│   │       │       │   ├── V1_00_002__session-create.txt
+│   │       │       │   └── V1_00_003__platypus-create.sql
+│   │       │       ├── mysql
+│   │       │       │   ├── V1_00_001__logback-create.sql
+│   │       │       │   ├── V1_00_002__session-create.txt
+│   │       │       │   └── V1_00_003__platypus-create.sql
+│   │       │       └── postgresql
+│   │       │           ├── V1_00_001__logback-create.sql
+│   │       │           ├── V1_00_002__session-create.txt
+│   │       │           └── V1_00_003__platypus-create.sql
+│   │       ├── keystore.jks
+│   │       ├── kibana.platel.crt
+│   │       ├── kibana.platel.key
+│   │       ├── logback.xml
+│   │       ├── lorem.txt
+│   │       ├── META-INF
+│   │       │   └── resources
+│   │       │       ├── button.js
+│   │       │       ├── downloads
+│   │       │       │   ├── grafana.png
+│   │       │       │   ├── hermiona.png
+│   │       │       │   ├── jenkins.png
+│   │       │       │   ├── My_cork_badtub_is_like_your_giraffe_rye_II.png
+│   │       │       │   ├── My_cork_badtub_is_like_your_giraffe_rye.png
+│   │       │       │   ├── open-telemetry.png
+│   │       │       │   ├── personal
+│   │       │       │   │   ├── Back_to_The_Future.png
+│   │       │       │   │   ├── IMG_1857.jpg
+│   │       │       │   │   └── radek.jpg
+│   │       │       │   ├── Platypus_as_computer_metrics_watcher_by_Prometheus.png
+│   │       │       │   ├── Platypus_exposes_data_on_the_web_using_Wordpress.png
+│   │       │       │   ├── Platypus_is_surprised_by_the_speed_of_quarkus_and_GraalVM_and_jumps_for_joy.png
+│   │       │       │   ├── prevod.txt
+│   │       │       │   ├── q1.png
+│   │       │       │   ├── q2.png
+│   │       │       │   ├── q3.png
+│   │       │       │   ├── q4.png
+│   │       │       │   ├── q5.png
+│   │       │       │   ├── q6.png
+│   │       │       │   ├── q7.png
+│   │       │       │   ├── q8.png
+│   │       │       │   ├── q9.png
+│   │       │       │   ├── start-corda.ps1.txt
+│   │       │       │   ├── start-platypus-quarkus.ps1.txt
+│   │       │       │   └── tombola01.png
+│   │       │       ├── favicon.ico
+│   │       │       ├── javadoc
+│   │       │       │   ├── allclasses-index.html
+│   │       │       │   ├── allpackages-index.html
+│   │       │       │   ├── constant-values.html
+│   │       │       │   ├── element-list
+│   │       │       │   ├── help-doc.html
+│   │       │       │   ├── index-all.html
+│   │       │       │   ├── index.html
+│   │       │       │   ├── jquery-ui.overrides.css
+│   │       │       │   ├── legal
+│   │       │       │   │   ├── ADDITIONAL_LICENSE_INFO
+│   │       │       │   │   ├── ASSEMBLY_EXCEPTION
+│   │       │       │   │   ├── jquery.md
+│   │       │       │   │   ├── jqueryUI.md
+│   │       │       │   │   └── LICENSE
+│   │       │       │   ├── local
+│   │       │       │   │   └── intranet
+│   │       │       │   │       ├── package-summary.html
+│   │       │       │   │       ├── package-tree.html
+│   │       │       │   │       ├── package-use.html
+│   │       │       │   │       └── quarkus
+│   │       │       │   │           ├── api
+│   │       │       │   │           │   ├── controller
+│   │       │       │   │           │   │   ├── class-use
+│   │       │       │   │           │   │   │   ├── DownloadController.html
+│   │       │       │   │           │   │   │   ├── IndexController.html
+│   │       │       │   │           │   │   │   ├── InfoController.html
+│   │       │       │   │           │   │   │   ├── StatusController.html
+│   │       │       │   │           │   │   │   └── VertxController.html
+│   │       │       │   │           │   │   ├── DownloadController.html
+│   │       │       │   │           │   │   ├── IndexController.html
+│   │       │       │   │           │   │   ├── InfoController.html
+│   │       │       │   │           │   │   ├── package-summary.html
+│   │       │       │   │           │   │   ├── package-tree.html
+│   │       │       │   │           │   │   ├── package-use.html
+│   │       │       │   │           │   │   ├── StatusController.html
+│   │       │       │   │           │   │   └── VertxController.html
+│   │       │       │   │           │   ├── domain
+│   │       │       │   │           │   │   ├── class-use
+│   │       │       │   │           │   │   │   ├── Countable.html
+│   │       │       │   │           │   │   │   ├── DefaultFieldLengths.html
+│   │       │       │   │           │   │   │   ├── Invocationable.html
+│   │       │       │   │           │   │   │   ├── Nameable.html
+│   │       │       │   │           │   │   │   └── Statusable.html
+│   │       │       │   │           │   │   ├── Countable.html
+│   │       │       │   │           │   │   ├── DefaultFieldLengths.html
+│   │       │       │   │           │   │   ├── Invocationable.html
+│   │       │       │   │           │   │   ├── Nameable.html
+│   │       │       │   │           │   │   ├── package-summary.html
+│   │       │       │   │           │   │   ├── package-tree.html
+│   │       │       │   │           │   │   ├── package-use.html
+│   │       │       │   │           │   │   ├── Statusable.html
+│   │       │       │   │           │   │   └── type
+│   │       │       │   │           │   │       ├── class-use
+│   │       │       │   │           │   │       │   ├── RoleType.html
+│   │       │       │   │           │   │       │   └── StatusType.html
+│   │       │       │   │           │   │       ├── package-summary.html
+│   │       │       │   │           │   │       ├── package-tree.html
+│   │       │       │   │           │   │       ├── package-use.html
+│   │       │       │   │           │   │       ├── RoleType.html
+│   │       │       │   │           │   │       └── StatusType.html
+│   │       │       │   │           │   ├── exception
+│   │       │       │   │           │   │   ├── class-use
+│   │       │       │   │           │   │   │   └── PlatypusException.html
+│   │       │       │   │           │   │   ├── package-summary.html
+│   │       │       │   │           │   │   ├── package-tree.html
+│   │       │       │   │           │   │   ├── package-use.html
+│   │       │       │   │           │   │   └── PlatypusException.html
+│   │       │       │   │           │   ├── info
+│   │       │       │   │           │   │   ├── class-use
+│   │       │       │   │           │   │   │   ├── CounterInfo.html
+│   │       │       │   │           │   │   │   ├── LevelCount.html
+│   │       │       │   │           │   │   │   ├── LoggingEventInfo.html
+│   │       │       │   │           │   │   │   ├── Message.html
+│   │       │       │   │           │   │   │   ├── RoleInfo.html
+│   │       │       │   │           │   │   │   ├── RolePlain.html
+│   │       │       │   │           │   │   │   └── UserInfo.html
+│   │       │       │   │           │   │   ├── content
+│   │       │       │   │           │   │   │   ├── class-use
+│   │       │       │   │           │   │   │   │   ├── PlatypusCounter.html
+│   │       │       │   │           │   │   │   │   └── Provider.html
+│   │       │       │   │           │   │   │   ├── package-summary.html
+│   │       │       │   │           │   │   │   ├── package-tree.html
+│   │       │       │   │           │   │   │   ├── package-use.html
+│   │       │       │   │           │   │   │   ├── PlatypusCounter.html
+│   │       │       │   │           │   │   │   ├── Provider.html
+│   │       │       │   │           │   │   │   └── template
+│   │       │       │   │           │   │   │       ├── class-use
+│   │       │       │   │           │   │   │       │   ├── DownloadTemplate.html
+│   │       │       │   │           │   │   │       │   ├── IndexTemplate.html
+│   │       │       │   │           │   │   │       │   ├── LoginTemplate.html
+│   │       │       │   │           │   │   │       │   └── PropertiesTemplate.html
+│   │       │       │   │           │   │   │       ├── DownloadTemplate.html
+│   │       │       │   │           │   │   │       ├── IndexTemplate.html
+│   │       │       │   │           │   │   │       ├── LoginTemplate.html
+│   │       │       │   │           │   │   │       ├── package-summary.html
+│   │       │       │   │           │   │   │       ├── package-tree.html
+│   │       │       │   │           │   │   │       ├── package-use.html
+│   │       │       │   │           │   │   │       └── PropertiesTemplate.html
+│   │       │       │   │           │   │   ├── CounterInfo.html
+│   │       │       │   │           │   │   ├── LevelCount.html
+│   │       │       │   │           │   │   ├── LoggingEventInfo.html
+│   │       │       │   │           │   │   ├── Message.html
+│   │       │       │   │           │   │   ├── package-summary.html
+│   │       │       │   │           │   │   ├── package-tree.html
+│   │       │       │   │           │   │   ├── package-use.html
+│   │       │       │   │           │   │   ├── RoleInfo.html
+│   │       │       │   │           │   │   ├── RolePlain.html
+│   │       │       │   │           │   │   └── UserInfo.html
+│   │       │       │   │           │   ├── model
+│   │       │       │   │           │   │   ├── entity
+│   │       │       │   │           │   │   │   ├── class-use
+│   │       │       │   │           │   │   │   │   ├── Counter.html
+│   │       │       │   │           │   │   │   │   ├── LoggingEvent.html
+│   │       │       │   │           │   │   │   │   ├── Role.html
+│   │       │       │   │           │   │   │   │   └── User.html
+│   │       │       │   │           │   │   │   ├── Counter.html
+│   │       │       │   │           │   │   │   ├── LoggingEvent.html
+│   │       │       │   │           │   │   │   ├── package-summary.html
+│   │       │       │   │           │   │   │   ├── package-tree.html
+│   │       │       │   │           │   │   │   ├── package-use.html
+│   │       │       │   │           │   │   │   ├── Role.html
+│   │       │       │   │           │   │   │   └── User.html
+│   │       │       │   │           │   │   ├── package-summary.html
+│   │       │       │   │           │   │   ├── package-tree.html
+│   │       │       │   │           │   │   ├── package-use.html
+│   │       │       │   │           │   │   └── repository
+│   │       │       │   │           │   │       ├── class-use
+│   │       │       │   │           │   │       │   ├── CounterRepository.html
+│   │       │       │   │           │   │       │   ├── LoggingEventRepository.html
+│   │       │       │   │           │   │       │   ├── RoleRepository.html
+│   │       │       │   │           │   │       │   └── UserRepository.html
+│   │       │       │   │           │   │       ├── CounterRepository.html
+│   │       │       │   │           │   │       ├── LoggingEventRepository.html
+│   │       │       │   │           │   │       ├── package-summary.html
+│   │       │       │   │           │   │       ├── package-tree.html
+│   │       │       │   │           │   │       ├── package-use.html
+│   │       │       │   │           │   │       ├── RoleRepository.html
+│   │       │       │   │           │   │       └── UserRepository.html
+│   │       │       │   │           │   ├── package-summary.html
+│   │       │       │   │           │   ├── package-tree.html
+│   │       │       │   │           │   ├── package-use.html
+│   │       │       │   │           │   ├── service
+│   │       │       │   │           │   │   ├── class-use
+│   │       │       │   │           │   │   │   ├── CounterService.html
+│   │       │       │   │           │   │   │   ├── GreetingService.html
+│   │       │       │   │           │   │   │   ├── LoggingEventService.html
+│   │       │       │   │           │   │   │   ├── RoleService.html
+│   │       │       │   │           │   │   │   └── UserService.html
+│   │       │       │   │           │   │   ├── CounterService.html
+│   │       │       │   │           │   │   ├── GreetingService.html
+│   │       │       │   │           │   │   ├── LoggingEventService.html
+│   │       │       │   │           │   │   ├── package-summary.html
+│   │       │       │   │           │   │   ├── package-tree.html
+│   │       │       │   │           │   │   ├── package-use.html
+│   │       │       │   │           │   │   ├── RoleService.html
+│   │       │       │   │           │   │   └── UserService.html
+│   │       │       │   │           │   ├── scheduler
+│   │       │       │   │           │   │   ├── class-use
+│   │       │       │   │           │   │   │   ├── PlatypusJob.html
+│   │       │       │   │           │   │   │   └── PlatypusPredicate.html
+│   │       │       │   │           │   │   ├── package-summary.html
+│   │       │       │   │           │   │   ├── package-tree.html
+│   │       │       │   │           │   │   ├── package-use.html
+│   │       │       │   │           │   │   ├── PlatypusJob.html
+│   │       │       │   │           │   │   └── PlatypusPredicate.html
+│   │       │       │   │           │   └── util
+│   │       │       │   │           │       ├── class-use
+│   │       │       │   │           │       │   └── SecurityUtil.html
+│   │       │       │   │           │       ├── health
+│   │       │       │   │           │       │   ├── class-use
+│   │       │       │   │           │       │   │   ├── LivenessAsync.html
+│   │       │       │   │           │       │   │   ├── SimpleHealthCheck.html
+│   │       │       │   │           │       │   │   └── StartupHealthCheck.html
+│   │       │       │   │           │       │   ├── LivenessAsync.html
+│   │       │       │   │           │       │   ├── package-summary.html
+│   │       │       │   │           │       │   ├── package-tree.html
+│   │       │       │   │           │       │   ├── package-use.html
+│   │       │       │   │           │       │   ├── SimpleHealthCheck.html
+│   │       │       │   │           │       │   └── StartupHealthCheck.html
+│   │       │       │   │           │       ├── package-summary.html
+│   │       │       │   │           │       ├── package-tree.html
+│   │       │       │   │           │       ├── package-use.html
+│   │       │       │   │           │       └── SecurityUtil.html
+│   │       │       │   │           ├── class-use
+│   │       │       │   │           │   └── PlatypusApplication.html
+│   │       │       │   │           ├── package-summary.html
+│   │       │       │   │           ├── package-tree.html
+│   │       │       │   │           ├── package-use.html
+│   │       │       │   │           └── PlatypusApplication.html
+│   │       │       │   ├── member-search-index.js
+│   │       │       │   ├── module-search-index.js
+│   │       │       │   ├── overview-summary.html
+│   │       │       │   ├── overview-tree.html
+│   │       │       │   ├── package-search-index.js
+│   │       │       │   ├── resources
+│   │       │       │   │   ├── glass.png
+│   │       │       │   │   └── x.png
+│   │       │       │   ├── script-dir
+│   │       │       │   │   ├── jquery-ui.min.css
+│   │       │       │   │   ├── jquery-ui.min.js
+│   │       │       │   │   └── jquery-3.6.1.min.js
+│   │       │       │   ├── script.js
+│   │       │       │   ├── search.js
+│   │       │       │   ├── serialized-form.html
+│   │       │       │   ├── stylesheet.css
+│   │       │       │   ├── tag-search-index.js
+│   │       │       │   └── type-search-index.js
+│   │       │       ├── Platypus_is_surprised_by_the_speed_of_quarkus_and_GraalVM_and_jumps_for_joy.png
+│   │       │       ├── platypus-quarkus-entity.png
+│   │       │       ├── platypus-quarkus.png
+│   │       │       └── style.css
+│   │       ├── not.intranet.local.crt
+│   │       ├── not.intranet.local.key
+│   │       ├── not.intranet.local.pem
+│   │       └── templates
+│   │           ├── downloads.html
+│   │           ├── index.html
+│   │           ├── login.html
+│   │           └── properties.html
+│   └── test
+│       ├── java
+│       │   └── local
+│       │       └── intranet
+│       │           └── quarkus
+│       │               ├── AhojResourceTest.java
+│       │               ├── ConversionTest.java
+│       │               ├── CustomProfile.java
+│       │               ├── HelloResourceTest.java
+│       │               ├── JobCounterResourceTest.java
+│       │               ├── StatusResourceTest.java
+│       │               └── VertxResourceTest.java
+│       └── resources
+│           ├── application.properties
+│           └── logback.xml
+└─── target
