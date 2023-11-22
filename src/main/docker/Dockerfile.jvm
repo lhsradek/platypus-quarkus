@@ -77,7 +77,7 @@
 ###
 # FROM registry.access.redhat.com/ubi8/openjdk-11:1.11
 # ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en'
-FROM registry.access.redhat.com/ubi8/openjdk-17:1.16
+FROM registry.access.redhat.com/ubi9/openjdk-17:1.17-1
 LABEL org.opencontainers.image.authors="radek.kadner@gmail.com"
 LABEL description="https://github.com/lhsradek/platypus-quarkus"
 
